@@ -45,12 +45,13 @@ const locationData = {
   }
 };
 
-type Props = {
-  params: { locationId: string }
-};
+interface Props {
+  params: Promise<{ locationId: string }>;
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const location = locationData[params.locationId as keyof typeof locationData];
+  const resolvedParams = await params;
+  const location = locationData[resolvedParams.locationId as keyof typeof locationData];
   
   if (!location) {
     return {
@@ -69,13 +70,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'website',
     },
     alternates: {
-      canonical: `https://wlcreations.com/locations/${params.locationId}`,
+      canonical: `https://wlcreations.com/locations/${resolvedParams.locationId}`,
     },
   };
 }
 
-export default function LocationPage({ params }: Props) {
-  const location = locationData[params.locationId as keyof typeof locationData];
+export default async function LocationPage({ params }: Props) {
+  const resolvedParams = await params;
+  const location = locationData[resolvedParams.locationId as keyof typeof locationData];
 
   if (!location) {
     notFound();
@@ -100,7 +102,7 @@ export default function LocationPage({ params }: Props) {
       latitude: '-33.924870',
       longitude: '18.424055'
     },
-    url: `https://wlcreations.com/locations/${params.locationId}`,
+    url: `https://wlcreations.com/locations/${resolvedParams.locationId}`,
     telephone: location.phone,
     email: location.email,
     areaServed: location.areas,

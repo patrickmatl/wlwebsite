@@ -101,7 +101,7 @@ const Navigation = () => {
                 exit={{ y: 20, opacity: 0 }}
                 className="text-center space-y-8"
               >
-                {menuItems.map((item, index) => (
+                {menuItems.map((item, _index) => (
                   <div key={item.path} className="text-center">
                     <Link
                       href={item.path}

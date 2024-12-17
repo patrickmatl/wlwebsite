@@ -20,11 +20,11 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory)
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     const realSlug = slug.replace(/\.mdx$/, '')
     const fullPath = path.join(postsDirectory, `${realSlug}.mdx`)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const fileContents = await fs.promises.readFile(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
 
     // Ensure date exists and is properly formatted
@@ -58,17 +58,16 @@ export function getPostBySlug(slug: string): BlogPost | null {
   }
 }
 
-export function getAllPosts(): BlogPost[] {
+export async function getAllPosts(): Promise<BlogPost[]> {
   const slugs = getPostSlugs()
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    .filter((post): post is BlogPost => post !== null)
+  const posts = await Promise.all(
+    slugs.map(async (slug) => await getPostBySlug(slug.replace(/\.mdx$/, '')))
+  )
+  return posts.filter((post): post is BlogPost => post !== null)
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-  return posts
 }
 
-export function getRandomPosts(count: number = 3): BlogPost[] {
-  const allPosts = getAllPosts()
-  const shuffled = [...allPosts].sort(() => 0.5 - Math.random())
-  return shuffled.slice(0, count)
+export async function getRandomPosts(count: number = 3): Promise<BlogPost[]> {
+  const posts = await getAllPosts()
+  return [...posts].sort(() => 0.5 - Math.random()).slice(0, count)
 }

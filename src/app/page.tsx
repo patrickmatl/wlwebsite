@@ -91,7 +91,7 @@ export default function Home() {
                 features: ['Market Research', 'Brand Positioning', 'Content Strategy', 'Brand Voice'],
                 icon: '📈'
               }
-            ].map((service, index) => (
+            ].map((service, _index) => (
               <div 
                 key={service.title}
                 className="group relative bg-neutral-900 p-8 rounded-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300 service-card hover-trigger"

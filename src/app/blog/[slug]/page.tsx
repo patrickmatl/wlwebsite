@@ -1,16 +1,26 @@
-import { getPostBySlug, getPostSlugs } from '@/lib/blog'
+import { getAllPosts, getPostBySlug } from '@/lib/blog'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  const posts = getPostSlugs()
+  const posts = await getAllPosts()
   return posts.map((post) => ({
-    slug: post.replace(/\.mdx$/, ''),
+    slug: post.slug,
   }))
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug)
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPost({ params }: Props) {
+  const resolvedParams = await params;
+  const post = await getPostBySlug(resolvedParams.slug)
+
+  if (!post) {
+    return notFound()
+  }
 
   return (
     <div className="min-h-screen bg-black">
