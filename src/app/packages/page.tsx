@@ -1,19 +1,100 @@
-'use client';
-
 import React from 'react';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import PackageCard from '@/components/PackageCard';
+import AnimatedSection from '@/components/AnimatedSection';
 
 const PackagesPage = () => {
+  const logoPackages = [
+    {
+      name: "Basic Logo",
+      price: "R650",
+      features: [
+        "1 Initial Concept",
+        "2 Revision Rounds",
+        "High Resolution Files",
+        "Basic Source Files",
+        "3-5 Day Delivery"
+      ]
+    },
+    {
+      name: "Professional Logo",
+      price: "R1,500",
+      features: [
+        "2 Initial Concepts",
+        "3 Revision Rounds",
+        "High Resolution Files",
+        "Source Files (AI, EPS, PDF)",
+        "Social Media Formats",
+        "2-3 Day Delivery"
+      ]
+    },
+    {
+      name: "Premium Logo",
+      price: "R3,500",
+      features: [
+        "5 Initial Concepts",
+        "Unlimited Revisions",
+        "All File Formats",
+        "Source Files (All Formats)",
+        "Social Media Kit",
+        "Business Card Design",
+        "24-48 Hour Delivery"
+      ]
+    }
+  ];
+
+  const webPackages = [
+    {
+      name: "Basic Website",
+      price: "R4,500",
+      features: [
+        "5 Pages",
+        "Mobile Responsive",
+        "Contact Form",
+        "Basic SEO Setup",
+        "Social Media Integration",
+        "2 Weeks Delivery"
+      ]
+    },
+    {
+      name: "Business Website",
+      price: "R8,999",
+      features: [
+        "10 Pages",
+        "Mobile Responsive",
+        "Advanced Contact Forms",
+        "Full SEO Optimization",
+        "Social Media Integration",
+        "Blog Setup",
+        "Google Analytics",
+        "3 Weeks Delivery"
+      ]
+    },
+    {
+      name: "E-commerce Website",
+      price: "R15,999",
+      features: [
+        "Unlimited Pages",
+        "Mobile Responsive",
+        "Product Management",
+        "Payment Gateway",
+        "Inventory System",
+        "Order Management",
+        "Advanced Analytics",
+        "Email Marketing Setup",
+        "4 Weeks Delivery"
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section with Animation */}
+      {/* Hero Section */}
       <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/10 to-transparent opacity-20"></div>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <AnimatedSection 
           className="max-w-7xl mx-auto text-center relative z-10"
+          animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
             PROFESSIONAL DESIGN PACKAGES
@@ -27,182 +108,73 @@ const PackagesPage = () => {
             organizations, our packages are designed to deliver exceptional value 
             and results.
           </p>
-        </motion.div>
+        </AnimatedSection>
       </section>
 
       {/* Logo Design Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FFD700]">Logo Design Packages</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Choose from our carefully crafted logo design packages to establish a strong brand identity
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {[
-              {
-                name: "Basic Logo",
-                price: "R650",
-                features: [
-                  "1 Initial Concept",
-                  "2 Revision Rounds",
-                  "High Resolution Files",
-                  "Basic Source Files",
-                  "3-5 Day Delivery"
-                ]
-              },
-              {
-                name: "Professional Logo",
-                price: "R1,500",
-                features: [
-                  "2 Initial Concepts",
-                  "3 Revision Rounds",
-                  "High Resolution Files",
-                  "Source Files (AI, EPS, PDF)",
-                  "Social Media Formats",
-                  "2-3 Day Delivery"
-                ]
-              },
-              {
-                name: "Premium Logo",
-                price: "R3,500",
-                features: [
-                  "5 Initial Concepts",
-                  "Unlimited Revisions",
-                  "All File Formats",
-                  "Source Files (All Formats)",
-                  "Social Media Kit",
-                  "Business Card Design",
-                  "24-48 Hour Delivery"
-                ]
-              }
-            ].map((pkg, index) => (
-              <motion.div
-                key={pkg.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-zinc-900 rounded-lg p-8 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all duration-300"
-              >
-                <h3 className="text-2xl font-bold mb-4">{pkg.name}</h3>
-                <div className="text-3xl font-bold text-[#FFD700] mb-6">{pkg.price}</div>
-                <ul className="space-y-4 mb-8">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <svg className="w-6 h-6 text-[#FFD700] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors duration-300">
-                  Get Started
-                </button>
-              </motion.div>
+            {logoPackages.map((pkg, index) => (
+              <PackageCard key={pkg.name} pkg={pkg} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Web Design Packages */}
+      {/* Web Design Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-900/30">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FFD700]">Web Design Packages</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Transform your online presence with our professional web design solutions
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {[
-              {
-                name: "Basic Website",
-                price: "R4,500",
-                features: [
-                  "5 Pages",
-                  "Mobile Responsive",
-                  "Contact Form",
-                  "Basic SEO Setup",
-                  "Social Media Integration",
-                  "2 Weeks Delivery"
-                ]
-              },
-              {
-                name: "Business Website",
-                price: "R8,999",
-                features: [
-                  "10 Pages",
-                  "Mobile Responsive",
-                  "Advanced Contact Forms",
-                  "Full SEO Optimization",
-                  "Social Media Integration",
-                  "Blog Setup",
-                  "Google Analytics",
-                  "3 Weeks Delivery"
-                ]
-              },
-              {
-                name: "E-commerce Website",
-                price: "R15,999",
-                features: [
-                  "Unlimited Pages",
-                  "Mobile Responsive",
-                  "Product Management",
-                  "Payment Gateway",
-                  "Inventory System",
-                  "Order Management",
-                  "Advanced Analytics",
-                  "Email Marketing Setup",
-                  "4 Weeks Delivery"
-                ]
-              }
-            ].map((pkg, index) => (
-              <motion.div
-                key={pkg.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-zinc-900 rounded-lg p-8 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all duration-300"
-              >
-                <h3 className="text-2xl font-bold mb-4">{pkg.name}</h3>
-                <div className="text-3xl font-bold text-[#FFD700] mb-6">{pkg.price}</div>
-                <ul className="space-y-4 mb-8">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <svg className="w-6 h-6 text-[#FFD700] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors duration-300">
-                  Get Started
-                </button>
-              </motion.div>
+            {webPackages.map((pkg, index) => (
+              <PackageCard key={pkg.name} pkg={pkg} index={index} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <AnimatedSection>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FFD700]">Ready to Get Started?</h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Book a free consultation with our experts to discuss your project needs and discover how we can help you achieve your business goals.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact" className="block">
+                <button className="w-full sm:w-auto px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors duration-300">
+                  Schedule a Consultation
+                </button>
+              </Link>
+              <Link href="/portfolio" className="block">
+                <button className="w-full sm:w-auto px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors duration-300">
+                  View Our Work
+                </button>
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Complete Brand Packages */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div
+          <AnimatedSection
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -212,7 +184,7 @@ const PackagesPage = () => {
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Comprehensive branding solutions for businesses ready to make a lasting impression
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {[
@@ -259,277 +231,11 @@ const PackagesPage = () => {
                 ]
               }
             ].map((pkg, index) => (
-              <motion.div
-                key={pkg.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-zinc-900 rounded-lg p-8 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all duration-300"
-              >
-                <h3 className="text-2xl font-bold mb-4">{pkg.name}</h3>
-                <div className="text-3xl font-bold text-[#FFD700] mb-6">{pkg.price}</div>
-                <ul className="space-y-4 mb-8">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <svg className="w-6 h-6 text-[#FFD700] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors duration-300">
-                  Get Started
-                </button>
-              </motion.div>
+              <PackageCard key={pkg.name} pkg={pkg} index={index} />
             ))}
           </div>
         </div>
       </section>
-
-      {/* CTA and Stats Section */}
-      <section className="py-32">
-        {/* Initial CTA */}
-        <div className="text-center mb-16">
-          <p className="text-xl text-gray-300">
-            Ready to elevate your brand? Contact us for a personalized consultation.
-          </p>
-          <div className="mt-8">
-            <button className="bg-[#FFD700] text-black px-12 py-4 rounded-lg font-bold text-lg hover:bg-[#FFA500] transition-colors duration-300">
-              Schedule a Consultation
-            </button>
-          </div>
-        </div>
-
-        {/* Transform Your Brand Section */}
-        <div className="max-w-5xl mx-auto bg-zinc-900/30 rounded-2xl p-16 mb-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#FFD700]">
-              Ready to Transform Your Brand?
-            </h2>
-            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Book a free consultation with our experts to discuss your project needs and discover how we can help you achieve your business goals.
-            </p>
-            <div className="space-x-6">
-              <button className="bg-[#FFD700] text-black px-12 py-4 rounded-lg font-bold text-lg hover:bg-[#FFA500] transition-colors duration-300">
-                Schedule a Consultation
-              </button>
-              <button className="border-2 border-[#FFD700] text-[#FFD700] px-12 py-4 rounded-lg font-bold text-lg hover:bg-[#FFD700] hover:text-black transition-colors duration-300">
-                View Our Work
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Pretoria Studio Section */}
-        <div className="max-w-5xl mx-auto bg-zinc-900/30 rounded-2xl p-16">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#FFD700]">
-              Pretoria's Premier Graphic Design Studio
-            </h2>
-            <p className="text-xl text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed">
-              Based in the heart of Pretoria, we've been serving local businesses with world-class design solutions. 
-              Our deep understanding of the local market combined with international design standards makes us the 
-              preferred choice for businesses in Pretoria and beyond.
-            </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="text-center"
-              >
-                <div className="text-5xl font-bold text-[#FFD700] mb-4">100+</div>
-                <div className="text-xl text-gray-300">Pretoria Businesses Served</div>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="text-center"
-              >
-                <div className="text-5xl font-bold text-[#FFD700] mb-4">10+</div>
-                <div className="text-xl text-gray-300">Years in Pretoria</div>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="text-center"
-              >
-                <div className="text-5xl font-bold text-[#FFD700] mb-4">5★</div>
-                <div className="text-xl text-gray-300">Rated Design Agency</div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer Notes */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-gray-400 text-sm">
-        <p className="mb-2">* All packages include dedicated support throughout the project</p>
-        <p className="mb-2">* Custom requirements can be accommodated upon request</p>
-        <p>* Prices are subject to change based on specific project requirements</p>
-      </div>
-
-      {/* Additional Services */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700]">Additional Professional Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Social Media Package</h3>
-            <p className="text-2xl font-bold mb-2">R3,500/month</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Content Creation</li>
-              <li>✓ 15 Posts Monthly</li>
-              <li>✓ Engagement Management</li>
-              <li>✓ Monthly Analytics</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">SEO Package</h3>
-            <p className="text-2xl font-bold mb-2">R4,500/month</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Keyword Research</li>
-              <li>✓ On-Page Optimization</li>
-              <li>✓ Content Strategy</li>
-              <li>✓ Monthly Reports</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Video Production</h3>
-            <p className="text-2xl font-bold mb-2">From R7,500</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Professional Filming</li>
-              <li>✓ Video Editing</li>
-              <li>✓ Motion Graphics</li>
-              <li>✓ Sound Design</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Photography</h3>
-            <p className="text-2xl font-bold mb-2">From R5,500</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Product Photography</li>
-              <li>✓ Corporate Portraits</li>
-              <li>✓ Event Coverage</li>
-              <li>✓ Retouching</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Enterprise Solutions */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <div className="bg-gradient-to-r from-zinc-900 to-black p-8 rounded-lg border border-[#FFD700]/20">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#FFD700]">Enterprise Solutions</h2>
-          <p className="text-gray-300 mb-6">
-            For large organizations requiring custom solutions, we offer tailored packages 
-            designed to meet your specific needs and objectives. Our enterprise solutions 
-            include dedicated account management, priority support, and custom development 
-            services.
-          </p>
-          <p className="text-xl font-bold text-white">Contact us for a customized quote</p>
-        </div>
-      </div>
-
-      {/* Why Choose Us */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700] text-center">Why Choose WL CreationX</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">Expertise</h3>
-            <p className="text-gray-300">
-              Over 10 years of experience delivering exceptional design solutions to 
-              clients worldwide.
-            </p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">Quality</h3>
-            <p className="text-gray-300">
-              Award-winning designs and industry-leading standards in every project 
-              we deliver.
-            </p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">Support</h3>
-            <p className="text-gray-300">
-              Dedicated project management and ongoing support to ensure your success.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Specialized Industry Solutions */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700]">Industry-Specific Solutions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Restaurant Package</h3>
-            <p className="text-2xl font-bold mb-2">From R15,000</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Brand Identity</li>
-              <li>✓ Menu Design</li>
-              <li>✓ Food Photography</li>
-              <li>✓ Website with Online Ordering</li>
-              <li>✓ Social Media Setup</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Real Estate Package</h3>
-            <p className="text-2xl font-bold mb-2">From R20,000</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Property Listings Website</li>
-              <li>✓ Virtual Tours</li>
-              <li>✓ Professional Photography</li>
-              <li>✓ Lead Generation System</li>
-              <li>✓ CRM Integration</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Healthcare Package</h3>
-            <p className="text-2xl font-bold mb-2">From R25,000</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ POPIA Compliant Website</li>
-              <li>✓ Appointment System</li>
-              <li>✓ Patient Portal</li>
-              <li>✓ Medical Photography</li>
-              <li>✓ Secure Data Handling</li>
-            </ul>
-          </div>
-
-          <div className="bg-zinc-900 rounded-lg p-6 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all">
-            <h3 className="text-xl font-bold mb-4">Education Package</h3>
-            <p className="text-2xl font-bold mb-2">From R30,000</p>
-            <ul className="space-y-3 text-gray-300">
-              <li>✓ Learning Management System</li>
-              <li>✓ Course Creation Tools</li>
-              <li>✓ Student Portal</li>
-              <li>✓ Assessment Platform</li>
-              <li>✓ Analytics Dashboard</li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
       {/* Digital Marketing Solutions */}
       <div className="max-w-7xl mx-auto mb-20">
@@ -828,12 +534,11 @@ const PackagesPage = () => {
         <p className="text-gray-300 mb-6">
           Ready to elevate your brand? Contact us for a personalized consultation.
         </p>
-        <a 
-          href="/contact" 
-          className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors"
-        >
-          Schedule a Consultation
-        </a>
+        <Link href="/contact" className="block">
+          <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
+            Schedule a Consultation
+          </button>
+        </Link>
       </div>
 
       {/* Enhanced Contact CTA */}
@@ -844,18 +549,16 @@ const PackagesPage = () => {
           how we can help you achieve your business goals.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/contact" 
-            className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors"
-          >
-            Schedule a Consultation
-          </a>
-          <a 
-            href="/portfolio" 
-            className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors"
-          >
-            View Our Work
-          </a>
+          <Link href="/contact" className="block">
+            <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
+              Schedule a Consultation
+            </button>
+          </Link>
+          <Link href="/portfolio" className="block">
+            <button className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors">
+              View Our Work
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -897,18 +600,16 @@ const PackagesPage = () => {
           to discuss your project needs and discover how we can help elevate your brand.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/contact" 
-            className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors"
-          >
-            Schedule a Free Consultation
-          </a>
-          <a 
-            href="/portfolio" 
-            className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors"
-          >
-            View Our Pretoria Portfolio
-          </a>
+          <Link href="/contact" className="block">
+            <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
+              Schedule a Free Consultation
+            </button>
+          </Link>
+          <Link href="/portfolio" className="block">
+            <button className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors">
+              View Our Pretoria Portfolio
+            </button>
+          </Link>
         </div>
       </div>
 

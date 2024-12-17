@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Allow Google Images to index images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.avif$
+
+# Allow Google Mobile to index the site
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Sitemap location
+Sitemap: https://wlcreationx.co.za/sitemap.xml

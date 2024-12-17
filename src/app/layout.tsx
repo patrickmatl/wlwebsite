@@ -11,6 +11,7 @@ const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-syne',
+  weight: ['400', '500', '600', '700', '800']
 })
 
 // Body font
@@ -18,6 +19,7 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700']
 })
 
 export const metadata: Metadata = {

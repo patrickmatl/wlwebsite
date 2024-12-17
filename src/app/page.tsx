@@ -12,6 +12,10 @@ const DynamicBlogPreview = dynamic(() => import('@/components/BlogPreview'), {
   ssr: false
 });
 
+const DynamicLogoCarousel = dynamic(() => import('@/components/LogoCarousel'), {
+  ssr: false
+});
+
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -35,9 +39,12 @@ export default function Home() {
       <DynamicHeroSection 
         itemScope 
         itemType="https://schema.org/WPHeader"
-        seoTitle="Premier Graphic Design Agency in Pretoria"
+        seoTitle="Design"
         seoDescription="Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
       />
+
+      {/* Logo Carousel */}
+      <DynamicLogoCarousel />
 
       {/* Services Section */}
       <section className="py-32 bg-black relative overflow-hidden" id="services">

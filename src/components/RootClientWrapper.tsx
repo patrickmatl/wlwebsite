@@ -2,26 +2,31 @@
 
 import dynamic from 'next/dynamic';
 import Navigation from './Navigation/Navigation';
+import PerformanceOptimizer from './Performance/PerformanceOptimizer';
 
-// Dynamically import the cursor to avoid hydration issues
-const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
-  ssr: false // Disable SSR for the cursor
+// Dynamically import CustomCursor with no SSR
+const CustomCursor = dynamic(() => import('./CustomCursor'), {
+  ssr: false
 });
+
+interface RootClientWrapperProps {
+  children: React.ReactNode;
+  spaceGrotesk: { variable: string };
+  syne: { variable: string };
+}
 
 export default function RootClientWrapper({
   children,
   spaceGrotesk,
   syne,
-}: {
-  children: React.ReactNode;
-  spaceGrotesk: { variable: string };
-  syne: { variable: string };
-}) {
+}: RootClientWrapperProps) {
   return (
-    <div className={`${spaceGrotesk.variable} ${syne.variable}`}>
-      <CustomCursor />
-      <Navigation />
-      {children}
-    </div>
+    <PerformanceOptimizer>
+      <div className={`${spaceGrotesk.variable} ${syne.variable}`}>
+        <CustomCursor />
+        <Navigation />
+        {children}
+      </div>
+    </PerformanceOptimizer>
   );
 }

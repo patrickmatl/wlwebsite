@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const menuItems = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
-  { name: 'Services', path: '/services' },
   { name: 'Packages', path: '/packages' },
   { name: 'Portfolio', path: '/portfolio' },
   { name: 'Blog', path: '/blog' },
