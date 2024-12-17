@@ -2,14 +2,6 @@
 
 import { useMemo, useEffect, useState } from 'react';
 
-interface Particle {
-  id: number;
-  left: string;
-  top: string;
-  scale: string;
-  duration: string;
-}
-
 export default function BackgroundParticles() {
   const [isClient, setIsClient] = useState(false);
 

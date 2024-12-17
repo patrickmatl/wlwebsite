@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 // This would typically come from a database or CMS
 const locationData = {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare, FaCheck, FaClock, FaUsers } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare, FaCheck, FaClock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 

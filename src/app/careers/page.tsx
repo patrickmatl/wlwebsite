@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { FaBriefcase, FaGraduationCap, FaHandshake, FaRocket, FaUsers, FaLightbulb } from 'react-icons/fa';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Careers | Join WL CreationX - Creative Design Agency',
