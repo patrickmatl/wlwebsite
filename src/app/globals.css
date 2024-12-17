@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0A0A0A;
+  --foreground: #FFD700;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --font-syne: 'Syne', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --border: #FFD700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0A0A0A;
+    --foreground: #FFD700;
+    --border: #FFD700;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #0A0A0A;
+  }
+
+  body {
+    overflow-x: hidden;
+    cursor: none !important;
+  }
+
+  /* Hide cursor on interactive elements */
+  a, button, [role="button"] {
+    cursor: none !important;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+    background-size: 400% 400%;
+  }
+  .cursor-expanded div {
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+  .font-syne {
+    font-family: var(--font-syne);
+  }
+  .font-space-grotesk {
+    font-family: var(--font-space-grotesk);
+  }
+  .text-gold-500 {
+    color: #FFD700;
+  }
+  .bg-gold-500 {
+    background-color: #FFD700;
+  }
+  .border-gold-500 {
+    border-color: #FFD700;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Cursor Styles */
+.cursor-dot, 
+.cursor-dot-hover, 
+.cursor-hover {
+  position: fixed !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.cursor-hover {
+  width: 3rem !important;
+  height: 3rem !important;
+  transition: width 0.3s ease-out, height 0.3s ease-out !important;
+}
+
+.cursor-dot-hover {
+  transform: scale(0) !important;
+  opacity: 0 !important;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out !important;
+}
+
+/* Hide cursor on touch devices */
+@media (hover: none) {
+  html, 
+  body, 
+  * {
+    cursor: auto !important;
+  }
+  
+  .cursor-dot, 
+  .cursor-dot-hover, 
+  .cursor-hover {
+    display: none !important;
+  }
+}
+
+/* Enhanced cursor interactions */
+.hover-trigger {
+  cursor: none !important;
+}
+
+/* Base styles */
+html, 
+body {
+  cursor: none !important;
+}
