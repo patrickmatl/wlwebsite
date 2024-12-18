@@ -11,6 +11,9 @@
   --font-syne: 'Syne', sans-serif;
   --font-space-grotesk: 'Space Grotesk', sans-serif;
   --border: #FFD700;
+  --gold-primary: #FFD700;
+  --gold-secondary: #FFC000;
+  --gold-accent: #FFB000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +28,8 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom right, #000000, #0A0A0A);
+  color: #ffffff;
 }
 
 @layer base {
@@ -178,6 +183,49 @@ body {
     stroke-dasharray: 40;
     stroke-dashoffset: 40;
     animation: arrowDraw 2s forwards, arrowGlow 2s infinite;
+  }
+  ::selection {
+    background: var(--gold-primary);
+    color: black;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0A0A0A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold-primary);
+    opacity: 0.3;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-secondary);
+  }
+  a:not(.no-effect) {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  a:not(.no-effect)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background: var(--gold-primary);
+    transition: width 0.3s ease;
+  }
+  a:not(.no-effect):hover::after {
+    width: 100%;
+  }
+  .btn-premium {
+    @apply px-6 py-3 bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000] text-black font-bold rounded-lg 
+    transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,215,0,0.3)] transform hover:-translate-y-0.5;
+  }
+  .card-premium {
+    @apply bg-black/50 backdrop-blur-sm border border-[#FFD700]/10 rounded-lg p-6
+    transition-all duration-300 hover:border-[#FFD700]/30 hover:shadow-[0_0_30px_rgba(255,215,0,0.1)];
   }
 }
 

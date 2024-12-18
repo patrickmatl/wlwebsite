@@ -49,33 +49,51 @@ const HeroSection = ({
       itemType={itemType}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black to-black z-10" />
-      
+      {/* Premium gradient background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FFD700]/10 via-transparent to-transparent opacity-30" />
+      </div>
+
+      {/* Subtle decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-8 left-8 w-32 h-32 border-l-2 border-t-2 border-[#FFD700]/20" />
+        <div className="absolute bottom-8 right-8 w-32 h-32 border-r-2 border-b-2 border-[#FFD700]/20" />
+      </div>
+
       <div 
-        className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-500 ${
+        className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-700 ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <div className="max-w-4xl mx-auto text-center">
+          {/* Location indicator */}
+          <div className="flex items-center justify-center space-x-4 mb-8">
+            <div className="w-8 h-px bg-[#FFD700]/30" />
+            <span className="text-[#FFD700]/80 text-sm tracking-[0.2em] uppercase">Pretoria, SA</span>
+            <div className="w-8 h-px bg-[#FFD700]/30" />
+          </div>
+
+          {/* Main heading with premium styling */}
           <h1 
-            className="font-syne font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-white"
+            className="font-syne font-bold text-4xl md:text-6xl lg:text-7xl mb-6"
             data-lcp="true"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">
               {seoTitle}
             </span>
           </h1>
           
           <p 
-            className="mt-6 font-space-grotesk text-lg md:text-xl text-neutral-200 max-w-xl mx-auto leading-relaxed"
+            className="mt-6 font-space-grotesk text-lg md:text-xl text-neutral-200/90 max-w-xl mx-auto leading-relaxed"
             itemProp="description"
             data-lcp="true"
           >
             {seoDescription}
           </p>
 
-          {/* Audio Player */}
-          <div className="mt-2">
+          {/* Audio player with premium styling */}
+          <div className="mt-12 flex justify-center">
             <AudioPlayer
               audioSource={audioSource}
               onPlayStateChange={(playing) => {
