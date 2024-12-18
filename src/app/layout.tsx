@@ -41,9 +41,9 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "WL Creationx",
+            "name": "WL CreationX",
             "description": "Design Agency in Pretoria, South Africa",
-            "url": "https://wlcreationx.com",
+            "url": "https://wlcreationx.co.za",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Pretoria",

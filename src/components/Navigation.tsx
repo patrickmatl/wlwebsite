@@ -93,10 +93,10 @@ const Navigation = () => {
                   Pretoria, South Africa
                 </p>
                 <a
-                  href="mailto:info@wlcreationx.com"
+                  href="mailto:info@wlcreationx.co.za"
                   className="text-white/60 hover:text-[#FFD700] transition-colors duration-300"
                 >
-                  info@wlcreationx.com
+                  info@wlcreationx.co.za
                 </a>
               </motion.div>
             </div>

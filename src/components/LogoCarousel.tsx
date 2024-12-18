@@ -20,7 +20,7 @@ const LogoCarousel = () => {
     { name: 'E-commerce Solutions', industry: 'Online Store Design' }
   ].map((logo, index) => ({
     src: `/images/clients/Client${index + 1}.webp`,
-    alt: `${logo.name} in ${logo.industry} | WL Creations Portfolio - Trusted Web Design Agency in Pretoria, South Africa`,
+    alt: `${logo.name} in ${logo.industry} | WL CreationX Portfolio - Trusted Web Design Agency in Pretoria, South Africa`,
     id: `client-${index + 1}`
   }));
 

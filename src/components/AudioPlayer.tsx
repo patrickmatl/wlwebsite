@@ -78,7 +78,18 @@ const AudioPlayer = ({ audioSource, onPlayStateChange, customButton }: AudioPlay
   }
 
   return (
-    <div onClick={togglePlay} className="cursor-pointer">
+    <div 
+      onClick={togglePlay} 
+      className="cursor-pointer z-50 relative"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          togglePlay();
+        }
+      }}
+    >
       {customButton || (
         <button
           className="flex items-center gap-2 text-[#FFD700] hover:text-[#FFD700]/80 transition-colors duration-300"

@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'About WL Creations | Creative Design Agency Since 2013',
-  description: 'Discover WL Creations\' journey from 2013 to today. A creative powerhouse delivering innovative design solutions across South Africa.',
+  title: 'About WL CreationX | Creative Design Agency Since 2013',
+  description: 'Discover WL CreationX\' journey from 2013 to today. A creative powerhouse delivering innovative design solutions across South Africa.',
 };
 
 export default function AboutPage() {
@@ -16,7 +16,7 @@ export default function AboutPage() {
     {
       year: '2016',
       title: 'Official Registration',
-      description: 'Formally registered as WL Creations, marking our commitment to professional excellence.'
+      description: 'Formally registered as WL CreationX, marking our commitment to professional excellence.'
     },
     {
       year: '2018',
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg leading-relaxed">
-                Since our inception in 2013, WL Creations has been at the forefront of creative innovation in South Africa. What started as a passionate venture has evolved into a full-service creative powerhouse, formally established in 2016.
+                Since our inception in 2013, WL CreationX has been at the forefront of creative innovation in South Africa. What started as a passionate venture has evolved into a full-service creative powerhouse, formally established in 2016.
               </p>
               <p className="text-lg leading-relaxed">
                 Our journey has been marked by continuous growth, adaptation, and an unwavering commitment to creative excellence. From brand identity to digital solutions, we've helped countless businesses transform their visual presence.
@@ -66,7 +66,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
               <Image
                 src="/images/journey.jpg"
-                alt="WL Creations journey through the years"
+                alt="WL CreationX journey through the years"
                 fill
                 className="object-cover"
               />
