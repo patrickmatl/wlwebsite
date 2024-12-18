@@ -31,26 +31,26 @@ const HeroSection = ({
   seoTitle = "Design",
   seoDescription = "Transforming ideas into digital reality"
 }: HeroSectionProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Array of hero images
-  const heroImages = [
-    '/images/hero/hero1.webp',
-    '/images/hero/hero3.webp',
-    '/images/hero/hero5.webp',
-    '/images/hero/hero9.webp',
-    '/images/hero/hero11.webp'
-  ];
+  // Commented out image rotation logic
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // const heroImages = [
+  //   '/images/hero/hero1.webp',
+  //   '/images/hero/hero3.webp',
+  //   '/images/hero/hero5.webp',
+  //   '/images/hero/hero9.webp',
+  //   '/images/hero/hero11.webp'
+  // ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
+  //   return () => clearInterval(interval);
+  // }, [heroImages.length]);
 
   return (
     <section 
@@ -82,8 +82,8 @@ const HeroSection = ({
         </div>
       </div>
 
-      {/* Background Images */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Background Images - Temporarily disabled */}
+      {/* <div className="absolute inset-0 overflow-hidden">
         {heroImages.map((src, index) => (
           <div
             key={src}
@@ -99,11 +99,10 @@ const HeroSection = ({
               priority={index === 0}
               loading={index === 0 ? 'eager' : 'lazy'}
               sizes="100vw"
-              className="object-cover"
             />
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Polka dot overlay */}
       <div className="absolute inset-0 bg-polka mix-blend-multiply" />
