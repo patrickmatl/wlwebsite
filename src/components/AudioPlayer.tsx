@@ -4,11 +4,14 @@ import { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 
 interface AudioPlayerProps {
-  audioUrl: string;
+  audioSource: {
+    mp3: string;
+    wav: string;
+  };
   onPlayStateChange?: (isPlaying: boolean) => void;
 }
 
-const AudioPlayer = ({ audioUrl, onPlayStateChange }: AudioPlayerProps) => {
+const AudioPlayer = ({ audioSource, onPlayStateChange }: AudioPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
@@ -18,25 +21,53 @@ const AudioPlayer = ({ audioUrl, onPlayStateChange }: AudioPlayerProps) => {
 
   useEffect(() => {
     audioRef.current = new Audio();
-    audioRef.current.preload = 'auto';
-    audioRef.current.src = audioUrl;
-    audioRef.current.volume = volume;
-    audioRef.current.muted = isMuted;
+    audioRef.current.preload = 'metadata';
+
+    // Try MP3 first, fallback to WAV if needed
+    const handleCanPlayThrough = () => {
+      setIsLoading(false);
+    };
+
+    const handleLoadStart = () => {
+      setIsLoading(true);
+    };
+
+    const handleError = () => {
+      // If MP3 fails, try WAV
+      if (audioRef.current?.src === audioSource.mp3) {
+        audioRef.current.src = audioSource.wav;
+      } else {
+        setError('Error loading audio');
+        setIsLoading(false);
+      }
+    };
 
     const handleEnded = () => {
       setIsPlaying(false);
       onPlayStateChange?.(false);
     };
 
-    audioRef.current.addEventListener('ended', handleEnded);
+    if (audioRef.current) {
+      audioRef.current.src = audioSource.mp3;
+      audioRef.current.volume = volume;
+      audioRef.current.muted = isMuted;
+
+      audioRef.current.addEventListener('canplaythrough', handleCanPlayThrough);
+      audioRef.current.addEventListener('loadstart', handleLoadStart);
+      audioRef.current.addEventListener('error', handleError);
+      audioRef.current.addEventListener('ended', handleEnded);
+    }
 
     return () => {
       if (audioRef.current) {
+        audioRef.current.removeEventListener('canplaythrough', handleCanPlayThrough);
+        audioRef.current.removeEventListener('loadstart', handleLoadStart);
+        audioRef.current.removeEventListener('error', handleError);
         audioRef.current.removeEventListener('ended', handleEnded);
         audioRef.current.pause();
       }
     };
-  }, [audioUrl]);
+  }, [audioSource, volume, isMuted]);
 
   const togglePlayPause = async () => {
     if (!audioRef.current) return;
