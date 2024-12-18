@@ -17,7 +17,6 @@ const PerformanceOptimizer = ({ children }: PerformanceOptimizerProps) => {
       const resources = [
         { href: '/fonts/syne.woff2', as: 'font', type: 'font/woff2' },
         { href: '/fonts/space-grotesk.woff2', as: 'font', type: 'font/woff2' },
-        { href: '/images/hero/hero1.webp', as: 'image' },
       ];
 
       resources.forEach(({ href, as, type }) => {
@@ -33,36 +32,37 @@ const PerformanceOptimizer = ({ children }: PerformanceOptimizerProps) => {
 
     // Optimize LCP
     const optimizeLCP = () => {
-      // Add loading="eager" to LCP elements
-      const lcpElements = document.querySelectorAll('img[data-lcp="true"]');
+      // Mark LCP elements for priority loading
+      const lcpElements = document.querySelectorAll('[data-lcp="true"]');
       lcpElements.forEach((element) => {
-        if (element instanceof HTMLImageElement) {
-          element.loading = 'eager';
-          element.fetchPriority = 'high';
+        if (element instanceof HTMLElement) {
+          // Force immediate paint of LCP elements
+          element.style.visibility = 'visible';
+          element.style.contentVisibility = 'visible';
+          element.style.contain = 'none';
         }
       });
     };
 
-    // Monitor performance metrics
+    // Monitor performance metrics with more detailed logging
     const reportWebVitals = ({ name, delta, id, value }: Metric) => {
-      // Send to analytics
-      console.log(`${name} metric:`, {
-        name,
-        delta,
-        id,
-        value
-      });
+      // Log performance metrics
+      if (name === 'LCP') {
+        console.log('LCP detected:', {
+          value: Math.round(value),
+          element: document.querySelector('[data-lcp="true"]')?.textContent
+        });
+      }
     };
-
-    // Monitor Core Web Vitals using web-vitals package
-    onCLS(reportWebVitals);
-    onFID(reportWebVitals);
-    onLCP(reportWebVitals);
 
     preloadResources();
     optimizeLCP();
 
-    // No cleanup needed for web-vitals as they auto-cleanup
+    // Monitor Core Web Vitals
+    onLCP(reportWebVitals);
+    onFID(reportWebVitals);
+    onCLS(reportWebVitals);
+
   }, [pathname]);
 
   return <>{children}</>;

@@ -186,8 +186,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-ZA" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en-ZA" className={`${syne.variable} ${spaceGrotesk.variable}`}>
       <head>
+        <link
+          rel="preload"
+          href={`/fonts/${syne.style.fontFamily.toLowerCase()}-latin.woff2`}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <MetaTags />
         <Script id="json-ld" type="application/ld+json">
           {JSON.stringify(jsonLd)}
@@ -205,7 +212,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body className="font-space-grotesk">
         <ClientRootWrapper>
           <RootClientWrapper spaceGrotesk={spaceGrotesk} syne={syne}>
             <main>

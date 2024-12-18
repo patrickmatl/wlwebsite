@@ -39,109 +39,40 @@ const HeroSection = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Commented out image rotation logic
-  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // const heroImages = [
-  //   '/images/hero/hero1.webp',
-  //   '/images/hero/hero3.webp',
-  //   '/images/hero/hero5.webp',
-  //   '/images/hero/hero9.webp',
-  //   '/images/hero/hero11.webp'
-  // ];
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, [heroImages.length]);
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
-    <section 
-      className="relative min-h-screen flex items-center bg-gradient-to-br from-black to-neutral-900"
-      {...(itemScope ? { itemScope: true } : {})}
-      {...(itemType ? { itemType } : {})}
+    <section
+      itemScope={itemScope}
+      itemType={itemType}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Animated Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
-        <div className="orb orb-4" />
-        <div className="orb orb-5" />
-        
-        {/* Pulsing rings around the center orb */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          {[150, 200, 250].map((size, index) => (
-            <div
-              key={size}
-              className="pulse-ring"
-              style={{
-                width: size,
-                height: size,
-                animationDelay: `${index * 1.2}s`,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Background Images - Temporarily disabled */}
-      {/* <div className="absolute inset-0 overflow-hidden">
-        {heroImages.map((src, index) => (
-          <div
-            key={src}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black to-black z-10" />
+      
+      <div 
+        className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-500 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 
+            className="font-syne font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-white"
+            data-lcp="true"
           >
-            <Image
-              src={src}
-              alt={`Hero image ${index + 1}`}
-              fill
-              quality={75}
-              priority={index === 0}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              sizes="100vw"
-            />
-          </div>
-        ))}
-      </div> */}
-
-      {/* Polka dot overlay */}
-      <div className="absolute inset-0 bg-polka mix-blend-multiply" />
-
-      {/* Dark gradient for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
-
-      {/* Decorative corner frames */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-8 left-8 w-24 h-24 border-l-2 border-t-2 border-gold-500 opacity-50" />
-        <div className="absolute bottom-8 right-8 w-24 h-24 border-r-2 border-b-2 border-gold-500 opacity-50" />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start space-y-8">
-          {/* Location tag */}
-          <div className="flex items-center space-x-4 text-gold-500">
-            <div className="w-8 h-px bg-gold-500" />
-            <span className="font-space-grotesk uppercase tracking-[0.2em] text-sm">Pretoria, SA</span>
-            <div className="w-8 h-px bg-gold-500" />
-          </div>
-
-          {/* Main headline */}
-          <div className="max-w-4xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-syne font-black text-white leading-none" itemProp="name">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
               {seoTitle}
-              <br />
-              <RotatingText />
-            </h1>
-            <p className="mt-6 font-space-grotesk text-lg md:text-xl text-neutral-200 max-w-xl leading-relaxed" itemProp="description">
-              {seoDescription}
-            </p>
-          </div>
+            </span>
+          </h1>
+          
+          <p 
+            className="mt-6 font-space-grotesk text-lg md:text-xl text-neutral-200 max-w-xl mx-auto leading-relaxed"
+            itemProp="description"
+            data-lcp="true"
+          >
+            {seoDescription}
+          </p>
 
           {/* Audio Player */}
           <div className="mt-2">
