@@ -3,7 +3,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import AudioPlayer from './AudioPlayer';
+import dynamic from 'next/dynamic';
+
+const AudioPlayer = dynamic(() => import('./AudioPlayer').then(mod => mod.default), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center gap-3 text-[#FFD700] opacity-50">
+      <span className="text-sm tracking-wider">Loading audio...</span>
+      <div className="w-12 h-12 rounded-full border border-[#FFD700]/30 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#FFD700]"></div>
+      </div>
+    </div>
+  ),
+});
 
 interface HeroSectionProps {
   itemScope?: boolean;
@@ -12,23 +24,27 @@ interface HeroSectionProps {
   seoDescription?: string;
 }
 
-const HeroSection = ({
+export default function HeroSection({
   itemScope,
   itemType,
   seoTitle,
   seoDescription
-}: HeroSectionProps) => {
+}: HeroSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     setIsVisible(true);
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    
+    if (typeof window !== 'undefined') {
+      const handleMouseMove = (e: MouseEvent) => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      };
+      
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }
   }, []);
 
   const handlePlayStateChange = useCallback((playing: boolean) => {
@@ -37,20 +53,23 @@ const HeroSection = ({
 
   return (
     <section 
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0A0A0A] via-[#141414] to-[#0A0A0A]"
+      className="relative min-h-[100svh] overflow-hidden bg-gradient-to-br from-[#0A0A0A] via-[#141414] to-[#0A0A0A]"
       itemScope={itemScope}
       itemType={itemType}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Gradient Circle that follows mouse */}
-        <motion.div
-          animate={{
-            x: mousePosition.x * 0.05,
-            y: mousePosition.y * 0.05,
-          }}
-          className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-br from-[#FFD700]/10 to-transparent rounded-full blur-3xl"
-        />
+        {/* Gradient Circle that follows mouse - disabled on mobile for performance */}
+        {typeof window !== 'undefined' && window.innerWidth > 768 && (
+          <motion.div
+            animate={{
+              x: mousePosition.x * 0.05,
+              y: mousePosition.y * 0.05,
+            }}
+            className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-r from-[#FFFD7C] via-[#FFD700] to-[#FFFD7C] opacity-[0.15] blur-[80px] -top-[400px] -right-[400px]"
+            transition={{ type: "spring", stiffness: 50 }}
+          />
+        )}
         
         {/* Static Grid Pattern */}
         <div className="absolute inset-0">
@@ -284,6 +303,4 @@ const HeroSection = ({
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
     </section>
   );
-};
-
-export default HeroSection;
+}

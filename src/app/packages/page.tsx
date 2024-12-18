@@ -618,6 +618,52 @@ const PackagesPage = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700] text-center">
           Frequently Asked Questions About Our Graphic Design Services in Pretoria
         </h2>
+
+        {/* FAQ Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What graphic design services do you offer in Pretoria?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We offer comprehensive graphic design services including logo design, brand identity packages, web design, marketing materials, and social media graphics. All our services are delivered from our Pretoria studio with a focus on local business needs."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How much do your graphic design packages cost in Pretoria?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our packages start from R650 for basic logo design up to R85,000 for comprehensive brand solutions. We offer competitive rates while maintaining professional quality that meets international standards."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What makes your Pretoria design studio unique?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We combine local market expertise with international design standards. Our team uses cutting-edge tools and technologies while providing personalized service that understands the Pretoria business landscape."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Do you offer ongoing design support for Pretoria businesses?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we provide monthly maintenance packages and retainer services for ongoing design needs. This ensures your brand maintains consistency across all marketing materials throughout the year."
+                  }
+                }
+              ]
+            })
+          }}
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-zinc-900 p-8 rounded-lg border border-[#FFD700]/20">
             <h3 className="text-xl font-bold mb-4 text-[#FFD700]">

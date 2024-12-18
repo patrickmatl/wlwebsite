@@ -484,6 +484,60 @@ export default function Contact() {
       <section className="py-16 bg-zinc-900/50">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl font-bold mb-8 text-center text-[#FFD700]">Frequently Asked Questions</h2>
+
+          {/* FAQ Schema */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "What is your typical response time?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please contact us via phone or WhatsApp."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Do you offer in-person consultations?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Yes, we offer both in-person and virtual consultations. You can schedule a meeting at our Pretoria office or arrange a video call for your convenience."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What information should I prepare for the consultation?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "It's helpful to have your project goals, timeline, budget range, and any reference materials or inspiration ready for our discussion. This helps us understand your vision better."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "How long does a typical project take to complete?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Project timelines vary depending on scope and complexity. A basic website might take 4-6 weeks, while a comprehensive brand identity project could take 6-8 weeks. We'll provide a detailed timeline during our consultation."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What is your payment structure?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone-based payments. We accept bank transfers."
+                    }
+                  }
+                ]
+              })
+            }}
+          />
+
           <div className="grid gap-6">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -532,7 +586,7 @@ export default function Contact() {
               className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
             >
               <h3 className="text-xl font-semibold mb-3">What is your payment structure?</h3>
-              <p className="text-gray-300">We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone-based payments. We accept bank transfers and major credit cards.</p>
+              <p className="text-gray-300">We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone-based payments. We accept bank transfers.</p>
             </motion.div>
 
             <motion.div 
