@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Navigation from './Navigation/Navigation';
 import PerformanceOptimizer from './Performance/PerformanceOptimizer';
@@ -20,6 +21,21 @@ export default function RootClientWrapper({
   spaceGrotesk,
   syne,
 }: RootClientWrapperProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className={`${spaceGrotesk.variable} ${syne.variable}`}>
+        <Navigation />
+        {children}
+      </div>
+    );
+  }
+
   return (
     <PerformanceOptimizer>
       <div className={`${spaceGrotesk.variable} ${syne.variable}`}>

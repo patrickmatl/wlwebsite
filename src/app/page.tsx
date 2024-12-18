@@ -36,12 +36,14 @@ export default function Home() {
       <div className="absolute inset-0 bg-grid-pattern opacity-30 animate-grid" />
 
       {/* Hero Section with SEO attributes */}
-      <DynamicHeroSection 
-        itemScope 
-        itemType="https://schema.org/WPHeader"
-        seoTitle="Design"
-        seoDescription="Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
-      />
+      <Suspense fallback={<div className="h-screen bg-black" />}>
+        <DynamicHeroSection 
+          itemScope={true}
+          itemType="https://schema.org/WPHeader"
+          seoTitle="Design"
+          seoDescription="Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
+        />
+      </Suspense>
 
       {/* Logo Carousel */}
       <DynamicLogoCarousel />

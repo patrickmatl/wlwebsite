@@ -5,13 +5,15 @@ import RootClientWrapper from '@/components/RootClientWrapper'
 import Script from 'next/script'
 import MetaTags from '@/components/SEO/MetaTags'
 import Footer from '@/components/Footer'
+import ClientRootWrapper from '@/components/ClientRootWrapper'
 
 // Main display font for headlines
 const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-syne',
-  weight: ['400', '500', '600', '700', '800']
+  weight: ['400', '500', '600', '700', '800'],
+  fallback: ['system-ui', 'arial']
 })
 
 // Body font
@@ -19,7 +21,8 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-space-grotesk',
-  weight: ['300', '400', '500', '600', '700']
+  weight: ['300', '400', '500', '600', '700'],
+  fallback: ['system-ui', 'arial']
 })
 
 export const metadata: Metadata = {
@@ -183,252 +186,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-ZA" className="scroll-smooth">
+    <html lang="en-ZA" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <MetaTags />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <Script id="schema-script" type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "WebSite",
-                  "@id": "https://wlcreationx.co.za/#website",
-                  "url": "https://wlcreationx.co.za",
-                  "name": "WL CreationX",
-                  "description": "Leading graphic design studio in Pretoria",
-                  "potentialAction": [{
-                    "@type": "SearchAction",
-                    "target": {
-                      "@type": "EntryPoint",
-                      "urlTemplate": "https://wlcreationx.co.za/search?q={search_term_string}"
-                    },
-                    "query-input": "required name=search_term_string"
-                  }],
-                  "publisher": {
-                    "@type": "Organization",
-                    "name": "WL CreationX",
-                    "logo": {
-                      "@type": "ImageObject",
-                      "url": "https://wlcreationx.co.za/logo.png"
-                    }
-                  }
-                },
-                {
-                  "@type": "LocalBusiness",
-                  "@id": "https://wlcreationx.co.za/#business",
-                  "name": "WL CreationX",
-                  "image": "https://wlcreationx.co.za/studio-image.jpg",
-                  "description": "Premier graphic design company in Pretoria, offering comprehensive branding and digital solutions. Serving Pretoria, Pretoria East, and Pretoria North with creative excellence.",
-                  "url": "https://wlcreationx.co.za",
-                  "telephone": "+27623693769",
-                  "email": "info@wlcreationx.co.za",
-                  "priceRange": "$$",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "210 Albertus St",
-                    "addressLocality": "Pretoria",
-                    "addressRegion": "Gauteng",
-                    "postalCode": "0183",
-                    "addressCountry": "ZA"
-                  },
-                  "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": "-25.7479",
-                    "longitude": "28.2293"
-                  },
-                  "areaServed": [
-                    {
-                      "@type": "GeoCircle",
-                      "name": "Pretoria Central",
-                      "geoMidpoint": {
-                        "@type": "GeoCoordinates",
-                        "latitude": "-25.7479",
-                        "longitude": "28.2293"
-                      },
-                      "geoRadius": "30000"
-                    },
-                    {
-                      "@type": "GeoCircle",
-                      "name": "Pretoria East",
-                      "geoMidpoint": {
-                        "@type": "GeoCoordinates",
-                        "latitude": "-25.7832",
-                        "longitude": "28.3016"
-                      },
-                      "geoRadius": "20000"
-                    },
-                    {
-                      "@type": "GeoCircle",
-                      "name": "Pretoria North",
-                      "geoMidpoint": {
-                        "@type": "GeoCoordinates",
-                        "latitude": "-25.6741",
-                        "longitude": "28.1859"
-                      },
-                      "geoRadius": "15000"
-                    }
-                  ],
-                  "openingHoursSpecification": [
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                      "opens": "08:00",
-                      "closes": "17:00"
-                    }
-                  ],
-                  "sameAs": [
-                    "https://facebook.com/wlcreationx",
-                    "https://instagram.com/wlcreationx",
-                    "https://linkedin.com/company/wlcreationx",
-                    "https://twitter.com/wlcreationx"
-                  ],
-                  "hasOfferCatalog": {
-                    "@type": "OfferCatalog",
-                    "name": "Design Services",
-                    "itemListElement": [
-                      {
-                        "@type": "Offer",
-                        "itemOffered": {
-                          "@type": "Service",
-                          "name": "Logo Design",
-                          "description": "Professional logo design services for businesses in Pretoria, Pretoria East, and Pretoria North"
-                        }
-                      },
-                      {
-                        "@type": "Offer",
-                        "itemOffered": {
-                          "@type": "Service",
-                          "name": "Web Design",
-                          "description": "Custom website design and development for businesses across Pretoria regions"
-                        }
-                      },
-                      {
-                        "@type": "Offer",
-                        "itemOffered": {
-                          "@type": "Service",
-                          "name": "Branding",
-                          "description": "Complete brand identity design services for Pretoria businesses"
-                        }
-                      },
-                      {
-                        "@type": "Offer",
-                        "itemOffered": {
-                          "@type": "Service",
-                          "name": "Digital Marketing",
-                          "description": "Comprehensive digital marketing solutions for Pretoria businesses"
-                        }
-                      },
-                      {
-                        "@type": "Offer",
-                        "itemOffered": {
-                          "@type": "Service",
-                          "name": "Print Design",
-                          "description": "Professional print design services for all Pretoria regions"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "@type": "ProfessionalService",
-                  "@id": "https://wlcreationx.co.za/#service",
-                  "name": "WL CreationX Design Services",
-                  "description": "Professional graphic design and branding services in Pretoria",
-                  "serviceType": ["Graphic Design", "Web Design", "Branding", "Digital Marketing"],
-                  "areaServed": [
-                    {
-                      "@type": "City",
-                      "name": "Pretoria",
-                      "sameAs": "https://en.wikipedia.org/wiki/Pretoria"
-                    },
-                    {
-                      "@type": "City",
-                      "name": "Pretoria East"
-                    },
-                    {
-                      "@type": "City",
-                      "name": "Pretoria North"
-                    }
-                  ]
-                },
-                {
-                  "@type": "FAQPage",
-                  "@id": "https://wlcreationx.co.za/#faq",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": "What graphic design services does WL CreationX offer in Pretoria?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "WL CreationX offers comprehensive graphic design services including logo design, branding, web design, UI/UX design, print design, and digital marketing solutions. We serve businesses throughout Pretoria, Pretoria East, and Pretoria North."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Which areas of Pretoria do you serve?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We serve all areas of Pretoria including Pretoria Central, Pretoria East, and Pretoria North. Our central location allows us to easily serve businesses throughout the greater Pretoria region."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "What makes WL CreationX different from other design agencies in Pretoria?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We combine creative excellence with strategic thinking, offering personalized service and innovative solutions. Our deep understanding of the Pretoria market and international design standards sets us apart."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "What types of businesses do you serve in Pretoria?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We serve a diverse range of businesses across Pretoria, from startups to established companies, including retail, professional services, restaurants, real estate agencies, and corporate enterprises. Our solutions are tailored to each business's unique needs and industry requirements."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Do you offer web design services in Pretoria East?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, we provide professional web design and development services throughout Pretoria East and surrounding areas. Our solutions include responsive websites, e-commerce platforms, and custom web applications."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "What is your process for logo design in Pretoria?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Our logo design process includes an initial consultation, research phase, concept development, presentation of multiple design options, refinement based on your feedback, and delivery of final files in all necessary formats. We ensure your logo stands out in the Pretoria market."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Do you offer digital marketing services in Pretoria North?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, we provide comprehensive digital marketing services in Pretoria North, including social media management, content creation, SEO, and online advertising campaigns tailored to your business needs."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "What are your turnaround times for design projects in Pretoria?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Project timelines vary: Logo design typically takes 1-2 weeks, business cards and stationery 3-5 days, websites 4-8 weeks depending on complexity. We provide detailed timelines during consultation and ensure timely delivery for all Pretoria clients."
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          `}
+        <Script id="json-ld" type="application/ld+json">
+          {JSON.stringify(jsonLd)}
         </Script>
         <Script 
           id="google-analytics" 
@@ -443,13 +205,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased">
-        <RootClientWrapper spaceGrotesk={spaceGrotesk} syne={syne}>
-          <main>
-            {children}
-          </main>
-          <Footer />
-        </RootClientWrapper>
+      <body className="font-sans antialiased" suppressHydrationWarning>
+        <ClientRootWrapper>
+          <RootClientWrapper spaceGrotesk={spaceGrotesk} syne={syne}>
+            <main>
+              {children}
+            </main>
+            <Footer />
+          </RootClientWrapper>
+        </ClientRootWrapper>
       </body>
     </html>
   )

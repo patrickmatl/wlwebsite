@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    minimumCacheTTL: 31536000, // 1 year cache
+    formats: ['image/webp'],
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
     remotePatterns: [],
     unoptimized: false,
     dangerouslyAllowSVG: true,
@@ -15,15 +16,59 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     workerThreads: false,
-    optimizePackageImports: [
-      '@heroicons/react',
-      'framer-motion',
-      'react-icons',
-      '@headlessui/react'
-    ],
+    optimizePackageImports: ['react-icons'],
     webVitalsAttribution: ['CLS', 'LCP'],
     scrollRestoration: true,
     optimisticClientCache: true,
+  },
+  webpack: (config, { dev, isServer }) => {
+    // Audio optimization
+    config.module.rules.push({
+      test: /\.(mp3)$/,
+      use: {
+        loader: 'file-loader',
+        options: {
+          name: 'static/media/[name].[hash].[ext]',
+          publicPath: '/_next',
+        },
+      },
+    });
+
+    // Production optimizations
+    if (!dev && !isServer) {
+      // Enable tree shaking
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: true,
+        minimize: true,
+        splitChunks: {
+          chunks: 'all',
+          minSize: 20000,
+          maxSize: 50000,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            commons: {
+              name: 'commons',
+              chunks: 'all',
+              minChunks: 2,
+            },
+            shared: {
+              name: (module, chunks) => {
+                const allChunksNames = chunks.map((item) => item.name).join('~');
+                return `shared-${allChunksNames}`;
+              },
+              test: /node_modules/,
+              chunks: 'all',
+              enforce: true,
+            },
+          },
+        },
+      };
+    }
+
+    return config;
   },
   poweredByHeader: false,
   compress: true,
@@ -68,7 +113,7 @@ const nextConfig = {
       ]
     },
     {
-      source: '/:all*(svg|jpg|png|webp|avif)',
+      source: '/:all*(svg|jpg|png|webp)',
       locale: false,
       headers: [
         {

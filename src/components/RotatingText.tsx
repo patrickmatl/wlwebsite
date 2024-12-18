@@ -28,14 +28,15 @@ export default function RotatingText() {
   }, []);
 
   if (!mounted) {
-    return <span className="text-gold-500">Starter Package</span>;
+    return <span className="text-gold-500 inline-block">Starter Package</span>;
   }
 
   return (
     <span 
-      className={`text-gold-500 inline-block transition-all duration-500 ${
+      className={`text-gold-500 inline-block transition-all duration-500 will-change-transform ${
         isAnimating ? 'opacity-0 transform -translate-y-4' : 'opacity-100 transform translate-y-0'
       }`}
+      style={{ contentVisibility: 'auto' }}
     >
       {words[currentIndex]}
     </span>

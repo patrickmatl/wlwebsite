@@ -1,153 +1,71 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
+import { onCLS, onFID, onLCP, Metric } from 'web-vitals';
 
 interface PerformanceOptimizerProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-interface WebVitalsMetric {
-  name: string;
-  delta: number;
-  id: string;
-}
-
-export default function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
+const PerformanceOptimizer = ({ children }: PerformanceOptimizerProps) => {
   const pathname = usePathname();
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
     // Preload critical resources
     const preloadResources = () => {
-      // Preload critical fonts
-      const fontUrls = [
-        '/fonts/syne.woff2',
-        '/fonts/space-grotesk.woff2'
+      const resources = [
+        { href: '/fonts/syne.woff2', as: 'font', type: 'font/woff2' },
+        { href: '/fonts/space-grotesk.woff2', as: 'font', type: 'font/woff2' },
+        { href: '/images/hero/hero1.webp', as: 'image' },
       ];
-      
-      fontUrls.forEach(url => {
+
+      resources.forEach(({ href, as, type }) => {
         const link = document.createElement('link');
         link.rel = 'preload';
-        link.as = 'font';
-        link.type = 'font/woff2';
-        link.href = url;
+        link.href = href;
+        link.as = as;
+        if (type) link.type = type;
         link.crossOrigin = 'anonymous';
         document.head.appendChild(link);
       });
-
-      // Preload critical images
-      const imageUrls = ['/logo.webp', '/hero-bg.webp'];
-      imageUrls.forEach(url => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = url;
-        document.head.appendChild(link);
-      });
     };
 
-    // Optimize resource loading
-    const optimizeResources = () => {
-      // Defer non-critical resources
-      const deferScripts = document.querySelectorAll('script[data-defer]');
-      deferScripts.forEach(script => {
-        script.setAttribute('defer', '');
+    // Optimize LCP
+    const optimizeLCP = () => {
+      // Add loading="eager" to LCP elements
+      const lcpElements = document.querySelectorAll('img[data-lcp="true"]');
+      lcpElements.forEach((element) => {
+        if (element instanceof HTMLImageElement) {
+          element.loading = 'eager';
+          element.fetchPriority = 'high';
+        }
       });
-
-      // Lazy load images that are off-screen
-      if ('loading' in HTMLImageElement.prototype) {
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        lazyImages.forEach(img => {
-          img.setAttribute('loading', 'lazy');
-        });
-      }
     };
 
     // Monitor performance metrics
-    const monitorPerformance = () => {
-      // Monitor Core Web Vitals
-      const reportWebVitals = ({ name, delta, id }: WebVitalsMetric) => {
-        // Send to analytics
-        console.log(`${name} metric:`, {
-          name,
-          value: delta,
-          id
-        });
-      };
-
-      // Only observe if PerformanceObserver is available
-      if ('PerformanceObserver' in window) {
-        // Observe LCP
-        try {
-          new PerformanceObserver((entryList) => {
-            const entries = entryList.getEntries();
-            const lastEntry = entries[entries.length - 1] as PerformanceEntry & { startTime: number };
-            reportWebVitals({
-              name: 'LCP',
-              delta: lastEntry.startTime,
-              id: 'lcp-' + pathname
-            });
-          }).observe({ entryTypes: ['largest-contentful-paint'] });
-        } catch (e) {
-          console.warn('LCP observation failed:', e);
-        }
-
-        // Observe FID
-        try {
-          new PerformanceObserver((entryList) => {
-            const entries = entryList.getEntries();
-            entries.forEach(entry => {
-              const fidEntry = entry as PerformanceEntry & { 
-                processingStart: number;
-                startTime: number;
-              };
-              reportWebVitals({
-                name: 'FID',
-                delta: fidEntry.processingStart - fidEntry.startTime,
-                id: 'fid-' + pathname
-              });
-            });
-          }).observe({ entryTypes: ['first-input'] });
-        } catch (e) {
-          console.warn('FID observation failed:', e);
-        }
-
-        // Observe CLS
-        try {
-          new PerformanceObserver((entryList) => {
-            const entries = entryList.getEntries();
-            entries.forEach(entry => {
-              const clsEntry = entry as PerformanceEntry & { value: number };
-              reportWebVitals({
-                name: 'CLS',
-                delta: clsEntry.value,
-                id: 'cls-' + pathname
-              });
-            });
-          }).observe({ entryTypes: ['layout-shift'] });
-        } catch (e) {
-          console.warn('CLS observation failed:', e);
-        }
-      }
+    const reportWebVitals = ({ name, delta, id, value }: Metric) => {
+      // Send to analytics
+      console.log(`${name} metric:`, {
+        name,
+        delta,
+        id,
+        value
+      });
     };
 
-    // Execute optimizations
+    // Monitor Core Web Vitals using web-vitals package
+    onCLS(reportWebVitals);
+    onFID(reportWebVitals);
+    onLCP(reportWebVitals);
+
     preloadResources();
-    optimizeResources();
-    monitorPerformance();
+    optimizeLCP();
 
-    // Cleanup function
-    return () => {
-      // Cleanup will be handled by React
-    };
-  }, [isClient, pathname]); // Re-run when pathname changes and after client-side hydration
+    // No cleanup needed for web-vitals as they auto-cleanup
+  }, [pathname]);
 
   return <>{children}</>;
-}
+};
+
+export default PerformanceOptimizer;
