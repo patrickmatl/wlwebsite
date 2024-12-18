@@ -36,17 +36,14 @@ export default function Home() {
       <div className="absolute inset-0 bg-grid-pattern opacity-30 animate-grid" />
 
       {/* Hero Section with SEO attributes */}
-      <Suspense fallback={<div className="h-screen bg-black" />}>
+      <Suspense fallback={<div className="min-h-screen bg-black" />}>
         <DynamicHeroSection 
           itemScope={true}
-          itemType="https://schema.org/WPHeader"
-          seoTitle="Design"
-          seoDescription="Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
+          itemType="http://schema.org/WebSite"
+          seoTitle="Transforming brands through creative excellence"
+          seoDescription="Your trusted design partner in Pretoria. We specialize in brand identity, web design, and digital solutions that make your business stand out."
         />
       </Suspense>
-
-      {/* Logo Carousel */}
-      <DynamicLogoCarousel />
 
       {/* Services Section */}
       <section className="py-32 bg-black relative overflow-hidden" id="services">
@@ -141,6 +138,11 @@ export default function Home() {
           <div className="absolute bottom-0 left-1/2 h-px w-32 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
         </div>
       </section>
+
+      {/* Logo Carousel */}
+      <Suspense fallback={<div className="h-96 bg-black" />}>
+        <DynamicLogoCarousel />
+      </Suspense>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-gradient-to-b from-black/30 to-black/50 backdrop-blur-sm">
@@ -297,22 +299,7 @@ export default function Home() {
       </section>
 
       {/* Blog Preview Section */}
-      <Suspense fallback={
-        <section className="py-16 bg-black/50 backdrop-blur-sm">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center text-white">Latest Insights</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-zinc-900 rounded-lg p-6 animate-pulse">
-                  <div className="h-48 bg-zinc-800 rounded-lg mb-4" />
-                  <div className="h-6 bg-zinc-800 rounded w-3/4 mb-2" />
-                  <div className="h-4 bg-zinc-800 rounded w-1/2" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      }>
+      <Suspense fallback={<div className="h-96 bg-black" />}>
         <DynamicBlogPreview />
       </Suspense>
     </main>

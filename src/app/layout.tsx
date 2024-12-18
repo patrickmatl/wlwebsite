@@ -199,29 +199,15 @@ export default function RootLayout({
         <Script id="json-ld" type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </Script>
-        <Script 
-          id="google-analytics" 
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
-            `
-          }}
-        />
       </head>
       <body className="font-space-grotesk">
         <ClientRootWrapper>
           <RootClientWrapper spaceGrotesk={spaceGrotesk} syne={syne}>
-            <main>
-              {children}
-            </main>
+            {children}
             <Footer />
           </RootClientWrapper>
         </ClientRootWrapper>
       </body>
     </html>
-  )
+  );
 }
