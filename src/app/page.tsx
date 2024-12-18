@@ -1,19 +1,33 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import BackgroundParticles from '@/components/BackgroundParticles';
+import { useState, useEffect, Suspense } from 'react';
+import HeroSection from '@/components/HeroSection';
+import LogoCarousel from '@/components/LogoCarousel';
+import BlogPreview from '@/components/BlogPreview';
 
 const DynamicHeroSection = dynamic(() => import('@/components/HeroSection'), {
-  ssr: false
-});
-
-const DynamicBlogPreview = dynamic(() => import('@/components/BlogPreview'), {
-  ssr: false
+  loading: () => (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-[#FFD700] rounded-full animate-spin border-t-transparent" />
+    </div>
+  ),
 });
 
 const DynamicLogoCarousel = dynamic(() => import('@/components/LogoCarousel'), {
-  ssr: false
+  loading: () => (
+    <div className="h-40 flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-[#FFD700] rounded-full animate-spin border-t-transparent" />
+    </div>
+  ),
+});
+
+const DynamicBlogPreview = dynamic(() => import('@/components/BlogPreview'), {
+  loading: () => (
+    <div className="h-40 flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-[#FFD700] rounded-full animate-spin border-t-transparent" />
+    </div>
+  ),
 });
 
 export default function Home() {
@@ -29,14 +43,11 @@ export default function Home() {
         isLoaded ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Background with particles */}
-      <BackgroundParticles />
-
       {/* Animated Grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30 animate-grid" />
 
       {/* Hero Section with SEO attributes */}
-      <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <Suspense fallback={<div>Loading...</div>}>
         <DynamicHeroSection 
           itemScope={true}
           itemType="http://schema.org/WebSite"
@@ -44,6 +55,13 @@ export default function Home() {
           seoDescription="Your trusted design partner in Pretoria. We specialize in brand identity, web design, and digital solutions that make your business stand out."
         />
       </Suspense>
+
+      {/* Logo Carousel Section */}
+      <section className="py-24 bg-black relative">
+        <Suspense fallback={<div>Loading...</div>}>
+          <DynamicLogoCarousel />
+        </Suspense>
+      </section>
 
       {/* Services Section */}
       <section className="py-32 bg-black relative overflow-hidden" id="services">
@@ -138,11 +156,6 @@ export default function Home() {
           <div className="absolute bottom-0 left-1/2 h-px w-32 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
         </div>
       </section>
-
-      {/* Logo Carousel */}
-      <Suspense fallback={<div className="h-96 bg-black" />}>
-        <DynamicLogoCarousel />
-      </Suspense>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-gradient-to-b from-black/30 to-black/50 backdrop-blur-sm">
@@ -299,7 +312,7 @@ export default function Home() {
       </section>
 
       {/* Blog Preview Section */}
-      <Suspense fallback={<div className="h-96 bg-black" />}>
+      <Suspense fallback={<div>Loading...</div>}>
         <DynamicBlogPreview />
       </Suspense>
     </main>

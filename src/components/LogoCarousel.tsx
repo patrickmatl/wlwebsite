@@ -17,15 +17,7 @@ const LogoCarousel = () => {
     { name: 'SEO Optimized Web Design', industry: 'Search Engine Friendly' },
     { name: 'Modern Website Design', industry: 'Contemporary Development' },
     { name: 'Professional Web Development', industry: 'Custom Solutions' },
-    { name: 'E-commerce Solutions', industry: 'Online Store Design' },
-    { name: 'Responsive Website Development', industry: 'Mobile-First Design' },
-    { name: 'Professional Web Design', industry: 'Business Websites' },
-    { name: 'Custom Website Solutions', industry: 'Professional Development' },
-    { name: 'WordPress Development', industry: 'CMS Web Design' },
-    { name: 'Business Web Design', industry: 'Corporate Solutions' },
-    { name: 'E-commerce Development', industry: 'Online Store Solutions' },
-    { name: 'Modern Web Development', industry: 'Professional Design' },
-    { name: 'SEO-Friendly Website Design', industry: 'Search Optimized' }
+    { name: 'E-commerce Solutions', industry: 'Online Store Design' }
   ].map((logo, index) => ({
     src: `/images/clients/Client${index + 1}.webp`,
     alt: `${logo.name} in ${logo.industry} | WL Creations Portfolio - Trusted Web Design Agency in Pretoria, South Africa`,
@@ -66,7 +58,6 @@ const LogoCarousel = () => {
           
           <div className="relative overflow-hidden">
             <motion.div
-              className="flex gap-8 items-center"
               animate={{
                 x: [-220, -clientLogos.length * 220]
               }}
@@ -77,6 +68,7 @@ const LogoCarousel = () => {
                   repeat: Infinity,
                 }
               }}
+              className="flex gap-8 items-center"
             >
               {duplicatedLogos.map((logo, index) => {
                 const isCenter = index % clientLogos.length === centerIndex;

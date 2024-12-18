@@ -1,20 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import CustomCursor from './CustomCursor';
+import Navigation from './Navigation';
 
 interface ClientRootWrapperProps {
   children: React.ReactNode;
 }
 
 export default function ClientRootWrapper({ children }: ClientRootWrapperProps) {
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
-  // Only add suppressHydrationWarning when on client
-  const props = isClient ? { suppressHydrationWarning: true } : {};
+  if (!mounted) {
+    return <>{children}</>;
+  }
 
-  return <div {...props}>{children}</div>;
+  return (
+    <>
+      <CustomCursor />
+      <Navigation />
+      {children}
+    </>
+  );
 }

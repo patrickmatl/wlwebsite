@@ -1,96 +1,94 @@
 'use client';
 
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useState } from 'react';
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState<boolean>(false);
+  const frameRef = useRef<number | null>(null);
 
   const moveCursor = useCallback((e: MouseEvent) => {
     if (cursorRef.current && cursorDotRef.current) {
       const { clientX, clientY } = e;
-      requestAnimationFrame(() => {
+      
+      // Cancel any pending animation frame
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
+
+      // Schedule new animation frame
+      frameRef.current = requestAnimationFrame(() => {
         if (cursorRef.current && cursorDotRef.current) {
-          cursorRef.current.style.left = `${clientX}px`;
-          cursorRef.current.style.top = `${clientY}px`;
-          cursorDotRef.current.style.left = `${clientX}px`;
-          cursorDotRef.current.style.top = `${clientY}px`;
-          
-          cursorRef.current.style.transform = `translate(-50%, -50%)`;
-          cursorDotRef.current.style.transform = `translate(-50%, -50%)`;
+          // Use transform instead of left/top for better performance
+          const transform = `translate(${clientX}px, ${clientY}px) translate(-50%, -50%)`;
+          cursorRef.current.style.transform = transform;
+          cursorDotRef.current.style.transform = transform;
         }
       });
     }
   }, []);
 
+  const updateCursorStyle = useCallback((e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (cursorRef.current && cursorDotRef.current) {
+      // Optimize hover check
+      const isClickable = target.matches('a, button, [role="button"], a *, button *');
+
+      cursorRef.current.classList.toggle('cursor-hover', isClickable);
+      cursorDotRef.current.classList.toggle('cursor-dot-hover', isClickable);
+    }
+  }, []);
+
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('.hover-trigger')) {
-        requestAnimationFrame(() => {
-          cursorRef.current?.classList.add('cursor-hover');
-          cursorDotRef.current?.classList.add('cursor-dot-hover');
-        });
-      }
-    };
-
-    const handleMouseOut = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('.hover-trigger')) {
-        requestAnimationFrame(() => {
-          cursorRef.current?.classList.remove('cursor-hover');
-          cursorDotRef.current?.classList.remove('cursor-dot-hover');
-        });
-      }
-    };
-
-    // Add event listeners to the document
+    setMounted(true);
     document.addEventListener('mousemove', moveCursor, { passive: true });
-    document.addEventListener('mouseover', handleMouseOver, { passive: true });
-    document.addEventListener('mouseout', handleMouseOut, { passive: true });
-
-    // Hide default cursor
-    document.documentElement.style.cursor = 'none';
-    document.body.style.cursor = 'none';
+    document.addEventListener('mouseover', updateCursorStyle, { passive: true });
 
     return () => {
       document.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mouseout', handleMouseOut);
-      
-      // Restore default cursor
-      document.documentElement.style.cursor = '';
-      document.body.style.cursor = '';
+      document.removeEventListener('mouseover', updateCursorStyle);
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
     };
-  }, [moveCursor]);
+  }, [moveCursor, updateCursorStyle]);
+
+  if (!mounted) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[99999] mix-blend-difference">
-      <div 
-        ref={cursorRef} 
-        className="fixed w-8 h-8 transition-[width,height] duration-300"
-        style={{ 
-          left: '-100px', 
-          top: '-100px',
-          willChange: 'transform, width, height'
-        }}
-      >
-        <div className="w-full h-full relative">
-          <div className="absolute inset-0 border-2 border-[#FFD700] rounded-full animate-spin-slow" />
-          <div className="absolute inset-0 border-2 border-[#FFD700] rounded-full animate-reverse-spin" style={{ animationDelay: '-2s' }} />
-        </div>
-      </div>
-      <div 
-        ref={cursorDotRef} 
-        className="fixed w-2 h-2 bg-[#FFD700] rounded-full transition-transform duration-75"
-        style={{ 
-          left: '-100px', 
-          top: '-100px',
-          willChange: 'transform'
+    <>
+      <div
+        ref={cursorRef}
+        className="fixed pointer-events-none z-50 w-8 h-8 border-2 border-[#FFD700] rounded-full will-change-transform custom-cursor"
+        style={{
+          mixBlendMode: 'difference',
+          transform: 'translate(-100%, -100%)',
         }}
       />
-    </div>
+      <div
+        ref={cursorDotRef}
+        className="fixed pointer-events-none z-50 w-1 h-1 bg-[#FFD700] rounded-full will-change-transform custom-cursor"
+        style={{
+          mixBlendMode: 'difference',
+          transform: 'translate(-100%, -100%)',
+        }}
+      />
+
+      <style jsx>{`
+        .cursor-hover {
+          width: 48px !important;
+          height: 48px !important;
+          background-color: rgba(255, 215, 0, 0.1) !important;
+          border-color: rgba(255, 215, 0, 0.5) !important;
+        }
+        
+        .cursor-dot-hover {
+          width: 6px !important;
+          height: 6px !important;
+          background-color: #FFD700 !important;
+        }
+      `}</style>
+    </>
   );
 }
