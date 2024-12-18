@@ -6,7 +6,6 @@ import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 interface AudioPlayerProps {
   audioSource: {
     mp3: string;
-    wav: string;
   };
   onPlayStateChange?: (isPlaying: boolean) => void;
 }
@@ -23,7 +22,6 @@ const AudioPlayer = ({ audioSource, onPlayStateChange }: AudioPlayerProps) => {
     audioRef.current = new Audio();
     audioRef.current.preload = 'metadata';
 
-    // Try MP3 first, fallback to WAV if needed
     const handleCanPlayThrough = () => {
       setIsLoading(false);
     };
@@ -33,13 +31,8 @@ const AudioPlayer = ({ audioSource, onPlayStateChange }: AudioPlayerProps) => {
     };
 
     const handleError = () => {
-      // If MP3 fails, try WAV
-      if (audioRef.current?.src === audioSource.mp3) {
-        audioRef.current.src = audioSource.wav;
-      } else {
-        setError('Error loading audio');
-        setIsLoading(false);
-      }
+      setError('Error loading audio');
+      setIsLoading(false);
     };
 
     const handleEnded = () => {

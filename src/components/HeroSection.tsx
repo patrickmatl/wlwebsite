@@ -18,10 +18,9 @@ const AudioPlayer = dynamic(() => import('./AudioPlayer'), {
   )
 });
 
-// Audio source configuration with multiple formats for better browser support
+// Audio source configuration
 const audioSource = {
   mp3: '/audio/Website-Intro.mp3',
-  wav: '/audio/Website-Intro.wav',
 };
 
 interface HeroSectionProps {
