@@ -55,23 +55,40 @@ function ContactFormContent() {
         throw new Error('Please verify that you are not a robot');
       }
 
-      const formElement = e.currentTarget;
-      const formData = new FormData(formElement);
-      const contactMethod = formData.get('preferred_contact_method');
+      const form = formRef.current;
+      if (!form) {
+        throw new Error('Form not found');
+      }
+
+      // Get form values directly from elements
+      const formElements = form.elements as HTMLFormControlsCollection & {
+        name: HTMLInputElement;
+        email: HTMLInputElement;
+        phone: HTMLInputElement;
+        service_interested: HTMLSelectElement;
+        project_timeline: HTMLSelectElement;
+        budget_range: HTMLSelectElement;
+        project_details: HTMLTextAreaElement;
+        reference_links: HTMLInputElement;
+        how_did_you_hear: HTMLSelectElement;
+        preferred_contact_method: RadioNodeList;
+      };
+
+      const contactMethod = formElements.preferred_contact_method.value;
       
       // Create submission data object
       const submissionData = {
-        name: formData.get('name')?.toString(),
-        email: formData.get('email')?.toString(),
-        phone: formData.get('phone')?.toString() || null,
-        service_interested: formData.get('service_interested')?.toString(),
-        project_timeline: formData.get('project_timeline')?.toString(),
-        budget_range: formData.get('budget_range')?.toString(),
-        project_details: formData.get('project_details')?.toString(),
-        reference_links: formData.get('reference_links')?.toString() || null,
-        how_did_you_hear: formData.get('how_did_you_hear')?.toString() || null,
-        preferred_contact_method: contactMethod?.toString(),
-        contact_details: (contactMethod === 'email' ? formData.get('email') : formData.get('phone'))?.toString(),
+        name: formElements.name.value,
+        email: formElements.email.value,
+        phone: formElements.phone.value || null,
+        service_interested: formElements.service_interested.value,
+        project_timeline: formElements.project_timeline.value,
+        budget_range: formElements.budget_range.value,
+        project_details: formElements.project_details.value,
+        reference_links: formElements.reference_links.value || null,
+        how_did_you_hear: formElements.how_did_you_hear.value || null,
+        preferred_contact_method: contactMethod,
+        contact_details: (contactMethod === 'email' ? formElements.email.value : formElements.phone.value),
         terms_accepted: true,
         status: 'new',
         recaptcha_token: recaptchaValue
@@ -87,7 +104,7 @@ function ContactFormContent() {
       }
 
       setSuccess(true);
-      formElement.reset();
+      form.reset();
       recaptchaRef.current?.reset();
       setTimeout(() => setSuccess(false), 5000);
       
