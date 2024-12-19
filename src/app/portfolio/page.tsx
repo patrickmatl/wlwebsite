@@ -47,6 +47,15 @@ const seoDescriptions = [
   'Strategic brand identity for Pretoria business'
 ];
 
+const packageDescriptions = [
+  'Elegant packaging design for premium South African product',
+  'Modern product packaging for Pretoria brand',
+  'Creative package design for local consumer goods',
+  'Professional retail packaging for SA company',
+  'Innovative product packaging for Gauteng brand',
+  'Premium packaging solution for South African market'
+];
+
 const logos = Array.from({ length: 38 }, (_, i) => ({
   src: `/images/logos/Logo${i + 1}.webp`,
   alt: `${seoDescriptions[i % seoDescriptions.length]} - WL Creations Portfolio`,
@@ -54,14 +63,22 @@ const logos = Array.from({ length: 38 }, (_, i) => ({
   description: `Professional ${seoDescriptions[i % seoDescriptions.length].toLowerCase()}. Crafted with precision and creativity by WL Creations.`
 }));
 
+const packages = Array.from({ length: 6 }, (_, i) => ({
+  src: `/images/packages/Package${i + 1}.webp`,
+  alt: `${packageDescriptions[i]} - WL Creations Portfolio`,
+  category: 'Packaging Design',
+  description: `${packageDescriptions[i]}. Designed to stand out on shelves and capture consumer attention.`,
+  width: 354,
+  height: 564
+}));
+
+// Combine all portfolio items
+const portfolioItems = [...logos, ...packages];
+
 const categories = [
   'All',
   'Logo Design',
-  'Website Design',
-  'Packaging Design',
-  'Brand Identity',
-  'Print Design',
-  'Social Media'
+  'Packaging Design'
 ];
 
 export default function Portfolio() {
@@ -75,6 +92,11 @@ export default function Portfolio() {
   const closeModal = () => {
     setModalImage({ isOpen: false, src: '', alt: '', description: '' });
   };
+
+  // Filter items based on selected category
+  const filteredItems = selectedCategory === 'All'
+    ? portfolioItems
+    : portfolioItems.filter(item => item.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -96,78 +118,67 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      {/* SEO-enhanced Category Filter */}
+      {/* Portfolio Filter */}
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Professional Graphic Design Services in Pretoria
-          </h2>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
+            {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full transition-all duration-300 ${
+                className={`px-8 py-3 rounded-full text-lg transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-[#FFD700] text-black'
-                    : 'bg-zinc-900 text-white hover:bg-[#FFD700]/20'
+                    ? 'bg-[#FFD700] text-black font-medium'
+                    : 'bg-zinc-800 text-white hover:bg-zinc-700'
                 }`}
               >
                 {category}
               </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Portfolio Grid with Rich Snippets */}
-      <section className="px-4 pb-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {logos
-              .filter(item => selectedCategory === 'All' || item.category === selectedCategory)
-              .map((item, index) => (
-                <PortfolioItem
-                  key={index}
+          {/* Portfolio Grid */}
+          <div className={`grid gap-6 ${
+            selectedCategory === 'Packaging Design'
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+              : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
+          }`}>
+            {filteredItems.map((item, index) => (
+              <div
+                key={`${item.category}-${index}`}
+                className={`relative group overflow-hidden rounded-lg ${
+                  item.category === 'Packaging Design' ? 'aspect-[354/564]' : 'aspect-square'
+                }`}
+                onClick={() => openModal(item.src, item.alt, item.description)}
+              >
+                <img
                   src={item.src}
                   alt={item.alt}
-                  category={item.category}
-                  onClick={() => openModal(item.src, item.alt, item.description)}
+                  className={`w-full h-full ${
+                    item.category === 'Packaging Design'
+                      ? 'object-cover'
+                      : 'object-contain bg-zinc-900 p-4'
+                  } transition-transform duration-300 group-hover:scale-105`}
                 />
-              ))}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <p className="text-white text-lg font-medium px-4 text-center">{item.alt}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Enhanced Modal with SEO Content */}
-      <PortfolioModal
-        isOpen={modalImage.isOpen}
-        onClose={closeModal}
-        src={modalImage.src}
-        alt={modalImage.alt}
-        description={modalImage.description}
-      />
-
-      {/* SEO Footer Section */}
-      <section className="py-16 px-4 bg-zinc-900">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-6">
-            Leading Graphic Design Company in Pretoria
-          </h2>
-          <p className="text-gray-300 max-w-3xl mx-auto mb-8">
-            We specialize in creating impactful visual solutions for businesses across Pretoria and South Africa. 
-            Our expertise spans logo design, brand identity, packaging design, and digital media.
-          </p>
-          <motion.a
-            href="/contact"
-            className="inline-block px-8 py-3 bg-[#FFD700] text-black rounded-full font-semibold hover:bg-[#FFA500] transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Start Your Design Project Today
-          </motion.a>
-        </div>
-      </section>
+      {/* Portfolio Modal */}
+      {modalImage.isOpen && (
+        <PortfolioModal
+          src={modalImage.src}
+          alt={modalImage.alt}
+          description={modalImage.description}
+          isOpen={modalImage.isOpen}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }

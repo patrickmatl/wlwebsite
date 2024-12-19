@@ -1,646 +1,494 @@
 'use client';
 
-import { useState } from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare, FaCheck, FaClock } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
 
-export default function Contact() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [selectedService, setSelectedService] = useState('');
-  const [budget, setBudget] = useState('');
-  const [timeline, setTimeline] = useState('');
-  const [contactMethod, setContactMethod] = useState('');
+// Initialize Supabase client
+const supabaseUrl = 'https://itpmauqewzpxmwsdprmq.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cG1hdXFld3pweG13c2Rwcm1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTI5NTAsImV4cCI6MjA1MDE4ODk1MH0.TSeTdVFUcitGocIDNcNN3yRRQDN--SF72az-Ih7tWLM'
+
+// Create Supabase client with error logging
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    persistSession: false
+  }
+});
+
+// Test Supabase connection
+const testConnection = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('contact_submissions')
+      .select('count')
+      .limit(1);
+    
+    if (error) {
+      console.error('Supabase connection test error:', error);
+    } else {
+      console.log('Supabase connection successful');
+    }
+  } catch (err) {
+    console.error('Failed to test Supabase connection:', err);
+  }
+};
+
+// Contact Form Component
+function ContactFormContent() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your form submission logic here
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const recaptchaValue = await recaptchaRef.current?.executeAsync();
+      if (!recaptchaValue) {
+        throw new Error('Please verify that you are not a robot');
+      }
+
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      const contactMethod = formData.get('preferred_contact_method');
+      
+      // Create submission data object
+      const submissionData = {
+        name: formData.get('name')?.toString(),
+        email: formData.get('email')?.toString(),
+        phone: formData.get('phone')?.toString() || null,
+        service_interested: formData.get('service_interested')?.toString(),
+        project_timeline: formData.get('project_timeline')?.toString(),
+        budget_range: formData.get('budget_range')?.toString(),
+        project_details: formData.get('project_details')?.toString(),
+        reference_links: formData.get('reference_links')?.toString() || null,
+        how_did_you_hear: formData.get('how_did_you_hear')?.toString() || null,
+        preferred_contact_method: contactMethod?.toString(),
+        contact_details: (contactMethod === 'email' ? formData.get('email') : formData.get('phone'))?.toString(),
+        terms_accepted: true,
+        status: 'new',
+        recaptcha_token: recaptchaValue
+      };
+
+      // Insert the data
+      const { error: insertError } = await supabase
+        .from('contact_submissions')
+        .insert([submissionData]);
+
+      if (insertError) {
+        throw new Error(insertError.message);
+      }
+
+      setSuccess(true);
+      form.reset();
+      setTimeout(() => setSuccess(false), 5000);
+      
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative h-[40vh] flex items-center justify-center"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black z-10" />
-        <div className="absolute inset-0 bg-[url('/images/contact-hero.jpg')] bg-cover bg-center" />
-        <div className="relative z-20 text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#FFD700]">Get in Touch</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto text-gray-300">
-            Let's create something extraordinary together
-          </p>
+    <div className="bg-zinc-900/50 p-6 rounded-lg relative">
+      <h2 className="text-2xl font-bold text-[#FFD700] mb-4">Send Us a Message</h2>
+      
+      {error && (
+        <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded text-red-200 text-sm">
+          {error}
         </div>
-      </motion.section>
+      )}
+      
+      {success && (
+        <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/95 rounded-lg">
+          <div className="text-center p-6">
+            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-[#FFD700] mb-2">Message Sent!</h3>
+            <p className="text-gray-300 text-sm">Thank you for contacting us. We'll get back to you soon!</p>
+          </div>
+        </div>
+      )}
 
-      {/* Main Content */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
+      <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="name" className="block text-xs mb-1">Your Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+              placeholder="John Doe"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-xs mb-1">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+              placeholder="john@example.com"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-xs mb-1">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+            placeholder="+27 00 000 0000"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="service_interested" className="block text-xs mb-1">Service *</label>
+            <select
+              id="service_interested"
+              name="service_interested"
+              required
+              className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
             >
+              <option value="">Select a service</option>
+              <option value="Logo Design">Logo Design</option>
+              <option value="Brand Identity">Brand Identity</option>
+              <option value="Website Design">Website Design</option>
+              <option value="Print Design">Print Design</option>
+              <option value="Packaging Design">Packaging Design</option>
+              <option value="Social Media Design">Social Media Design</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="project_timeline" className="block text-xs mb-1">Timeline *</label>
+            <select
+              id="project_timeline"
+              name="project_timeline"
+              required
+              className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+            >
+              <option value="">Select timeline</option>
+              <option value="ASAP">As soon as possible</option>
+              <option value="1-2 weeks">1-2 weeks</option>
+              <option value="2-4 weeks">2-4 weeks</option>
+              <option value="1-2 months">1-2 months</option>
+              <option value="2+ months">2+ months</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="budget_range" className="block text-xs mb-1">Budget Range *</label>
+          <select
+            id="budget_range"
+            name="budget_range"
+            required
+            className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+          >
+            <option value="">Select budget range</option>
+            <option value="R1000-R5000">R1,000 - R5,000</option>
+            <option value="R5000-R10000">R5,000 - R10,000</option>
+            <option value="R10000-R20000">R10,000 - R20,000</option>
+            <option value="R20000+">R20,000+</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="project_details" className="block text-xs mb-1">Project Details *</label>
+          <textarea
+            id="project_details"
+            name="project_details"
+            required
+            rows={3}
+            className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+            placeholder="Tell us about your project requirements and goals..."
+          ></textarea>
+        </div>
+
+        <div>
+          <label htmlFor="reference_links" className="block text-xs mb-1">Reference Links</label>
+          <input
+            type="text"
+            id="reference_links"
+            name="reference_links"
+            className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+            placeholder="Share links to any reference work or inspiration (Optional)"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="how_did_you_hear" className="block text-xs mb-1">How did you hear about us?</label>
+          <select
+            id="how_did_you_hear"
+            name="how_did_you_hear"
+            className="w-full px-3 py-1.5 bg-black border border-zinc-700 rounded text-sm focus:outline-none focus:border-[#FFD700]"
+          >
+            <option value="">Select an option</option>
+            <option value="google">Google Search</option>
+            <option value="social">Social Media</option>
+            <option value="referral">Referral</option>
+            <option value="portfolio">Your Portfolio</option>
+            <option value="event">Event/Exhibition</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-xs mb-2">Preferred Contact Method *</label>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { id: 'email', label: 'Email', icon: FaEnvelope },
+              { id: 'phone', label: 'Phone', icon: FaPhone },
+              { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp }
+            ].map((method) => (
+              <label
+                key={method.id}
+                className="flex items-center space-x-1 p-2 bg-black border border-zinc-700 rounded cursor-pointer hover:border-[#FFD700] text-sm"
+              >
+                <input
+                  type="radio"
+                  name="preferred_contact_method"
+                  value={method.id}
+                  required
+                  className="text-[#FFD700]"
+                />
+                <method.icon className="text-[#FFD700] text-sm" />
+                <span className="text-xs">{method.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-start space-x-2">
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            required
+            className="mt-1"
+          />
+          <label htmlFor="terms" className="text-xs">
+            I agree to the{' '}
+            <Link href="/terms" className="text-[#FFD700] hover:text-[#FFA500] underline">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/privacy-policy" className="text-[#FFD700] hover:text-[#FFA500] underline">
+              Privacy Policy
+            </Link>
+          </label>
+        </div>
+
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey="6LeqxKAqAAAAABGXrphrQo9Z8pFpzkcR9dpzk8ld"
+          theme="dark"
+        />
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full py-2 px-4 bg-[#FFD700] text-black font-semibold rounded text-sm hover:bg-[#FFE44D] transition-colors ${
+            isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          {isSubmitting ? 'Sending...' : 'Send Message'}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+// Main Contact Page Component
+export default function Contact() {
+  // Test connection on component mount
+  useEffect(() => {
+    testConnection();
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-black text-white py-8">
+      <div className="max-w-5xl mx-auto px-4 bg-zinc-900/30 rounded-lg shadow-2xl backdrop-blur-sm">
+        <div className="p-6 space-y-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Information section */}
+            <div className="space-y-6">
               <div>
-                <h2 className="text-3xl font-bold mb-6 text-[#FFD700]">Contact Information</h2>
-                <p className="text-gray-300 text-lg mb-8">
+                <h2 className="text-2xl font-bold text-[#FFD700] mb-3">Contact Information</h2>
+                <p className="text-gray-300 text-sm mb-4">
                   Ready to start your project? Contact us for a consultation and let's bring your vision to life.
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-start space-x-4 p-4 bg-zinc-900/50 rounded-lg"
-                >
-                  <FaPhone className="text-[#FFD700] w-6 h-6 mt-1" />
+              {/* Contact Methods */}
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex items-center space-x-2">
+                  <FaPhone className="text-[#FFD700] text-lg" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Call Us</h3>
-                    <a href="tel:+27623693769" className="text-gray-300 hover:text-[#FFD700] transition-colors block">
-                      +27 62 369 3769
-                    </a>
+                    <h3 className="font-semibold text-sm">Call Us</h3>
+                    <p className="text-gray-300 text-sm">+27 62 369 3789</p>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-start space-x-4 p-4 bg-zinc-900/50 rounded-lg"
-                >
-                  <FaWhatsapp className="text-[#FFD700] w-6 h-6 mt-1" />
+                <div className="flex items-center space-x-2">
+                  <FaEnvelope className="text-[#FFD700] text-lg" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
-                    <a href="https://wa.me/27623693769" className="text-gray-300 hover:text-[#FFD700] transition-colors block">
-                      +27 62 369 3769
-                    </a>
+                    <h3 className="font-semibold text-sm">Email Us</h3>
+                    <p className="text-gray-300 text-sm">info@wlcreationx.co.za</p>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-start space-x-4 p-4 bg-zinc-900/50 rounded-lg"
-                >
-                  <FaEnvelope className="text-[#FFD700] w-6 h-6 mt-1" />
+                <div className="flex items-center space-x-2">
+                  <FaWhatsapp className="text-[#FFD700] text-lg" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Email Us</h3>
-                    <a href="mailto:info@wlcreationx.co.za" className="text-gray-300 hover:text-[#FFD700] transition-colors block">
-                      info@wlcreationx.co.za
-                    </a>
+                    <h3 className="font-semibold text-sm">WhatsApp</h3>
+                    <p className="text-gray-300 text-sm">+27 62 369 3789</p>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-start space-x-4 p-4 bg-zinc-900/50 rounded-lg"
-                >
-                  <FaMapMarkerAlt className="text-[#FFD700] w-6 h-6 mt-1" />
+                <div className="flex items-center space-x-2">
+                  <FaMapMarkerAlt className="text-[#FFD700] text-lg" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Visit Us</h3>
-                    <p className="text-gray-300">210 Albertus St</p>
-                    <p className="text-gray-300">La Montagne, Pretoria, 0183</p>
-                    <p className="text-gray-300">South Africa</p>
+                    <h3 className="font-semibold text-sm">Visit Us</h3>
+                    <p className="text-gray-300 text-sm">
+                      210 Albertus St, La Montagne
+                    </p>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Business Hours */}
-              <div className="pt-8 border-t border-zinc-800">
-                <div className="flex items-center mb-4">
-                  <FaClock className="text-[#FFD700] w-5 h-5 mr-2" />
-                  <h3 className="text-xl font-semibold">Business Hours</h3>
-                </div>
-                <div className="space-y-2">
+              <div>
+                <h3 className="text-lg font-bold mb-2">Business Hours</h3>
+                <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-300">Monday - Friday</span>
+                    <span>Monday - Friday</span>
                     <span className="text-[#FFD700]">8:00 AM - 5:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-300">Saturday</span>
+                    <span>Saturday</span>
                     <span className="text-[#FFD700]">9:00 AM - 1:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-300">Sunday</span>
+                    <span>Sunday</span>
                     <span className="text-[#FFD700]">Closed</span>
                   </div>
                 </div>
               </div>
 
-              {/* Social Media Links */}
-              <div className="pt-8 border-t border-zinc-800">
-                <h3 className="text-xl font-semibold mb-4">Connect With Us</h3>
+              {/* Social Links */}
+              <div>
+                <h3 className="text-lg font-bold mb-2">Connect With Us</h3>
                 <div className="flex space-x-4">
-                  <motion.a
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#FFD700] hover:text-[#FFE55C] transition-colors"
-                  >
-                    <FaLinkedin className="w-6 h-6" />
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#FFD700] hover:text-[#FFE55C] transition-colors"
-                  >
-                    <FaInstagram className="w-6 h-6" />
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#FFD700] hover:text-[#FFE55C] transition-colors"
-                  >
-                    <FaFacebookSquare className="w-6 h-6" />
-                  </motion.a>
+                  <Link href="https://linkedin.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
+                    <FaLinkedin size={20} />
+                  </Link>
+                  <Link href="https://instagram.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
+                    <FaInstagram size={20} />
+                  </Link>
+                  <Link href="https://facebook.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
+                    <FaFacebookSquare size={20} />
+                  </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Contact Form */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-zinc-900 p-8 rounded-lg relative overflow-hidden"
-            >
-              {isSubmitted && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute inset-0 bg-zinc-900 flex items-center justify-center z-10"
-                >
-                  <div className="text-center">
-                    <FaCheck className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                    <p className="text-gray-300">We'll get back to you soon.</p>
-                  </div>
-                </motion.div>
-              )}
+            {/* Contact Form with reCAPTCHA */}
+            <ContactFormContent />
+          </div>
 
-              <h2 className="text-3xl font-bold mb-6 text-[#FFD700]">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                      placeholder="john@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                      placeholder="+27 00 000 0000"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-300 mb-2">
-                      Service Interested In *
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={selectedService}
-                      onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option value="branding">Brand Identity Design</option>
-                      <option value="web">Web Design & Development</option>
-                      <option value="ui">UI/UX Design</option>
-                      <option value="print">Print Design</option>
-                      <option value="digital">Digital Marketing</option>
-                      <option value="motion">Motion Design</option>
-                      <option value="photography">Photography</option>
-                      <option value="videography">Videography</option>
-                      <option value="aerial">Aerial Photography/Videography</option>
-                      <option value="commercial">Commercial Photography</option>
-                      <option value="events">Event Coverage</option>
-                      <option value="corporate">Corporate Media</option>
-                      <option value="product">Product Photography</option>
-                      <option value="social">Social Media Content</option>
-                      <option value="editing">Photo/Video Editing</option>
-                      <option value="livestreaming">Live Streaming</option>
-                      <option value="virtual">Virtual Tours</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="timeline" className="block text-sm font-medium text-gray-300 mb-2">
-                      Project Timeline *
-                    </label>
-                    <select
-                      id="timeline"
-                      name="timeline"
-                      value={timeline}
-                      onChange={(e) => setTimeline(e.target.value)}
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                      required
-                    >
-                      <option value="">Select timeline</option>
-                      <option value="urgent">Urgent (Within 48 hours)</option>
-                      <option value="week">This Week</option>
-                      <option value="2weeks">Within 2 Weeks</option>
-                      <option value="month">Within a Month</option>
-                      <option value="flexible">Flexible Timeline</option>
-                      <option value="planning">Just Planning Ahead</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-gray-300 mb-2">
-                      Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                      className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="<5k">Less than R5,000</option>
-                      <option value="5k-10k">R5,000 - R10,000</option>
-                      <option value="10k-20k">R10,000 - R20,000</option>
-                      <option value="20k-50k">R20,000 - R50,000</option>
-                      <option value="50k+">R50,000+</option>
-                      <option value="discuss">Let's Discuss</option>
-                    </select>
-                  </div>
-                </div>
-
+          {/* FAQ Section */}
+          <div className="border-t border-zinc-800 pt-8">
+            <h2 className="text-2xl font-bold text-[#FFD700] mb-6">Frequently Asked Questions</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4">
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Project Details *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                    placeholder="Tell us about your project requirements and goals..."
-                    required
-                  ></textarea>
+                  <h3 className="text-lg font-semibold mb-2">What services do you offer?</h3>
+                  <p className="text-gray-300 text-sm">
+                    We offer a comprehensive range of design services including logo design, brand identity, website design, print design, packaging design, and social media design.
+                  </p>
                 </div>
-
-                {/* Reference/Inspiration */}
                 <div>
-                  <label htmlFor="reference" className="block text-sm font-medium text-gray-300 mb-2">
-                    Reference Links
-                  </label>
-                  <input
-                    type="text"
-                    id="reference"
-                    name="reference"
-                    className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                    placeholder="Share links to any reference work or inspiration (Optional)"
-                  />
+                  <h3 className="text-lg font-semibold mb-2">How long does a project typically take?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Project timelines vary depending on complexity and scope. Simple projects might take 1-2 weeks, while more complex ones can take several months. We'll provide a detailed timeline during our initial consultation.
+                  </p>
                 </div>
-
-                {/* How did you hear about us */}
                 <div>
-                  <label htmlFor="source" className="block text-sm font-medium text-gray-300 mb-2">
-                    How did you hear about us?
-                  </label>
-                  <select
-                    id="source"
-                    name="source"
-                    className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                  >
-                    <option value="">Select an option</option>
-                    <option value="google">Google Search</option>
-                    <option value="social">Social Media</option>
-                    <option value="referral">Referral</option>
-                    <option value="portfolio">Your Portfolio</option>
-                    <option value="event">Event/Exhibition</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <h3 className="text-lg font-semibold mb-2">What is your payment process?</h3>
+                  <p className="text-gray-300 text-sm">
+                    We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. We accept various payment methods and can discuss payment plans for larger projects.
+                  </p>
                 </div>
-
-                {/* Preferred Contact Method */}
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Preferred Contact Method *
-                    </label>
-                    <div className="grid grid-cols-3 gap-4">
-                      {[
-                        { id: 'email', label: 'Email', icon: FaEnvelope },
-                        { id: 'phone', label: 'Phone', icon: FaPhone },
-                        { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp }
-                      ].map((method) => (
-                        <label
-                          key={method.id}
-                          className={`flex items-center space-x-2 bg-black border ${
-                            contactMethod === method.id ? 'border-[#FFD700]' : 'border-zinc-700'
-                          } rounded-lg px-4 py-3 cursor-pointer hover:border-[#FFD700] transition-colors`}
-                        >
-                          <input
-                            type="radio"
-                            name="contactMethod"
-                            value={method.id}
-                            checked={contactMethod === method.id}
-                            onChange={(e) => setContactMethod(e.target.value)}
-                            className="text-[#FFD700] focus:ring-[#FFD700]"
-                            required
-                          />
-                          <method.icon className="w-4 h-4 text-[#FFD700]" />
-                          <span className="text-gray-300">{method.label}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Dynamic Contact Field */}
-                  {contactMethod && (
-                    <div className="animate-fadeIn">
-                      {contactMethod === 'email' && (
-                        <div>
-                          <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-300 mb-2">
-                            Email Address *
-                          </label>
-                          <input
-                            type="email"
-                            id="emailAddress"
-                            name="emailAddress"
-                            className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                            placeholder="your@email.com"
-                            required
-                          />
-                        </div>
-                      )}
-                      {contactMethod === 'phone' && (
-                        <div>
-                          <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-300 mb-2">
-                            Phone Number *
-                          </label>
-                          <input
-                            type="tel"
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                            placeholder="+27 00 000 0000"
-                            required
-                          />
-                        </div>
-                      )}
-                      {contactMethod === 'whatsapp' && (
-                        <div>
-                          <label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-300 mb-2">
-                            WhatsApp Number *
-                          </label>
-                          <input
-                            type="tel"
-                            id="whatsappNumber"
-                            name="whatsappNumber"
-                            className="w-full bg-black border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                            placeholder="+27 00 000 0000"
-                            required
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">How quickly do you respond to inquiries?</h3>
+                  <p className="text-gray-300 text-sm">
+                    We aim to respond to all inquiries within 24 hours during business days. For urgent matters, you can reach us directly via WhatsApp or phone during business hours (8:00 AM - 5:00 PM SAST).
+                  </p>
                 </div>
-
-                {/* Terms and Privacy */}
-                <div className="flex items-start space-x-2">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    name="terms"
-                    className="mt-1 text-[#FFD700] focus:ring-[#FFD700] rounded"
-                    required
-                  />
-                  <label htmlFor="terms" className="text-sm text-gray-300">
-                    I agree to the{' '}
-                    <Link href="/terms" className="text-[#FFD700] hover:text-[#FFA500] underline">
-                      Terms of Service
-                    </Link>{' '}
-                    and{' '}
-                    <Link href="/privacy-policy" className="text-[#FFD700] hover:text-[#FFA500] underline">
-                      Privacy Policy
-                    </Link>
-                  </label>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Do you provide after-hours support?</h3>
+                  <p className="text-gray-300 text-sm">
+                    While our regular business hours are Monday to Friday, we do offer emergency support for critical issues. Additional charges may apply for after-hours support.
+                  </p>
                 </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#FFD700] text-black font-bold py-4 px-8 rounded-lg hover:bg-[#FFA500] transition-colors duration-300 flex items-center justify-center space-x-2"
-                >
-                  <span>Send Message</span>
-                  <FaEnvelope className="w-5 h-5" />
-                </button>
-              </form>
-            </motion.div>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Do you offer revisions?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Yes, we include a set number of revisions in our project quotes. Additional revisions can be arranged at an hourly rate. We work closely with you to ensure you're completely satisfied with the final result.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Can you work with clients remotely?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Absolutely! We work with clients worldwide using various communication tools. We can schedule video calls, use project management software, and maintain regular communication throughout the project.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">What do I need to get started?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Fill out our contact form with your project details, and we'll schedule a consultation to discuss your needs, timeline, and budget. We'll then provide a detailed proposal for your review.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Do you sign NDAs?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Yes, we're happy to sign Non-Disclosure Agreements (NDAs) to protect your intellectual property and ensure confidentiality throughout our collaboration.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">What happens after I submit the contact form?</h3>
+                  <p className="text-gray-300 text-sm">
+                    After submission, you'll receive an immediate confirmation. Our team will review your requirements and contact you within 24 hours to schedule a consultation or request additional information.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 bg-zinc-900/50">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold mb-8 text-center text-[#FFD700]">Frequently Asked Questions</h2>
-
-          {/* FAQ Schema */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                  {
-                    "@type": "Question",
-                    "name": "What is your typical response time?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please contact us via phone or WhatsApp."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Do you offer in-person consultations?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Yes, we offer both in-person and virtual consultations. You can schedule a meeting at our Pretoria office or arrange a video call for your convenience."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What information should I prepare for the consultation?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "It's helpful to have your project goals, timeline, budget range, and any reference materials or inspiration ready for our discussion. This helps us understand your vision better."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "How long does a typical project take to complete?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Project timelines vary depending on scope and complexity. A basic website might take 4-6 weeks, while a comprehensive brand identity project could take 6-8 weeks. We'll provide a detailed timeline during our consultation."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What is your payment structure?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone-based payments. We accept bank transfers."
-                    }
-                  }
-                ]
-              })
-            }}
-          />
-
-          <div className="grid gap-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">What is your typical response time?</h3>
-              <p className="text-gray-300">We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please contact us via phone or WhatsApp.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">Do you offer in-person consultations?</h3>
-              <p className="text-gray-300">Yes, we offer both in-person and virtual consultations. You can schedule a meeting at our Pretoria office or arrange a video call for your convenience.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">What information should I prepare for the consultation?</h3>
-              <p className="text-gray-300">It's helpful to have your project goals, timeline, budget range, and any reference materials or inspiration ready for our discussion. This helps us understand your vision better.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">How long does a typical project take to complete?</h3>
-              <p className="text-gray-300">Project timelines vary depending on scope and complexity. A basic website might take 4-6 weeks, while a comprehensive brand identity project could take 6-8 weeks. We'll provide a detailed timeline during our consultation.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">What is your payment structure?</h3>
-              <p className="text-gray-300">We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone-based payments. We accept bank transfers.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">Do you provide ongoing support after project completion?</h3>
-              <p className="text-gray-300">Yes, we offer various maintenance and support packages for websites and digital products. For brand identity projects, we provide a comprehensive brand guide and ongoing consultation as needed.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">What makes WL CreationX different from other agencies?</h3>
-              <p className="text-gray-300">We combine strategic thinking with creative excellence, focusing on delivering measurable results. Our team brings years of experience in both design and business strategy, ensuring your project not only looks great but also achieves your business objectives.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">Do you work with clients outside of Pretoria?</h3>
-              <p className="text-gray-300">Yes, we work with clients nationwide and internationally. We use video conferencing and project management tools to ensure smooth communication and project delivery, regardless of location.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">What if I need revisions to the design?</h3>
-              <p className="text-gray-300">Our project quotes include a specified number of revision rounds. We work closely with you during the design process to ensure we're meeting your vision. Additional revisions beyond the included rounds can be arranged at an hourly rate.</p>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.0 }}
-              className="bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800/80 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold mb-3">Can you work with my existing brand guidelines?</h3>
-              <p className="text-gray-300">Absolutely! We're experienced in working with established brand guidelines and can create new designs that align perfectly with your existing brand identity while bringing fresh creative perspectives.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      </div>
     </main>
   );
 }

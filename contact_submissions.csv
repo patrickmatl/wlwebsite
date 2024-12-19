@@ -1,0 +1,4 @@
+id,created_at,name,email,phone,service_interested,project_timeline,budget_range,project_details,reference_links,how_did_you_hear,preferred_contact_method,contact_details,terms_accepted,status
+uuid-example-1,2024-12-19 15:41:01+02,John Doe,john@example.com,+27 62 369 3789,Brand Identity,1-2 weeks,R5000-R10000,Need a complete brand identity package including logo design and brand guidelines.,https://example.com/inspiration,Google Search,email,john@example.com,true,new
+uuid-example-2,2024-12-19 15:41:01+02,Jane Smith,jane@example.com,+27 82 123 4567,Website Design,2-4 weeks,R10000-R20000,Looking for a modern e-commerce website with payment integration.,https://pinterest.com/myboard,Social Media,whatsapp,+27 82 123 4567,true,new
+uuid-example-3,2024-12-19 15:41:01+02,Mike Johnson,mike@example.com,+27 71 987 6543,Logo Design,ASAP,R1000-R5000,Need a minimalist logo for my startup company.,,,phone,+27 71 987 6543,true,new

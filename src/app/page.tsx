@@ -2,6 +2,7 @@
 
 import { Suspense, lazy } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import FAQAccordion from '@/components/FAQ/FAQAccordion';
 
 // Simple loading components
@@ -33,11 +34,58 @@ const BlogPreview = dynamic(() => import('@/components/BlogPreview'), {
   ssr: false
 });
 
+import { useState, useEffect } from 'react';
+
+type PortfolioItem = {
+  src: string;
+  alt: string;
+  title: string;
+  category: string;
+};
+
+type ImageItem = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+type ImageCategory = {
+  logo: ImageItem[];
+  packaging: ImageItem[];
+};
+
 export default function Home() {
+  const [category, setCategory] = useState<'logo' | 'packaging'>('logo');
+  const [debug, setDebug] = useState<string>('');
+
+  const packageImages = [
+    '/images/packages/Package1.webp',
+    '/images/packages/Package2.webp',
+    '/images/packages/Package3.webp',
+    '/images/packages/Package4.webp',
+    '/images/packages/Package5.webp',
+    '/images/packages/Package6.webp'
+  ];
+
+  const logoImages = Array.from({ length: 38 }, (_, i) => `/images/logos/Logo${i + 1}.webp`);
+
+  // Debug function to check image loading
+  const checkImage = (src: string) => {
+    const img = document.createElement('img');
+    img.onload = () => setDebug(prev => prev + `\nLoaded: ${src}`);
+    img.onerror = () => setDebug(prev => prev + `\nError loading: ${src}`);
+    img.src = src;
+  };
+
+  useEffect(() => {
+    if (category === 'packaging') {
+      packageImages.forEach(checkImage);
+    }
+  }, [category]);
+
   return (
-    <main 
-      className="min-h-[100svh] bg-black text-white relative overflow-hidden perspective-1000 transition-opacity duration-500 opacity-100"
-    >
+    <main className="min-h-[100svh] bg-black text-white relative overflow-hidden perspective-1000">
       {/* Structured data for organization and local business */}
       <script
         type="application/ld+json"
@@ -428,6 +476,105 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section className="py-20 bg-[#0A0A0A]" id="portfolio">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Our Portfolio</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Explore our collection of logo designs and packaging projects. Each piece represents our commitment to quality and creativity.
+            </p>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex justify-center gap-4 mb-12">
+            <button
+              onClick={() => setCategory('logo')}
+              className={`px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ${
+                category === 'logo' 
+                  ? 'bg-[#FFD700] text-black' 
+                  : 'bg-zinc-800 text-white hover:bg-zinc-700'
+              }`}
+            >
+              Logo Design
+            </button>
+            <button
+              onClick={() => setCategory('packaging')}
+              className={`px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ${
+                category === 'packaging' 
+                  ? 'bg-[#FFD700] text-black' 
+                  : 'bg-zinc-800 text-white hover:bg-zinc-700'
+              }`}
+            >
+              Packaging Design
+            </button>
+          </div>
+
+          {/* Debug Info */}
+          {debug && (
+            <div className="text-xs text-gray-400 mb-4 whitespace-pre-wrap">
+              {debug}
+            </div>
+          )}
+
+          {/* Portfolio Grid */}
+          <div 
+            className={`grid gap-6 ${
+              category === 'packaging' 
+                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
+            }`}
+          >
+            {category === 'packaging' ? (
+              // Package Images
+              packageImages.map((src, index) => (
+                <div 
+                  key={src}
+                  className="relative group aspect-[354/564] rounded-lg overflow-hidden"
+                >
+                  <img
+                    src={src}
+                    alt={`Package Design ${index + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <p className="text-white text-lg font-medium px-4 text-center">Package Design {index + 1}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              // Logo Images
+              logoImages.map((src, index) => (
+                <div 
+                  key={src}
+                  className="relative group aspect-square rounded-lg overflow-hidden bg-zinc-900"
+                >
+                  <img
+                    src={src}
+                    alt={`Logo Design ${index + 1}`}
+                    className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <p className="text-white text-lg font-medium px-4 text-center">Logo Design {index + 1}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <a
+              href="#contact"
+              className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFE44D] transition-colors duration-300"
+            >
+              Start Your Design Project
+            </a>
           </div>
         </div>
       </section>
