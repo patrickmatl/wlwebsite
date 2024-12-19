@@ -55,8 +55,8 @@ function ContactFormContent() {
         throw new Error('Please verify that you are not a robot');
       }
 
-      const form = e.target as HTMLFormElement;
-      const formData = new FormData(form);
+      const formElement = e.currentTarget;
+      const formData = new FormData(formElement);
       const contactMethod = formData.get('preferred_contact_method');
       
       // Create submission data object
@@ -87,7 +87,8 @@ function ContactFormContent() {
       }
 
       setSuccess(true);
-      form.reset();
+      formElement.reset();
+      recaptchaRef.current?.reset();
       setTimeout(() => setSuccess(false), 5000);
       
     } catch (err) {
