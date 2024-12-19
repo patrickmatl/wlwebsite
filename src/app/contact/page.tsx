@@ -55,7 +55,7 @@ function ContactFormContent() {
         throw new Error('Please verify that you are not a robot');
       }
 
-      const form = e.currentTarget;
+      const form = e.target as HTMLFormElement;
       const formData = new FormData(form);
       const contactMethod = formData.get('preferred_contact_method');
       
