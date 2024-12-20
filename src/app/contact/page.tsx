@@ -49,49 +49,46 @@ function ContactFormContent() {
     setIsSubmitting(true);
     setError(null);
 
+    if (!formRef.current) {
+      setError('Form not found');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const recaptchaValue = await recaptchaRef.current?.executeAsync();
-      if (!recaptchaValue) {
-        throw new Error('Please verify that you are not a robot');
+      // Execute reCAPTCHA first
+      if (!recaptchaRef.current) {
+        throw new Error('reCAPTCHA not initialized');
       }
 
+      const token = await recaptchaRef.current.executeAsync();
+      if (!token) {
+        throw new Error('reCAPTCHA verification failed');
+      }
+
+      // Get form values
       const form = formRef.current;
-      if (!form) {
-        throw new Error('Form not found');
-      }
+      const formData = new FormData(form);
+      const contactMethod = formData.get('preferred_contact_method')?.toString();
 
-      // Get form values directly from elements
-      const formElements = form.elements as HTMLFormControlsCollection & {
-        name: HTMLInputElement;
-        email: HTMLInputElement;
-        phone: HTMLInputElement;
-        service_interested: HTMLSelectElement;
-        project_timeline: HTMLSelectElement;
-        budget_range: HTMLSelectElement;
-        project_details: HTMLTextAreaElement;
-        reference_links: HTMLInputElement;
-        how_did_you_hear: HTMLSelectElement;
-        preferred_contact_method: RadioNodeList;
-      };
-
-      const contactMethod = formElements.preferred_contact_method.value;
-      
       // Create submission data object
       const submissionData = {
-        name: formElements.name.value,
-        email: formElements.email.value,
-        phone: formElements.phone.value || null,
-        service_interested: formElements.service_interested.value,
-        project_timeline: formElements.project_timeline.value,
-        budget_range: formElements.budget_range.value,
-        project_details: formElements.project_details.value,
-        reference_links: formElements.reference_links.value || null,
-        how_did_you_hear: formElements.how_did_you_hear.value || null,
+        name: formData.get('name')?.toString() || '',
+        email: formData.get('email')?.toString() || '',
+        phone: formData.get('phone')?.toString() || null,
+        service_interested: formData.get('service_interested')?.toString() || '',
+        project_timeline: formData.get('project_timeline')?.toString() || '',
+        budget_range: formData.get('budget_range')?.toString() || '',
+        project_details: formData.get('project_details')?.toString() || '',
+        reference_links: formData.get('reference_links')?.toString() || null,
+        how_did_you_hear: formData.get('how_did_you_hear')?.toString() || null,
         preferred_contact_method: contactMethod,
-        contact_details: (contactMethod === 'email' ? formElements.email.value : formElements.phone.value),
+        contact_details: contactMethod === 'email' 
+          ? formData.get('email')?.toString() 
+          : formData.get('phone')?.toString(),
         terms_accepted: true,
         status: 'new',
-        recaptcha_token: recaptchaValue
+        recaptcha_token: token
       };
 
       // Insert the data
@@ -105,7 +102,7 @@ function ContactFormContent() {
 
       setSuccess(true);
       form.reset();
-      recaptchaRef.current?.reset();
+      recaptchaRef.current.reset();
       setTimeout(() => setSuccess(false), 5000);
       
     } catch (err) {
@@ -316,12 +313,14 @@ function ContactFormContent() {
           </label>
         </div>
 
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey="6LeqxKAqAAAAABGXrphrQo9Z8pFpzkcR9dpzk8ld"
-          theme="dark"
-        />
+        <div className="mt-4">
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey="6LeqxKAqAAAAABGXrphrQo9Z8pFpzkcR9dpzk8ld"
+            theme="dark"
+          />
+        </div>
 
         <button
           type="submit"
