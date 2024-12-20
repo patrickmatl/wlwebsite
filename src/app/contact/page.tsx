@@ -47,18 +47,21 @@ function ContactFormContent() {
     setIsSubmitting(true);
     setError(null);
 
-    if (!formRef.current) {
-      setError('Form not found');
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
-      // Get form values
-      const form = formRef.current;
-      const formData = new FormData(form);
-      const contactMethod = formData.get('preferred_contact_method')?.toString();
+      const formData = new FormData(e.currentTarget);
+      
+      // Check honeypot field
+      const honeypot = formData.get('website')?.toString();
+      if (honeypot) {
+        // Silently reject bot submissions
+        console.log('Bot submission detected');
+        setSuccess(true); // Fake success to avoid giving feedback to bots
+        setTimeout(() => setSuccess(false), 5000);
+        return;
+      }
 
+      const contactMethod = formData.get('preferred_contact_method')?.toString();
+      
       // Create submission data object
       const submissionData = {
         name: formData.get('name')?.toString() || '',
@@ -75,7 +78,7 @@ function ContactFormContent() {
           ? formData.get('email')?.toString() 
           : formData.get('phone')?.toString(),
         terms_accepted: true,
-        status: 'new',
+        status: 'new'
       };
 
       // Insert the data
@@ -88,7 +91,7 @@ function ContactFormContent() {
       }
 
       setSuccess(true);
-      form.reset();
+      e.currentTarget.reset();
       setTimeout(() => setSuccess(false), 5000);
       
     } catch (err) {
@@ -124,6 +127,18 @@ function ContactFormContent() {
       )}
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+        {/* Honeypot field - hidden from real users but visible to bots */}
+        <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label htmlFor="name" className="block text-xs mb-1">Your Name *</label>
