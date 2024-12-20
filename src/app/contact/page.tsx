@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -42,7 +41,6 @@ function ContactFormContent() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,16 +54,6 @@ function ContactFormContent() {
     }
 
     try {
-      // Execute reCAPTCHA first
-      if (!recaptchaRef.current) {
-        throw new Error('reCAPTCHA not initialized');
-      }
-
-      const token = await recaptchaRef.current.executeAsync();
-      if (!token) {
-        throw new Error('reCAPTCHA verification failed');
-      }
-
       // Get form values
       const form = formRef.current;
       const formData = new FormData(form);
@@ -88,7 +76,6 @@ function ContactFormContent() {
           : formData.get('phone')?.toString(),
         terms_accepted: true,
         status: 'new',
-        recaptcha_token: token
       };
 
       // Insert the data
@@ -102,7 +89,6 @@ function ContactFormContent() {
 
       setSuccess(true);
       form.reset();
-      recaptchaRef.current.reset();
       setTimeout(() => setSuccess(false), 5000);
       
     } catch (err) {
@@ -137,7 +123,7 @@ function ContactFormContent() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label htmlFor="name" className="block text-xs mb-1">Your Name *</label>
@@ -313,15 +299,6 @@ function ContactFormContent() {
           </label>
         </div>
 
-        <div className="mt-4">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            size="invisible"
-            sitekey="6LeqxKAqAAAAABGXrphrQo9Z8pFpzkcR9dpzk8ld"
-            theme="dark"
-          />
-        </div>
-
         <button
           type="submit"
           disabled={isSubmitting}
@@ -430,7 +407,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Contact Form with reCAPTCHA */}
+            {/* Contact Form */}
             <ContactFormContent />
           </div>
 
