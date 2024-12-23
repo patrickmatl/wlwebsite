@@ -2,6 +2,21 @@
 
 import { motion } from 'framer-motion';
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+  [key: string]: string;
+}
+
+interface Package {
+  name: string;
+  price: string;
+  features: string[];
+  startingFrom?: boolean;
+  perPage?: boolean;
+}
+
 const GraphicDesignPage = () => {
   const commonFeatures = [
     "Final Artwork Supplied In Open File Format",
@@ -14,7 +29,7 @@ const GraphicDesignPage = () => {
     "Quality Control Throughout The Process"
   ];
 
-  const corporateIdentityPacks = [
+  const corporateIdentityPacks: Package[] = [
     {
       name: "Corporate Identity Pack 1",
       price: "R4,160.00",
@@ -53,7 +68,7 @@ const GraphicDesignPage = () => {
     }
   ];
 
-  const logoDesigns = [
+  const logoDesigns: Package[] = [
     {
       name: "Logo Design (2 x Options)",
       price: "R2,080.00",
@@ -95,7 +110,7 @@ const GraphicDesignPage = () => {
     }
   ];
 
-  const businessEssentials = [
+  const businessEssentials: Package[] = [
     {
       name: "Business Card Design",
       price: "R1,040.00",
@@ -139,7 +154,7 @@ const GraphicDesignPage = () => {
     }
   ];
 
-  const printDigitalMedia = [
+  const printDigitalMedia: Package[] = [
     {
       name: "Company Folder",
       price: "R3,230.00",
@@ -262,7 +277,7 @@ const GraphicDesignPage = () => {
     }
   ];
 
-  const extraServices = [
+  const extraServices: Package[] = [
     {
       name: "Extra Design Revisions",
       price: "R520.00",
@@ -275,7 +290,7 @@ const GraphicDesignPage = () => {
     }
   ];
 
-  const renderPackage = (pkg: any) => (
+  const renderPackage = (pkg: Package) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -288,7 +303,7 @@ const GraphicDesignPage = () => {
         {pkg.perPage && " per page"}
       </p>
       <ul className="space-y-2 text-sm text-gray-300 mb-6">
-        {pkg.features.map((feature: string, i: number) => (
+        {pkg.features.map((feature, i) => (
           <li key={i} className="flex items-start">
             <span className="text-[#FFD700] mr-2">•</span>
             {feature}
@@ -304,10 +319,14 @@ const GraphicDesignPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const formObject: Record<string, string> = {};
-    formData.forEach((value, key) => {
-      formObject[key] = value.toString();
-    });
+    const formObject: FormData = {
+      name: formData.get('name')?.toString() || '',
+      email: formData.get('email')?.toString() || '',
+      message: formData.get('message')?.toString() || ''
+    };
+    
+    // Handle form submission
+    console.log('Form submitted:', formObject);
   };
 
   return (
@@ -368,6 +387,26 @@ const GraphicDesignPage = () => {
         <div className="max-w-md mx-auto">
           {extraServices.map(pkg => renderPackage(pkg))}
         </div>
+      </div>
+
+      {/* Contact Form */}
+      <div className="max-w-7xl mx-auto mt-16">
+        <h2 className="text-2xl font-bold text-[#FFD700] mb-8 text-center">Get in Touch</h2>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <div className="mb-6">
+            <label className="block text-gray-300 mb-2" htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" className="w-full p-2 bg-zinc-900 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all" />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-300 mb-2" htmlFor="email">Email:</label>
+            <input type="email" id="email" name="email" className="w-full p-2 bg-zinc-900 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all" />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-300 mb-2" htmlFor="message">Message:</label>
+            <textarea id="message" name="message" className="w-full p-2 bg-zinc-900 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all" />
+          </div>
+          <button type="submit" className="w-full py-2 px-4 bg-[#FFD700] text-black font-semibold rounded hover:bg-[#FFE44D] transition-colors">Submit</button>
+        </form>
       </div>
     </div>
   );

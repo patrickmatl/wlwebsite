@@ -1,29 +1,32 @@
-import { Metadata } from 'next';
-import { servicesMetadata } from '@/lib/metadata';
+import React from 'react';
+import type { Metadata } from 'next';
 
-type ValidServices = keyof typeof servicesMetadata;
-
-export const generateMetadata = ({ params }: { 
-  params: { service?: string } 
-}): Metadata => {
-  if (!params.service) {
-    return {
-      title: 'Services & Pricing | WL Creationx',
-      description: 'Professional web design, development, and digital marketing services at competitive prices.',
-    };
-  }
-
-  const service = params.service as ValidServices;
-  return servicesMetadata[service] || {
-    title: 'Services & Pricing | WL Creationx',
-    description: 'Professional web design, development, and digital marketing services at competitive prices.',
-  };
+// Base metadata that will be used across all pricing pages
+export const metadata: Metadata = {
+  title: 'Services & Pricing | WL Creationx',
+  description: 'Explore our range of digital services and transparent pricing options.',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
+// Simple layout component without params handling
 export default function PricingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-black">
+      {children}
+    </div>
+  );
 }

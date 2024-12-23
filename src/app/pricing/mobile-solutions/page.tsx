@@ -1,11 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaMobileAlt, FaTabletAlt, FaGlobe, FaRocket, FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const MobileSolutionsPage = () => {
@@ -13,7 +12,7 @@ const MobileSolutionsPage = () => {
     {
       name: "Mobile-First Website",
       price: "R16,780.00",
-      icon: <FaMobileAlt className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Our mobile-first website package includes a responsive design, fast loading speed, and basic SEO setup.",
       features: [
         "Mobile-Optimized Design",
@@ -30,7 +29,7 @@ const MobileSolutionsPage = () => {
     {
       name: "Progressive Web App (PWA)",
       price: "R23,890.00",
-      icon: <FaGlobe className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Our PWA package includes offline functionality, push notifications, and home screen installation.",
       features: [
         "Offline Functionality",
@@ -47,7 +46,7 @@ const MobileSolutionsPage = () => {
     {
       name: "Custom Mobile Solution",
       price: "R32,980.00",
-      icon: <FaRocket className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Our custom mobile solution package includes custom functionality, advanced features, and API integration.",
       features: [
         "Custom Functionality",
@@ -122,7 +121,7 @@ const MobileSolutionsPage = () => {
       <div className="max-w-7xl mx-auto mb-16">
         <h2 className="text-2xl font-bold text-[#FFD700] text-center mb-8">Frequently Asked Questions</h2>
         <div className="space-y-6">
-          {serviceFAQs['mobile-solutions'].map((faq: { question: string; answer: string }, index: number) => (
+          {serviceFAQs['mobile-solutions']?.map((faq, index) => (
             <motion.div
               key={faq.question}
               className="bg-neutral-900 rounded-lg p-6"
@@ -133,7 +132,7 @@ const MobileSolutionsPage = () => {
               <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
               <p className="text-neutral-400">{faq.answer}</p>
             </motion.div>
-          ))}
+          )) || []}
         </div>
       </div>
 

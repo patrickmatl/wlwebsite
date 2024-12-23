@@ -1,12 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { sharedViewport } from '../shared-metadata';
+import { sharedViewport } from '@/app/shared-metadata';
 
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Contact Us | WL Creationx',
-  description: 'Get in touch with WL Creationx for all your digital needs. Professional web design, development, and digital marketing services in South Africa.',
+  title: 'Locations | WL Creationx',
+  description: 'Find WL Creationx offices and service areas.',
   robots: {
     index: true,
     follow: true,
@@ -20,10 +20,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactLayout({
+export default function LocationsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-black">
+      {children}
+    </div>
+  );
 }

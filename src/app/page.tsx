@@ -1,12 +1,11 @@
 'use client';
 
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import FAQAccordion from '@/components/FAQ/FAQAccordion';
 import HeroSection from '@/components/HeroSection';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import ServicesSection from '@/components/ServicesSection';
 
 // Simple loading components
 const LoadingHero = () => (
@@ -20,56 +19,40 @@ const LoadingSection = () => (
 // Dynamic imports
 const LogoCarousel = lazy(() => import('@/components/LogoCarousel'));
 const BlogPreview = lazy(() => import('@/components/BlogPreview'));
+const Services = lazy(() => import('@/components/ServicesSection'));
 
-import { useState, useEffect } from 'react';
-
-type PortfolioItem = {
+interface ImageItem {
   src: string;
   alt: string;
-  title: string;
-  category: string;
-};
-
-type ImageItem = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-type ImageCategory = {
-  logo: ImageItem[];
-  packaging: ImageItem[];
-};
+  width?: number;
+  height?: number;
+}
 
 const HomePage = () => {
   const [category, setCategory] = useState<'logo' | 'packaging'>('logo');
   const [debug, setDebug] = useState<string>('');
 
-  const packageImages = [
+  const packageImages = useMemo(() => [
     '/images/packages/Package1.webp',
     '/images/packages/Package2.webp',
     '/images/packages/Package3.webp',
     '/images/packages/Package4.webp',
     '/images/packages/Package5.webp',
     '/images/packages/Package6.webp'
-  ];
+  ], []);
 
-  const logoImages = Array.from({ length: 38 }, (_, i) => `/images/logos/Logo${i + 1}.webp`);
-
-  // Debug function to check image loading
-  const checkImage = (src: string) => {
-    const img = document.createElement('img');
-    img.onload = () => setDebug(prev => prev + `\nLoaded: ${src}`);
-    img.onerror = () => setDebug(prev => prev + `\nError loading: ${src}`);
-    img.src = src;
-  };
+  const logoImages = useMemo(() => Array.from({ length: 38 }, (_, i) => `/images/logos/Logo${i + 1}.webp`), []);
 
   useEffect(() => {
     if (category === 'packaging') {
-      packageImages.forEach(checkImage);
+      packageImages.forEach((src: string) => {
+        const img = document.createElement('img');
+        img.onload = () => setDebug((prev: string) => `${prev}\nLoaded: ${src}`);
+        img.onerror = () => setDebug((prev: string) => `${prev}\nError loading: ${src}`);
+        img.src = src;
+      });
     }
-  }, [category]);
+  }, [category, packageImages, setDebug]);
 
   return (
     <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
@@ -540,7 +523,7 @@ const HomePage = () => {
           >
             {category === 'packaging' ? (
               // Package Images
-              packageImages.map((src, index) => (
+              packageImages.map((src: string, index: number) => (
                 <div 
                   key={src}
                   className="relative group aspect-[354/564] rounded-lg overflow-hidden"
@@ -559,7 +542,7 @@ const HomePage = () => {
               ))
             ) : (
               // Logo Images
-              logoImages.map((src, index) => (
+              logoImages.map((src: string, index: number) => (
                 <div 
                   key={src}
                   className="relative group aspect-square rounded-lg overflow-hidden bg-zinc-900"

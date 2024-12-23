@@ -1,12 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { FaDesktop, FaEnvelope, FaBox, FaCar, FaStore, FaCheck } from 'react-icons/fa';
-import GetInTouchButton from '@/components/GetInTouchButton';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
+import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const MarketingMaterialsPage = () => {
@@ -31,7 +29,7 @@ const MarketingMaterialsPage = () => {
         "Basic Icons & Graphics",
         "PDF Export"
       ],
-      icon: <FaDesktop className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Professional Presentation Package",
@@ -55,7 +53,7 @@ const MarketingMaterialsPage = () => {
         "Speaker Notes",
         "Mobile Optimization"
       ],
-      icon: <FaDesktop className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Enterprise Presentation Package",
@@ -79,7 +77,7 @@ const MarketingMaterialsPage = () => {
         "Presenter Training",
         "Handout Design"
       ],
-      icon: <FaDesktop className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
 
@@ -104,7 +102,7 @@ const MarketingMaterialsPage = () => {
         "Major Email Client Testing",
         "Setup Instructions"
       ],
-      icon: <FaEnvelope className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Professional Email Package",
@@ -126,7 +124,7 @@ const MarketingMaterialsPage = () => {
         "Cross-Platform Testing",
         "Integration Support"
       ],
-      icon: <FaEnvelope className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
 
@@ -151,7 +149,7 @@ const MarketingMaterialsPage = () => {
         "Required Legal Elements",
         "Color Management"
       ],
-      icon: <FaBox className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Premium Packaging Design",
@@ -173,7 +171,7 @@ const MarketingMaterialsPage = () => {
         "Eco-Friendly Options",
         "Production Guidance"
       ],
-      icon: <FaBox className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
 
@@ -198,7 +196,7 @@ const MarketingMaterialsPage = () => {
         "Color Management",
         "Brand Integration"
       ],
-      icon: <FaCar className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Fleet Vehicle Wrap",
@@ -220,7 +218,7 @@ const MarketingMaterialsPage = () => {
         "Maintenance Guide",
         "Brand Guidelines"
       ],
-      icon: <FaCar className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
 
@@ -245,7 +243,7 @@ const MarketingMaterialsPage = () => {
         "Color Management",
         "Brand Integration"
       ],
-      icon: <FaStore className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Complete Signage Package",
@@ -267,7 +265,7 @@ const MarketingMaterialsPage = () => {
         "Installation Planning",
         "Maintenance Guide"
       ],
-      icon: <FaStore className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
 
@@ -329,23 +327,23 @@ const MarketingMaterialsPage = () => {
   const materialTypes = [
     {
       name: "Presentations",
-      icon: <FaDesktop className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Email Templates",
-      icon: <FaEnvelope className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Packaging",
-      icon: <FaBox className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Vehicle Wraps",
-      icon: <FaCar className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Signage",
-      icon: <FaStore className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     }
   ];
 
@@ -354,33 +352,73 @@ const MarketingMaterialsPage = () => {
       {/* Schema.org scripts */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: generateServiceSchema(
-          'Marketing Materials Design',
-          'Professional marketing material design services including presentations, packaging, vehicle wraps, and signage.',
-          [
-            {
-              name: 'Presentation Design Package',
-              description: 'Professional PowerPoint and presentation design services',
-              price: 'Starting from R2,499'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Marketing Materials Design Services",
+            "description": "Professional marketing materials design services including brochures, flyers, business cards, and more.",
+            "provider": {
+              "@type": "Organization",
+              "name": "WL Creationx"
             },
-            {
-              name: 'Packaging Design Package',
-              description: 'Custom product packaging design solutions',
-              price: 'Starting from R3,999'
-            },
-            {
-              name: 'Vehicle Wrap Design',
-              description: 'Professional vehicle wrap and fleet branding design',
-              price: 'Starting from R2,999'
+            "areaServed": "South Africa",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Marketing Materials Design Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Basic Marketing Package",
+                    "description": "Essential marketing materials for small businesses"
+                  },
+                  "price": "4980.00",
+                  "priceCurrency": "ZAR"
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Professional Marketing Package",
+                    "description": "Comprehensive marketing materials for growing businesses"
+                  },
+                  "price": "7890.00",
+                  "priceCurrency": "ZAR"
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Premium Marketing Package",
+                    "description": "Premium marketing materials for established businesses"
+                  },
+                  "price": "12980.00",
+                  "priceCurrency": "ZAR"
+                }
+              ]
             }
-          ]
-        ) }}
+          })
+        }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: generateFAQSchema(faqs) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": serviceFAQs['marketing-materials']?.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            })) || []
+          })
+        }}
       />
-
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
       
@@ -451,27 +489,23 @@ const MarketingMaterialsPage = () => {
       </div>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-neutral-800">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                className="bg-neutral-900 rounded-lg p-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
-                <p className="text-neutral-400">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </div>
+      <div className="mt-20">
+        <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+        <div className="max-w-3xl mx-auto">
+          {serviceFAQs['marketing-materials']?.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="mb-6 p-6 bg-zinc-900 rounded-lg"
+            >
+              <h3 className="text-xl font-semibold mb-2 text-[#FFD700]">{faq.question}</h3>
+              <p className="text-gray-300">{faq.answer}</p>
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </div>
 
       {/* Related Services */}
       <RelatedServices

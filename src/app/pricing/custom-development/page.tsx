@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaCode, FaDatabase, FaCogs, FaCloud, FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
+import { serviceFAQs } from '@/data/serviceFAQs';
 
 const CustomDevelopmentPage = () => {
   const breadcrumbItems = [
@@ -18,7 +18,7 @@ const CustomDevelopmentPage = () => {
     {
       name: "Custom Web Application",
       price: "Starting at R27,980.00",
-      icon: <FaCode className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Custom web application development",
       features: [
         "Custom UI/UX Design",
@@ -35,7 +35,7 @@ const CustomDevelopmentPage = () => {
     {
       name: "Enterprise System",
       price: "Starting at R45,890.00",
-      icon: <FaCogs className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Enterprise system development",
       features: [
         "Complex Business Logic",
@@ -52,7 +52,7 @@ const CustomDevelopmentPage = () => {
     {
       name: "API & Integration",
       price: "Starting at R18,780.00",
-      icon: <FaCloud className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "API and integration development",
       features: [
         "RESTful API Design",
@@ -71,38 +71,21 @@ const CustomDevelopmentPage = () => {
   const technologies = [
     {
       name: "React",
-      icon: <FaCode className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "Node.js",
-      icon: <FaCogs className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "MongoDB",
-      icon: <FaDatabase className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     },
     {
       name: "AWS",
-      icon: <FaCloud className="w-8 h-8 text-[#FFD700]" />
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />
     }
   ];
-
-  const serviceFAQs = {
-    'custom-development': [
-      {
-        question: "What is custom development?",
-        answer: "Custom development is the process of creating software solutions tailored to specific business needs."
-      },
-      {
-        question: "How long does custom development take?",
-        answer: "The duration of custom development varies depending on the complexity of the project."
-      },
-      {
-        question: "What is the cost of custom development?",
-        answer: "The cost of custom development depends on the scope and complexity of the project."
-      }
-    ]
-  };
 
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
@@ -181,7 +164,7 @@ const CustomDevelopmentPage = () => {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {serviceFAQs['custom-development'].map((faq, index) => (
+            {serviceFAQs['custom-development']?.map((faq, index) => (
               <motion.div
                 key={faq.question}
                 className="bg-neutral-900 rounded-lg p-6"
@@ -192,7 +175,7 @@ const CustomDevelopmentPage = () => {
                 <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
                 <p className="text-neutral-400">{faq.answer}</p>
               </motion.div>
-            ))}
+            )) || []}
           </div>
         </div>
       </section>

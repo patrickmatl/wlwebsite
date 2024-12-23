@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 

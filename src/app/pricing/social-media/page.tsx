@@ -1,12 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin, FaCheck, FaPalette, FaImage, FaChartLine } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
-import { servicesMetadata } from '@/lib/metadata';
+import FAQAccordion from '@/components/FAQ/FAQAccordion';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const SocialMediaPage = () => {
@@ -14,7 +13,7 @@ const SocialMediaPage = () => {
     {
       name: "Profile Setup Package",
       price: "From R1,850",
-      icon: <FaPalette className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Professional social media profile setup that establishes your brand presence across platforms with custom design elements and strategy.",
       specifications: [
         "Platforms: Instagram, Facebook, Twitter, LinkedIn",
@@ -52,7 +51,7 @@ const SocialMediaPage = () => {
     {
       name: "Post Templates Package",
       price: "From R1,250",
-      icon: <FaImage className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Professional post template package with versatile designs for consistent brand communication.",
       specifications: [
         "Format: All Platform Sizes",
@@ -90,7 +89,7 @@ const SocialMediaPage = () => {
     {
       name: "Story Templates Package",
       price: "From R950",
-      icon: <FaInstagram className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Engaging story templates designed for maximum impact with interactive elements and brand integration.",
       specifications: [
         "Size: All Platform Story Sizes",
@@ -130,7 +129,7 @@ const SocialMediaPage = () => {
     {
       name: "Essential Social Package",
       price: "R3,500/month",
-      icon: <FaChartLine className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Perfect for small businesses looking to establish and maintain a professional social media presence.",
       specifications: [
         "Posts: 12 Per Month",
@@ -167,7 +166,7 @@ const SocialMediaPage = () => {
     {
       name: "Professional Social Package",
       price: "R5,500/month",
-      icon: <FaChartLine className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Comprehensive social media management for growing businesses seeking active engagement and growth.",
       specifications: [
         "Posts: 20 Per Month",
@@ -204,7 +203,7 @@ const SocialMediaPage = () => {
     {
       name: "Premium Social Package",
       price: "R8,500/month",
-      icon: <FaChartLine className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Elite social media management for businesses requiring comprehensive coverage and maximum engagement.",
       specifications: [
         "Posts: 30+ Per Month",
@@ -244,22 +243,22 @@ const SocialMediaPage = () => {
   const platforms = [
     {
       name: "Instagram",
-      icon: <FaInstagram className="w-6 h-6" />,
+      icon: <FaCheck className="w-6 h-6" />,
       description: "Visual content and stories"
     },
     {
       name: "Facebook",
-      icon: <FaFacebook className="w-6 h-6" />,
+      icon: <FaCheck className="w-6 h-6" />,
       description: "Community engagement"
     },
     {
       name: "Twitter",
-      icon: <FaTwitter className="w-6 h-6" />,
+      icon: <FaCheck className="w-6 h-6" />,
       description: "Real-time updates"
     },
     {
       name: "LinkedIn",
-      icon: <FaLinkedin className="w-6 h-6" />,
+      icon: <FaCheck className="w-6 h-6" />,
       description: "Professional networking"
     }
   ];
@@ -291,31 +290,8 @@ const SocialMediaPage = () => {
     { label: 'Social Media', href: '/pricing/social-media' }
   ];
 
-  // Generate Schema.org markup
-  const serviceSchema = generateServiceSchema(
-    'Social Media Services',
-    'Professional social media management and content creation services to build and grow your brand presence.',
-    [...packages, ...monthlyPackages].map(pkg => ({
-      name: pkg.name,
-      description: pkg.description,
-      price: pkg.price
-    }))
-  );
-
-  const faqSchema = generateFAQSchema(serviceFAQs['social-media']);
-
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* Schema.org scripts */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serviceSchema }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: faqSchema }}
-      />
-
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
       

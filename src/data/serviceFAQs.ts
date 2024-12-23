@@ -42,6 +42,26 @@ export const serviceFAQs: Record<string, FAQ[]> = {
   ],
   'google-ads': [
     {
+      question: "What does your Google Ads service include?",
+      answer: "Our Google Ads service includes campaign strategy development, keyword research, ad copy creation, landing page optimization, conversion tracking setup, and monthly performance reports."
+    },
+    {
+      question: "How long does it take to see results?",
+      answer: "While initial results can be seen within days, optimal campaign performance typically develops over 2-3 months as we gather data and optimize your campaigns."
+    },
+    {
+      question: "Do you provide regular reporting?",
+      answer: "Yes, we provide detailed monthly reports covering key metrics like impressions, clicks, conversions, and ROI, along with strategic recommendations."
+    },
+    {
+      question: "Can you work with my existing Google Ads account?",
+      answer: "Yes, we can either optimize your existing account or create a new one based on your needs and previous performance data."
+    },
+    {
+      question: "What budget do you recommend for Google Ads?",
+      answer: "The recommended budget varies based on your industry, competition, and goals. We'll help you determine an optimal budget during our initial consultation."
+    },
+    {
       question: "How do you measure campaign success?",
       answer: "We track key metrics including ROI, conversion rates, click-through rates, and cost per acquisition to measure campaign performance."
     },
@@ -66,20 +86,48 @@ export const serviceFAQs: Record<string, FAQ[]> = {
     {
       question: "Do you offer rush services?",
       answer: "Yes, we offer expedited services for urgent projects at an additional fee."
+    },
+    {
+      question: "What graphic design services do you offer?",
+      answer: "We offer a comprehensive range of graphic design services including logo design, branding, marketing materials, social media graphics, packaging design, and more."
+    },
+    {
+      question: "How long does a typical graphic design project take?",
+      answer: "Project timelines vary based on complexity. Logo design typically takes 1-2 weeks, while complete branding packages may take 3-4 weeks."
+    },
+    {
+      question: "Do you provide source files after project completion?",
+      answer: "Yes, we provide all necessary source files in various formats suitable for both print and digital use."
+    },
+    {
+      question: "How many revisions are included in your design process?",
+      answer: "Our standard packages include up to 3 revision rounds. Additional revisions can be arranged if needed."
+    },
+    {
+      question: "Can you work with existing brand guidelines?",
+      answer: "Yes, we can work within your existing brand guidelines to ensure consistency across all design materials."
     }
   ],
   'marketing-materials': [
     {
-      question: "What types of marketing materials do you create?",
-      answer: "We design brochures, flyers, business cards, banners, posters, presentations, and any other marketing collateral you need."
+      question: "What types of marketing materials do you design?",
+      answer: "We design a wide range of marketing materials including presentations, email templates, brochures, flyers, business cards, banners, and more."
     },
     {
-      question: "Do you handle printing?",
-      answer: "Yes, we can manage the printing process with our trusted print partners to ensure quality results."
+      question: "How long does it take to complete a marketing materials project?",
+      answer: "Project timelines vary based on complexity and type. Basic designs typically take 2-3 days, while more complex projects may take 5-7 days."
     },
     {
-      question: "Can you work with existing brand guidelines?",
-      answer: "Absolutely, we ensure all materials align with your existing brand guidelines and visual identity."
+      question: "Do you provide print-ready files?",
+      answer: "Yes, we provide print-ready files in various formats suitable for both digital and physical printing."
+    },
+    {
+      question: "Can you work with my existing brand guidelines?",
+      answer: "Yes, we ensure all marketing materials align with your existing brand guidelines for consistency."
+    },
+    {
+      question: "Do you offer rush services?",
+      answer: "Yes, we offer expedited services for urgent projects at an additional fee."
     }
   ],
   'mobile-solutions': [

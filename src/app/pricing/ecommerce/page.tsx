@@ -1,11 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaShoppingCart, FaStore, FaCreditCard, FaBox, FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const EcommercePage = () => {
@@ -19,7 +18,7 @@ const EcommercePage = () => {
     {
       name: "Basic E-Commerce Package",
       price: "R19,780.00",
-      icon: <FaStore className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Up to 50 Products",
         "Basic Payment Gateway Integration",
@@ -35,7 +34,7 @@ const EcommercePage = () => {
     {
       name: "Advanced E-Commerce Package",
       price: "R23,690.00",
-      icon: <FaShoppingCart className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Unlimited Products",
         "Multiple Payment Gateways",
@@ -51,7 +50,7 @@ const EcommercePage = () => {
     {
       name: "Premium E-Commerce Package",
       price: "R27,980.00",
-      icon: <FaCreditCard className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Unlimited Products",
         "Multi-Currency Support",
@@ -71,19 +70,19 @@ const EcommercePage = () => {
       name: "Payment Gateway Integration",
       price: "R2,580.00",
       description: "Additional payment gateway integration (per gateway)",
-      icon: <FaCreditCard className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Inventory Management System",
       price: "R4,890.00",
       description: "Advanced inventory tracking and management system",
-      icon: <FaBox className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     },
     {
       name: "Custom Features",
       price: "Starting at R3,500.00",
       description: "Custom functionality based on your specific needs",
-      icon: <FaStore className="w-6 h-6 text-[#FFD700]" />
+      icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     }
   ];
 
@@ -156,7 +155,7 @@ const EcommercePage = () => {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {serviceFAQs['ecommerce'].map((faq: { question: string; answer: string }, index: number) => (
+            {serviceFAQs['ecommerce']?.map((faq, index) => (
               <motion.div
                 key={faq.question}
                 className="bg-neutral-900 rounded-lg p-6"
@@ -167,7 +166,7 @@ const EcommercePage = () => {
                 <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
                 <p className="text-neutral-400">{faq.answer}</p>
               </motion.div>
-            ))}
+            )) || []}
           </div>
         </div>
       </section>

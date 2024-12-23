@@ -19,10 +19,6 @@ interface MenuItem {
   }[];
 }
 
-interface MegaMenuProps {
-  items: MenuItem[];
-}
-
 const menuItems: MenuItem[] = [
   {
     label: 'Home',

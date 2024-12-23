@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import Navigation from './Navigation/Navigation';
+import MainNav from './Navigation/MainNav';
 import PerformanceOptimizer from './Performance/PerformanceOptimizer';
 
 // Dynamically import CustomCursor with no SSR
@@ -30,7 +30,7 @@ export default function RootClientWrapper({
   if (!isClient) {
     return (
       <div className={`${spaceGrotesk.variable} ${syne.variable}`}>
-        <Navigation />
+        <MainNav />
         {children}
       </div>
     );
@@ -40,7 +40,7 @@ export default function RootClientWrapper({
     <PerformanceOptimizer>
       <div className={`${spaceGrotesk.variable} ${syne.variable}`}>
         <CustomCursor />
-        <Navigation />
+        <MainNav />
         {children}
       </div>
     </PerformanceOptimizer>

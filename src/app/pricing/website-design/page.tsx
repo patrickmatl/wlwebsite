@@ -1,13 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaCheck, FaDesktop, FaMobileAlt, FaSearch, FaShieldAlt, FaSpinner } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
-import { servicesMetadata } from '@/lib/metadata';
-import { serviceFAQs } from '@/lib/faqs';
+import { serviceFAQs } from '@/data/serviceFAQs';
 
 const WebsiteDesignPage = () => {
   const breadcrumbItems = [
@@ -20,7 +18,7 @@ const WebsiteDesignPage = () => {
     {
       name: "3 Page Custom Website",
       price: "R8,980.00",
-      icon: <FaDesktop className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "3 Custom Pages",
         "Mobile Responsive Design",
@@ -36,7 +34,7 @@ const WebsiteDesignPage = () => {
     {
       name: "6 Page Custom Website",
       price: "R14,780.00",
-      icon: <FaMobileAlt className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "6 Custom Pages",
         "Mobile Responsive Design",
@@ -52,7 +50,7 @@ const WebsiteDesignPage = () => {
     {
       name: "9 Page Custom Website",
       price: "R17,420.00",
-      icon: <FaSearch className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "9 Custom Pages",
         "Mobile Responsive Design",
@@ -68,7 +66,7 @@ const WebsiteDesignPage = () => {
     {
       name: "Catalog Website",
       price: "R19,780.00",
-      icon: <FaSpinner className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Up to 50 Products",
         "Product Categories",
@@ -84,7 +82,7 @@ const WebsiteDesignPage = () => {
     {
       name: "E-Commerce Website",
       price: "R23,690.00",
-      icon: <FaShieldAlt className="w-8 h-8 text-[#FFD700]" />,
+      icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Unlimited Products",
         "Payment Gateway Integration",
@@ -138,31 +136,8 @@ const WebsiteDesignPage = () => {
     }
   ];
 
-  // Generate Schema.org markup
-  const serviceSchema = generateServiceSchema(
-    'Website Design Services',
-    'Professional website design and development services tailored to your business needs.',
-    packages.map(pkg => ({
-      name: pkg.name,
-      description: pkg.features.join(', '),
-      price: pkg.price
-    }))
-  );
-
-  const faqSchema = generateFAQSchema(serviceFAQs['website-design']);
-
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* Schema.org scripts */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serviceSchema }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: faqSchema }}
-      />
-
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 
@@ -238,7 +213,7 @@ const WebsiteDesignPage = () => {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {serviceFAQs['website-design'].map((faq, index) => (
+            {serviceFAQs['website-design']?.map((faq, index) => (
               <motion.div
                 key={faq.question}
                 className="bg-neutral-900 rounded-lg p-6"
@@ -249,7 +224,7 @@ const WebsiteDesignPage = () => {
                 <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
                 <p className="text-neutral-400">{faq.answer}</p>
               </motion.div>
-            ))}
+            )) || []}
           </div>
         </div>
       </section>

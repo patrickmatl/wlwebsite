@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import PortfolioItem from '@/components/PortfolioItem';
 import PortfolioModal from '@/components/PortfolioModal';
 
 // Generate array of logo paths with SEO-optimized descriptions

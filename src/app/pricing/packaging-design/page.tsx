@@ -171,7 +171,7 @@ const PackagingDesignPage = () => {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {serviceFAQs['packaging-design'].map((faq: { question: string; answer: string }, index: number) => (
+            {serviceFAQs['packaging-design']?.map((faq, index) => (
               <motion.div
                 key={faq.question}
                 className="bg-neutral-900 rounded-lg p-6"
@@ -182,7 +182,7 @@ const PackagingDesignPage = () => {
                 <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
                 <p className="text-neutral-400">{faq.answer}</p>
               </motion.div>
-            ))}
+            )) || []}
           </div>
         </div>
       </section>
