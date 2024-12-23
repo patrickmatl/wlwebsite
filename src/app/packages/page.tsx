@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import PackageCard from '@/components/PackageCard';
@@ -8,17 +10,20 @@ const PackagesPage = () => {
     {
       name: "Basic Logo",
       price: "R650",
+      period: "",
       features: [
         "1 Initial Concept",
         "2 Revision Rounds",
         "High Resolution Files",
         "Basic Source Files",
         "3-5 Day Delivery"
-      ]
+      ],
+      popular: false
     },
     {
       name: "Professional Logo",
       price: "R1,500",
+      period: "",
       features: [
         "2 Initial Concepts",
         "3 Revision Rounds",
@@ -26,11 +31,13 @@ const PackagesPage = () => {
         "Source Files (AI, EPS, PDF)",
         "Social Media Formats",
         "2-3 Day Delivery"
-      ]
+      ],
+      popular: true
     },
     {
       name: "Premium Logo",
       price: "R3,500",
+      period: "",
       features: [
         "5 Initial Concepts",
         "Unlimited Revisions",
@@ -39,169 +46,64 @@ const PackagesPage = () => {
         "Social Media Kit",
         "Business Card Design",
         "24-48 Hour Delivery"
-      ]
+      ],
+      popular: false
     }
   ];
 
   const webPackages = [
     {
       name: "3 Page Custom Website",
-      price: "R8,980.00",
+      price: "R8,980",
+      period: "",
       features: [
         "1 x Custom Design To Choose From",
-        "2 x Free Design Revision Rounds",
-        "2 x Free Content Revision Rounds",
-        "3 x Static Pages",
-        "Fully Mobile Responsive",
-        "Google Friendly (SEO)",
-        "Enquiry Form",
-        "Google Map",
-        "Moving Banner",
-        "Pop Up Image Gallery",
-        "Video Gallery",
-        "WhatsApp Quick Chat",
-        "Social Media Buttons",
-        "Basic SEO & Google Index",
-        "Manage Own Content",
-        "Website Editing Training",
-        "Standard Scroll Animations",
-        "Upgrade with Add On options",
-        "Add Extra Pages",
-        "Add POPIA Compliancy @ R1,350"
-      ]
+        "3 Pages (Home, About, Contact)",
+        "Mobile Responsive Design",
+        "Basic SEO Setup",
+        "Contact Form",
+        "Social Media Integration",
+        "Google Maps Integration",
+        "2 Weeks Delivery"
+      ],
+      popular: false
     },
     {
-      name: "6 Page Custom Website",
-      price: "R14,780.00",
+      name: "5 Page Custom Website",
+      price: "R12,980",
+      period: "",
       features: [
         "2 x Custom Designs To Choose From",
-        "2 x Free Design Revision Rounds",
-        "2 x Free Content Revision Rounds",
-        "6 x Static Pages",
-        "Fully Mobile Responsive",
-        "Google Friendly (SEO)",
-        "Enquiry Form",
-        "Google Map",
-        "Moving Banner",
-        "Pop Up Image Gallery",
-        "Video Gallery",
-        "Interactive Blog",
+        "5 Pages (Home, About, Services, Blog, Contact)",
+        "Mobile Responsive Design",
+        "Advanced SEO Setup",
+        "Contact Form with File Upload",
         "Social Media Integration",
-        "WhatsApp Quick Chat",
-        "Social Media Buttons",
-        "Basic SEO & Google Index",
-        "Manage Own Content",
-        "Website Editing Training",
-        "Standard Scroll Animations",
-        "Upgrade with Add On options",
-        "Add Extra Pages",
-        "Add POPIA Compliancy @ R1,350"
-      ]
+        "Google Maps Integration",
+        "Google Analytics Setup",
+        "Basic Security Features",
+        "3 Weeks Delivery"
+      ],
+      popular: true
     },
     {
-      name: "9 Page Custom Website",
-      price: "R17,420.00",
+      name: "8 Page Custom Website",
+      price: "R18,980",
+      period: "",
       features: [
-        "2 x Custom Designs To Choose From",
-        "2 x Free Design Revision Rounds",
-        "2 x Free Content Revision Rounds",
-        "9 x Static Pages",
-        "Fully Mobile Responsive",
-        "Google Friendly (SEO)",
-        "Enquiry Form",
-        "Google Map",
-        "Moving Banner",
-        "Pop Up Image Gallery",
-        "Video Gallery",
-        "Interactive Blog",
+        "3 x Custom Designs To Choose From",
+        "8 Pages (Custom Structure)",
+        "Mobile Responsive Design",
+        "Premium SEO Setup",
+        "Advanced Contact Forms",
         "Social Media Integration",
-        "Mailchimp Newsletter Integration",
-        "WhatsApp Quick Chat",
-        "Social Media Buttons",
-        "Basic SEO & Google Index",
-        "Manage Own Content",
-        "Website Editing Training",
-        "Standard Scroll Animations",
-        "Upgrade with Add On options",
-        "Add Extra Pages",
-        "Add POPIA Compliancy @ R1,350"
-      ]
-    },
-    {
-      name: "Catalog Website",
-      price: "R19,780.00",
-      features: [
-        "Perfect to display products without interaction",
-        "Includes Enquiry Form per Product",
-        "Custom Designed Template",
-        "2 x Designs To Choose From",
-        "2 x Free Design Revision Rounds",
-        "2 x Free Content Revision Rounds",
-        "Google Friendly (SEO)",
-        "Fully Mobile Responsive",
-        "Moving Product Banner",
-        "Enquire About Products",
-        "Product Categories",
-        "Products with Descriptions",
-        "9 x Products Preloaded Free",
-        "Add Unlimited Products",
-        "Product Image & Video Gallery",
-        "PDF Downloads",
-        "Enquiry Form",
-        "WhatsApp Quick Chat System",
-        "Mail Chimp Newsletter Integration",
-        "Catalog Content Update Training",
-        "Interactive Blog",
-        "Image & Video Gallery",
-        "3 x Static Content Pages",
-        "Includes T/C Page",
-        "Social Media Sharing",
-        "Social Media Icons",
-        "Standard Scroll Animations",
-        "Excludes Advanced / Subscription Plugins but can be Quoted for",
-        "Upgrade with Add On options",
-        "Add Extra Pages",
-        "Add POPIA Compliancy @ R1,350"
-      ]
-    },
-    {
-      name: "E-Commerce Website",
-      price: "R23,690.00",
-      features: [
-        "Stand Alone Online Shop",
-        "Product Basket / Checkout System",
-        "Custom Designed Template",
-        "2 x Designs To Choose From",
-        "2 x Free Design Revision Rounds",
-        "2 x Free Content Revision Rounds",
-        "Google Friendly (SEO)",
-        "Fully Mobile Responsive",
-        "Moving Product Banner",
-        "Full E-commerce Functions",
-        "Product Categories",
-        "Products with Descriptions",
-        "9 x Products Preloaded Free",
-        "Add Unlimited Products",
-        "Electronic Payments",
-        "Sales Reports",
-        "Discount Coupon System",
-        "PDF Downloads",
-        "Product Image & Video Gallery",
-        "Enquiry Form",
-        "Mail Chimp Integration",
-        "Manage Shop Training",
-        "Interactive Blog",
-        "Image & Video Gallery Integration",
-        "3 x Static Pages",
-        "Extra T/C Page",
-        "Social Media Sharing",
-        "WhatsApp Quick Chat System",
-        "Standard Scroll Animations",
-        "Excludes Advanced / Subscription Plugins but can be Quoted for",
-        "Upgrade with Add On options",
-        "Add Extra Pages",
-        "Add POPIA Compliancy @ R1,350"
-      ]
+        "Google Maps Integration",
+        "Google Analytics Setup",
+        "Advanced Security Features",
+        "Custom Features Integration",
+        "4 Weeks Delivery"
+      ],
+      popular: false
     }
   ];
 
@@ -240,8 +142,8 @@ const PackagesPage = () => {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {logoPackages.map((pkg, index) => (
-              <PackageCard key={pkg.name} pkg={pkg} index={index} />
+            {logoPackages.map((pkg) => (
+              <PackageCard key={pkg.name} {...pkg} />
             ))}
           </div>
         </div>
@@ -258,8 +160,8 @@ const PackagesPage = () => {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {webPackages.map((pkg, index) => (
-              <PackageCard key={pkg.name} pkg={pkg} index={index} />
+            {webPackages.map((pkg) => (
+              <PackageCard key={pkg.name} {...pkg} />
             ))}
           </div>
         </div>
@@ -317,7 +219,9 @@ const PackagesPage = () => {
                   "Brand Style Guide",
                   "Email Signature",
                   "4 Weeks Delivery"
-                ]
+                ],
+                period: "",
+                popular: false
               },
               {
                 name: "Professional Brand Package",
@@ -331,7 +235,9 @@ const PackagesPage = () => {
                   "Marketing Materials",
                   "Email Templates",
                   "6 Weeks Delivery"
-                ]
+                ],
+                period: "",
+                popular: true
               },
               {
                 name: "Enterprise Brand Package",
@@ -346,10 +252,12 @@ const PackagesPage = () => {
                   "Video Intro Animation",
                   "Email Marketing Setup",
                   "8 Weeks Delivery"
-                ]
+                ],
+                period: "",
+                popular: false
               }
-            ].map((pkg, index) => (
-              <PackageCard key={pkg.name} pkg={pkg} index={index} />
+            ].map((pkg) => (
+              <PackageCard key={pkg.name} {...pkg} />
             ))}
           </div>
         </div>

@@ -11,37 +11,35 @@ const menuItems = [
     href: '/pricing', 
     label: 'Services & Pricing',
     subItems: [
-      { 
-        href: '/pricing/website-design', 
-        label: 'Website Design'
+      {
+        label: 'Web Services',
+        items: [
+          { href: '/pricing/website-design', label: 'Website Design' },
+          { href: '/pricing/ecommerce', label: 'E-commerce' },
+          { href: '/pricing/custom-development', label: 'Custom Development' },
+          { href: '/pricing/website-maintenance', label: 'Website Maintenance' },
+          { href: '/pricing/mobile-solutions', label: 'Mobile Solutions' }
+        ]
       },
-      { 
-        href: '/pricing/graphic-design', 
-        label: 'Graphic Design'
+      {
+        label: 'Design Services',
+        items: [
+          { href: '/pricing/graphic-design', label: 'Graphic Design' },
+          { href: '/pricing/brand-identity', label: 'Brand Identity' },
+          { href: '/pricing/print-design', label: 'Print Design' },
+          { href: '/pricing/packaging-design', label: 'Packaging Design' },
+          { href: '/pricing/marketing-materials', label: 'Marketing Materials' }
+        ]
       },
-      { 
-        href: '/pricing/print-design', 
-        label: 'Print Media'
-      },
-      { 
-        href: '/pricing/marketing-materials', 
-        label: 'Marketing Materials'
-      },
-      { 
-        href: '/pricing/packaging-design', 
-        label: 'Packaging Design'
-      },
-      { 
-        href: '/pricing/social-media', 
-        label: 'Social Media'
-      },
-      { 
-        href: '/pricing/google-ads', 
-        label: 'Digital Marketing'
-      },
-      { 
-        href: '/pricing/custom-development', 
-        label: 'Custom Development'
+      {
+        label: 'Marketing Services',
+        items: [
+          { href: '/pricing/seo', label: 'SEO Services' },
+          { href: '/pricing/google-ads', label: 'Google Ads' },
+          { href: '/pricing/social-media', label: 'Social Media Marketing' },
+          { href: '/pricing/content-marketing', label: 'Content Marketing' },
+          { href: '/pricing/email-marketing', label: 'Email Marketing' }
+        ]
       }
     ]
   },
@@ -54,6 +52,7 @@ const menuItems = [
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -64,6 +63,11 @@ const Navigation = () => {
 
   const handleSubmenuClick = (label: string) => {
     setOpenSubmenu(openSubmenu === label ? null : label);
+    setOpenCategory(null);
+  };
+
+  const handleCategoryClick = (label: string) => {
+    setOpenCategory(openCategory === label ? null : label);
   };
 
   return (
@@ -136,16 +140,43 @@ const Navigation = () => {
                               transition={{ duration: 0.3 }}
                               className="overflow-hidden"
                             >
-                              <div className="bg-zinc-900/50 rounded-lg p-4 space-y-3">
-                                {item.subItems.map((subItem) => (
-                                  <Link
-                                    key={subItem.href}
-                                    href={subItem.href}
-                                    className="block text-lg font-syne text-white/60 hover:text-[#FFD700] transition-colors duration-300 pl-4 border-l-2 border-[#FFD700]/20 hover:border-[#FFD700]"
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    {subItem.label}
-                                  </Link>
+                              <div className="bg-zinc-900/50 rounded-lg p-4 space-y-4">
+                                {item.subItems.map((category) => (
+                                  <div key={category.label} className="space-y-2">
+                                    <button
+                                      onClick={() => handleCategoryClick(category.label)}
+                                      className="w-full flex items-center justify-between text-xl font-syne text-[#FFD700] transition-colors duration-300"
+                                    >
+                                      <span>{category.label}</span>
+                                      <FaChevronDown
+                                        className={`transform transition-transform duration-300 ${
+                                          openCategory === category.label ? 'rotate-180' : ''
+                                        }`}
+                                      />
+                                    </button>
+                                    <AnimatePresence>
+                                      {openCategory === category.label && (
+                                        <motion.div
+                                          initial={{ opacity: 0, height: 0 }}
+                                          animate={{ opacity: 1, height: 'auto' }}
+                                          exit={{ opacity: 0, height: 0 }}
+                                          transition={{ duration: 0.3 }}
+                                          className="space-y-2 pl-4"
+                                        >
+                                          {category.items.map((subItem) => (
+                                            <Link
+                                              key={subItem.href}
+                                              href={subItem.href}
+                                              className="block text-lg font-syne text-white/60 hover:text-[#FFD700] transition-colors duration-300 pl-4 border-l-2 border-[#FFD700]/20 hover:border-[#FFD700]"
+                                              onClick={() => setIsOpen(false)}
+                                            >
+                                              {subItem.label}
+                                            </Link>
+                                          ))}
+                                        </motion.div>
+                                      )}
+                                    </AnimatePresence>
+                                  </div>
                                 ))}
                               </div>
                             </motion.div>

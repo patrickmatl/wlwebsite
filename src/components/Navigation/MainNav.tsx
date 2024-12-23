@@ -1,9 +1,101 @@
 'use client';
 
-import MegaMenu from './MegaMenu';
+import { useState } from 'react';
+import Link from 'next/link';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const MainNav = () => {
-  return <MegaMenu />;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    {
+      label: 'Services',
+      href: '/pricing',
+      subItems: [
+        { label: 'SEO Services', href: '/pricing/seo' },
+        { label: 'Content Marketing', href: '/pricing/content-marketing' },
+        { label: 'Email Marketing', href: '/pricing/email-marketing' },
+        { label: 'Marketing Materials', href: '/pricing/marketing-materials' }
+      ]
+    },
+    { label: 'Contact', href: '/contact' }
+  ];
+
+  return (
+    <nav className="relative z-50">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-zinc-900/90 text-white hover:bg-zinc-800 transition-colors"
+      >
+        {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+      </button>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-0 bg-black/95 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        } md:hidden`}
+      >
+        <div className="flex flex-col items-center justify-center h-full">
+          {navItems.map((item) => (
+            <div key={item.label} className="relative group py-4">
+              <Link
+                href={item.href}
+                className="text-2xl text-white hover:text-[#FFD700] transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
+              </Link>
+              {item.subItems && (
+                <div className="mt-2 space-y-2">
+                  {item.subItems.map((subItem) => (
+                    <Link
+                      key={subItem.label}
+                      href={subItem.href}
+                      className="block text-lg text-white/80 hover:text-[#FFD700] transition-colors pl-4"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {subItem.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Menu */}
+      <div className="hidden md:flex items-center justify-end space-x-8 p-4">
+        {navItems.map((item) => (
+          <div key={item.label} className="relative group">
+            <Link
+              href={item.href}
+              className="text-white hover:text-[#FFD700] transition-colors"
+            >
+              {item.label}
+            </Link>
+            {item.subItems && (
+              <div className="absolute left-0 mt-2 w-48 bg-zinc-900/95 rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                {item.subItems.map((subItem) => (
+                  <Link
+                    key={subItem.label}
+                    href={subItem.href}
+                    className="block px-4 py-2 text-white hover:text-[#FFD700] hover:bg-zinc-800/50 transition-colors"
+                  >
+                    {subItem.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </nav>
+  );
 };
 
 export default MainNav;

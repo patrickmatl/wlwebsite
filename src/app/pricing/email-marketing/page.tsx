@@ -5,57 +5,57 @@ import PackageCard from '@/components/PackageCard';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 
-export default function MarketingMaterialsPage() {
+export default function EmailMarketingPage() {
   const packages = [
     {
-      name: 'Essential Materials',
-      price: 'R3,850',
-      period: '',
+      name: 'Essential Email',
+      price: 'R2,850',
+      period: '/month',
       features: [
-        'Business Card Design',
-        'Letterhead Design',
-        'Email Signature',
-        'Social Media Templates',
-        'Basic Brand Guidelines',
-        'Source Files',
-        '2 Revision Rounds',
-        '1 Week Delivery'
+        '2 Email Campaigns per Month',
+        'List Management',
+        'Basic Automation',
+        'Template Design',
+        'Performance Tracking',
+        'A/B Testing',
+        'Subscriber Segmentation',
+        'Basic Analytics'
       ],
       popular: false
     },
     {
-      name: 'Professional Materials',
-      price: 'R7,850',
-      period: '',
+      name: 'Professional Email',
+      price: 'R6,850',
+      period: '/month',
       features: [
-        'Business Card Design',
-        'Letterhead & Envelope',
-        'Email Signature',
-        'Social Media Kit',
-        'Presentation Template',
-        'Brochure Design',
-        'Brand Guidelines',
-        'Source Files',
-        '3 Revision Rounds',
-        '2 Weeks Delivery'
+        '4 Email Campaigns per Month',
+        'Advanced List Management',
+        'Marketing Automation',
+        'Custom Template Design',
+        'Advanced Analytics',
+        'Lead Scoring',
+        'Dynamic Content',
+        'Integration Setup',
+        'Monthly Strategy Calls',
+        'Priority Support'
       ],
       popular: true
     },
     {
-      name: 'Enterprise Materials',
-      price: 'R15,850',
-      period: '',
+      name: 'Enterprise Email',
+      price: 'R12,850',
+      period: '/month',
       features: [
-        'Complete Stationery Set',
-        'Social Media Kit',
-        'Presentation Templates',
-        'Brochure & Flyers',
-        'Banner Designs',
-        'Vehicle Branding',
-        'Signage Design',
-        'Brand Style Guide',
-        'All Source Files',
-        'Unlimited Revisions'
+        '8 Email Campaigns per Month',
+        'Premium List Management',
+        'Complex Automation Flows',
+        'Multiple Custom Templates',
+        'Advanced Segmentation',
+        'Predictive Analytics',
+        'CRM Integration',
+        'Landing Pages',
+        'Weekly Strategy Calls',
+        'Dedicated Support'
       ],
       popular: false
     }
@@ -63,14 +63,14 @@ export default function MarketingMaterialsPage() {
 
   const additionalServices = [
     {
-      name: 'Single Item Design',
-      price: 'From R850',
-      description: 'Custom design for a single marketing item'
+      name: 'One-Time Campaign',
+      price: 'From R950',
+      description: 'Single email campaign design and execution'
     },
     {
-      name: 'Print Management',
-      price: 'From R1,850',
-      description: 'Professional printing coordination and quality control'
+      name: 'Automation Setup',
+      price: 'From R2,850',
+      description: 'Custom email automation workflow setup'
     }
   ];
 
@@ -79,15 +79,15 @@ export default function MarketingMaterialsPage() {
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
         <Breadcrumb items={[
           { label: 'Services & Pricing', href: '/pricing' },
-          { label: 'Marketing Materials', href: '/pricing/marketing-materials' }
+          { label: 'Email Marketing', href: '/pricing/email-marketing' }
         ]} />
         
         <h1 className="text-4xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000] mt-8 mb-4">
-          Marketing Materials
+          Email Marketing Services
         </h1>
         
         <p className="text-center text-xl mb-12 text-white/80">
-          Professional marketing materials that help your business make a lasting impression.
+          Build lasting relationships with your audience through targeted email campaigns.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -113,31 +113,31 @@ export default function MarketingMaterialsPage() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-8 text-[#FFD700]">Our Design Process</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-[#FFD700]">Our Email Process</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Discovery & Design</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Strategy & Setup</h3>
               <ul className="space-y-2 text-white/80">
-                <li>• Brand Analysis</li>
-                <li>• Concept Development</li>
-                <li>• Design Creation</li>
-                <li>• Client Review</li>
+                <li>• List Building</li>
+                <li>• Audience Segmentation</li>
+                <li>• Template Design</li>
+                <li>• Automation Planning</li>
               </ul>
             </div>
             <div className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Refinement & Delivery</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Execution & Analysis</h3>
               <ul className="space-y-2 text-white/80">
-                <li>• Revisions</li>
-                <li>• Final Approval</li>
-                <li>• File Preparation</li>
-                <li>• Quality Control</li>
+                <li>• Campaign Creation</li>
+                <li>• A/B Testing</li>
+                <li>• Performance Tracking</li>
+                <li>• Optimization</li>
               </ul>
             </div>
           </div>
         </section>
 
         <RelatedServices
-          currentService="Marketing Materials"
+          currentService="Email Marketing"
           services={[
             {
               title: 'Content Marketing',
@@ -146,10 +146,10 @@ export default function MarketingMaterialsPage() {
               anchor: 'View Content Marketing'
             },
             {
-              title: 'Email Marketing',
-              description: 'Build lasting relationships with your audience through targeted campaigns.',
-              href: '/pricing/email-marketing',
-              anchor: 'View Email Marketing'
+              title: 'SEO Services',
+              description: 'Improve your search engine rankings and drive organic traffic.',
+              href: '/pricing/seo',
+              anchor: 'View SEO Services'
             }
           ]}
         />
