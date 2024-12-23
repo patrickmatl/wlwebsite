@@ -228,7 +228,7 @@ export default function HeroSection({
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href="/packages"
+                href="/pricing"
                 className="group relative px-8 py-3 min-w-[200px] overflow-hidden rounded-lg bg-gradient-to-r from-[#FFD700] to-[#FDB900] transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />

@@ -3,19 +3,57 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa';
 
 const menuItems = [
   { href: '/', label: 'Home' },
-  { href: '/packages', label: 'Packages' },
+  { 
+    href: '/pricing', 
+    label: 'Services & Pricing',
+    subItems: [
+      { 
+        href: '/pricing/website-design', 
+        label: 'Website Design'
+      },
+      { 
+        href: '/pricing/graphic-design', 
+        label: 'Graphic Design'
+      },
+      { 
+        href: '/pricing/print-design', 
+        label: 'Print Media'
+      },
+      { 
+        href: '/pricing/marketing-materials', 
+        label: 'Marketing Materials'
+      },
+      { 
+        href: '/pricing/packaging-design', 
+        label: 'Packaging Design'
+      },
+      { 
+        href: '/pricing/social-media', 
+        label: 'Social Media'
+      },
+      { 
+        href: '/pricing/google-ads', 
+        label: 'Digital Marketing'
+      },
+      { 
+        href: '/pricing/custom-development', 
+        label: 'Custom Development'
+      }
+    ]
+  },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
-  { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact' }
 ];
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -23,6 +61,10 @@ const Navigation = () => {
   }, []);
 
   if (!mounted) return null;
+
+  const handleSubmenuClick = (label: string) => {
+    setOpenSubmenu(openSubmenu === label ? null : label);
+  };
 
   return (
     <>
@@ -45,9 +87,9 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg overflow-y-auto"
           >
-            <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex flex-col items-center justify-center min-h-full py-20">
               {/* Logo */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -63,21 +105,62 @@ const Navigation = () => {
               </motion.div>
 
               {/* Menu Items */}
-              <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-6 w-full max-w-md px-4">
                 {menuItems.map((item, index) => (
                   <motion.div
                     key={item.href}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 + index * 0.1 }}
+                    className="w-full"
                   >
-                    <Link
-                      href={item.href}
-                      className="text-3xl font-syne text-white hover:text-[#FFD700] transition-colors duration-300"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
+                    {item.subItems ? (
+                      <div className="w-full">
+                        <button
+                          onClick={() => handleSubmenuClick(item.label)}
+                          className="w-full flex items-center justify-between text-3xl font-syne text-white hover:text-[#FFD700] transition-colors duration-300 mb-2"
+                        >
+                          <span>{item.label}</span>
+                          <FaChevronDown
+                            className={`transform transition-transform duration-300 ${
+                              openSubmenu === item.label ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {openSubmenu === item.label && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="bg-zinc-900/50 rounded-lg p-4 space-y-3">
+                                {item.subItems.map((subItem) => (
+                                  <Link
+                                    key={subItem.href}
+                                    href={subItem.href}
+                                    className="block text-lg font-syne text-white/60 hover:text-[#FFD700] transition-colors duration-300 pl-4 border-l-2 border-[#FFD700]/20 hover:border-[#FFD700]"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {subItem.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="block text-3xl font-syne text-white hover:text-[#FFD700] transition-colors duration-300"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -87,7 +170,7 @@ const Navigation = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="absolute bottom-8 left-0 right-0 text-center"
+                className="mt-12 text-center"
               >
                 <p className="text-[#FFD700]/80 text-sm">
                   Pretoria, South Africa

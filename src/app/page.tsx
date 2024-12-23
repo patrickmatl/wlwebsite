@@ -3,7 +3,9 @@
 import { Suspense, lazy } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 import FAQAccordion from '@/components/FAQ/FAQAccordion';
+import GetInTouchButton from '@/components/GetInTouchButton';
 
 // Simple loading components
 const LoadingHero = () => (
@@ -328,37 +330,43 @@ export default function Home() {
                 title: 'Graphic Design',
                 description: 'Brand identity, marketing materials, and visual storytelling that captures attention and drives engagement.',
                 features: ['Logo Design', 'Brand Guidelines', 'Marketing Collateral', 'Social Media Graphics'],
-                icon: '🎨'
+                icon: '🎨',
+                link: '/pricing/graphic-design'
               },
               {
                 title: 'Web Design',
                 description: 'Custom websites that combine stunning aesthetics with seamless functionality and optimal performance.',
                 features: ['Custom Development', 'Responsive Design', 'E-commerce Solutions', 'CMS Integration'],
-                icon: '💻'
+                icon: '💻',
+                link: '/pricing/website-design'
               },
               {
                 title: 'Print Design',
                 description: 'High-quality print materials that make a lasting impression and elevate your brand.',
                 features: ['Business Cards', 'Brochures', 'Packaging', 'Large Format Printing'],
-                icon: '🖨️'
+                icon: '🖨️',
+                link: '/pricing/print-design'
               },
               {
                 title: 'UI/UX Design',
                 description: 'Intuitive interfaces and user experiences that engage and delight your audience.',
                 features: ['User Research', 'Wireframing', 'Prototyping', 'User Testing'],
-                icon: '🎯'
+                icon: '🎯',
+                link: '/pricing/website-design#custom'
               },
               {
                 title: 'Motion Design',
                 description: 'Dynamic animations and motion graphics that bring your brand to life.',
                 features: ['Logo Animation', 'Social Media Content', 'Video Editing', 'Motion Graphics'],
-                icon: '✨'
+                icon: '✨',
+                link: '/pricing/graphic-design#animation'
               },
               {
                 title: 'Brand Strategy',
                 description: 'Strategic brand development that positions you for success in your market.',
                 features: ['Market Research', 'Brand Positioning', 'Content Strategy', 'Brand Voice'],
-                icon: '📈'
+                icon: '📈',
+                link: '/pricing/graphic-design#corporate'
               }
             ].map((service, _index) => (
               <div 
@@ -382,7 +390,7 @@ export default function Home() {
                 </p>
                 
                 {/* Features */}
-                <ul className="space-y-2">
+                <ul className="space-y-2 mb-6">
                   {service.features.map((feature) => (
                     <li key={feature} className="font-space-grotesk text-sm text-neutral-300 flex items-center">
                       <span className="w-1 h-1 bg-gold-500 rounded-full mr-2" />
@@ -390,6 +398,22 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                  <Link 
+                    href={service.link}
+                    className="inline-flex items-center justify-center px-4 py-2 border border-[#FFD700] text-[#FFD700] rounded hover:bg-[#FFD700] hover:text-black transition-all duration-300"
+                  >
+                    Learn More
+                  </Link>
+                  <Link 
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-4 py-2 bg-[#FFD700] text-black rounded hover:bg-[#FFE44D] transition-all duration-300"
+                  >
+                    Get Quote
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -836,9 +860,7 @@ export default function Home() {
           <p className="font-space-grotesk text-xl text-neutral-400 mb-12">
             Let's create something extraordinary together.
           </p>
-          <button className="group relative px-8 py-3 bg-gold-500 text-black font-syne font-bold transform skew-x-12 hover:skew-x-0 transition-transform duration-300 hover-trigger">
-            <span className="relative z-10">Get in Touch</span>
-          </button>
+          <GetInTouchButton variant="primary" text="Get in Touch" className="text-lg" />
         </div>
       </section>
 
