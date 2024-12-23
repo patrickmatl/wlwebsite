@@ -1,14 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { FaServer, FaShieldAlt, FaRocket, FaChartLine, FaBug, FaTools } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import { generateServiceSchema, generateFAQSchema } from '@/lib/schema';
-import { serviceFAQs } from '@/lib/faqs';
-import { FaCheck } from 'react-icons/fa';
+import { serviceFAQs } from '@/data/serviceFAQs';
 
 const WebsiteMaintenancePage = () => {
   const breadcrumbItems = [

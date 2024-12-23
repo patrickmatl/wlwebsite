@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaRocket, FaChartLine, FaBuilding, FaCheck, FaGoogle, FaSearchDollar, FaStore } from 'react-icons/fa';
+import { FaRocket, FaChartLine, FaBuilding, FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';

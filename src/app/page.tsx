@@ -1,40 +1,25 @@
 'use client';
 
 import { Suspense, lazy } from 'react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import FAQAccordion from '@/components/FAQ/FAQAccordion';
+import HeroSection from '@/components/HeroSection';
 import GetInTouchButton from '@/components/GetInTouchButton';
+import ServicesSection from '@/components/ServicesSection';
 
 // Simple loading components
 const LoadingHero = () => (
-  <div className="min-h-[100svh] flex items-center justify-center bg-gradient-to-br from-[#0A0A0A] via-[#141414] to-[#0A0A0A]">
-    <div className="w-8 h-8 border-2 border-[#FFD700] rounded-full animate-spin border-t-transparent" />
-  </div>
+  <div className="min-h-screen bg-black animate-pulse"></div>
 );
 
 const LoadingSection = () => (
-  <div className="h-40 flex items-center justify-center">
-    <div className="w-6 h-6 border-2 border-[#FFD700] rounded-full animate-spin border-t-transparent" />
-  </div>
+  <div className="h-96 bg-neutral-900 animate-pulse"></div>
 );
 
 // Dynamic imports
-const HeroSection = dynamic(() => import('@/components/HeroSection'), {
-  loading: () => <LoadingHero />,
-  ssr: false
-});
-
-const LogoCarousel = dynamic(() => import('@/components/LogoCarousel'), {
-  loading: () => <LoadingSection />,
-  ssr: false
-});
-
-const BlogPreview = dynamic(() => import('@/components/BlogPreview'), {
-  loading: () => <LoadingSection />,
-  ssr: false
-});
+const LogoCarousel = lazy(() => import('@/components/LogoCarousel'));
+const BlogPreview = lazy(() => import('@/components/BlogPreview'));
 
 import { useState, useEffect } from 'react';
 
@@ -57,7 +42,7 @@ type ImageCategory = {
   packaging: ImageItem[];
 };
 
-export default function Home() {
+const HomePage = () => {
   const [category, setCategory] = useState<'logo' | 'packaging'>('logo');
   const [debug, setDebug] = useState<string>('');
 
@@ -87,7 +72,7 @@ export default function Home() {
   }, [category]);
 
   return (
-    <main className="min-h-[100svh] bg-black text-white relative overflow-hidden perspective-1000">
+    <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
       {/* Structured data for organization and local business */}
       <script
         type="application/ld+json"
@@ -296,10 +281,9 @@ export default function Home() {
       {/* Hero Section with enhanced SEO attributes */}
       <Suspense fallback={<LoadingHero />}>
         <HeroSection 
-          itemScope
-          itemType="http://schema.org/WebSite"
-          seoTitle="WL Creationx - Creative Digital Design Agency in Pretoria"
-          seoDescription="Transform your digital presence with our innovative design solutions. Expert web development, branding, and graphic design services in Pretoria."
+          title="Design"
+          subtitle="Agency"
+          description="Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
         />
       </Suspense>
 
@@ -561,9 +545,11 @@ export default function Home() {
                   key={src}
                   className="relative group aspect-[354/564] rounded-lg overflow-hidden"
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`Package Design ${index + 1}`}
+                    width={354}
+                    height={564}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -578,9 +564,11 @@ export default function Home() {
                   key={src}
                   className="relative group aspect-square rounded-lg overflow-hidden bg-zinc-900"
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`Logo Design ${index + 1}`}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -871,3 +859,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default HomePage;

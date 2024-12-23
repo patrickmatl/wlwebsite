@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import PortfolioItem from '@/components/PortfolioItem';
 import PortfolioModal from '@/components/PortfolioModal';
-import { motion } from 'framer-motion';
 
 // Generate array of logo paths with SEO-optimized descriptions
 const seoDescriptions = [
@@ -151,9 +152,11 @@ export default function Portfolio() {
                 }`}
                 onClick={() => openModal(item.src, item.alt, item.description)}
               >
-                <img
+                <Image
                   src={item.src}
                   alt={item.alt}
+                  width={400}
+                  height={300}
                   className={`w-full h-full ${
                     item.category === 'Packaging Design'
                       ? 'object-cover'

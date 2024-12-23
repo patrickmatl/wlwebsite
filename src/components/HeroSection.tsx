@@ -18,25 +18,20 @@ const AudioPlayer = dynamic(() => import('./AudioPlayer').then(mod => mod.defaul
 });
 
 interface HeroSectionProps {
-  itemScope?: boolean;
-  itemType?: string;
-  seoTitle?: string;
-  seoDescription?: string;
+  title: string;
+  subtitle: string;
+  description: string;
 }
 
 export default function HeroSection({
-  itemScope,
-  itemType,
-  seoTitle,
-  seoDescription
+  title,
+  subtitle,
+  description
 }: HeroSectionProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    setIsVisible(true);
-    
     if (typeof window !== 'undefined') {
       const handleMouseMove = (e: MouseEvent) => {
         setMousePosition({ x: e.clientX, y: e.clientY });
@@ -54,8 +49,6 @@ export default function HeroSection({
   return (
     <section 
       className="relative min-h-[100svh] overflow-hidden bg-gradient-to-br from-[#0A0A0A] via-[#141414] to-[#0A0A0A]"
-      itemScope={itemScope}
-      itemType={itemType}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -181,7 +174,7 @@ export default function HeroSection({
               }}
               className="text-8xl md:text-9xl font-syne font-bold mb-4 bg-gradient-to-r from-[#FFD700] via-[#FDB900] to-[#FFD700] text-transparent bg-clip-text"
             >
-              Design
+              {title}
             </motion.h1>
             <motion.h2 
               initial={{ y: 100 }}
@@ -194,7 +187,7 @@ export default function HeroSection({
               }}
               className="text-5xl md:text-6xl font-syne text-white/90 relative z-10"
             >
-              Agency
+              {subtitle}
             </motion.h2>
           </motion.div>
 
@@ -205,16 +198,14 @@ export default function HeroSection({
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-8 mb-12 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed"
           >
-            {["Transforming brands through creative excellence. ",
-              "Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
-            ].map((text, index) => (
+            {description.split(' ').map((text, index) => (
               <motion.span
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
               >
-                {text}
+                {text}{' '}
               </motion.span>
             ))}
           </motion.p>
