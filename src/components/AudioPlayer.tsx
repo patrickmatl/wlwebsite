@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { FaPlay, FaPause } from 'react-icons/fa';
 
 // Initialize without creating the audio instance
 let audioInstance: HTMLAudioElement | null = null;
@@ -11,8 +10,19 @@ const AudioPlayer = () => {
   const [timeRemaining, setTimeRemaining] = useState<string>('');
   const [showTime, setShowTime] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const hasInteracted = useRef(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   // Function to initialize audio
   const initializeAudio = useCallback(() => {
@@ -57,7 +67,7 @@ const AudioPlayer = () => {
     setTimeRemaining(formatTime(timeLeft));
   }, []);
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     if (!isLoaded) {
       initializeAudio();
     }
@@ -79,7 +89,7 @@ const AudioPlayer = () => {
         detail: { isPlaying: true }
       }));
     }
-  };
+  }, [isPlaying, isLoaded, initializeAudio]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -107,29 +117,38 @@ const AudioPlayer = () => {
     };
   }, [updateTimeRemaining]);
 
+  if (!isMounted) return null;
+
   return (
     <div 
       className="fixed bottom-8 right-8 z-50"
     >
       <div className="flex items-center gap-4">
         {/* Text Label */}
-        <span className="text-sm text-gold-light/80 tracking-wider">
-          Our Short Story
-        </span>
+        <span className="text-[#FFD700] text-base sm:text-lg font-syne">Our Short Story</span>
 
         {/* Controls */}
         <div className="flex items-center gap-3">
           {/* Play/Pause Button */}
           <button
             onClick={togglePlay}
-            className="w-12 h-12 rounded-full border-2 border-gold-light/30 bg-black/80 backdrop-blur-sm flex items-center justify-center hover:border-gold-light/50 transition-all duration-300 group"
-            aria-label={isPlaying ? 'Pause Story' : 'Play Story'}
+            className="group flex items-center space-x-3"
+            aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
           >
-            {isPlaying ? (
-              <FaPause className="text-gold-light/80 group-hover:text-gold-light text-sm" />
-            ) : (
-              <FaPlay className="text-gold-light/80 group-hover:text-gold-light text-sm ml-0.5" />
-            )}
+            <div className="relative w-10 h-10">
+              <div className="absolute inset-0 bg-[#FFD700] rounded-full opacity-20 group-hover:opacity-30 transition-opacity" />
+              <div className="w-10 h-10 text-[#FFD700] group-hover:scale-105 transition-transform">
+                {isPlaying ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653Z" />
+                  </svg>
+                )}
+              </div>
+            </div>
           </button>
 
           {/* Time Display */}

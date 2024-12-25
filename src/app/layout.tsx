@@ -1,46 +1,55 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Space_Grotesk, Syne } from 'next/font/google';
-import { usePathname } from 'next/navigation';
 import './globals.css';
-import Footer from '@/components/Footer';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
 import AudioPlayer from '@/components/AudioPlayer';
+import HeadTags from '@/components/HeadTags';
+import Footer from '@/components/Footer';
 
-// Body font
-const spaceGrotesk = Space_Grotesk({ 
+// Configure fonts
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-space-grotesk',
 });
 
-// Heading font
 const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-syne',
 });
 
+export const metadata: Metadata = {
+  title: 'WL CreationX - Design Agency in Pretoria, South Africa',
+  description: 'Transforming brands through creative excellence. Your trusted design partner in South Africa.',
+  keywords: 'design agency, graphic design, web design, branding, Pretoria, South Africa',
+  openGraph: {
+    title: 'WL CreationX - Design Agency in Pretoria',
+    description: 'Transforming brands through creative excellence. Your trusted design partner in South Africa.',
+    type: 'website',
+    locale: 'en_ZA',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
-
   return (
-    <html lang="en" className={`${spaceGrotesk.className} ${syne.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${syne.variable}`}>
       <head>
-        <title>Graphic Design Company | Graphic Design Agency Pretoria</title>
-        <meta name="description" content="Top graphic design company and agency in Pretoria. Professional branding, web design, and creative solutions for businesses. Contact us for expert design services." />
+        <HeadTags />
       </head>
-      <body className="bg-black text-white">
+      <body className="bg-black text-white font-space-grotesk">
         <ClientRootWrapper>
           <AudioPlayer />
-          <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white font-space-grotesk overflow-x-hidden">
+          <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white overflow-x-hidden">
             {children}
           </main>
-          {!isHomePage && <Footer />}
+          <div className="hidden">
+            <Footer />
+          </div>
         </ClientRootWrapper>
       </body>
     </html>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
+import Footer from './Footer';
 
 const CustomCursor = dynamic(() => import('./CustomCursor'), {
   ssr: false,
@@ -24,6 +26,8 @@ interface ClientRootWrapperProps {
 export default function ClientRootWrapper({ children }: ClientRootWrapperProps) {
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);  // Default to false to match SSR
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     // Handle hydration mismatch by deferring state updates
@@ -54,6 +58,7 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
       {isDesktop && mounted && <CustomCursor />}
       {mounted && <Navigation />}
       {children}
+      {!isHomePage && mounted && <Footer />}
       <SchemaOrg />
     </>
   );
