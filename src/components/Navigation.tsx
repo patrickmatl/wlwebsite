@@ -72,16 +72,21 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Hamburger Menu */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-8 right-8 z-50 w-12 h-12 flex flex-col justify-center items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full hover:scale-110 transition-transform duration-300"
-        aria-label="Toggle Menu"
-      >
-        <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />
-        <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
-        <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[5px]' : ''}`} />
-      </button>
+      {/* Menu Button */}
+      <div className="fixed top-8 right-8 z-50 flex items-center gap-3">
+        <span className="text-gold-light/80 text-sm uppercase tracking-wider">
+          {isOpen ? 'Close' : 'Menu'}
+        </span>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-12 h-12 flex flex-col justify-center items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full hover:scale-110 transition-transform duration-300"
+          aria-label={isOpen ? 'Close Menu' : 'Open Menu'}
+        >
+          <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />
+          <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+          <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[5px]' : ''}`} />
+        </button>
+      </div>
 
       {/* Navigation Menu */}
       <AnimatePresence>
@@ -94,39 +99,19 @@ const Navigation = () => {
             className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg overflow-y-auto"
           >
             <div className="flex flex-col items-center justify-center min-h-full py-20">
-              {/* Logo */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="mb-12"
-              >
-                <Link href="/" onClick={() => setIsOpen(false)}>
-                  <span className="text-2xl font-syne font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">
-                    WL Creationx
-                  </span>
-                </Link>
-              </motion.div>
-
               {/* Menu Items */}
-              <div className="flex flex-col items-center gap-6 w-full max-w-md px-4">
-                {menuItems.map((item, index) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    className="w-full"
-                  >
+              <div className="space-y-6 text-center">
+                {menuItems.map((item) => (
+                  <div key={item.label}>
                     {item.subItems ? (
-                      <div className="w-full">
+                      <div className="relative">
                         <button
                           onClick={() => handleSubmenuClick(item.label)}
-                          className="w-full flex items-center justify-between text-3xl font-syne text-white hover:text-[#FFD700] transition-colors duration-300 mb-2"
+                          className="text-2xl md:text-3xl text-white hover:text-gold-light transition-colors flex items-center gap-2 mx-auto"
                         >
-                          <span>{item.label}</span>
+                          {item.label}
                           <FaChevronDown
-                            className={`transform transition-transform duration-300 ${
+                            className={`transition-transform duration-300 ${
                               openSubmenu === item.label ? 'rotate-180' : ''
                             }`}
                           />
@@ -137,48 +122,46 @@ const Navigation = () => {
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="overflow-hidden"
+                              transition={{ duration: 0.2 }}
+                              className="mt-4 space-y-6"
                             >
-                              <div className="bg-zinc-900/50 rounded-lg p-4 space-y-4">
-                                {item.subItems.map((category) => (
-                                  <div key={category.label} className="space-y-2">
-                                    <button
-                                      onClick={() => handleCategoryClick(category.label)}
-                                      className="w-full flex items-center justify-between text-xl font-syne text-[#FFD700] transition-colors duration-300"
-                                    >
-                                      <span>{category.label}</span>
-                                      <FaChevronDown
-                                        className={`transform transition-transform duration-300 ${
-                                          openCategory === category.label ? 'rotate-180' : ''
-                                        }`}
-                                      />
-                                    </button>
-                                    <AnimatePresence>
-                                      {openCategory === category.label && (
-                                        <motion.div
-                                          initial={{ opacity: 0, height: 0 }}
-                                          animate={{ opacity: 1, height: 'auto' }}
-                                          exit={{ opacity: 0, height: 0 }}
-                                          transition={{ duration: 0.3 }}
-                                          className="space-y-2 pl-4"
-                                        >
-                                          {category.items.map((subItem) => (
-                                            <Link
-                                              key={subItem.href}
-                                              href={subItem.href}
-                                              className="block text-lg font-syne text-white/60 hover:text-[#FFD700] transition-colors duration-300 pl-4 border-l-2 border-[#FFD700]/20 hover:border-[#FFD700]"
-                                              onClick={() => setIsOpen(false)}
-                                            >
-                                              {subItem.label}
-                                            </Link>
-                                          ))}
-                                        </motion.div>
-                                      )}
-                                    </AnimatePresence>
-                                  </div>
-                                ))}
-                              </div>
+                              {item.subItems.map((category) => (
+                                <div key={category.label} className="space-y-2">
+                                  <button
+                                    onClick={() => handleCategoryClick(category.label)}
+                                    className="text-xl text-gold-light/80 hover:text-gold-light transition-colors flex items-center gap-2 mx-auto"
+                                  >
+                                    {category.label}
+                                    <FaChevronDown
+                                      className={`transition-transform duration-300 ${
+                                        openCategory === category.label ? 'rotate-180' : ''
+                                      }`}
+                                    />
+                                  </button>
+                                  <AnimatePresence>
+                                    {openCategory === category.label && (
+                                      <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="space-y-2 pt-2"
+                                      >
+                                        {category.items.map((subItem) => (
+                                          <Link
+                                            key={subItem.label}
+                                            href={subItem.href}
+                                            className="block text-lg text-white/70 hover:text-gold-light transition-colors"
+                                            onClick={() => setIsOpen(false)}
+                                          >
+                                            {subItem.label}
+                                          </Link>
+                                        ))}
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                              ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -186,33 +169,15 @@ const Navigation = () => {
                     ) : (
                       <Link
                         href={item.href}
-                        className="block text-3xl font-syne text-white hover:text-[#FFD700] transition-colors duration-300"
+                        className="text-2xl md:text-3xl text-white hover:text-gold-light transition-colors block"
                         onClick={() => setIsOpen(false)}
                       >
                         {item.label}
                       </Link>
                     )}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-
-              {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="mt-12 text-center"
-              >
-                <p className="text-[#FFD700]/80 text-sm">
-                  Pretoria, South Africa
-                </p>
-                <a
-                  href="mailto:info@wlcreationx.co.za"
-                  className="text-white/60 hover:text-[#FFD700] transition-colors duration-300"
-                >
-                  info@wlcreationx.co.za
-                </a>
-              </motion.div>
             </div>
           </motion.nav>
         )}

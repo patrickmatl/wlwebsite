@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from 'next';
-import { Space_Grotesk, Syne } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
+import { Syne } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/Footer';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
+import AudioPlayer from '@/components/AudioPlayer';
 
 // Body font
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-space-grotesk',
-  adjustFontFallback: true,
 });
 
 // Heading font
@@ -17,7 +17,6 @@ const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-syne',
-  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {
@@ -29,11 +28,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | WL Creationx',
-    default: 'WL Creationx | Digital Agency in South Africa',
-  },
-  description: 'Professional digital agency offering web design, development, and digital marketing services in South Africa.',
+  title: 'WL CreationX - Web Design Agency in Pretoria',
+  description: 'Professional web design and development services in Pretoria, South Africa. We create beautiful, responsive websites that drive results.',
   manifest: '/site.webmanifest',
   icons: {
     icon: [
@@ -101,9 +97,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${syne.variable}`}>
-      <body>
+    <html lang="en" className={`${spaceGrotesk.className} ${syne.variable}`}>
+      <body className="bg-black text-white">
         <ClientRootWrapper>
+          <AudioPlayer />
           <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white font-space-grotesk overflow-x-hidden">
             {children}
             <Footer />

@@ -43,11 +43,11 @@ function ContactFormContent() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError('');
     setIsSubmitting(true);
-    setError(null);
 
     try {
-      const formData = new FormData(e.currentTarget);
+      const formData = new FormData(e.currentTarget as HTMLFormElement);
       
       // Check honeypot field
       const honeypot = formData.get('website')?.toString();
@@ -90,7 +90,7 @@ function ContactFormContent() {
       }
 
       setSuccess(true);
-      e.currentTarget.reset();
+      formRef.current?.reset();
       setTimeout(() => setSuccess(false), 5000);
       
     } catch (err) {
@@ -120,7 +120,7 @@ function ContactFormContent() {
               </svg>
             </div>
             <h3 className="text-xl font-bold text-[#FFD700] mb-2">Message Sent!</h3>
-            <p className="text-gray-300 text-sm">Thank you for contacting us. We'll get back to you soon!</p>
+            <p className="text-zinc-300">Thank you for contacting us. We'll get back to you soon.</p>
           </div>
         </div>
       )}
@@ -270,7 +270,7 @@ function ContactFormContent() {
         <div>
           <label className="block text-xs mb-2">Preferred Contact Method *</label>
           <div className="grid grid-cols-3 gap-2">
-            {[
+            {[/* eslint-disable @typescript-eslint/no-unused-vars */
               { id: 'email', label: 'Email', icon: FaEnvelope },
               { id: 'phone', label: 'Phone', icon: FaPhone },
               { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp }
@@ -302,11 +302,11 @@ function ContactFormContent() {
             className="mt-1"
           />
           <label htmlFor="terms" className="text-xs">
-            I agree to the{' '}
+            I agree to the{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
             <Link href="/terms" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Terms of Service
-            </Link>{' '}
-            and{' '}
+            </Link>{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
+            and{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
             <Link href="/privacy-policy" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Privacy Policy
             </Link>

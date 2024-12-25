@@ -1,38 +1,42 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 
 const LogoCarousel = () => {
-  const [centerIndex, setCenterIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const clientLogos = [
-    { name: 'Professional Website Design Pretoria', industry: 'Custom Web Development' },
-    { name: 'E-commerce Website Design', industry: 'Online Store Development' },
-    { name: 'Responsive Web Design', industry: 'Mobile-Friendly Websites' },
-    { name: 'WordPress Website Design', industry: 'CMS Development' },
-    { name: 'Business Website Design', industry: 'Corporate Web Solutions' },
-    { name: 'Custom Website Development', industry: 'Professional Web Design' },
-    { name: 'SEO Optimized Web Design', industry: 'Search Engine Friendly' },
-    { name: 'Modern Website Design', industry: 'Contemporary Development' },
-    { name: 'Professional Web Development', industry: 'Custom Solutions' },
-    { name: 'E-commerce Solutions', industry: 'Online Store Design' }
-  ].map((logo, index) => ({
+  const clientLogos = Array.from({ length: 18 }, (_, index) => ({
     src: `/images/clients/Client${index + 1}.webp`,
-    alt: `${logo.name} in ${logo.industry} | WL CreationX Portfolio - Trusted Web Design Agency in Pretoria, South Africa`,
+    alt: `Client ${index + 1} - WL CreationX Portfolio - Trusted Web Design Agency in Pretoria, South Africa`,
     id: `client-${index + 1}`
   }));
 
-  const duplicatedLogos = [...clientLogos, ...clientLogos, ...clientLogos];
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCenterIndex((prev) => (prev + 1) % clientLogos.length);
+      setCurrentIndex((prev) => (prev + 1) % clientLogos.length);
     }, 3000);
 
     return () => clearInterval(interval);
   }, [clientLogos.length]);
+
+  // Calculate visible logos with wrapping
+  const getVisibleLogos = () => {
+    const visibleCount = 5; // Show 5 logos at a time
+    const halfCount = Math.floor(visibleCount / 2);
+    const logos = [];
+
+    for (let i = -halfCount; i <= halfCount; i++) {
+      let index = currentIndex + i;
+      // Wrap around for infinite effect
+      while (index < 0) index += clientLogos.length;
+      index = index % clientLogos.length;
+      logos.push({ ...clientLogos[index], position: i });
+    }
+
+    return logos;
+  };
 
   return (
     <section 
@@ -47,70 +51,59 @@ const LogoCarousel = () => {
           Trusted by Leading Brands
         </h2>
         
-        <div 
-          className="relative"
-          role="region"
-          aria-labelledby="trusted-brands"
-        >
+        <div className="relative max-w-7xl mx-auto">
           {/* Gradient overlays */}
-          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black via-black/90 to-transparent z-20" />
-          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black via-black/90 to-transparent z-20" />
+          <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-black to-transparent z-10" />
           
-          <div className="relative overflow-hidden">
-            <motion.div
-              animate={{
-                x: [-220, -clientLogos.length * 220]
-              }}
-              transition={{
-                x: {
-                  duration: 45,
-                  ease: "linear",
-                  repeat: Infinity,
-                }
-              }}
-              className="flex gap-8 items-center"
-            >
-              {duplicatedLogos.map((logo, index) => {
-                const isCenter = index % clientLogos.length === centerIndex;
-                
-                return (
-                  <motion.div
-                    key={`${logo.id}-${index}`}
-                    className="flex-shrink-0 w-[180px]"
-                    animate={{
-                      scale: isCenter ? 1.5 : 1,
-                      opacity: isCenter ? 1 : 0.6,
-                      zIndex: isCenter ? 10 : 0
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <div 
-                      className="bg-white/5 backdrop-blur-sm rounded-lg p-6 transition-all duration-300"
-                      role="img"
-                      aria-label={logo.alt}
+          <div className="relative overflow-hidden py-8">
+            <div className="flex justify-center items-center min-h-[240px]">
+              <AnimatePresence mode="wait">
+                {getVisibleLogos().map((logo) => {
+                  const isCentered = logo.position === 0;
+                  const xOffset = logo.position * 180; // Spacing between logos
+                  
+                  return (
+                    <motion.div
+                      key={`${logo.id}-${logo.position}`}
+                      className="absolute"
+                      initial={{ opacity: 0, x: xOffset + 200 }}
+                      animate={{
+                        opacity: isCentered ? 1 : 0.4,
+                        scale: isCentered ? 1 : 0.7,
+                        x: xOffset,
+                        zIndex: isCentered ? 10 : 0,
+                      }}
+                      exit={{ opacity: 0, x: xOffset - 200 }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeInOut"
+                      }}
                     >
-                      <div className="relative w-full aspect-square">
-                        <Image
+                      <div 
+                        className={`p-4 bg-zinc-900/30 backdrop-blur-sm rounded-xl transition-all duration-300 ${
+                          isCentered ? 'ring-2 ring-[#FFD700]/30' : ''
+                        }`}
+                        style={{
+                          width: isCentered ? '220px' : '160px',
+                          height: isCentered ? '220px' : '160px',
+                        }}
+                      >
+                        <OptimizedImage
                           src={logo.src}
                           alt={logo.alt}
-                          width={150}
-                          height={150}
+                          width={isCentered ? 220 : 160}
+                          height={isCentered ? 220 : 160}
                           className="w-full h-full object-contain"
-                          priority={index < 6}
-                          loading={index < 6 ? "eager" : "lazy"}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          quality={85}
-                          unoptimized
+                          priority={isCentered}
+                          quality={isCentered ? 90 : 75}
                         />
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

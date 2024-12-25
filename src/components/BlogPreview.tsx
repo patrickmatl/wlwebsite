@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import OptimizedImage from './OptimizedImage';
 import type { BlogPost } from '@/app/api/blog/route';
 
 function LoadingSkeleton() {
@@ -60,14 +60,17 @@ export default function BlogPreview() {
           <LoadingSkeleton />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post, index) => (
               <article key={post.slug} className="bg-black/30 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300">
                 <div className="relative h-48">
-                  <Image
+                  <OptimizedImage
                     src={post.coverImage}
                     alt={post.title}
-                    fill
-                    className="object-cover"
+                    width={400}
+                    height={192}
+                    className="object-cover w-full h-full"
+                    priority={index === 0}
+                    quality={85}
                   />
                 </div>
                 <div className="p-6">
