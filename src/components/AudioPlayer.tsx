@@ -32,17 +32,21 @@ const AudioPlayer = () => {
     setTimeRemaining(formatTime(remaining));
   }, [audioRef]);
 
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setShowTime(false);
-    } else {
-      audioRef.current.play();
-      setShowTime(true);
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setShowTime(false);
+      } else {
+        audioRef.current.play();
+        setShowTime(true);
+      }
+      setIsPlaying(!isPlaying);
+      // Dispatch custom event for audio state change
+      window.dispatchEvent(new CustomEvent('audioStateChange', { 
+        detail: { isPlaying: !isPlaying }
+      }));
     }
-    setIsPlaying(!isPlaying);
   };
 
   useEffect(() => {
@@ -53,6 +57,10 @@ const AudioPlayer = () => {
     const handleEnded = () => {
       setIsPlaying(false);
       setShowTime(false);
+      // Dispatch custom event when audio ends naturally
+      window.dispatchEvent(new CustomEvent('audioStateChange', { 
+        detail: { isPlaying: false }
+      }));
     };
 
     const handleTimeUpdate = () => {
@@ -70,9 +78,9 @@ const AudioPlayer = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      <div className="flex flex-col items-end gap-2">
+      <div className="flex items-center gap-4">
         {/* Text Label */}
-        <span className="text-xs text-gold-light/80 tracking-wider">
+        <span className="text-sm text-gold-light/80 tracking-wider">
           Our Short Story
         </span>
 
@@ -80,7 +88,7 @@ const AudioPlayer = () => {
         <div className="flex items-center gap-3">
           {/* Play/Pause Button */}
           <button
-            onClick={toggleAudio}
+            onClick={togglePlay}
             className="w-12 h-12 rounded-full border-2 border-gold-light/30 bg-black/80 backdrop-blur-sm flex items-center justify-center hover:border-gold-light/50 transition-all duration-300 group"
             aria-label={isPlaying ? 'Pause Story' : 'Play Story'}
           >

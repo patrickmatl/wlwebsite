@@ -1,90 +1,176 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import LogoCarousel from './LogoCarousel';
+import dynamic from 'next/dynamic';
 
-interface HeroSectionProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
+// Define custom event type
+interface AudioStateChangeEvent extends CustomEvent {
+  detail: {
+    isPlaying: boolean;
+  };
 }
 
-const HeroSection = ({ 
-  title = "Design",
-  subtitle = "Agency",
-  description = "Transforming brands through creative excellence. Your trusted design partner in Pretoria, delivering innovative graphic design, web development, and branding solutions."
-}: HeroSectionProps) => {
-  const [isClient, setIsClient] = useState(false);
+// Define props interface
+interface HeroSectionProps {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+// Dynamically import ParticlesAnimation with no SSR and loading placeholder
+const ParticlesAnimation = dynamic(() => import('./ParticlesAnimation'), {
+  ssr: false,
+  loading: () => null, // Empty placeholder during loading
+});
+
+export default function HeroSection({ title, subtitle, description }: HeroSectionProps) {
+  const [mounted, setMounted] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
+
+    // Create audio element for monitoring
+    const audio = document.querySelector('audio');
+    if (audio) {
+      audioRef.current = audio;
+    }
+
+    // Listen for custom event from AudioPlayer
+    const handleAudioStateChange = (e: AudioStateChangeEvent) => {
+      setIsAudioPlaying(e.detail.isPlaying);
+    };
+
+    // Listen for audio ending naturally
+    const handleAudioEnded = () => {
+      setIsAudioPlaying(false);
+    };
+
+    // Listen for audio paused
+    const handleAudioPaused = () => {
+      setIsAudioPlaying(false);
+    };
+    
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', handleAudioEnded);
+      audioRef.current.addEventListener('pause', handleAudioPaused);
+    }
+    
+    window.addEventListener('audioStateChange', handleAudioStateChange as EventListener);
+    
+    return () => {
+      window.removeEventListener('audioStateChange', handleAudioStateChange as EventListener);
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('ended', handleAudioEnded);
+        audioRef.current.removeEventListener('pause', handleAudioPaused);
+      }
+    };
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-4">
-      {/* Video Background - Only rendered on client side */}
-      {isClient && (
+    <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
+      {/* Video Background */}
+      {mounted && (
         <div className="absolute inset-0 w-full h-full">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute w-full h-full object-cover opacity-50"
-            poster="/images/video-poster.jpg"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: 'brightness(0.7)' }}
           >
             <source src="/videos/hero-bg.mp4" type="video/mp4" />
           </video>
-          {/* Overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-60" />
         </div>
       )}
 
-      {/* Location tag */}
-      <div className="relative z-10 mb-16">
-        <span className="px-6 py-2 rounded-full border border-gold-light/20 text-gold-light/80 text-sm uppercase tracking-wider">
-          Pretoria, SA
-        </span>
+      {/* Background with gradient overlay */}
+      <div className="absolute inset-0 bg-black/20">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black"></div>
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 text-center max-w-6xl mx-auto">
-        <div className="flex flex-col items-center">
-          {/* Title text */}
-          <h1 className="font-syne text-[2.75rem] md:text-[5.5rem] xl:text-[7.7rem] font-bold leading-none text-gold-light">
-            {title}
-          </h1>
-          
-          {/* Subtitle text */}
-          <h1 className="font-syne text-2xl md:text-[3.5rem] xl:text-[4.2rem] font-bold text-white mt-4">
-            {subtitle}
-          </h1>
+      {/* Particles Animation - only show when mounted, audio playing, and on homepage */}
+      {mounted && isHomePage && isAudioPlaying && <ParticlesAnimation />}
 
-          {/* Description */}
-          <p className="max-w-3xl mx-auto text-gray-400 text-lg md:text-xl mt-12 leading-relaxed">
-            {description}
-          </p>
+      {/* Main content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center h-full">
+        <div className="text-center w-full space-y-6 sm:space-y-8">
+          {/* Location Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/20 rounded-full">
+              PRETORIA, SA
+            </span>
+          </motion.div>
+
+          {/* Main Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-4"
+          >
+            <div className="relative">
+              <h1 className="font-syne font-bold leading-[0.9] tracking-tight">
+                <span className="text-[#FFD700] block mb-2 text-4xl sm:text-6xl md:text-7xl lg:text-[8.3rem]">{title}</span>
+                <span className="text-white block text-3xl sm:text-5xl md:text-6xl lg:text-[6.8rem] -mt-1 sm:-mt-2 lg:-mt-4">{subtitle}</span>
+              </h1>
+            </div>
+            <p className="text-base sm:text-lg md:text-xl text-neutral-400 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed mt-4 sm:mt-6 lg:mt-8 px-4">
+              {description}
+            </p>
+          </motion.div>
 
           {/* Buttons */}
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 mt-12">
-            <Link 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
+          >
+            <Link
               href="/pricing"
-              className="px-8 py-3 bg-gold-light text-black font-bold rounded-full text-lg hover:bg-gold-light/90 transition-all duration-300"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 bg-[#FFD700] text-black rounded-md hover:bg-[#FFD700]/90 transition-colors duration-300 text-sm sm:text-base font-medium"
             >
               View Pricing
             </Link>
-            
-            <Link 
+            <Link
               href="/contact"
-              className="px-8 py-3 border-2 border-gold-light/30 text-white rounded-full hover:bg-gold-light/10 transition-all duration-300"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 border border-[#FFD700] text-[#FFD700] rounded-md hover:bg-[#FFD700]/10 transition-colors duration-300 text-sm sm:text-base font-medium"
             >
               Contact Us
             </Link>
-          </div>
+          </motion.div>
+
+          {/* Client Logos Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-12 sm:mt-16"
+          >
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 px-4">
+              <div className="h-[1px] w-16 sm:w-24 md:w-32 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
+              <h2 className="text-center whitespace-nowrap">
+                <span className="text-[#FFD700]/60 text-sm sm:text-base md:text-lg font-medium">Trusted by Leading Brands</span>
+              </h2>
+              <div className="h-[1px] w-16 sm:w-24 md:w-32 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
+            </div>
+            <LogoCarousel />
+          </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}

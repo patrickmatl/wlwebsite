@@ -18,7 +18,7 @@ interface MetaTagsProps {
 
 export default function MetaTags({
   title = 'Graphic Design Company Pretoria | WL CreationX',
-  description = 'Premier graphic design studio in Pretoria. Expert branding, web design, and digital marketing services. Transform your brand with WL CreationX.',
+  description = 'Best graphic design studio in Pretoria. Expert branding, web design, and digital marketing services. Transform your brand with WL CreationX.',
   canonicalUrl = 'https://wlcreationx.co.za',
   ogImage = 'https://wlcreationx.co.za/og-image.jpg',
   type = 'website',
