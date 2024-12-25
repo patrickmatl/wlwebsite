@@ -5,7 +5,6 @@ import { FaCheck } from 'react-icons/fa';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
-import FAQAccordion from '@/components/FAQ/FAQAccordion';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const SocialMediaPage = () => {
@@ -263,27 +262,6 @@ const SocialMediaPage = () => {
     }
   ];
 
-  const relatedServices = [
-    {
-      title: 'Digital Marketing',
-      description: 'Comprehensive digital marketing solutions to grow your online presence.',
-      href: '/pricing/digital-marketing',
-      anchor: 'Explore Digital Marketing'
-    },
-    {
-      title: 'Content Creation',
-      description: 'Professional content creation services for your brand.',
-      href: '/pricing/content-creation',
-      anchor: 'View Content Services'
-    },
-    {
-      title: 'Brand Identity',
-      description: 'Build a strong, consistent brand identity across all platforms.',
-      href: '/pricing/brand-identity',
-      anchor: 'Discover Brand Services'
-    }
-  ];
-
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Pricing', href: '/pricing' },
@@ -423,25 +401,25 @@ const SocialMediaPage = () => {
 
       {/* Related Services */}
       <RelatedServices
-        currentService="Social Media"
+        currentService="Social Media Marketing"
         services={[
-          { 
-            href: '/pricing/marketing-materials',
-            anchor: 'Marketing Materials',
-            title: 'Marketing Materials Services',
-            description: 'Create cohesive marketing materials that align with your social media strategy'
+          {
+            title: 'Content Marketing',
+            description: 'Strategic content creation and distribution.',
+            href: '/pricing/content-marketing',
+            anchor: 'View Content Marketing Services'
           },
-          { 
-            href: '/pricing/graphic-design',
-            anchor: 'Graphic Design',
-            title: 'Graphic Design Services',
-            description: 'Get eye-catching visuals for your social media content'
+          {
+            title: 'Email Marketing',
+            description: 'Targeted email campaigns and automation.',
+            href: '/pricing/email-marketing',
+            anchor: 'View Email Marketing Services'
           },
-          { 
-            href: '/pricing/google-ads',
-            anchor: 'Google Ads',
-            title: 'Google Ads Management',
-            description: 'Complement your social media presence with targeted Google Ads campaigns'
+          {
+            title: 'SEO Services',
+            description: 'Improve your search engine visibility.',
+            href: '/pricing/seo',
+            anchor: 'View SEO Services'
           }
         ]}
       />

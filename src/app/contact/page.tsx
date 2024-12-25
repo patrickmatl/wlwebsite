@@ -19,7 +19,7 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 // Test Supabase connection
 const testConnection = async () => {
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('contact_submissions')
       .select('count')
       .limit(1);

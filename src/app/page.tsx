@@ -1,11 +1,12 @@
 'use client';
 
-import { Suspense, lazy, useState, useEffect, useMemo } from 'react';
+import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import FAQAccordion from '@/components/FAQ/FAQAccordion';
-import HeroSection from '@/components/HeroSection';
 import GetInTouchButton from '@/components/GetInTouchButton';
+import { useState, useMemo, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 // Simple loading components
 const LoadingHero = () => (
@@ -16,17 +17,21 @@ const LoadingSection = () => (
   <div className="h-96 bg-neutral-900 animate-pulse"></div>
 );
 
-// Dynamic imports
-const LogoCarousel = lazy(() => import('@/components/LogoCarousel'));
-const BlogPreview = lazy(() => import('@/components/BlogPreview'));
-const Services = lazy(() => import('@/components/ServicesSection'));
+// Dynamic imports with loading boundaries
+const HeroSection = dynamic(() => import('@/components/HeroSection'), {
+  loading: () => <LoadingHero />,
+  ssr: false,
+});
 
-interface ImageItem {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-}
+const LogoCarousel = dynamic(() => import('@/components/LogoCarousel'), {
+  loading: () => <LoadingSection />,
+  ssr: false,
+});
+
+const BlogPreview = dynamic(() => import('@/components/BlogPreview'), {
+  loading: () => <LoadingSection />,
+  ssr: false,
+});
 
 const HomePage = () => {
   const [category, setCategory] = useState<'logo' | 'packaging'>('logo');
@@ -371,8 +376,9 @@ const HomePage = () => {
                   <Link 
                     href={service.link}
                     className="inline-flex items-center justify-center px-4 py-2 border border-[#FFD700] text-[#FFD700] rounded hover:bg-[#FFD700] hover:text-black transition-all duration-300"
+                    aria-label={`Learn more about ${service.title}`}
                   >
-                    Learn More
+                    Learn more about {service.title}
                   </Link>
                   <Link 
                     href="/contact"

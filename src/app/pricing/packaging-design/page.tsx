@@ -81,27 +81,6 @@ const PackagingDesignPage = () => {
     }
   ];
 
-  const relatedServices = [
-    {
-      title: "Graphic Design",
-      description: "Complete branding and visual identity solutions",
-      href: "/pricing/graphic-design",
-      anchor: "View Graphic Design Services"
-    },
-    {
-      title: "Print Design",
-      description: "Professional print media design services",
-      href: "/pricing/print-design",
-      anchor: "View Print Design Services"
-    },
-    {
-      title: "Marketing Materials",
-      description: "Comprehensive marketing collateral design",
-      href: "/pricing/marketing-materials",
-      anchor: "View Marketing Materials Services"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
       <Breadcrumb items={breadcrumbItems} />
@@ -191,23 +170,23 @@ const PackagingDesignPage = () => {
       <RelatedServices
         currentService="Packaging Design"
         services={[
-          { 
-            href: '/pricing/graphic-design',
-            anchor: 'Graphic Design',
-            title: 'Graphic Design Services',
-            description: 'Create stunning visuals for your brand with our professional graphic design services'
-          },
-          { 
+          {
+            title: 'Print Design',
+            description: 'Professional print design services for all your marketing needs.',
             href: '/pricing/print-design',
-            anchor: 'Print Design',
-            title: 'Print Design Services',
-            description: 'Get professional print designs for your marketing materials'
+            anchor: 'View Print Design Services'
           },
-          { 
+          {
+            title: 'Graphic Design',
+            description: 'Custom graphic design solutions for your brand.',
+            href: '/pricing/graphic-design',
+            anchor: 'View Graphic Design Services'
+          },
+          {
+            title: 'Marketing Materials',
+            description: 'Comprehensive marketing material design services.',
             href: '/pricing/marketing-materials',
-            anchor: 'Marketing Materials',
-            title: 'Marketing Materials Services',
-            description: 'Comprehensive marketing material solutions for your business'
+            anchor: 'View Marketing Materials'
           }
         ]}
       />
