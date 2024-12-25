@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'The History of Graphic Design in South Africa | WL Creationx',
   description: 'Explore the rich history of graphic design in South Africa, from indigenous art forms to contemporary digital design. Learn about influential designers, cultural movements, and the evolution of South African visual communication.',
+  keywords: ['South Africa', 'Graphic Design', 'Design History', 'Visual Arts', 'African Design'],
   openGraph: {
     title: 'The History of Graphic Design in South Africa | WL Creationx',
     description: 'Explore the rich history of graphic design in South Africa, from indigenous art forms to contemporary digital design.',
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     siteName: 'WL Creationx',
     locale: 'en_US',
     type: 'article',
+    publishedTime: '2024-12-25T19:59:45+02:00',
   },
 };
 
