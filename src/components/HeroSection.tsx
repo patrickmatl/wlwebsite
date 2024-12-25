@@ -1,163 +1,82 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import LogoCarousel from './LogoCarousel';
 import { usePathname } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import { PlayIcon, PauseIcon } from './icons'; // Assuming the icons are in the same directory
 
-// Define custom event type
-interface AudioStateChangeEvent extends CustomEvent {
-  detail: {
-    isPlaying: boolean;
-  };
-}
-
-// Define props interface
 interface HeroSectionProps {
-  title: string;
-  subtitle: string;
-  description: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
 }
 
-// Lazy load components
-const LogoCarousel = dynamic(() => import('./LogoCarousel'), {
-  loading: () => <div className="h-20 bg-black/20 animate-pulse rounded-lg" />,
-  ssr: true
-});
-
-const ParticlesAnimation = dynamic(() => import('./ParticlesAnimation'), {
-  ssr: false,
-  loading: () => null,
-});
-
-export default function HeroSection({ title, subtitle, description }: HeroSectionProps) {
-  const [mounted, setMounted] = useState(false);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+export default function HeroSection({
+  title = "Design",
+  subtitle = "Agency",
+  description = "We specialize in creating stunning digital experiences that captivate audiences and drive results. Let's bring your vision to life.",
+}: HeroSectionProps) {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [mounted, setMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setMounted(true);
-
-    // Create audio element for monitoring
-    const audio = document.querySelector('audio');
-    if (audio) {
-      audioRef.current = audio;
-      
-      // Add event listeners
-      const handleAudioEnded = () => setIsAudioPlaying(false);
-      const handleAudioPaused = () => setIsAudioPlaying(false);
-      
-      audio.addEventListener('ended', handleAudioEnded);
-      audio.addEventListener('pause', handleAudioPaused);
-      
-      return () => {
-        audio.removeEventListener('ended', handleAudioEnded);
-        audio.removeEventListener('pause', handleAudioPaused);
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    // Listen for custom event from AudioPlayer
-    const handleAudioStateChange = (e: AudioStateChangeEvent) => {
-      setIsAudioPlaying(e.detail.isPlaying);
-    };
-    
-    window.addEventListener('audioStateChange', handleAudioStateChange as EventListener);
-    
-    return () => {
-      window.removeEventListener('audioStateChange', handleAudioStateChange as EventListener);
-    };
-  }, []);
-
-  // Preload video when component mounts
-  useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Autoplay failed, handle it silently
+      });
     }
   }, []);
 
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
-  };
-
-  const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isAudioPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-    }
-  };
-
-  // Server-side render or initial client render
   if (!mounted) {
-    return (
-      <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-black animate-pulse" />
-        <div className="relative z-10 text-center">
-          <div className="w-32 h-8 bg-[#FFD700]/10 animate-pulse rounded-full mx-auto mb-8" />
-          <div className="w-64 h-16 bg-[#FFD700]/10 animate-pulse rounded-lg mx-auto" />
-        </div>
-      </section>
-    );
+    return null;
   }
 
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
-      {/* Video Background with loading state */}
-      <div className="absolute inset-0 w-full h-full bg-black">
-        {!isVideoLoaded && (
-          <div className="absolute inset-0 bg-black" />
-        )}
+    <section className="relative h-[100vh] w-full overflow-hidden bg-black">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          onLoadedData={handleVideoLoad}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            isVideoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{ filter: 'brightness(0.7)' }}
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          poster="/images/hero-poster.jpg"
         >
-          <source 
-            src="/videos/hero-bg.mp4" 
-            type="video/mp4"
-          />
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
       </div>
 
-      {/* Background with gradient overlay - Always visible */}
-      <div className="absolute inset-0 bg-black/20">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black"></div>
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black/60" />
+      
+      {/* Grain effect */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-[url('/images/noise.png')] bg-repeat opacity-20" />
       </div>
 
-      {/* Main content with fixed dimensions */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center min-h-screen mt-[10vh]">
+      {/* Main content */}
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center">
         <div className="text-center w-full space-y-6 sm:space-y-8">
-          {/* Location Badge with fixed height */}
+          {/* Location Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="h-10"
+            transition={{ duration: 0.8 }}
+            className="flex justify-center"
           >
-            <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/20 rounded-full">
-              PRETORIA, SA
-            </span>
+            <div className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+              <span className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse" />
+              <span className="text-white/70 text-sm">Pretoria, South Africa</span>
+            </div>
           </motion.div>
 
-          {/* Main Title with fixed dimensions */}
+          {/* Main Title and Description */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -170,12 +89,12 @@ export default function HeroSection({ title, subtitle, description }: HeroSectio
                 <span className="text-white block text-3xl sm:text-5xl md:text-6xl lg:text-[6.8rem] -mt-1 sm:-mt-2">{subtitle}</span>
               </h1>
             </div>
-            <p className="font-space-grotesk text-base sm:text-lg md:text-xl text-neutral-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto mt-6">
+            <p className="font-space-grotesk text-base sm:text-lg md:text-xl text-neutral-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto mt-[5vh]">
               {description}
             </p>
           </motion.div>
 
-          {/* Buttons */}
+          {/* Buttons and Logo Carousel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -198,7 +117,7 @@ export default function HeroSection({ title, subtitle, description }: HeroSectio
             </div>
 
             {/* Client Logos Title */}
-            <div className="flex items-center justify-center space-x-4 mt-10 mb-6">
+            <div className="flex items-center justify-center space-x-4 mt-6 mb-4">
               <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
               <span className="text-[#FFD700]/70 text-sm sm:text-base font-syne">Trusted by Leading Brands</span>
               <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
@@ -206,9 +125,6 @@ export default function HeroSection({ title, subtitle, description }: HeroSectio
 
             <LogoCarousel />
           </motion.div>
-
-          {/* Particles Animation */}
-          {mounted && isHomePage && isAudioPlaying && <ParticlesAnimation />}
         </div>
       </div>
     </section>
