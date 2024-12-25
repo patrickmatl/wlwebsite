@@ -3,22 +3,47 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FaPlay, FaPause } from 'react-icons/fa';
 
+// Initialize without creating the audio instance
+let audioInstance: HTMLAudioElement | null = null;
+
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<string>('');
   const [showTime, setShowTime] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hasInteracted = useRef(false);
+
+  // Function to initialize audio
+  const initializeAudio = useCallback(() => {
+    if (!hasInteracted.current && typeof window !== 'undefined') {
+      audioInstance = new Audio('/audio/Website-Intro.mp3');
+      audioRef.current = audioInstance;
+      hasInteracted.current = true;
+      setIsLoaded(true);
+    }
+  }, []);
 
   useEffect(() => {
-    audioRef.current = new Audio('/audio/Website-Intro.mp3');
+    // Add mousemove listener
+    const handleMouseMove = () => {
+      if (!hasInteracted.current) {
+        initializeAudio();
+        // Remove listener after first interaction
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
     
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
     };
-  }, []);
+  }, [initializeAudio]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -28,23 +53,30 @@ const AudioPlayer = () => {
 
   const updateTimeRemaining = useCallback(() => {
     if (!audioRef.current) return;
-    const remaining = audioRef.current.duration - audioRef.current.currentTime;
-    setTimeRemaining(formatTime(remaining));
-  }, [audioRef]);
+    const timeLeft = audioRef.current.duration - audioRef.current.currentTime;
+    setTimeRemaining(formatTime(timeLeft));
+  }, []);
 
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setShowTime(false);
-      } else {
-        audioRef.current.play();
-        setShowTime(true);
-      }
-      setIsPlaying(!isPlaying);
+    if (!isLoaded) {
+      initializeAudio();
+    }
+
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
       // Dispatch custom event for audio state change
       window.dispatchEvent(new CustomEvent('audioStateChange', { 
-        detail: { isPlaying: !isPlaying }
+        detail: { isPlaying: false }
+      }));
+    } else {
+      audioRef.current.play();
+      setIsPlaying(true);
+      // Dispatch custom event for audio state change
+      window.dispatchEvent(new CustomEvent('audioStateChange', { 
+        detail: { isPlaying: true }
       }));
     }
   };
@@ -53,31 +85,32 @@ const AudioPlayer = () => {
     if (!audioRef.current) return;
 
     const audio = audioRef.current;
-    
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setShowTime(false);
-      // Dispatch custom event when audio ends naturally
-      window.dispatchEvent(new CustomEvent('audioStateChange', { 
-        detail: { isPlaying: false }
-      }));
-    };
 
     const handleTimeUpdate = () => {
       updateTimeRemaining();
     };
 
-    audio.addEventListener('ended', handleEnded);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      // Dispatch custom event for audio state change
+      window.dispatchEvent(new CustomEvent('audioStateChange', { 
+        detail: { isPlaying: false }
+      }));
+    };
+
     audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('ended', handleEnded);
 
     return () => {
-      audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('ended', handleEnded);
     };
   }, [updateTimeRemaining]);
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
+    <div 
+      className="fixed bottom-8 right-8 z-50"
+    >
       <div className="flex items-center gap-4">
         {/* Text Label */}
         <span className="text-sm text-gold-light/80 tracking-wider">

@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import LogoCarousel from './LogoCarousel';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 // Define custom event type
 interface AudioStateChangeEvent extends CustomEvent {
@@ -21,18 +21,25 @@ interface HeroSectionProps {
   description: string;
 }
 
-// Dynamically import ParticlesAnimation with no SSR and loading placeholder
+// Lazy load components
+const LogoCarousel = dynamic(() => import('./LogoCarousel'), {
+  loading: () => <div className="h-20 bg-black/20 animate-pulse rounded-lg" />,
+  ssr: true
+});
+
 const ParticlesAnimation = dynamic(() => import('./ParticlesAnimation'), {
   ssr: false,
-  loading: () => null, // Empty placeholder during loading
+  loading: () => null,
 });
 
 export default function HeroSection({ title, subtitle, description }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -41,56 +48,83 @@ export default function HeroSection({ title, subtitle, description }: HeroSectio
     const audio = document.querySelector('audio');
     if (audio) {
       audioRef.current = audio;
+      
+      // Add event listeners
+      const handleAudioEnded = () => setIsAudioPlaying(false);
+      const handleAudioPaused = () => setIsAudioPlaying(false);
+      
+      audio.addEventListener('ended', handleAudioEnded);
+      audio.addEventListener('pause', handleAudioPaused);
+      
+      return () => {
+        audio.removeEventListener('ended', handleAudioEnded);
+        audio.removeEventListener('pause', handleAudioPaused);
+      };
     }
+  }, []);
 
+  useEffect(() => {
     // Listen for custom event from AudioPlayer
     const handleAudioStateChange = (e: AudioStateChangeEvent) => {
       setIsAudioPlaying(e.detail.isPlaying);
     };
-
-    // Listen for audio ending naturally
-    const handleAudioEnded = () => {
-      setIsAudioPlaying(false);
-    };
-
-    // Listen for audio paused
-    const handleAudioPaused = () => {
-      setIsAudioPlaying(false);
-    };
-    
-    if (audioRef.current) {
-      audioRef.current.addEventListener('ended', handleAudioEnded);
-      audioRef.current.addEventListener('pause', handleAudioPaused);
-    }
     
     window.addEventListener('audioStateChange', handleAudioStateChange as EventListener);
     
     return () => {
       window.removeEventListener('audioStateChange', handleAudioStateChange as EventListener);
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('ended', handleAudioEnded);
-        audioRef.current.removeEventListener('pause', handleAudioPaused);
-      }
     };
   }, []);
 
+  // Preload video when component mounts
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, []);
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
+  // Server-side render or initial client render
+  if (!mounted) {
+    return (
+      <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-black animate-pulse" />
+        <div className="relative z-10 text-center">
+          <div className="w-32 h-8 bg-[#FFD700]/10 animate-pulse rounded-full mx-auto mb-8" />
+          <div className="w-64 h-16 bg-[#FFD700]/10 animate-pulse rounded-lg mx-auto" />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
-      {/* Video Background */}
-      {mounted && (
-        <div className="absolute inset-0 w-full h-full">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ filter: 'brightness(0.7)' }}
-          >
-            <source src="/videos/hero-bg.mp4" type="video/mp4" />
-          </video>
-        </div>
-      )}
+      {/* Video Background with loading state */}
+      <div className="absolute inset-0 w-full h-full">
+        {!isVideoLoaded && (
+          <div className="absolute inset-0 bg-black animate-pulse" />
+        )}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onLoadedData={handleVideoLoad}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            isVideoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ filter: 'brightness(0.7)' }}
+        >
+          <source 
+            src="/videos/hero-bg.mp4" 
+            type="video/mp4"
+          />
+        </video>
+      </div>
 
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 bg-black/20">
