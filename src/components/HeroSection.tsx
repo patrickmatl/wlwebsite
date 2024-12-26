@@ -46,7 +46,6 @@ export default function HeroSection({
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover opacity-40"
-          poster="/images/assets/hero-poster.webp"
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
