@@ -43,25 +43,6 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo192.png" />
-        <link
-          rel="preload"
-          href="/fonts/SpaceGrotesk-Regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/Syne-Bold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="/css/070df7d0eda22564.css"
-          media="all"
-        />
       </head>
       <body className="bg-black text-white font-space-grotesk">
         <ClientRootWrapper>
