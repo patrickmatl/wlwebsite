@@ -41,7 +41,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // If it's a real user, redirect to homepage while preserving the URL
+  // For regular users, only redirect if it's a location page
   if (
     !path.startsWith('/_next') &&
     !path.startsWith('/api') &&
@@ -49,7 +49,8 @@ export function middleware(request: NextRequest) {
     !path.startsWith('/images') &&
     !path.startsWith('/fonts') &&
     !path.startsWith('/favicon') &&
-    path !== '/'
+    path !== '/' &&
+    (path.startsWith('/locations/') || path.match(/^\/[^/]+\/(graphic-design-company|website-design-company|branding-agency|logo-design-company|packaging-design-company)$/))
   ) {
     // Create a new URL for the homepage but keep the original URL visible
     const response = NextResponse.redirect(new URL('/', request.url));
