@@ -17,7 +17,7 @@ We understand the unique character of Cape Town's business landscape and create 
       'Motion Graphics & Animation'
     ],
     address: '123 Long Street, Cape Town, 8001',
-    email: 'capetown@wlcreationx.com',
+    email: 'info@wlcreationx.co.za',
     phone: '+27 21 123 4567',
     keywords: ['Cape Town design agency', 'web design Cape Town', 'branding agency Cape Town', 'UI/UX design Cape Town', 'digital marketing Cape Town'],
     areas: ['Cape Town CBD', 'Southern Suburbs', 'Atlantic Seaboard', 'Northern Suburbs']
@@ -40,7 +40,7 @@ We understand the fast-paced, competitive nature of Johannesburg's business envi
       'Social Media Design'
     ],
     address: '456 Jan Smuts Avenue, Sandton, Johannesburg, 2196',
-    email: 'johannesburg@wlcreationx.com',
+    email: 'info@wlcreationx.co.za',
     phone: '+27 11 123 4567',
     keywords: ['Johannesburg design agency', 'web design Johannesburg', 'corporate branding Johannesburg', 'digital marketing Johannesburg', 'UI/UX design Johannesburg'],
     areas: ['Sandton', 'Rosebank', 'Braamfontein', 'Randburg']

@@ -10,7 +10,7 @@ const LOGOS = Array.from({ length: LOGO_COUNT }, (_, i) => ({
   alt: `Client Logo ${i + 1}`
 }));
 
-const LogoCarousel = () => {
+export default function LogoCarousel() {
   const [isLoaded, setIsLoaded] = useState<{ [key: string]: boolean }>({});
   const [isMounted, setIsMounted] = useState(false);
 
@@ -36,10 +36,10 @@ const LogoCarousel = () => {
   return (
     <div className="relative w-full overflow-hidden py-8">
       {/* Gradient overlays for smooth fade effect */}
-      <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
-      <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
+      <div className="absolute inset-y-0 left-0 w-72 bg-gradient-to-r from-black via-black/80 to-transparent z-20" />
+      <div className="absolute inset-y-0 right-0 w-72 bg-gradient-to-l from-black via-black/80 to-transparent z-20" />
       
-      <div className="flex animate-scroll">
+      <div className="flex animate-scroll relative z-10">
         {/* First set of logos */}
         {LOGOS.map((logo, index) => (
           <div
@@ -94,5 +94,3 @@ const LogoCarousel = () => {
     </div>
   );
 };
-
-export default LogoCarousel;

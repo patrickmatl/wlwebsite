@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import LogoCarousel from './LogoCarousel';
 import { usePathname } from 'next/navigation';
+import bgVideo from '../../public/videos/hero-bg.mp4';
 
 interface HeroSectionProps {
   title?: string;
@@ -15,7 +16,7 @@ interface HeroSectionProps {
 export default function HeroSection({
   title = "Design",
   subtitle = "Agency",
-  description = "We specialize in creating stunning digital experiences that captivate audiences and drive results. Let's bring your vision to life.",
+  description = "South Africa's leading graphic design agency, delivering innovative visual solutions and creative excellence for businesses nationwide.",
 }: HeroSectionProps) {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
@@ -24,10 +25,16 @@ export default function HeroSection({
 
   useEffect(() => {
     setMounted(true);
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay failed, handle it silently
-      });
+    const video = videoRef.current;
+    if (video) {
+      const playVideo = async () => {
+        try {
+          await video.play();
+        } catch (err) {
+          console.log('Autoplay prevented');
+        }
+      };
+      playVideo();
     }
   }, []);
 
@@ -45,14 +52,14 @@ export default function HeroSection({
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
         >
-          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          <source src={bgVideo} type="video/mp4" />
         </video>
       </div>
 
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/30" />
       
       {/* Main content */}
       <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center">
@@ -66,7 +73,7 @@ export default function HeroSection({
           >
             <div className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
               <span className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse" />
-              <span className="text-white/70 text-sm">Pretoria, South Africa</span>
+              <span className="text-white/70 text-sm">South Africa</span>
             </div>
           </motion.div>
 
@@ -79,8 +86,13 @@ export default function HeroSection({
           >
             <div className="relative">
               <h1 className="font-syne font-bold leading-[0.85] tracking-tight">
-                <span className="text-[#FFD700] block text-4xl sm:text-6xl md:text-7xl lg:text-[8.3rem]">{title}</span>
-                <span className="text-white block text-3xl sm:text-5xl md:text-6xl lg:text-[6.8rem] -mt-1 sm:-mt-2">{subtitle}</span>
+                <span className="text-[#FFD700] block text-4xl sm:text-6xl md:text-7xl lg:text-[8.3rem]">
+                  {title}
+                </span>
+                <span className="text-white block text-3xl sm:text-5xl md:text-6xl lg:text-[6.8rem] -mt-1 sm:-mt-2">
+                  {subtitle}
+                </span>
+                <span className="sr-only"> - WL CreationX - Top Graphic Design Agency in South Africa</span>
               </h1>
             </div>
             <p className="font-space-grotesk text-base sm:text-lg md:text-xl text-neutral-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto mt-[5vh]">
@@ -88,35 +100,34 @@ export default function HeroSection({
             </p>
           </motion.div>
 
-          {/* Buttons and Logo Carousel */}
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-8 flex flex-col items-center space-y-6"
+            className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-8"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Link
-                href="/pricing"
-                className="bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFE55C] transition-colors"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/contact"
-                className="border border-white/20 text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors"
-              >
-                Get Started
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-3 bg-[#FFD700] text-black hover:bg-[#FFA500] rounded-full transition-all duration-300 font-medium"
+            >
+              Start Your Project
+            </Link>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700] rounded-full transition-all duration-300"
+            >
+              View Portfolio
+            </Link>
+          </motion.div>
 
-            {/* Client Logos Title */}
-            <div className="flex items-center justify-center space-x-4 mt-6 mb-4">
-              <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
-              <span className="text-[#FFD700]/70 text-sm sm:text-base font-syne">Trusted by Leading Brands</span>
-              <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#FFD700]/30 to-transparent"></div>
-            </div>
-
+          {/* Logo Carousel */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-12"
+          >
             <LogoCarousel />
           </motion.div>
         </div>

@@ -6,11 +6,11 @@ export default function SEOContent() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://whitelabel.co.za",
-    "name": "White Label Design Agency",
-    "image": "https://whitelabel.co.za/images/logo.png",
+    "@id": "https://wlcreationx.co.za",
+    "name": "WL creationX Design Agency",
+    "image": "https://wlcreationx.co.za/images/logo.png",
     "description": "Premier graphic design company in Pretoria offering professional branding, web design, and creative solutions. Trusted graphic design agency for businesses in Pretoria and Gauteng.",
-    "url": "https://whitelabel.co.za",
+    "url": "https://wlcreationx.co.za",
     "telephone": "+27123456789",
     "address": {
       "@type": "PostalAddress",

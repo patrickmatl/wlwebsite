@@ -1,9 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+
+  if (isHomePage) {
+    return null;
+  }
+
   return (
     <footer className="bg-black w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -48,7 +55,7 @@ export default function Footer() {
             <h3 className="text-white font-syne font-bold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-2">
               <li className="text-neutral-400 text-sm">Email: info@wlcreationx.co.za</li>
-              <li className="text-neutral-400 text-sm">Phone: +27 (0) 12 345 6789</li>
+              <li className="text-neutral-400 text-sm">Phone: +27 (0)62 369 3789</li>
               <li className="text-neutral-400 text-sm">Pretoria, South Africa</li>
             </ul>
           </div>

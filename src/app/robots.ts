@@ -2,12 +2,17 @@ import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/private/', '/admin/', '/*.json$', '/*.xml$'],
-    },
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/_next/',
+          '/static/',
+        ],
+      },
+    ],
     sitemap: 'https://wlcreationx.co.za/sitemap.xml',
-    host: 'https://wlcreationx.co.za',
   }
 }

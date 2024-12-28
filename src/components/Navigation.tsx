@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 
 const menuItems = [
   { href: '/', label: 'Home' },
@@ -55,12 +56,21 @@ const Navigation = () => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
+  // Fix hydration issue
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Close menu when route changes
+    setIsOpen(false);
+    setOpenSubmenu(null);
+    setOpenCategory(null);
+  }, [pathname]);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   const handleSubmenuClick = (label: string) => {
     setOpenSubmenu(openSubmenu === label ? null : label);
@@ -75,12 +85,12 @@ const Navigation = () => {
     <>
       {/* Menu Button */}
       <div className="fixed top-8 right-8 z-50 flex items-center gap-3">
-        <span className="text-gold-light/80 text-sm uppercase tracking-wider">
+        <span className="text-[#FFD700]/80 text-sm uppercase tracking-wider font-medium">
           {isOpen ? 'Close' : 'Menu'}
         </span>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-12 h-12 flex flex-col justify-center items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full hover:scale-110 transition-transform duration-300"
+          className="w-12 h-12 flex flex-col justify-center items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full hover:scale-110 transition-all duration-300 hover:bg-[#FFD700]/10"
           aria-label={isOpen ? 'Close Menu' : 'Open Menu'}
         >
           <span className={`w-6 h-0.5 bg-[#FFD700] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />
@@ -90,7 +100,7 @@ const Navigation = () => {
       </div>
 
       {/* Navigation Menu */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
           <motion.nav
             initial={{ opacity: 0, x: '100%' }}
@@ -108,12 +118,13 @@ const Navigation = () => {
                       <div className="relative">
                         <button
                           onClick={() => handleSubmenuClick(item.label)}
-                          className="text-2xl md:text-3xl text-white hover:text-gold-light transition-colors flex items-center gap-2 mx-auto"
+                          className={`text-2xl md:text-3xl transition-all duration-300 flex items-center gap-2 mx-auto group
+                            ${openSubmenu === item.label ? 'text-[#FFD700]' : 'text-white hover:text-[#FFD700]'}`}
                         >
                           {item.label}
                           <FaChevronDown
-                            className={`transition-transform duration-300 ${
-                              openSubmenu === item.label ? 'rotate-180' : ''
+                            className={`transition-transform duration-300 group-hover:text-[#FFD700] ${
+                              openSubmenu === item.label ? 'rotate-180 text-[#FFD700]' : ''
                             }`}
                           />
                         </button>
@@ -130,7 +141,8 @@ const Navigation = () => {
                                 <div key={category.label} className="space-y-2">
                                   <button
                                     onClick={() => handleCategoryClick(category.label)}
-                                    className="text-xl text-gold-light/80 hover:text-gold-light transition-colors flex items-center gap-2 mx-auto"
+                                    className={`text-xl transition-all duration-300 flex items-center gap-2 mx-auto group
+                                      ${openCategory === category.label ? 'text-[#FFD700]' : 'text-[#FFD700]/60 hover:text-[#FFD700]'}`}
                                   >
                                     {category.label}
                                     <FaChevronDown
@@ -152,7 +164,8 @@ const Navigation = () => {
                                           <Link
                                             key={subItem.label}
                                             href={subItem.href}
-                                            className="block text-lg text-white/70 hover:text-gold-light transition-colors"
+                                            className={`block text-lg transition-all duration-300
+                                              ${pathname === subItem.href ? 'text-[#FFD700]' : 'text-white/60 hover:text-white'}`}
                                             onClick={() => setIsOpen(false)}
                                           >
                                             {subItem.label}
@@ -170,7 +183,8 @@ const Navigation = () => {
                     ) : (
                       <Link
                         href={item.href}
-                        className="text-2xl md:text-3xl text-white hover:text-gold-light transition-colors block"
+                        className={`text-2xl md:text-3xl transition-all duration-300 block
+                          ${pathname === item.href ? 'text-[#FFD700]' : 'text-white hover:text-[#FFD700]'}`}
                         onClick={() => setIsOpen(false)}
                       >
                         {item.label}

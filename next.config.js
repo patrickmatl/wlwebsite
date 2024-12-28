@@ -4,72 +4,20 @@ const nextConfig = {
     unoptimized: true,
     formats: ['image/webp'],
   },
-  webpack: (config, { dev, isServer }) => {
-    // Audio file handling
+  webpack: (config) => {
     config.module.rules.push({
-      test: /\.(mp3|wav|ogg)$/i,
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
       type: 'asset/resource',
+      generator: {
+        filename: 'static/media/[path][name][ext]'
+      }
     });
-
-    // Optimize client-side bundles in production
-    if (!dev && !isServer) {
-      config.optimization = {
-        ...config.optimization,
-        minimize: true,
-        splitChunks: {
-          chunks: 'all',
-          minSize: 10000,
-          maxSize: 40000,
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            framework: {
-              chunks: 'all',
-              name: 'framework',
-              test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
-              priority: 40,
-              enforce: true,
-            },
-            commons: {
-              name: 'commons',
-              chunks: 'initial',
-              minChunks: 2,
-              priority: 20,
-            },
-            lib: {
-              test: /[\\/]node_modules[\\/]/,
-              chunks: 'all',
-              name(module, chunks, cacheGroupKey) {
-                const moduleFileName = module
-                  .identifier()
-                  .split('/')
-                  .reduceRight((item) => item);
-                return `${cacheGroupKey}-${moduleFileName}`;
-              },
-              priority: 15,
-              minChunks: 2,
-              reuseExistingChunk: true,
-            },
-            shared: {
-              name: false,
-              priority: 10,
-              minChunks: 2,
-              reuseExistingChunk: true,
-            },
-          },
-        },
-        runtimeChunk: { name: 'runtime' },
-      };
-    }
-
     return config;
   },
+  // Handle static file paths
+  output: 'standalone',
   poweredByHeader: false,
-  productionBrowserSourceMaps: false,
-  reactStrictMode: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+  reactStrictMode: true
 };
 
 module.exports = nextConfig;
