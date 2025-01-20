@@ -1,7 +1,10 @@
-.hidden-seo-content {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+.hiddenSeoContent {
+  position: absolute; /* Removes from layout flow */
+  overflow: hidden; /* Ensures content doesn't overflow */
+  width: 1px; /* Sets width to 1px */
+  height: 1px; /* Sets height to 1px */
+  white-space: nowrap; /* Prevents text from wrapping */
+  color: transparent; /* Hides the text visually */
+  clip: rect(0, 0, 0, 0); /* Removes it from the visual layout */
+  border: 0; /* Ensures no border is visible */
 }

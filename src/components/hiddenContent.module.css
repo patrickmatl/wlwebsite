@@ -1,0 +1,13 @@
+.hiddenSeoContent {
+    position: absolute; /* Removes from layout flow */
+    overflow: hidden; /* Ensures content doesn't overflow */
+    width: 1px; /* Sets width to 1px */
+    height: 1px; /* Sets height to 1px */
+    white-space: nowrap; /* Prevents text from wrapping */
+  }
+  
+  .hiddenSeoContent * {
+    color: transparent; /* Hides text visually */
+    /* Alternatively, match the text color to the background */
+    /* color: #ffffff; if background is white */
+  }

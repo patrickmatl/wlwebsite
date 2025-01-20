@@ -123,6 +123,9 @@ export default async function Home(_props: HomePageProps) {
     <html>
       <head>
         <link rel="canonical" href="https://wlcreationx.co.za/" />
+        <meta name="robots" content="index, follow" />
+        <meta name="description" content="Leading graphic design company in Pretoria. Expert branding, logo design, web design services." />
+        <meta name="keywords" content="graphic design company pretoria, graphic design agency pretoria, branding agency pretoria, web design pretoria" />
       </head>
       <body>
         <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
