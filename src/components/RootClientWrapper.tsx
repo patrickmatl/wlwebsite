@@ -115,6 +115,74 @@ export default function RootClientWrapper() {
             <li><strong>Affordable Pricing:</strong> We offer competitive rates without compromising on quality.</li>
           </ul>
 
+          <h3>Award-Winning Design Solutions in Pretoria</h3>
+        <p>WL CreationX stands as Pretoria's most innovative design studio, delivering cutting-edge creative solutions since 2010. Our portfolio showcases successful projects for leading South African brands, with measurable results in brand growth and digital engagement.</p>
+
+        <h3>Comprehensive Digital Design Services</h3>
+        <ul>
+          <li><strong>UI/UX Design:</strong> Creating intuitive, user-centered digital experiences</li>
+          <li><strong>Mobile App Design:</strong> Crafting engaging mobile applications</li>
+          <li><strong>Digital Marketing Design:</strong> Social media graphics, email templates, and digital ads</li>
+          <li><strong>Motion Graphics:</strong> Animated logos and promotional videos</li>
+        </ul>
+
+        <h3>Local Design Expertise for Pretoria Businesses</h3>
+        <p>As a Pretoria-based design agency, we understand the local market dynamics and cultural nuances that influence successful design in South Africa. Our team combines international design standards with local market insights to create impactful visual solutions.</p>
+
+        <h4>Additional Specialized Services</h4>
+        <ul>
+          <li><strong>Corporate Identity Design:</strong> Complete brand identity systems</li>
+          <li><strong>Exhibition & Event Design:</strong> Trade show materials and event branding</li>
+          <li><strong>Publication Design:</strong> Magazines, catalogs, and annual reports</li>
+          <li><strong>Signage Design:</strong> Indoor and outdoor business signage</li>
+        </ul>
+
+        <h3>Design Technology & Innovation</h3>
+        <p>We utilize the latest design software and technologies including:</p>
+        <ul>
+          <li>Adobe Creative Suite (Photoshop, Illustrator, InDesign)</li>
+          <li>Figma for collaborative UI/UX design</li>
+          <li>3D modeling and visualization tools</li>
+          <li>Advanced web development frameworks</li>
+        </ul>
+
+        <h3>Service Areas in Gauteng</h3>
+        <p>While based in Pretoria, we serve clients throughout Gauteng including:</p>
+        <ul>
+          <li>Centurion</li>
+          <li>Johannesburg</li>
+          <li>Sandton</li>
+          <li>Midrand</li>
+          <li>Hatfield</li>
+          <li>Brooklyn</li>
+        </ul>
+
+        <h3>Industry Recognition & Certifications</h3>
+        <ul>
+          <li>Loerie Awards Finalist 2022</li>
+          <li>Best of Pretoria Design Studio 2023</li>
+          <li>Google Partner Certified</li>
+          <li>Member of the Graphic Design Council of South Africa</li>
+        </ul>
+
+        <h3>Client Success Stories</h3>
+        <p>Our design solutions have achieved remarkable results:</p>
+        <ul>
+          <li>60% increase in website conversions for retail clients</li>
+          <li>45% improvement in brand recognition metrics</li>
+          <li>35% boost in social media engagement</li>
+          <li>90% client satisfaction rate</li>
+        </ul>
+
+        <h3>Design Education & Resources</h3>
+        <p>We're committed to elevating design standards in Pretoria through:</p>
+        <ul>
+          <li>Design workshops and seminars</li>
+          <li>Internship programs</li>
+          <li>Design industry partnerships</li>
+          <li>Free design consultations</li>
+        </ul>
+
           <h3>Ready to Transform Your Brand?</h3>
           <p>Whether you're a startup looking to make a bold entrance or an established brand seeking a fresh look, our agency is here to help. Contact us today to schedule a free consultation and discover how our graphic design services can elevate your brand.</p>
 
@@ -164,7 +232,7 @@ export default function RootClientWrapper() {
             "name": "WL CreationX",
             "url": "https://wlcreationx.co.za",
             "logo": "https://wlcreationx.co.za/images/logo.png",
-            "description": "Premier graphic design company and agency in Pretoria, South Africa, specializing in branding, logo design, and visual solutions.",
+            "description": "Leading graphic design agency in Pretoria, South Africa, delivering innovative visual solutions and creative excellence for businesses nationwide.",
             "sameAs": [
               "https://facebook.com/wlcreationx",
               "https://twitter.com/wlcreationx",
@@ -184,7 +252,7 @@ export default function RootClientWrapper() {
             "@type": "WebSite",
             "url": "https://wlcreationx.co.za",
             "name": "WL CreationX",
-            "description": "Leading graphic design agency in Pretoria, South Africa, offering professional branding, logo design, and visual solutions.",
+            "description": "Graphic design agency in Pretoria, South Africa, offering professional branding, logo design, and visual solutions.",
             "potentialAction": {
               "@type": "SearchAction",
               "target": "https://wlcreationx.co.za/search?q={search_term_string}",
@@ -221,7 +289,7 @@ export default function RootClientWrapper() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "What services does WL CreationX offer?",
+                "name": "What services does your graphic design company offer?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "We offer a wide range of graphic design services, including logo design, branding, web design, print design, social media graphics, packaging design, illustration, and marketing materials."
@@ -229,7 +297,7 @@ export default function RootClientWrapper() {
               },
               {
                 "@type": "Question",
-                "name": "Where is WL CreationX located?",
+                "name": "Where is your graphic design company located?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "We are based in Pretoria, South Africa, but serve clients throughout the region including Johannesburg, Cape Town, and other major cities."
@@ -245,7 +313,7 @@ export default function RootClientWrapper() {
               },
               {
                 "@type": "Question",
-                "name": "What industries does WL CreationX serve?",
+                "name": "What industries does your agency serve?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "We work with businesses across various industries, including retail, healthcare, real estate, education, hospitality, and technology."
