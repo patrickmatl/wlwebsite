@@ -80,7 +80,7 @@ export default function RootClientWrapper() {
             <li><strong>Packaging Design:</strong> We design packaging that stands out on the shelves and attracts customers.</li>
           </ul>
 
-          <p>Our print designs have helped clients achieve a 25% increase in customer engagement at trade shows and events.</p>
+          <p>Our print design in Pretoria have helped clients achieve a 25% increase in customer engagement at trade shows and events.</p>
 
           <h3>Industries We Serve our Design Services</h3>
           <p>At WL CreationX, we work with businesses across various industries, including:</p>
@@ -94,7 +94,7 @@ export default function RootClientWrapper() {
             <li><strong>Technology:</strong> Our designs communicate innovation and cutting-edge solutions.</li>
           </ul>
 
-          <h3>Our Process: How We Deliver Exceptional Designs</h3>
+          <h3>Our Process: How We Deliver Exceptional Designs in Gauteng</h3>
           <p>At WL CreationX, we follow a proven process to ensure your project's success:</p>
 
           <ol>
@@ -165,7 +165,7 @@ export default function RootClientWrapper() {
           <li>Member of the Graphic Design Council of South Africa</li>
         </ul>
 
-        <h3>Client Success Stories</h3>
+        <h3>Client Success Stories Pretoria</h3>
         <p>Our design solutions have achieved remarkable results:</p>
         <ul>
           <li>60% increase in website conversions for retail clients</li>
@@ -183,7 +183,7 @@ export default function RootClientWrapper() {
           <li>Free design consultations</li>
         </ul>
 
-          <h3>Ready to Transform Your Brand?</h3>
+          <h3>Ready to Transform Your Pretoria Brand?</h3>
           <p>Whether you're a startup looking to make a bold entrance or an established brand seeking a fresh look, our agency is here to help. Contact us today to schedule a free consultation and discover how our graphic design services can elevate your brand.</p>
 
           <div className="text-center">
@@ -204,10 +204,10 @@ export default function RootClientWrapper() {
             "image": "https://wlcreationx.co.za/images/logo.png",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "123 Design Street",
+              "streetAddress": "210 Albertus St, La Montagne, Pretoria, 0183",
               "addressLocality": "Pretoria",
               "addressRegion": "Gauteng",
-              "postalCode": "0002",
+              "postalCode": "0813",
               "addressCountry": "South Africa"
             },
             "geo": {
@@ -297,7 +297,7 @@ export default function RootClientWrapper() {
               },
               {
                 "@type": "Question",
-                "name": "Where is your graphic design company located?",
+                "name": "Where is your graphic design company located in Pretoria?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "We are based in Pretoria, South Africa, but serve clients throughout the region including Johannesburg, Cape Town, and other major cities."
@@ -377,7 +377,7 @@ export default function RootClientWrapper() {
               },
               {
                 "@type": "Question",
-                "name": "Can you design marketing materials like brochures and flyers?",
+                "name": "Can your design agency create marketing materials like brochures and flyers?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Yes, we design a wide range of marketing materials, including brochures, flyers, business cards, posters, and banners."

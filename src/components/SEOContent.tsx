@@ -11,13 +11,13 @@ export default function SEOContent() {
     "image": "https://wlcreationx.co.za/images/logo.png",
     "description": "Premier graphic design company in Pretoria offering professional branding, web design, and creative solutions. Trusted graphic design agency for businesses in Pretoria and Gauteng.",
     "url": "https://wlcreationx.co.za",
-    "telephone": "+27123456789",
+    "telephone": "+27623693769",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Your Street Address",
+      "streetAddress": "210 Albertus St, La Montagne, Pretoria, 0183",
       "addressLocality": "Pretoria",
       "addressRegion": "Gauteng",
-      "postalCode": "0081",
+      "postalCode": "0183",
       "addressCountry": "ZA"
     },
     "geo": {
@@ -146,7 +146,7 @@ export default function SEOContent() {
     "itemReviewed": {
       "@type": "LocalBusiness",
       "name": "White Label Design Agency",
-      "image": "https://whitelabel.co.za/images/logo.png"
+      "image": "https://wlcreationx.co.za/images/logo.png"
     },
     "ratingValue": "4.9",
     "bestRating": "5",
