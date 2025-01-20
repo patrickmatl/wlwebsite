@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-
-const RootClientWrapper = dynamic(() => import('@/components/RootClientWrapper'));
+import RootClientWrapper from '@/components/RootClientWrapper';
 
 type HomePageProps = {
   params: Promise<Record<string, never>>;
