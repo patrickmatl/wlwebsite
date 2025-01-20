@@ -120,8 +120,15 @@ export const metadata: Metadata = {
 
 export default async function Home(_props: HomePageProps) {
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
-      <RootClientWrapper />
-    </main>
+    <html>
+      <head>
+        <link rel="canonical" href="https://wlcreationx.co.za/" />
+      </head>
+      <body>
+        <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
+          <RootClientWrapper />
+        </main>
+      </body>
+    </html>
   );
 }

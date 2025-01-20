@@ -25,108 +25,80 @@ export default function HomeContent() {
         description="Leading graphic design agency in Pretoria, delivering innovative visual solutions and creative excellence for businesses nationwide."
       />
       
-      <div className={styles['hidden-seo-content']}>
-        <h1 className="sr-only">WL CreationX - Premier Graphic Design Company in Pretoria</h1>
+      <div className={styles.hiddenSeoContent}>
+        <h1 className="sr-only">Graphic Design Company in Pretoria</h1>
         <article>
-          <h2>Professional Graphic Design Services in Pretoria</h2>
-          <p>Welcome to WL CreationX, your trusted graphic design company in Pretoria. We specialize in delivering exceptional graphic design services, including logo design, branding, web design, and print design solutions. As a leading design agency in Pretoria, we combine creativity with strategic thinking to help businesses stand out in the competitive South African market.</p>
-          
-          <h3>Expert Graphic Design Solutions in Pretoria</h3>
-          <p>Our team of experienced graphic designers in Pretoria offers comprehensive design services tailored to your business needs. From corporate branding to digital marketing materials, we create impactful visual solutions that drive results. With over 15 years of experience in the Pretoria design industry, we understand the local market and deliver solutions that resonate with your target audience.</p>
-          
-          <h4>Comprehensive Graphic Design Services in Pretoria</h4>
-          <ul>
-            <li>Professional Logo Design and Brand Identity Development</li>
-            <li>Custom Website Design and Development</li>
-            <li>Print Design and Marketing Materials Creation</li>
-            <li>Social Media Graphics and Digital Marketing Assets</li>
-            <li>Packaging Design and Product Branding Solutions</li>
-            <li>Corporate Stationery and Business Cards Design</li>
-            <li>Billboard and Large Format Design Services</li>
-            <li>Magazine and Newsletter Design</li>
-            <li>Exhibition and Event Graphics Design</li>
-            <li>Vehicle Wrap and Signage Design</li>
-          </ul>
+          <h2 className={styles.heading}>Professional Graphic Design Services in Pretoria</h2>
+          <p className={styles.paragraph}>Welcome to WL CreationX, your trusted graphic design company in Pretoria. We specialize in delivering exceptional graphic design services, including logo design, branding, web design, and print design solutions. As a leading design agency in Pretoria, we combine creativity with strategic thinking to help businesses stand out in the competitive South African market.</p>
 
-          <h5>Why Choose WL CreationX as Your Graphic Design Agency in Pretoria</h5>
-          <ul>
-            <li>15+ Years of Professional Design Experience</li>
-            <li>Extensive Portfolio of Successful Projects</li>
-            <li>Custom-Tailored Design Solutions</li>
-            <li>Competitive and Transparent Pricing</li>
-            <li>Quick Turnaround Time on Projects</li>
-            <li>Dedicated Project Management Team</li>
-            <li>Industry-Leading Design Tools and Technology</li>
-            <li>Ongoing Support and Maintenance</li>
-            <li>Free Initial Design Consultation</li>
-            <li>100% Satisfaction Guarantee</li>
-          </ul>
+          <p className={styles.paragraph}>Our logo design service focuses on creating unique and memorable logos that encapsulate your brand's identity. We understand that a logo is often the first impression a customer has of your business, and we strive to make it impactful. Our team collaborates closely with you to understand your vision and values, ensuring the final design resonates with your target audience.</p>
 
-          <h6>Serving Pretoria and Surrounding Areas</h6>
-          <p>Based in Pretoria, we serve clients throughout the region including:</p>
-          <ul>
-            <li>Pretoria Central and CBD</li>
-            <li>Centurion Business District</li>
-            <li>Menlyn Maine and Surrounds</li>
-            <li>Brooklyn and Waterkloof</li>
-            <li>Hatfield and Arcadia</li>
-            <li>Lynnwood and Faerie Glen</li>
-            <li>Garsfontein and Moreleta Park</li>
-            <li>Silver Lakes and Equestria</li>
-          </ul>
+          <p className={styles.paragraph}>In addition to logo design, our branding services help establish a cohesive visual identity across all platforms. This includes designing business cards, letterheads, and marketing materials that reflect your brand's personality. A strong brand presence not only attracts customers but also builds trust and loyalty.</p>
 
-          <section>
-            <h3>Graphic Design Expertise and Specializations</h3>
-            <p>At WL CreationX, we pride ourselves on delivering professional graphic design services that help businesses in Pretoria establish a strong visual presence. Our team specializes in:</p>
-            <ul>
-              <li>Modern and Timeless Logo Design</li>
-              <li>Corporate Identity Development</li>
-              <li>Responsive Website Design</li>
-              <li>E-commerce Solutions</li>
-              <li>Brand Guidelines Creation</li>
-              <li>Marketing Collateral Design</li>
-              <li>Social Media Content Creation</li>
-              <li>Motion Graphics and Animation</li>
-            </ul>
-          </section>
+          <p className={styles.paragraph}>Our web design services are tailored to create user-friendly, responsive websites that engage visitors and drive conversions. We focus on optimizing the user experience while ensuring that your website is visually appealing and aligned with your brand's identity. From e-commerce platforms to informational sites, we have the expertise to bring your online presence to life.</p>
 
-          <section>
-            <h4>Our Graphic Design Process in Pretoria</h4>
-            <ol>
-              <li>Initial Consultation and Brief Development</li>
-              <li>Research and Strategy Planning</li>
-              <li>Concept Development and Design</li>
-              <li>Client Review and Feedback</li>
-              <li>Design Refinement and Finalization</li>
-              <li>Implementation and Launch Support</li>
-            </ol>
-          </section>
+          <p className={styles.paragraph}>Print design is another area where we excel. We create stunning brochures, flyers, and promotional materials that effectively communicate your message. Our design team ensures that every piece of print collateral is not only visually appealing but also strategically crafted to achieve your marketing goals.</p>
+
+          <p className={styles.paragraph}>Whether you're a startup looking to make a bold entrance, an established brand seeking a revitalized image, or an entrepreneur needing a consistent visual language across all platforms, our comprehensive graphic design services are designed to elevate your brand's presence. From conceptualization to launch, our collaborative approach ensures your vision is not just met, but exceeded, bringing your story to life.</p>
+
+          <p className={styles.paragraph}>Discover why WL CreationX stands out as the best graphic design company and agency in Pretoria, trusted by a diverse portfolio of clients for delivering impactful, contemporary designs that drive real results. Our clients range from small businesses to large corporations, all benefiting from our tailored design strategies that specialize in creating engaging experiences.</p>
+
+          <h3 className={styles.subheading}>Top Graphic Design Agency in Pretoria: Professional Branding and Visual Design Services</h3>
+          <p className={styles.paragraph}>At WL CreationX, Pretoria's top graphic design agency, we firmly believe that professional branding is the cornerstone of any successful business. Our team of visionary designers crafts comprehensive visual design services that encapsulate your brand's story, values, and mission, ensuring a cohesive brand image that captivates and retains your audience.</p>
+
+          <p className={styles.paragraph}>Our branding and visual design services include bespoke logo creation, nuanced color palette development, typography that speaks to your brand's voice, and meticulously crafted brand guidelines. This holistic approach empowers your brand to navigate the competitive market with clarity and confidence, creating a stunning visual identity that stands out.</p>
+
+          <p className={styles.paragraph}>Learn more about how our tailored branding solutions can redefine your business's visual footprint in Pretoria and beyond. Many of our clients have reported a significant increase in customer engagement and brand loyalty after implementing our branding strategies.</p>
+
+          <h4 className={styles.subheading}>Expert Logo Design and Brand Identity Solutions from Our Agency</h4>
+          <p className={styles.paragraph}>A logo is more than just a symbol; it's the first impression, the lasting memory, and the essence of your brand. At WL CreationX, our expert logo design services are built on a profound understanding of what makes a logo unforgettable and effective. We delve into the heart of your business to craft a visual identity that is both a stunning work of art and a strategic marketing tool.</p>
+
+          <p className={styles.paragraph}>Our logo design process is meticulous and collaborative, involving: - Deep Dive Sessions to uncover your brand's unique selling proposition (USP), - Conceptual Sketching to explore various creative avenues, - Digital Design where ideas come to life, - Refinement & Feedback to ensure perfection, and - Launch Preparation to seamlessly integrate your new logo across all platforms. Our logos have helped clients achieve a 30% increase in brand recognition.</p>
+
+          <p className={styles.paragraph}>Discover the WL CreationX difference in logo design and brand identity solutions, tailored to elevate your business in Pretoria's competitive landscape. Our portfolio includes logos for well-known brands that have become synonymous with quality and innovation.</p>
+
+          <h5 className={styles.subheading}>Custom Graphic Design for Pretoria, South African Businesses</h5>
+          <p className={styles.paragraph}>In the vibrant business landscape of Pretoria, South Africa, standing out requires more than just any graphic design; it demands a bespoke visual strategy. At WL CreationX, we're dedicated to providing custom graphic design services that don't just meet but anticipate the unique needs of your business, creating experiences that drive engagement.</p>
+
+          <p className={styles.paragraph}>Whether you're in need of: - Vibrant Social Media Graphics to engage your online audience, - Compelling Marketing Materials for your next campaign, - Innovative Packaging Design to redefine your product's shelf presence, or - Responsive Website Design to seamlessly integrate your brand's story, our custom graphic design solutions are crafted with your business objectives in mind. Our designs have helped clients increase their online engagement by over 50%.</p>
+
+          <p className={styles.paragraph}>Explore how our tailored approach to custom graphic design can offer your Pretoria-based business a competitive edge. We pride ourselves on our ability to adapt to the changing needs of our clients, ensuring that our designs remain relevant and impactful.</p>
+
+          <h6 className={styles.subheading}>Quality Design Services in Johannesburg, Cape Town & Pretoria</h6>
+          <p className={styles.paragraph}>While our roots are in Pretoria, our commitment to delivering unparalleled graphic design services extends to businesses in Johannesburg, Cape Town, and across the vibrant tapestry of South Africa. We believe in the power of good design to transform businesses, regardless of location.</p>
+
+          <p className={styles.paragraph}>Our national reach is matched by our local understanding, ensuring that whether you're in the bustling streets of Johannesburg, the scenic landscapes of Cape Town, or the dynamic city of Pretoria, our design solutions are always: - Contextually Relevant, - Innovative in Approach, and - Focused on Your Business Goals. Our clients from various regions have praised our ability to deliver high-quality designs that resonate with their target audiences.</p>
+
+          <p className={styles.paragraph}>Experience the national standard of quality design with a personal, local touch, no matter where your business calls home in South Africa. We are dedicated to fostering long-term relationships with our clients, ensuring that we remain a trusted partner in their growth and success.</p>
+          <div className="text-center">
+            <Link href="/contact" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">Inquire About National Services</Link>
+          </div>
         </article>
 
-        <h2 className="text-3xl md:text-4xl font-syne font-bold mb-6 text-white">Best Graphic Design Company in Pretoria South Africa</h2>
-        <p className="mb-4 text-neutral-300 text-lg">As the premier graphic design company in Pretoria, South Africa, WL CreationX is renowned for crafting bespoke visual identities that catapult businesses into the spotlight. With a deep understanding of the local market and a passion for innovation, our team of experts tailors design solutions that not only reflect your brand's essence but also resonate deeply with your target audience.</p>
-        <p className="text-neutral-300 text-lg">Whether you're a startup looking to make a bold entrance, an established brand seeking a revitalized image, or an entrepreneur needing a consistent visual language across all platforms, our comprehensive graphic design services are designed to elevate your brand's presence. From conceptualization to launch, our collaborative approach ensures your vision is not just met, but exceeded.</p>
-        <p className="text-neutral-300 text-lg mb-6">Discover why WL CreationX stands out as the best graphic design company in Pretoria, trusted by a diverse portfolio of clients for delivering impactful, contemporary designs that drive real results. Our clients range from small businesses to large corporations, all benefiting from our tailored design strategies.</p>
+        <h2 className={styles.heading}>Best Graphic Design Company in Pretoria, South Africa</h2>
+        <p className={styles.paragraph}>As the premier graphic design company in Pretoria, South Africa, WL CreationX is renowned for crafting bespoke visual identities that captivate audiences and drive digital experiences. With a deep understanding of the local market and a passion for creating stunning designs, our agency tailors solutions that not only reflect your brand's essence but also resonate deeply with your target audience.</p>
+        <p className={styles.paragraph}>Whether you're a startup looking to make a bold entrance, an established brand seeking a revitalized image, or an entrepreneur needing a consistent visual language across all platforms, our comprehensive graphic design services are designed to elevate your brand's presence. From conceptualization to launch, our collaborative approach ensures your vision is not just met, but exceeded, bringing your story to life.</p>
+        <p className={styles.paragraph}>Discover why WL CreationX stands out as the best graphic design company and agency in Pretoria, trusted by a diverse portfolio of clients for delivering impactful, contemporary designs that drive real results. Our clients range from small businesses to large corporations, all benefiting from our tailored design strategies that specialize in creating engaging experiences.</p>
 
-        <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6 text-[#FFD700]">Top Graphic Design Agency in Pretoria Professional Branding and Visual Design Services</h3>
-        <p className="mb-4 text-neutral-300 text-lg">At WL CreationX, Pretoria's top graphic design agency, we firmly believe that professional branding is the cornerstone of any successful business. Our team of visionary designers crafts comprehensive visual design services that encapsulate your brand's story, values, and mission, ensuring a cohesive brand image that captivates and retains your audience.</p>
-        <p className="text-neutral-300 text-lg">Our branding and visual design services include, but are not limited to, bespoke logo creation, nuanced color palette development, typography that speaks to your brand's voice, and meticulously crafted brand guidelines. This holistic approach empowers your brand to navigate the competitive market with clarity and confidence.</p>
-        <p className="text-neutral-300 text-lg mb-6">Learn more about how our tailored branding solutions can redefine your business's visual footprint in Pretoria and beyond. Many of our clients have reported a significant increase in customer engagement and brand loyalty after implementing our branding strategies.</p>
+        <h3 className={styles.subheading}>Top Graphic Design Agency in Pretoria: Professional Branding and Visual Design Services</h3>
+        <p className={styles.paragraph}>At WL CreationX, Pretoria's top graphic design agency, we firmly believe that professional branding is the cornerstone of any successful business. Our team of visionary designers crafts comprehensive visual design services that encapsulate your brand's story, values, and mission, ensuring a cohesive brand image that captivates and retains your audience.</p>
+        <p className={styles.paragraph}>Our branding and visual design services include bespoke logo creation, nuanced color palette development, typography that speaks to your brand's voice, and meticulously crafted brand guidelines. This holistic approach empowers your brand to navigate the competitive market with clarity and confidence, creating a stunning visual identity that stands out.</p>
+        <p className={styles.paragraph}>Learn more about how our tailored branding solutions can redefine your business's visual footprint in Pretoria and beyond. Many of our clients have reported a significant increase in customer engagement and brand loyalty after implementing our branding strategies.</p>
 
-        <h4 className="text-xl md:text-2xl font-syne font-bold mb-6 text-white">Expert Logo Design and Brand Identity Solutions</h4>
-        <p className="mb-4 text-neutral-300 text-lg">A logo is more than just a symbol; it's the first impression, the lasting memory, and the essence of your brand. At WL CreationX, our expert logo design services are built on a profound understanding of what makes a logo unforgettable and effective. We delve into the heart of your business to craft a visual identity that is both a stunning work of art and a strategic marketing tool.</p>
-        <p className="text-neutral-300 text-lg">Our logo design process is meticulous and collaborative, involving: - Deep Dive Sessions to uncover your brand's unique selling proposition (USP), - Conceptual Sketching to explore various creative avenues, - Digital Design where ideas come to life, - Refinement & Feedback to ensure perfection, and - Launch Preparation to seamlessly integrate your new logo across all platforms. Our logos have helped clients achieve a 30% increase in brand recognition.</p>
-        <p className="text-neutral-300 text-lg mb-6">Discover the WL CreationX difference in logo design and brand identity solutions, tailored to elevate your business in Pretoria's competitive landscape. Our portfolio includes logos for well-known brands that have become synonymous with quality and innovation.</p>
+        <h4 className={styles.subheading}>Expert Logo Design and Brand Identity Solutions from Our Agency</h4>
+        <p className={styles.paragraph}>A logo is more than just a symbol; it's the first impression, the lasting memory, and the essence of your brand. At WL CreationX, our expert logo design services are built on a profound understanding of what makes a logo unforgettable and effective. We delve into the heart of your business to craft a visual identity that is both a stunning work of art and a strategic marketing tool.</p>
+        <p className={styles.paragraph}>Our logo design process is meticulous and collaborative, involving: - Deep Dive Sessions to uncover your brand's unique selling proposition (USP), - Conceptual Sketching to explore various creative avenues, - Digital Design where ideas come to life, - Refinement & Feedback to ensure perfection, and - Launch Preparation to seamlessly integrate your new logo across all platforms. Our logos have helped clients achieve a 30% increase in brand recognition.</p>
+        <p className={styles.paragraph}>Discover the WL CreationX difference in logo design and brand identity solutions, tailored to elevate your business in Pretoria's competitive landscape. Our portfolio includes logos for well-known brands that have become synonymous with quality and innovation.</p>
 
-        <h5 className="text-lg md:text-xl font-syne font-bold mb-6 text-[#FFD700]">Custom Graphic Design for Pretoria, South African Businesses</h5>
-        <p className="mb-4 text-neutral-300 text-lg">In the vibrant business landscape of Pretoria, South Africa, standing out requires more than just any graphic design; it demands a bespoke visual strategy. At WL CreationX, we're dedicated to providing custom graphic design services that don't just meet but anticipate the unique needs of your business.</p>
-        <p className="text-neutral-300 text-lg">Whether you're in need of: - Vibrant Social Media Graphics to engage your online audience, - Compelling Marketing Materials for your next campaign, - Innovative Packaging Design to redefine your product's shelf presence, or - Responsive Website Design to seamlessly integrate your brand's story, our custom graphic design solutions are crafted with your business objectives in mind. Our designs have helped clients increase their online engagement by over 50%.</p>
-        <p className="text-neutral-300 text-lg mb-6">Explore how our tailored approach to custom graphic design can offer your Pretoria-based business a competitive edge. We pride ourselves on our ability to adapt to the changing needs of our clients, ensuring that our designs remain relevant and impactful.</p>
+        <h5 className={styles.subheading}>Custom Graphic Design for Pretoria, South African Businesses</h5>
+        <p className={styles.paragraph}>In the vibrant business landscape of Pretoria, South Africa, standing out requires more than just any graphic design; it demands a bespoke visual strategy. At WL CreationX, we're dedicated to providing custom graphic design services that don't just meet but anticipate the unique needs of your business, creating experiences that drive engagement.</p>
+        <p className={styles.paragraph}>Whether you're in need of: - Vibrant Social Media Graphics to engage your online audience, - Compelling Marketing Materials for your next campaign, - Innovative Packaging Design to redefine your product's shelf presence, or - Responsive Website Design to seamlessly integrate your brand's story, our custom graphic design solutions are crafted with your business objectives in mind. Our designs have helped clients increase their online engagement by over 50%.</p>
+        <p className={styles.paragraph}>Explore how our tailored approach to custom graphic design can offer your Pretoria-based business a competitive edge. We pride ourselves on our ability to adapt to the changing needs of our clients, ensuring that our designs remain relevant and impactful.</p>
 
-        <h6 className="text-base md:text-lg font-syne font-bold mb-6 text-white">Quality Design Services in Johannesburg, Cape Town & Pretoria</h6>
-        <p className="mb-4 text-neutral-300 text-lg">While our roots are in Pretoria, our commitment to delivering unparalleled graphic design services extends to businesses in Johannesburg, Cape Town, and across the vibrant tapestry of South Africa. We believe in the power of good design to transform businesses, regardless of location.</p>
-        <p className="text-neutral-300 text-lg">Our national reach is matched by our local understanding, ensuring that whether you're in the bustling streets of Johannesburg, the scenic landscapes of Cape Town, or the dynamic city of Pretoria, our design solutions are always: - Contextually Relevant, - Innovative in Approach, and - Focused on Your Business Goals. Our clients from various regions have praised our ability to deliver high-quality designs that resonate with their target audiences.</p>
-        <p className="text-neutral-300 text-lg mb-6">Experience the national standard of quality design with a personal, local touch, no matter where your business calls home in South Africa. We are dedicated to fostering long-term relationships with our clients, ensuring that we remain a trusted partner in their growth and success.</p>
+        <h6 className={styles.subheading}>Quality Design Services in Johannesburg, Cape Town & Pretoria</h6>
+        <p className={styles.paragraph}>While our roots are in Pretoria, our commitment to delivering unparalleled graphic design services extends to businesses in Johannesburg, Cape Town, and across the vibrant tapestry of South Africa. We believe in the power of good design to transform businesses, regardless of location.</p>
+        <p className={styles.paragraph}>Our national reach is matched by our local understanding, ensuring that whether you're in the bustling streets of Johannesburg, the scenic landscapes of Cape Town, or the dynamic city of Pretoria, our design solutions are always: - Contextually Relevant, - Innovative in Approach, and - Focused on Your Business Goals. Our clients from various regions have praised our ability to deliver high-quality designs that resonate with their target audiences.</p>
+        <p className={styles.paragraph}>Experience the national standard of quality design with a personal, local touch, no matter where your business calls home in South Africa. We are dedicated to fostering long-term relationships with our clients, ensuring that we remain a trusted partner in their growth and success.</p>
         <div className="text-center">
           <Link href="/contact" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">Inquire About National Services</Link>
         </div>
