@@ -9,8 +9,8 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: 'Graphic Design Company | Best Graphic Design Agency in Pretoria',
-  description: 'WL CreationX is the leading graphic design company and agency in Pretoria, South Africa. We specialize in professional branding, logo design, web design, and creative solutions for businesses across Gauteng. Trusted by top companies for innovative and impactful designs.',
+  title: 'WL CreationX | Top Graphic Design Agency Pretoria',
+  description: 'Leading graphic design company in Pretoria. Expert branding, logo design, web design services. ✓15+ Years Experience ✓Award-winning Agency ✓Free Consultation. Contact us today!',
   keywords: [
     'graphic design company pretoria',
     'graphic design agency pretoria',
@@ -21,17 +21,7 @@ export const metadata: Metadata = {
     'graphic design services pretoria',
     'best design agency in south africa',
     'professional graphic designers pretoria',
-    'custom graphic design pretoria',
-    'social media design pretoria',
-    'packaging design pretoria',
-    'print design pretoria',
-    'UI/UX design pretoria',
-    'motion graphics pretoria',
-    'rebranding services pretoria',
-    'marketing design pretoria',
-    'corporate branding pretoria',
-    'creative design solutions pretoria',
-    'affordable graphic design pretoria'
+    'custom graphic design pretoria'
   ],
   manifest: '/site.webmanifest',
   icons: {
@@ -55,35 +45,12 @@ export const metadata: Metadata = {
       }
     ]
   },
-  openGraph: {
-    title: 'Graphic Design Company | Top Graphic Design Agency in Pretoria',
-    description: 'WL CreationX is the leading graphic design company and agency in Pretoria, South Africa. We specialize in professional branding, logo design, web design, and creative solutions for businesses across Gauteng. Trusted by top companies for innovative and impactful designs.',
-    url: 'https://wlcreationx.co.za',
-    siteName: 'WL CreationX Design Agency',
-    locale: 'en_ZA',
-    type: 'website',
-    images: [
-      {
-        url: 'https://wlcreationx.co.za/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'WL CreationX - Graphic Design Agency in Pretoria',
-      }
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Graphic Design Company | Top Graphic Design Agency in Pretoria',
-    description: 'WL CreationX is the leading graphic design company and agency in Pretoria, South Africa. We specialize in professional branding, logo design, web design, and creative solutions for businesses across Gauteng. Trusted by top companies for innovative and impactful designs.',
-    creator: '@wlcreationx',
-    images: [
-      {
-        url: 'https://wlcreationx.co.za/images/twitter-image.jpg',
-        width: 1200,
-        height: 628,
-        alt: 'WL CreationX - Graphic Design Agency in Pretoria',
-      }
-    ],
+  alternates: {
+    canonical: 'https://wlcreationx.co.za',
+    languages: {
+      'en-ZA': 'https://wlcreationx.co.za',
+      'x-default': 'https://wlcreationx.co.za'
+    }
   },
   robots: {
     index: true,
@@ -97,6 +64,32 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  openGraph: {
+    title: 'WL CreationX | Premier Graphic Design Agency in Pretoria',
+    description: 'Leading graphic design company in Pretoria. Expert branding, logo design, web design services. ✓15+ Years Experience ✓Award-winning Agency ✓Free Consultation.',
+    url: 'https://wlcreationx.co.za',
+    siteName: 'WL CreationX Design Agency',
+    locale: 'en_ZA',
+    type: 'website',
+    images: [
+      {
+        url: 'https://wlcreationx.co.za/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'WL CreationX - Leading Graphic Design Agency in Pretoria'
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WL CreationX | Top Graphic Design Agency Pretoria',
+    description: 'Leading graphic design company in Pretoria. Expert branding, logo design, web design services. Contact us for professional design solutions.',
+    images: ['https://wlcreationx.co.za/images/twitter-card.jpg'],
+    creator: '@wlcreationx'
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
   category: 'Graphic Design & Creative Services',
   authors: [
     {
@@ -105,12 +98,6 @@ export const metadata: Metadata = {
     }
   ],
   publisher: 'WL CreationX Design Agency',
-  alternates: {
-    canonical: 'https://wlcreationx.co.za',
-    languages: {
-      'en-ZA': 'https://wlcreationx.co.za/en',
-    },
-  },
   formatDetection: {
     email: true,
     address: true,
