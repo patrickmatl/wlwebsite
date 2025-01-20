@@ -4,7 +4,10 @@
   width: 1px; /* Sets width to 1px */
   height: 1px; /* Sets height to 1px */
   white-space: nowrap; /* Prevents text from wrapping */
-  color: transparent; /* Hides the text visually */
-  clip: rect(0, 0, 0, 0); /* Removes it from the visual layout */
-  border: 0; /* Ensures no border is visible */
+}
+
+.hiddenSeoContent * {
+  color: transparent; /* Hides text visually */
+  /* Alternatively, match the text color to the background */
+  /* color: #ffffff; if background is white */
 }
