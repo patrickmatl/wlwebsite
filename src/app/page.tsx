@@ -1,11 +1,6 @@
 import { Metadata } from 'next';
 import RootClientWrapper from '@/components/RootClientWrapper';
 
-type HomePageProps = {
-  params: Promise<Record<string, never>>;
-  searchParams: Promise<{ city?: string; service?: string }>;
-};
-
 export const metadata: Metadata = {
   title: 'WL CreationX | Top Graphic Design Agency Pretoria',
   description: 'Leading graphic design company in Pretoria. Expert branding, logo design, web design services. ✓15+ Years Experience ✓Award-winning Agency ✓Free Consultation. Contact us today!',
@@ -25,23 +20,11 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
-      {
-        url: '/favicon-32x32.png',
-        sizes: '32x32',
-        type: 'image/png'
-      },
-      {
-        url: '/favicon-16x16.png',
-        sizes: '16x16',
-        type: 'image/png'
-      }
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
     ],
     apple: [
-      {
-        url: '/apple-touch-icon.png',
-        sizes: '180x180',
-        type: 'image/png'
-      }
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ]
   },
   alternates: {
@@ -116,20 +99,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home(_props: HomePageProps) {
+export default function Home() {
   return (
-    <html>
-      <head>
-        <link rel="canonical" href="https://wlcreationx.co.za/" />
-        <meta name="robots" content="index, follow" />
-        <meta name="description" content="Leading graphic design company in Pretoria. Expert branding, logo design, web design services." />
-        <meta name="keywords" content="graphic design company pretoria, graphic design agency pretoria, branding agency pretoria, web design pretoria" />
-      </head>
-      <body>
-        <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
-          <RootClientWrapper />
-        </main>
-      </body>
-    </html>
+    <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
+      <RootClientWrapper />
+    </main>
   );
 }
