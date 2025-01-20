@@ -20,7 +20,7 @@ export default function RootClientWrapper() {
           <div className="hiddenContent">
             <article>
               <h2>Professional Graphic Design Services in Pretoria</h2>
-              <p>Welcome to WL CreationX, your trusted graphic design company in Pretoria. As a leading design agency in Pretoria, we specialize in delivering exceptional graphic design services, including logo design, branding, web design, and print design solutions. With a team of visionary designers and a passion for creativity, we combine strategic thinking with innovative design to help businesses stand out in the competitive South African market.</p>
+              <p>Welcome to WL CreationX, your trusted graphic design Agency in Pretoria. As a leading design business in Pretoria, we specialize in delivering exceptional graphic design services, including logo design, branding, web design, and print design solutions. With a team of visionary designers and a passion for creativity, we combine strategic thinking with innovative design to help businesses stand out in the competitive South African market.</p>
 
               <h3>Why Choose WL CreationX as Your Graphic Design Agency in Pretoria?</h3>
               <p>At WL CreationX, we pride ourselves on being more than just a graphic design company. We are your creative partners, dedicated to transforming your brand's vision into reality. Here's why businesses across Pretoria and South Africa trust us:</p>
@@ -34,10 +34,10 @@ export default function RootClientWrapper() {
             </article>
           </div>
 
-<h3>Our Graphic Design Services in Pretoria</h3>
-          <p>As a full-service graphic design agency in Pretoria, we offer a wide range of services to help your business thrive:</p>
+<h3>Our web and Graphic Design Services in Pretoria</h3>
+          <p>As a full-service graphic and web design agency in Pretoria, we offer a wide range of services to help your business thrive:</p>
 
-          <h4>1. Logo Design and Brand Identity</h4>
+          <h4>1. Logo Design and Brand Identity Services</h4>
           <p>Your logo is the cornerstone of your brand identity. At WL CreationX, we specialize in creating unique and memorable logos that encapsulate your brand's essence. Our logo design process includes:</p>
 
           <ul>
@@ -49,7 +49,7 @@ export default function RootClientWrapper() {
 
           <p>Our logos have helped businesses achieve a 30% increase in brand recognition, making them unforgettable in the minds of their customers.</p>
 
-          <h4>2. Branding and Visual Identity</h4>
+          <h4>2. Branding and Visual Identity Creation</h4>
           <p>A strong brand identity is essential for standing out in today's competitive market. Our branding services include:</p>
 
           <ul>
@@ -60,7 +60,7 @@ export default function RootClientWrapper() {
 
           <p>Our branding solutions have helped clients build trust and loyalty, resulting in a 40% increase in customer retention.</p>
 
-          <h4>3. Web Design and Development</h4>
+          <h4>3. Web Design and Development Design Services</h4>
           <p>In today's digital age, a professional website is crucial for success. Our web design services include:</p>
 
           <ul>
@@ -82,7 +82,7 @@ export default function RootClientWrapper() {
 
           <p>Our print designs have helped clients achieve a 25% increase in customer engagement at trade shows and events.</p>
 
-          <h3>Industries We Serve</h3>
+          <h3>Industries We Serve our Design Services</h3>
           <p>At WL CreationX, we work with businesses across various industries, including:</p>
 
           <ul>
@@ -105,7 +105,7 @@ export default function RootClientWrapper() {
             <li><strong>Delivery:</strong> We deliver the final design in all required formats, ready for implementation.</li>
           </ol>
 
-          <h3>Why Pretoria Businesses Trust WL CreationX</h3>
+          <h3>Why Pretoria companies Trust our agency?</h3>
           <p>As the leading graphic design company in Pretoria, we are committed to delivering exceptional results. Here's what sets us apart:</p>
 
           <ul>
@@ -116,71 +116,433 @@ export default function RootClientWrapper() {
           </ul>
 
           <h3>Ready to Transform Your Brand?</h3>
-          <p>Whether you're a startup looking to make a bold entrance or an established brand seeking a fresh look, WL CreationX is here to help. Contact us today to schedule a free consultation and discover how our graphic design services can elevate your brand.</p>
+          <p>Whether you're a startup looking to make a bold entrance or an established brand seeking a fresh look, our agency is here to help. Contact us today to schedule a free consultation and discover how our graphic design services can elevate your brand.</p>
 
           <div className="text-center">
             <Link href="/contact" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">
               Get a Free Consultation
             </Link>
           </div>
-        </div>
+        </div> </div>
 
+{/* Schema.org Markup */}
 <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "WL CreationX",
-              "description": "Leading graphic design agency in Pretoria, delivering innovative visual solutions and creative excellence for businesses nationwide.",
-              "image": "https://wlcreationx.co.za/images/logo.png",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "123 Design Street",
-                "addressLocality": "Pretoria",
-                "addressRegion": "Gauteng",
-                "postalCode": "0002",
-                "addressCountry": "South Africa"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "-25.7479",
-                "longitude": "28.2293"
-              },
-              "url": "https://wlcreationx.co.za",
-              "telephone": "+27623693769",
-              "priceRange": "$$",
-              "areaServed": ["Pretoria", "Johannesburg", "Cape Town", "South Africa"],
-              "sameAs": [
-                "https://facebook.com/wlcreationx",
-                "https://twitter.com/wlcreationx",
-                "https://instagram.com/wlcreationx",
-                "https://linkedin.com/company/wlcreationx"
-              ]
+        __html: JSON.stringify([
+          {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "WL CreationX",
+            "description": "Leading graphic design agency in Pretoria, delivering innovative visual solutions and creative excellence for businesses nationwide.",
+            "image": "https://wlcreationx.co.za/images/logo.png",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "123 Design Street",
+              "addressLocality": "Pretoria",
+              "addressRegion": "Gauteng",
+              "postalCode": "0002",
+              "addressCountry": "South Africa"
             },
-            {
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "WL CreationX",
-              "url": "https://wlcreationx.co.za",
-              "logo": "https://wlcreationx.co.za/images/logo.png",
-              "description": "Premier graphic design company and agency in Pretoria, South Africa, specializing in branding, logo design, and visual solutions.",
-              "sameAs": [
-                "https://facebook.com/wlcreationx",
-                "https://twitter.com/wlcreationx",
-                "https://instagram.com/wlcreationx",
-                "https://linkedin.com/company/wlcreationx"
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+27623693769",
-                "contactType": "customer service",
-                "email": "info@wlcreationx.co.za",
-                "availableLanguage": ["English"]
-              }
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "-25.7479",
+              "longitude": "28.2293"
+            },
+            "url": "https://wlcreationx.co.za",
+            "telephone": "+27623693769",
+            "priceRange": "$$",
+            "areaServed": ["Pretoria", "Johannesburg", "Cape Town", "South Africa"],
+            "sameAs": [
+              "https://facebook.com/wlcreationx",
+              "https://twitter.com/wlcreationx",
+              "https://instagram.com/wlcreationx",
+              "https://linkedin.com/company/wlcreationx"
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "WL CreationX",
+            "url": "https://wlcreationx.co.za",
+            "logo": "https://wlcreationx.co.za/images/logo.png",
+            "description": "Premier graphic design company and agency in Pretoria, South Africa, specializing in branding, logo design, and visual solutions.",
+            "sameAs": [
+              "https://facebook.com/wlcreationx",
+              "https://twitter.com/wlcreationx",
+              "https://instagram.com/wlcreationx",
+              "https://linkedin.com/company/wlcreationx"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+27623693769",
+              "contactType": "customer service",
+              "email": "info@wlcreationx.co.za",
+              "availableLanguage": ["English"]
             }
-          ])
-        }} />
-      </div>
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://wlcreationx.co.za",
+            "name": "WL CreationX",
+            "description": "Leading graphic design agency in Pretoria, South Africa, offering professional branding, logo design, and visual solutions.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://wlcreationx.co.za/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://wlcreationx.co.za"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Graphic Design Services",
+                "item": "https://wlcreationx.co.za/services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Portfolio",
+                "item": "https://wlcreationx.co.za/portfolio"
+              }
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What services does WL CreationX offer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We offer a wide range of graphic design services, including logo design, branding, web design, print design, social media graphics, packaging design, illustration, and marketing materials."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where is WL CreationX located?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We are based in Pretoria, South Africa, but serve clients throughout the region including Johannesburg, Cape Town, and other major cities."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How can I contact WL CreationX?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You can contact us via phone at +27623693769, email at info@wlcreationx.co.za, or through the contact form on our website."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What industries does WL CreationX serve?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We work with businesses across various industries, including retail, healthcare, real estate, education, hospitality, and technology."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How much do your graphic design services cost?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our pricing varies depending on the scope and complexity of the project. We offer competitive rates and can provide a custom quote after discussing your specific needs."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer custom graphic design solutions?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we specialize in creating custom graphic design solutions tailored to your business's unique needs and goals."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How long does it take to complete a design project?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The timeline depends on the project's complexity. We work efficiently to deliver high-quality designs within agreed-upon deadlines."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you help with rebranding an existing business?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely! We specialize in rebranding businesses to give them a fresh, modern look while maintaining their core identity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you design websites as well?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we offer web design and development services to create visually appealing and user-friendly websites for businesses."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What file formats do you provide for designs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We provide designs in various formats, including PNG, JPEG, PDF, SVG, and AI, depending on your requirements."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer social media design services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we create engaging social media graphics and content to help businesses grow their online presence."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design marketing materials like brochures and flyers?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design a wide range of marketing materials, including brochures, flyers, business cards, posters, and banners."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you work with startups?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we love working with startups and helping them establish a strong visual identity from the ground up."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What makes WL CreationX different from other graphic design companies?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We combine creativity with strategic thinking to deliver designs that not only look great but also drive results. Our client-centric approach and attention to detail set us apart."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer revisions on design projects?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we offer a set number of revisions to ensure you're completely satisfied with the final design."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you handle urgent design projects?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we can accommodate urgent projects. Contact us with your requirements, and we'll do our best to meet your deadline."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you provide design services for packaging?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we specialize in creating innovative and eye-catching packaging designs that help products stand out on the shelves."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is your process for starting a new design project?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our process begins with a consultation to understand your needs, followed by concept development, design creation, and final delivery with revisions as needed."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer design services for events?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design materials for events, including invitations, banners, posters, and digital assets."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you help with rebranding an existing business?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely! We specialize in rebranding businesses to give them a fresh, modern look while maintaining their core identity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What services does a graphic design agency typically offer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A graphic design agency usually offers services like branding, logo design, web design, print design, social media graphics, packaging design, illustration, and marketing materials."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is included in branding services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Branding services typically include logo design, color palette development, typography selection, brand guidelines, and creating a cohesive visual identity for your business."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you design websites as part of your services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we offer web design and development services to create visually appealing, user-friendly, and responsive websites for businesses."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you create social media graphics?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely! We design engaging social media graphics, including posts, banners, stories, and ads, to help businesses grow their online presence."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer print design services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design print materials like brochures, flyers, business cards, posters, banners, and more for businesses."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the process for creating a logo?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our logo design process includes a consultation, research, concept development, revisions, and final delivery in various file formats."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design packaging for products?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we specialize in creating innovative and eye-catching packaging designs that help products stand out on the shelves."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you provide illustration services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we offer custom illustration services for businesses, including digital artwork, character design, and infographics."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you help with rebranding an existing business?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely! We specialize in rebranding businesses to give them a fresh, modern look while maintaining their core identity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you design marketing materials?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design a wide range of marketing materials, including brochures, flyers, business cards, posters, and digital ads."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you create infographics?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design custom infographics to help businesses present complex information in a visually appealing and easy-to-understand way."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer motion graphics or animation services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we create motion graphics and animations for websites, social media, and marketing campaigns to engage your audience."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design email newsletters?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design visually appealing email newsletters that help businesses communicate effectively with their audience."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer UI/UX design services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we provide UI/UX design services to create user-friendly and visually appealing interfaces for websites and apps."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design presentations?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design professional and visually engaging presentations for businesses, including PowerPoint and Google Slides templates."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you create designs for events?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design materials for events, including invitations, banners, posters, and digital assets."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design annual reports?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design professional and visually appealing annual reports for businesses and organizations."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer photography services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "While we primarily focus on graphic design, we can collaborate with professional photographers to provide full-service branding solutions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you design merchandise like T-shirts and mugs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we design custom artwork for merchandise, including T-shirts, mugs, tote bags, and more."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you offer design consulting services?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we provide design consulting to help businesses develop effective visual strategies and improve their branding."
+                }
+              }
+            ]
+          }
+        ])
+      }} />
     </main>
   );
 }
