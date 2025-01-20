@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     'professional graphic designers pretoria',
     'custom graphic design pretoria'
   ],
+  viewport: 'width=device-width, initial-scale=1',
   manifest: '/site.webmanifest',
   icons: {
     icon: [
