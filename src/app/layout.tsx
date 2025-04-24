@@ -4,6 +4,8 @@ import { Metadata } from 'next';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
 import AudioPlayer from '@/components/AudioPlayer';
 import Footer from '@/components/Footer';
+import Breadcrumb from '@/components/Navigation/Breadcrumb';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { Suspense } from 'react';
 
 // Configure fonts
@@ -61,6 +63,8 @@ export default function RootLayout({
       <body className="bg-black text-white font-space-grotesk" suppressHydrationWarning>
         <ClientRootWrapper>
           <AudioPlayer />
+          <BreadcrumbJsonLd />
+          <Breadcrumb />
           <div className={`${typeof window !== 'undefined' && window.location.pathname === '/' ? 'h-screen overflow-hidden' : ''}`}>
             <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white">
               <Suspense fallback={null}>

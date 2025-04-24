@@ -15,40 +15,40 @@ const menuItems = [
       {
         label: 'Web Services',
         items: [
-          { href: '/pricing/website-design', label: 'Website Design' },
-          { href: '/pricing/ecommerce', label: 'E-commerce' },
-          { href: '/pricing/custom-development', label: 'Custom Development' },
-          { href: '/pricing/website-maintenance', label: 'Website Maintenance' },
-          { href: '/pricing/mobile-solutions', label: 'Mobile Solutions' }
+          { href: '/pricing/website-design-pretoria', label: 'Website Design' },
+          { href: '/pricing/ecommerce-pretoria', label: 'E-commerce' },
+          { href: '/pricing/custom-development-pretoria', label: 'Custom Development' },
+          { href: '/pricing/website-maintenance-pretoria', label: 'Website Maintenance' },
+          { href: '/pricing/mobile-solutions-pretoria', label: 'Mobile Solutions' }
         ]
       },
       {
         label: 'Design Services',
         items: [
-          { href: '/pricing/graphic-design', label: 'Graphic Design' },
+          { href: '/pricing/graphic-design-pretoria', label: 'Graphic Design' },
           { href: '/pricing/brand-identity', label: 'Brand Identity' },
-          { href: '/pricing/print-design', label: 'Print Design' },
-          { href: '/pricing/packaging-design', label: 'Packaging Design' },
-          { href: '/pricing/marketing-materials', label: 'Marketing Materials' }
+          { href: '/pricing/print-design-pretoria', label: 'Print Design' },
+          { href: '/pricing/packaging-design-pretoria', label: 'Packaging Design' },
+          { href: '/pricing/marketing-materials-pretoria', label: 'Marketing Materials' }
         ]
       },
       {
         label: 'Marketing Services',
         items: [
-          { href: '/pricing/seo', label: 'SEO Services' },
-          { href: '/pricing/google-ads', label: 'Google Ads' },
-          { href: '/pricing/social-media', label: 'Social Media Marketing' },
-          { href: '/pricing/content-marketing', label: 'Content Marketing' },
-          { href: '/pricing/email-marketing', label: 'Email Marketing' }
+          { href: '/pricing/seo-pretoria', label: 'SEO Services' },
+          { href: '/pricing/google-ads-pretoria', label: 'Google Ads' },
+          { href: '/pricing/social-media-pretoria', label: 'Social Media Marketing' },
+          { href: '/pricing/content-marketing-pretoria', label: 'Content Marketing' },
+          { href: '/pricing/email-marketing-pretoria', label: 'Email Marketing' }
         ]
       }
     ]
   },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/about', label: 'About' },
-  { href: '/careers', label: 'Careers' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/project-showcase-pretoria', label: 'Portfolio' },
+  { href: '/creative-industry-blog-pretoria', label: 'Blog' },
+  { href: '/about-graphic-design-company-pretoria', label: 'About' },
+  { href: '/join-our-team-pretoria', label: 'Careers' },
+  { href: '/get-in-touch-pretoria', label: 'Contact' },
 ];
 
 const Navigation = () => {

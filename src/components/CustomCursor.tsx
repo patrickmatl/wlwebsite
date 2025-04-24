@@ -56,9 +56,7 @@ export default function CustomCursor() {
       <div
         ref={cursorRef}
         className={`custom-cursor ${isHovering ? 'hover' : ''}`}
-        style={{
-          transform: 'translate(-100%, -100%)',
-        }}
+        style={{}}
       />
 
       <style jsx>{`

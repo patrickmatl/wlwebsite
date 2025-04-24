@@ -9,7 +9,7 @@ const MainNav = () => {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
+    { label: 'About', href: '/about-graphic-design-company-pretoria' },
     {
       label: 'Services',
       href: '/pricing',
@@ -20,7 +20,10 @@ const MainNav = () => {
         { label: 'Marketing Materials', href: '/pricing/marketing-materials' }
       ]
     },
-    { label: 'Contact', href: '/contact' }
+    { label: 'Contact', href: '/get-in-touch-pretoria' },
+    { label: 'Portfolio', href: '/project-showcase-pretoria' },
+    { label: 'Blog', href: '/creative-industry-blog-pretoria' },
+    { label: 'Careers', href: '/join-our-team-pretoria' },
   ];
 
   return (

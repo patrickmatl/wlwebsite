@@ -108,13 +108,13 @@ export default function HeroSection({
             className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-8"
           >
             <Link
-              href="/contact"
+              href="/get-in-touch-pretoria"
               className="inline-flex items-center justify-center px-8 py-3 bg-[#FFD700] text-black hover:bg-[#FFA500] rounded-full transition-all duration-300 font-medium"
             >
               Start Your Project
             </Link>
             <Link
-              href="/portfolio"
+              href="/project-showcase-pretoria"
               className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700] rounded-full transition-all duration-300"
             >
               View Portfolio

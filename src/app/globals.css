@@ -33,6 +33,8 @@
   mix-blend-mode: difference;
   transition: transform 0.2s ease;
   filter: blur(1px);
+  left: 0;
+  top: 0;
 }
 
 .custom-cursor::after {
@@ -90,7 +92,8 @@
 }
 
 /* Base styles */
-body {
+html, body {
+  cursor: none !important;
   background-color: black;
   color: white;
   overflow-x: hidden;
@@ -100,7 +103,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
   font-synthesis: none;
-  cursor: none; /* Hide default cursor */
 }
 
 /* Custom font settings */
