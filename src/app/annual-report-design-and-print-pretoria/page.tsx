@@ -172,8 +172,6 @@ export default function AnnualReportDesignPrintPretoria() {
         <a href="http://localhost:3001/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</a>
       </section>
 
-      {/* Related Services */}
-      <RelatedServices />
     </div>
   );
 }
