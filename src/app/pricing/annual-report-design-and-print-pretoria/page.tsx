@@ -4,6 +4,45 @@ import { motion } from "framer-motion";
 import GetInTouchButton from "@/components/GetInTouchButton";
 import RelatedServices from "@/components/RelatedServices";
 
+const relatedServices = [
+  {
+    title: "Graphic Design",
+    description: "Creative graphic design for all your business needs.",
+    href: "/pricing/graphic-design-pretoria",
+    anchor: "View Service"
+  },
+  {
+    title: "Brand Identity",
+    description: "Build a memorable and cohesive brand identity.",
+    href: "/pricing/brand-identity",
+    anchor: "View Service"
+  },
+  {
+    title: "Print Design",
+    description: "Professional print design for brochures, flyers, and more.",
+    href: "/pricing/print-design-pretoria",
+    anchor: "View Service"
+  },
+  {
+    title: "Packaging Design",
+    description: "Eye-catching packaging design that stands out.",
+    href: "/pricing/packaging-design-pretoria",
+    anchor: "View Service"
+  },
+  {
+    title: "Marketing Materials",
+    description: "Effective marketing materials to promote your business.",
+    href: "/pricing/marketing-materials-pretoria",
+    anchor: "View Service"
+  },
+  {
+    title: "Annual Report Design & Print",
+    description: "Professional annual report design and print services in Pretoria.",
+    href: "/pricing/annual-report-design-and-print-pretoria",
+    anchor: "View Service"
+  }
+];
+
 export default function AnnualReportDesignPrintPretoria() {
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
@@ -308,41 +347,7 @@ export default function AnnualReportDesignPrintPretoria() {
       </section>
 
       {/* Related Services */}
-      <RelatedServices
-        currentService="Annual Report Design & Print"
-        services={[
-          {
-            title: "Graphic Design",
-            description: "Creative graphic design for all your business needs.",
-            href: "/pricing/graphic-design-pretoria"
-          },
-          {
-            title: "Brand Identity",
-            description: "Build a memorable and cohesive brand identity.",
-            href: "/pricing/brand-identity"
-          },
-          {
-            title: "Print Design",
-            description: "Professional print design for brochures, flyers, and more.",
-            href: "/pricing/print-design-pretoria"
-          },
-          {
-            title: "Packaging Design",
-            description: "Eye-catching packaging design that stands out.",
-            href: "/pricing/packaging-design-pretoria"
-          },
-          {
-            title: "Marketing Materials",
-            description: "Effective marketing materials to promote your business.",
-            href: "/pricing/marketing-materials-pretoria"
-          },
-          {
-            title: "Annual Report Design & Print",
-            description: "Professional annual report design and print services in Pretoria.",
-            href: "/pricing/annual-report-design-and-print-pretoria"
-          }
-        ]}
-      />
+      <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
     </div>
   );
 }
