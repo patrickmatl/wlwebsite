@@ -4,18 +4,6 @@ import HeroSection from './HeroSection';
 import Link from 'next/link';
 import styles from '../styles/hiddenContent.module.css';
 
-// SEO-optimized headings for graphic design
-const headings = {
-  h2: {
-    services: "Graphic Design Services in Pretoria South Africa",
-    portfolio: "Award-Winning Design Agency Pretoria Portfolio",
-    about: "Leading Creative Design Agency in Pretoria South Africa",
-    testimonials: "Trusted by Top Companies Across Pretoria South Africa",
-    projects: "Innovative Graphic Design Solutions",
-    contact: "Partner with Pretoria's Top Design Agency"
-  }
-};
-
 export default function HomeContent() {
   return (
     <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">

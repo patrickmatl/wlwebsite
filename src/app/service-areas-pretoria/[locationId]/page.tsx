@@ -12,8 +12,7 @@ type Props = {
 }
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
+  { params }: Props
 ): Promise<Metadata> {
   const resolvedParams = await params;
   const location = locations.find(l => l.slug === resolvedParams.locationId);
@@ -126,7 +125,6 @@ export default async function LocationPage({ params }: Props) {
       <main className="container mx-auto px-4 py-8">
         <LocationSchema 
           location={location}
-          services={locationServices}
           baseUrl={baseUrl}
         />
         <h1 className="text-4xl font-bold text-white mb-8">

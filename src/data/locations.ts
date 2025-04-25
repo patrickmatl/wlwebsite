@@ -1,29 +1,5 @@
 import { Location, ServiceVariation } from '@/types';
 
-const createServiceVariations = (city: string, areas: string[]): ServiceVariation[] => [
-  {
-    slug: 'graphic-design-company',
-    title: `${city} Graphic Design Company | Professional Design Services`,
-    description: `Award-winning graphic design services in ${city}. Professional branding, logo design, and visual solutions for businesses in ${areas.join(', ')} and surrounding areas.`,
-    metaTitle: `Best Graphic Design Company in ${city} | Professional Design Services`,
-    metaDescription: `Looking for a professional graphic design company in ${city}? WL CreationX offers expert graphic design services for businesses in ${areas.slice(0, 3).join(', ')} and beyond. Get a free consultation today!`
-  },
-  {
-    slug: 'website-design-company',
-    title: `${city} Website Design Company | Professional Web Development`,
-    description: `Expert website design and development services in ${city}. Custom web solutions for businesses in ${areas.join(', ')} and surrounding areas.`,
-    metaTitle: `Leading Website Design Company in ${city} | Custom Web Development`,
-    metaDescription: `Need a professional website design company in ${city}? WL CreationX creates stunning, responsive websites for businesses in ${areas.slice(0, 3).join(', ')} and beyond. Get your free website quote today!`
-  },
-  {
-    slug: 'branding-agency',
-    title: `${city} Branding Agency | Professional Brand Design Services`,
-    description: `Strategic branding and design services in ${city}. Complete brand solutions for businesses in ${areas.join(', ')} and surrounding areas.`,
-    metaTitle: `Top Branding Agency in ${city} | Professional Brand Design`,
-    metaDescription: `Transform your brand with WL CreationX, the leading branding agency in ${city}. Serving businesses in ${areas.slice(0, 3).join(', ')} and beyond. Get your free brand consultation today!`
-  }
-];
-
 const createLocationContent = (city: string, areas: string[]) => ({
   h1: `Professional Design Services in ${city}`,
   h2: {
@@ -217,11 +193,7 @@ const createLocation = (
   id: string,
   city: string,
   region: string,
-  areas: string[],
-  mainKeywords: string[],
-  nearbyAreas: string[],
-  serviceAreas: { primary: string[]; secondary: string[] },
-  localKeywords: string[]
+  areas: string[]
 ): Location => {
   const content = createLocationContent(city, areas);
   
@@ -353,48 +325,6 @@ export const locations: Location[] = [
       'Sunnyside',
       'Montana',
       'Garsfontein'
-    ],
-    [
-      'graphic design pretoria',
-      'website design pretoria',
-      'logo design pretoria',
-      'branding agency pretoria',
-      'web design company pretoria',
-      'packaging design pretoria',
-      'digital marketing pretoria',
-      'creative agency pretoria'
-    ],
-    [
-      'Midrand',
-      'Johannesburg North',
-      'Sandton',
-      'Randburg'
-    ],
-    {
-      primary: [
-        'Pretoria East',
-        'Pretoria North',
-        'Pretoria West',
-        'Pretoria Central',
-        'Centurion'
-      ],
-      secondary: [
-        'Bronkhorstspruit',
-        'Cullinan',
-        'Hammanskraal',
-        'Winterveld',
-        'Mamelodi'
-      ]
-    },
-    [
-      'pretoria business graphic design',
-      'corporate branding pretoria',
-      'pretoria ecommerce websites',
-      'affordable web design pretoria',
-      'professional logo designer pretoria',
-      'pretoria digital marketing services',
-      'best graphic designer in pretoria',
-      'website development pretoria cbd'
     ]
   ),
   createLocation(
@@ -412,48 +342,6 @@ export const locations: Location[] = [
       'Northcliff',
       'Parktown',
       'Melville'
-    ],
-    [
-      'graphic design johannesburg',
-      'website design johannesburg',
-      'logo design johannesburg',
-      'branding agency johannesburg',
-      'web design company johannesburg',
-      'packaging design johannesburg',
-      'digital marketing johannesburg',
-      'creative agency johannesburg'
-    ],
-    [
-      'Pretoria',
-      'Centurion',
-      'East Rand',
-      'West Rand'
-    ],
-    {
-      primary: [
-        'Sandton CBD',
-        'Randburg',
-        'Rosebank',
-        'Fourways',
-        'Midrand'
-      ],
-      secondary: [
-        'Soweto',
-        'Lenasia',
-        'Alexandra',
-        'Diepsloot',
-        'Orange Farm'
-      ]
-    },
-    [
-      'johannesburg business graphic design',
-      'corporate branding johannesburg',
-      'johannesburg ecommerce websites',
-      'affordable web design johannesburg',
-      'professional logo designer johannesburg',
-      'johannesburg digital marketing services',
-      'best graphic designer in johannesburg',
-      'website development johannesburg cbd'
     ]
   ),
   createLocation(
@@ -471,48 +359,6 @@ export const locations: Location[] = [
       'Constantia',
       'Century City',
       'Bellville'
-    ],
-    [
-      'graphic design cape town',
-      'website design cape town',
-      'logo design cape town',
-      'branding agency cape town',
-      'web design company cape town',
-      'packaging design cape town',
-      'digital marketing cape town',
-      'creative agency cape town'
-    ],
-    [
-      'Stellenbosch',
-      'Somerset West',
-      'Paarl',
-      'Bloubergstrand'
-    ],
-    {
-      primary: [
-        'Cape Town CBD',
-        'Atlantic Seaboard',
-        'Southern Suburbs',
-        'Northern Suburbs',
-        'City Bowl'
-      ],
-      secondary: [
-        'Khayelitsha',
-        'Mitchell\'s Plain',
-        'Gugulethu',
-        'Durbanville',
-        'Table View'
-      ]
-    },
-    [
-      'cape town business graphic design',
-      'corporate branding cape town',
-      'cape town ecommerce websites',
-      'affordable web design cape town',
-      'professional logo designer cape town',
-      'cape town digital marketing services',
-      'best graphic designer in cape town',
-      'website development cape town cbd'
     ]
   ),
   createLocation(
@@ -530,48 +376,6 @@ export const locations: Location[] = [
       'Glenwood',
       'Musgrave',
       'Durban North'
-    ],
-    [
-      'graphic design durban',
-      'website design durban',
-      'logo design durban',
-      'branding agency durban',
-      'web design company durban',
-      'packaging design durban',
-      'digital marketing durban',
-      'creative agency durban'
-    ],
-    [
-      'Pietermaritzburg',
-      'Amanzimtoti',
-      'Stanger',
-      'Hillcrest'
-    ],
-    {
-      primary: [
-        'Durban CBD',
-        'Umhlanga',
-        'Berea',
-        'Morningside',
-        'Westville'
-      ],
-      secondary: [
-        'KwaMashu',
-        'Umlazi',
-        'Chatsworth',
-        'Phoenix',
-        'Inanda'
-      ]
-    },
-    [
-      'durban business graphic design',
-      'corporate branding durban',
-      'durban ecommerce websites',
-      'affordable web design durban',
-      'professional logo designer durban',
-      'durban digital marketing services',
-      'best graphic designer in durban',
-      'website development durban cbd'
     ]
   )
 ];

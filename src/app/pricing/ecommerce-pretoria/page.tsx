@@ -7,12 +7,6 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const EcommercePage = () => {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'E-Commerce Solutions', href: '/pricing/ecommerce' }
-  ];
-
   const packages = [
     {
       name: "Basic E-Commerce Package",

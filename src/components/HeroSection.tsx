@@ -19,7 +19,6 @@ export default function HeroSection({
   description = "South Africa's leading graphic design agency, delivering innovative visual solutions and creative excellence for businesses nationwide.",
 }: HeroSectionProps) {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
   const [mounted, setMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -30,7 +29,7 @@ export default function HeroSection({
       const playVideo = async () => {
         try {
           await video.play();
-        } catch (err) {
+        } catch {
           console.log('Autoplay prevented');
         }
       };

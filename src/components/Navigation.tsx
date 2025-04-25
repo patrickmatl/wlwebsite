@@ -30,7 +30,10 @@ const menuItems = [
           { href: '/pricing/print-design-pretoria', label: 'Print Design' },
           { href: '/pricing/packaging-design-pretoria', label: 'Packaging Design' },
           { href: '/pricing/marketing-materials-pretoria', label: 'Marketing Materials' },
-          { href: '/pricing/annual-report-design-and-print-pretoria', label: 'Annual Report Design & Print' }
+          { href: '/pricing/annual-report-design-and-print-pretoria', label: 'Annual Report Design & Print' },
+          { href: '/pricing/transcription-services-pretoria-johannesburg', label: 'Transcription Services' },
+          { href: '/pricing/copywriting-services-pretoria-johannesburg', label: 'Copywriting Services' },
+          { href: '/pricing/copy-editing-services-pretoria-johannesburg', label: 'Copy Editing Services' }
         ]
       },
       {

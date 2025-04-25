@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaDesktop, FaPalette, FaShoppingCart, FaMobileAlt, FaCode } from 'react-icons/fa';
 
@@ -157,11 +156,8 @@ const PricingPage = () => {
       {/* Categories Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {pricingCategories.map((category, index) => (
-          <motion.div
+          <div
             key={category.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="bg-zinc-900 rounded-lg p-8 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all"
           >
             <div className="text-center mb-6">
@@ -185,7 +181,7 @@ const PricingPage = () => {
             >
               View Full Pricing
             </Link>
-          </motion.div>
+          </div>
         ))}
       </div>
 

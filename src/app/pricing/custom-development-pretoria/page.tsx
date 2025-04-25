@@ -7,12 +7,6 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const CustomDevelopmentPage = () => {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Custom Development', href: '/pricing/custom-development' }
-  ];
-
   const packages = [
     {
       name: "Custom Web Application",

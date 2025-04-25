@@ -1,5 +1,4 @@
 import { regions } from '@/data/regions';
-import { Location } from '@/types';
 
 interface PathItem {
   params: {

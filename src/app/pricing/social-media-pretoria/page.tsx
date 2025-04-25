@@ -261,12 +261,6 @@ const SocialMediaPage = () => {
     }
   ];
 
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Social Media', href: '/pricing/social-media' }
-  ];
-
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
       {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Social Media Pretoria */}

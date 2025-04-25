@@ -11,8 +11,7 @@ type Props = {
 }
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
+  { params }: Props
 ): Promise<Metadata> {
   const resolvedParams = await params;
   const service = services.find(s => s.slug === resolvedParams.serviceId);
@@ -38,7 +37,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function ServicePage({ params, searchParams }: Props) {
+export default async function ServicePage({ params }: Props) {
   const resolvedParams = await params;
   const service = services.find(s => s.slug === resolvedParams.serviceId);
   

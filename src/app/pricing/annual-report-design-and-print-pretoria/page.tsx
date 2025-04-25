@@ -67,6 +67,366 @@ export default function AnnualReportDesignPrintPretoria() {
         <p>Looking for the best annual report design and print company in Pretoria? WL CreationX delivers award-winning annual reports that impress stakeholders and support your brand’s reputation.</p>
       </section>
 
+      {/* First batch of hidden SEO FAQ Schema Markup for Annual Report Design and Print Pretoria */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'What is annual report design and print in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Annual report design and print in Pretoria involves creating, formatting, and producing professional annual reports for businesses and organizations.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How much does annual report design cost in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'The cost of annual report design in Pretoria typically ranges from R5,000 to R25,000 depending on complexity and print requirements.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer both design and printing services in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer complete annual report design and print solutions in Pretoria, including layout, graphics, and high-quality printing.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you design annual reports for listed companies in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print annual reports for listed and private companies in Pretoria, meeting regulatory standards.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How long does annual report design take in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Most annual report design projects in Pretoria are completed within 2-4 weeks, depending on content and revisions.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer digital versions of annual reports in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we provide both printed and digital (PDF, interactive) annual reports for Pretoria clients.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you assist with annual report content writing in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer content writing and editing as part of our annual report design and print services in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'What print finishes are available for annual reports in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'We offer a range of print finishes for annual reports in Pretoria, including matte, gloss, embossing, and custom binding.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide samples of previous annual report designs in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we can share samples of previous annual report designs and prints completed for Pretoria clients.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How do I get a quote for annual report design and print in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Contact us online or by phone to discuss your annual report design and print needs in Pretoria and receive a custom quote.'
+              }
+            }
+          ]
+        })
+      }} />
+
+      {/* Second batch of hidden SEO FAQ Schema Markup for Annual Report Design and Print Pretoria */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'Can you print annual reports in small or large quantities in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer both small and large quantity annual report printing for Pretoria clients.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer environmentally friendly printing options in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer eco-friendly paper and sustainable printing practices for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you design bilingual annual reports in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print bilingual and multilingual annual reports for Pretoria organizations.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'What file formats do you accept for annual report printing in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'We accept PDF, InDesign, Illustrator, and Word files for annual report printing in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide annual report design for NGOs in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print annual reports for NGOs and non-profits in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you assist with annual report compliance in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we ensure annual report designs meet regulatory and compliance standards in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How do you ensure confidentiality for annual report projects in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'All annual report projects in Pretoria are handled with strict confidentiality and NDAs are available.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer rush annual report printing in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer expedited annual report printing services for urgent deadlines in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you include infographics in annual report designs in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we can add infographics and data visualizations to annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'What is the process for annual report design and print in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Our process includes consultation, concept design, content integration, revisions, and final printing or digital delivery in Pretoria.'
+              }
+            }
+          ]
+        })
+      }} />
+
+      {/* Third batch of hidden SEO FAQ Schema Markup for Annual Report Design and Print Pretoria */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'Do you offer annual report translation services in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we provide translation and localization for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you print annual reports with custom binding in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer custom binding options such as saddle stitch, perfect binding, and wire-o for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide annual report design for government entities in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print annual reports for government departments and agencies in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you print annual reports with variable data in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer variable data printing for personalized annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you assist with annual report project management in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we manage the entire annual report project from concept to delivery in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you design annual reports for listed JSE companies in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we have experience designing annual reports for JSE-listed companies in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer annual report mailing and distribution in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer mailing and distribution services for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you include QR codes and interactive elements in Pretoria annual reports?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we can add QR codes and interactive features to annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide annual report archiving solutions in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer digital archiving and secure storage for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you help with annual report compliance for King IV in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we ensure annual reports comply with King IV and other governance standards in Pretoria.'
+              }
+            }
+          ]
+        })
+      }} />
+
+      {/* Fourth batch of hidden SEO FAQ Schema Markup for Annual Report Design and Print Pretoria */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'Do you offer annual report editing and proofreading in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we provide editing and proofreading for annual reports in Pretoria to ensure accuracy and professionalism.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you design annual reports for schools and universities in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print annual reports for educational institutions in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer annual report design for financial institutions in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we have experience designing annual reports for banks and financial institutions in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you help with annual report photography in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we can coordinate professional photography for annual report projects in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide annual report design for healthcare organizations in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we design and print annual reports for hospitals and healthcare providers in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you assist with annual report project timelines in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we help manage project timelines and milestones for annual report design and print in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you offer annual report design consultations in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer consultations to plan and scope your annual report design and print project in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Can you design annual reports with custom charts and graphs in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we create custom charts, graphs, and data visualizations for annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you provide annual report storage and delivery in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, we offer secure storage and local delivery of annual reports in Pretoria.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How do you handle revisions for annual report design projects in Pretoria?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'We offer multiple revision rounds to ensure Pretoria clients are fully satisfied with their annual report design.'
+              }
+            }
+          ]
+        })
+      }} />
+
       {/* Visually Hidden SEO FAQ for Annual Report Design Pretoria */}
       <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
         <h2>Frequently Asked Questions about Annual Report Design and Print in Pretoria</h2>
@@ -238,86 +598,22 @@ export default function AnnualReportDesignPrintPretoria() {
 
       {/* Pricing Plans Section */}
       <section className="max-w-6xl mx-auto mb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* BASIC Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-zinc-900 border border-zinc-700 rounded-3xl shadow-lg p-8 flex flex-col items-center text-center hover:border-[#FFD700] transition-all"
-          >
-            <h3 className="text-2xl font-bold text-[#FFD700] mb-2">BASIC</h3>
-            <div className="text-3xl font-extrabold mb-4">R 25,000</div>
-            <ul className="space-y-2 text-neutral-200 mb-6">
-              <li>Cover design</li>
-              <li>Collage artwork</li>
-              <li>Typographic work</li>
-              <li>Layout</li>
-              <li>Up To 50 Pages</li>
-            </ul>
-            <a href="http://localhost:3001/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
-          </motion.div>
-
-          {/* Standard Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-zinc-900 border border-zinc-700 rounded-3xl shadow-lg p-8 flex flex-col items-center text-center hover:border-[#FFD700] transition-all"
-          >
-            <h3 className="text-2xl font-bold text-[#FFD700] mb-2">Standard</h3>
-            <div className="text-3xl font-extrabold mb-4">R 48,000</div>
-            <ul className="space-y-2 text-neutral-200 mb-6">
-              <li>Cover Design</li>
-              <li>Collage Artwork</li>
-              <li>Typographic Artwork</li>
-              <li>Layout</li>
-              <li>Up to 100 Pages</li>
-            </ul>
-            <a href="http://localhost:3001/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
-          </motion.div>
-
-          {/* Gold Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="bg-zinc-900 border border-zinc-700 rounded-3xl shadow-lg p-8 flex flex-col items-center text-center hover:border-[#FFD700] transition-all"
-          >
-            <h3 className="text-2xl font-bold text-[#FFD700] mb-2">Gold</h3>
-            <div className="text-3xl font-extrabold mb-4">R 71,000</div>
-            <ul className="space-y-2 text-neutral-200 mb-6">
-              <li>Cover Design</li>
-              <li>Collage Artwork</li>
-              <li>Typographic Artwork</li>
-              <li>Layout</li>
-              <li>Up to 150 Pages</li>
-            </ul>
-            <a href="http://localhost:3001/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
-          </motion.div>
-
-          {/* Personal Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="bg-zinc-900 border border-zinc-700 rounded-3xl shadow-lg p-8 flex flex-col items-center text-center hover:border-[#FFD700] transition-all"
-          >
-            <h3 className="text-2xl font-bold text-[#FFD700] mb-2">Personal</h3>
-            <div className="text-3xl font-extrabold mb-4">R 94,000</div>
-            <ul className="space-y-2 text-neutral-200 mb-6">
-              <li>Cover Design</li>
-              <li>Collage Artwork</li>
-              <li>Typographic Artwork</li>
-              <li>Layout</li>
-              <li>Up to 200 Pages</li>
-            </ul>
-            <a href="http://localhost:3001/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
-          </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+            <h3 className="text-xl font-semibold mb-2">1–250 Words</h3>
+            <p className="text-3xl font-bold text-[#FFD700] mb-2">R350</p>
+            <p className="text-gray-600 mb-4">Perfect for short reports or executive summaries.</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+            <h3 className="text-xl font-semibold mb-2">251–550 Words</h3>
+            <p className="text-3xl font-bold text-[#FFD700] mb-2">R650</p>
+            <p className="text-gray-600 mb-4">Ideal for standard-length annual report sections.</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+            <h3 className="text-xl font-semibold mb-2">551+ Words</h3>
+            <p className="text-3xl font-bold text-[#FFD700] mb-2">Custom Pricing</p>
+            <p className="text-gray-600 mb-4">Contact us for a tailored quote on large or complex reports.</p>
+          </div>
         </div>
       </section>
 

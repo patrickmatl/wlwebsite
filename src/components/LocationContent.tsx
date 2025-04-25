@@ -12,7 +12,6 @@ export default function LocationContent({ location }: LocationContentProps) {
   if (!location.content) return null;
 
   const {
-    h1,
     h2,
     intro,
     aboutArea,

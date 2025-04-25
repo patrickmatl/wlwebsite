@@ -1,12 +1,11 @@
-import { Location, Service } from '@/types';
+import { Location } from '@/types';
 
 interface LocationSchemaProps {
   location: Location;
-  services: Service[];
   baseUrl?: string; // Add baseUrl as an optional prop
 }
 
-export default function LocationSchema({ location, services, baseUrl = 'https://wlcreationx.co.za' }: LocationSchemaProps) {
+export default function LocationSchema({ location, baseUrl = 'https://wlcreationx.co.za' }: LocationSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'ProfessionalService', 'DesignAgency'],

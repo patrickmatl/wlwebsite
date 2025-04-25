@@ -7,12 +7,6 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const GoogleAdsPage = () => {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Google Ads', href: '/pricing/google-ads' }
-  ];
-
   const adPackages = [
     {
       name: "Starter Ads Package",

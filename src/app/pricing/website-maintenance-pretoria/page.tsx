@@ -7,12 +7,6 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 
 const WebsiteMaintenancePage = () => {
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Website Maintenance', href: '/pricing/website-maintenance' }
-  ];
-
   const maintenancePackages = [
     {
       name: "Essential Maintenance",
