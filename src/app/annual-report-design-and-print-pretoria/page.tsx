@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import GetInTouchButton from "@/components/GetInTouchButton";
-import RelatedServices from "@/components/RelatedServices";
 
 export default function AnnualReportDesignPrintPretoria() {
   return (
