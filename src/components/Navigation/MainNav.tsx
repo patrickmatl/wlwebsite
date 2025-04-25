@@ -17,15 +17,15 @@ const MainNav = () => {
         { label: 'SEO Services', href: '/pricing/seo' },
         { label: 'Content Marketing', href: '/pricing/content-marketing' },
         { label: 'Email Marketing', href: '/pricing/email-marketing' },
-        { label: 'Marketing Materials', href: 'http://localhost:3001/pricing/marketing-materials-pretoria' },
+        { label: 'Marketing Materials', href: '/pricing/marketing-materials-pretoria' },
         { label: 'Annual Report', href: '/annual-report-design-and-print-pretoria' },
-        { label: 'Corporate Video', href: 'http://localhost:3001/pricing/corporate-video-pretoria' },
-        { label: 'Drone Video', href: 'http://localhost:3001/pricing/drone-video-pretoria' },
-        { label: 'Photography', href: 'http://localhost:3001/pricing/photography-pretoria' },
-        { label: 'Product Photography', href: 'http://localhost:3001/pricing/product-photography-pretoria' }
+        { label: 'Corporate Video', href: '/pricing/corporate-video-pretoria' },
+        { label: 'Drone Video', href: '/pricing/drone-video-pretoria' },
+        { label: 'Photography', href: '/pricing/photography-pretoria' },
+        { label: 'Product Photography', href: '/pricing/product-photography-pretoria' }
       ]
     },
-    { label: 'Contact', href: 'http://localhost:3001/get-in-touch-pretoria' },
+    { label: 'Contact', href: '/get-in-touch-pretoria' },
     { label: 'Portfolio', href: '/project-showcase-pretoria' },
     { label: 'Blog', href: '/creative-industry-blog-pretoria' },
     { label: 'Careers', href: '/join-our-team-pretoria' },

@@ -58,7 +58,7 @@ const menuItems = [
   { href: '/creative-industry-blog-pretoria', label: 'Blog' },
   { href: '/about-graphic-design-company-pretoria', label: 'About' },
   { href: '/join-our-team-pretoria', label: 'Careers' },
-  { href: 'http://localhost:3001/get-in-touch-pretoria', label: 'Contact' },
+  { href: '/get-in-touch-pretoria', label: 'Contact' },
 ];
 
 const Navigation = () => {
