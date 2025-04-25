@@ -22,7 +22,10 @@ const MainNav = () => {
         { label: 'Corporate Video', href: '/pricing/corporate-video-pretoria' },
         { label: 'Drone Video', href: '/pricing/drone-video-pretoria' },
         { label: 'Photography', href: '/pricing/photography-pretoria' },
-        { label: 'Product Photography', href: '/pricing/product-photography-pretoria' }
+        { label: 'Product Photography', href: '/pricing/product-photography-pretoria' },
+        { label: 'Transcription', href: '/pricing/transcription-services-pretoria-johannesburg' },
+        { label: 'Copywriting', href: '/pricing/copywriting-services-pretoria-johannesburg' },
+        { label: 'Copy Editing', href: '/pricing/copy-editing-services-pretoria-johannesburg' },
       ]
     },
     { label: 'Contact', href: '/get-in-touch-pretoria' },
