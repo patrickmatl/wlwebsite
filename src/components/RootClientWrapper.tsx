@@ -187,7 +187,7 @@ export default function RootClientWrapper() {
           <p>Whether you're a startup looking to make a bold entrance or an established brand seeking a fresh look, our agency is here to help. Contact us today to schedule a free consultation and discover how our graphic design services can elevate your brand.</p>
 
           <div className="text-center">
-            <Link href="/contact" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">
+            <Link href="http://localhost:3001/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">
               Get a Free Consultation
             </Link>
           </div>

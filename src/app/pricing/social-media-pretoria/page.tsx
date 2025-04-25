@@ -542,6 +542,12 @@ const SocialMediaPage = () => {
             description: 'Improve your search engine visibility.',
             href: '/pricing/seo',
             anchor: 'View SEO Services'
+          },
+          {
+            title: 'Contact Us',
+            description: 'Get in touch with us for a free consultation.',
+            href: 'http://localhost:3001/get-in-touch-pretoria',
+            anchor: 'Contact Us'
           }
         ]}
       />

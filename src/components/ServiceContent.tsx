@@ -94,7 +94,7 @@ export default function ServiceContent({ service, locations = [] }: ServiceConte
         <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
         <p className="mb-6">Contact us today to discuss your project and see how we can help.</p>
         <Link 
-          href="/contact"
+          href="http://localhost:3001/get-in-touch-pretoria"
           className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-500 transition-colors"
         >
           Contact Us

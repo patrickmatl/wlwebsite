@@ -10,61 +10,134 @@ const PricingPage = () => {
       title: "Website Design",
       icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Professional web design packages for businesses of all sizes. From simple landing pages to complex e-commerce solutions.",
-      link: "/pricing/website-design",
-      packages: [
-        "3 Page Custom Website from R8,980",
-        "6 Page Custom Website from R14,780",
-        "9 Page Custom Website from R17,420",
-        "E-Commerce Website from R23,690"
-      ]
+      link: "/pricing/website-design-pretoria",
+      packages: ["3 Page Custom Website from R8,980", "6 Page Custom Website from R14,780", "9 Page Custom Website from R17,420", "E-Commerce Website from R23,690"]
     },
     {
       title: "Graphic Design",
       icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Complete branding solutions including logo design, corporate identity, and marketing materials.",
-      link: "/pricing/graphic-design",
-      packages: [
-        "Logo Design from R2,080",
-        "Corporate Identity Pack from R4,160",
-        "Business Cards from R1,040",
-        "Marketing Materials from R780"
-      ]
+      link: "/pricing/graphic-design-pretoria",
+      packages: ["Logo Design from R2,080", "Corporate Identity Pack from R4,160", "Business Cards from R1,040", "Marketing Materials from R780"]
     },
     {
       title: "E-Commerce Solutions",
       icon: <FaShoppingCart className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Full-featured online store solutions with payment integration, inventory management, and more.",
-      link: "/pricing/ecommerce",
-      packages: [
-        "Basic Online Store from R19,780",
-        "Advanced E-Commerce from R23,690",
-        "Custom Solutions Available",
-        "Includes Payment Gateway Integration"
-      ]
+      link: "/pricing/ecommerce-pretoria",
+      packages: ["Basic Online Store from R19,780", "Advanced E-Commerce from R23,690", "Custom Solutions Available", "Includes Payment Gateway Integration"]
     },
     {
       title: "Mobile Solutions",
       icon: <FaMobileAlt className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Mobile-first web applications and responsive design solutions for modern businesses.",
-      link: "/pricing/mobile-solutions",
-      packages: [
-        "Progressive Web Apps",
-        "Mobile-First Websites",
-        "Custom Mobile Solutions",
-        "Cross-Platform Compatibility"
-      ]
+      link: "/pricing/mobile-solutions-pretoria",
+      packages: ["Progressive Web Apps", "Mobile-First Websites", "Custom Mobile Solutions", "Cross-Platform Compatibility"]
     },
     {
       title: "Custom Development",
       icon: <FaCode className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Tailored development solutions for unique business requirements and complex systems.",
-      link: "/pricing/custom-development",
-      packages: [
-        "Custom Web Applications",
-        "System Integration",
-        "API Development",
-        "Database Solutions"
-      ]
+      link: "/pricing/custom-development-pretoria",
+      packages: ["Custom Web Applications", "System Integration", "API Development", "Database Solutions"]
+    },
+    {
+      title: "Corporate Video",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Professional video production for businesses and brands in Pretoria.",
+      link: "/pricing/corporate-video-pretoria",
+      packages: ["Starter from R6,500", "Business from R12,000", "Premium from R22,000"]
+    },
+    {
+      title: "Drone Video",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Aerial video production for stunning perspectives and dynamic storytelling.",
+      link: "/pricing/drone-video-pretoria",
+      packages: ["Starter from R4,500", "Business from R7,900", "Premium from R13,500"]
+    },
+    {
+      title: "Photography",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Professional photography for events, brands, and businesses in Pretoria.",
+      link: "/pricing/photography-pretoria",
+      packages: ["Basic from R2,500", "Standard from R4,500", "Premium from R7,800"]
+    },
+    {
+      title: "Product Photography",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "High-quality product images to boost your e-commerce and marketing.",
+      link: "/pricing/product-photography-pretoria",
+      packages: ["Starter from R1,800", "Business from R3,200", "Premium from R5,900"]
+    },
+    {
+      title: "SEO",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Search engine optimization services to boost your visibility and rankings.",
+      link: "/pricing/seo-pretoria",
+      packages: ["Local SEO", "National SEO", "E-Commerce SEO"]
+    },
+    {
+      title: "Social Media Marketing",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Grow your brand and engage your audience on all major platforms.",
+      link: "/pricing/social-media-pretoria",
+      packages: ["Starter", "Growth", "Premium"]
+    },
+    {
+      title: "Google Ads",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Targeted advertising campaigns to drive traffic and conversions.",
+      link: "/pricing/google-ads-pretoria",
+      packages: ["Setup", "Monthly Management"]
+    },
+    {
+      title: "Email Marketing",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Effective campaigns to nurture leads and retain customers.",
+      link: "/pricing/email-marketing-pretoria",
+      packages: ["Setup", "Ongoing Campaigns"]
+    },
+    {
+      title: "Content Marketing",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Engaging content creation for blogs, websites, and social media.",
+      link: "/pricing/content-marketing-pretoria",
+      packages: ["Blog Posts", "Website Content", "Social Media Content"]
+    },
+    {
+      title: "Print Design",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Professional print design for brochures, flyers, and more.",
+      link: "/pricing/print-design-pretoria",
+      packages: ["Brochures", "Flyers", "Posters"]
+    },
+    {
+      title: "Marketing Materials",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Design and print of business cards, banners, and other marketing assets.",
+      link: "/pricing/marketing-materials-pretoria",
+      packages: ["Business Cards", "Banners", "Stickers"]
+    },
+    {
+      title: "Packaging Design",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Custom packaging solutions to elevate your product presentation.",
+      link: "/pricing/packaging-design-pretoria",
+      packages: ["Box Design", "Label Design"]
+    },
+    {
+      title: "Annual Report Design & Print",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Professional annual report design and printing for corporates and NGOs.",
+      link: "/pricing/annual-report-design-and-print-pretoria",
+      packages: ["Design", "Print"]
+    },
+    {
+      title: "Website Maintenance",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Ongoing website care, updates, and support packages.",
+      link: "/pricing/website-maintenance-pretoria",
+      packages: ["Basic", "Standard", "Premium"]
     }
   ];
 

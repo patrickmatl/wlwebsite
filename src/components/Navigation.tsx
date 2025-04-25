@@ -29,7 +29,8 @@ const menuItems = [
           { href: '/pricing/brand-identity', label: 'Brand Identity' },
           { href: '/pricing/print-design-pretoria', label: 'Print Design' },
           { href: '/pricing/packaging-design-pretoria', label: 'Packaging Design' },
-          { href: '/pricing/marketing-materials-pretoria', label: 'Marketing Materials' }
+          { href: '/pricing/marketing-materials-pretoria', label: 'Marketing Materials' },
+          { href: '/pricing/annual-report-design-and-print-pretoria', label: 'Annual Report Design & Print' }
         ]
       },
       {
@@ -41,6 +42,15 @@ const menuItems = [
           { href: '/pricing/content-marketing-pretoria', label: 'Content Marketing' },
           { href: '/pricing/email-marketing-pretoria', label: 'Email Marketing' }
         ]
+      },
+      {
+        label: 'Video & Image Services',
+        items: [
+          { href: '/pricing/corporate-video-pretoria', label: 'Corporate Video' },
+          { href: '/pricing/drone-video-pretoria', label: 'Drone Video' },
+          { href: '/pricing/photography-pretoria', label: 'Photography' },
+          { href: '/pricing/product-photography-pretoria', label: 'Product Photography' }
+        ]
       }
     ]
   },
@@ -48,7 +58,7 @@ const menuItems = [
   { href: '/creative-industry-blog-pretoria', label: 'Blog' },
   { href: '/about-graphic-design-company-pretoria', label: 'About' },
   { href: '/join-our-team-pretoria', label: 'Careers' },
-  { href: '/get-in-touch-pretoria', label: 'Contact' },
+  { href: 'http://localhost:3001/get-in-touch-pretoria', label: 'Contact' },
 ];
 
 const Navigation = () => {

@@ -205,7 +205,7 @@ export default function MarketingMaterialsPage() {
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
         <Breadcrumb items={[
           { label: 'Services & Pricing', href: '/pricing' },
-          { label: 'Marketing Materials', href: '/pricing/marketing-materials' }
+          { label: 'Marketing Materials', href: '/pricing/marketing-materials-pretoria' }
         ]} />
         
         <h1 className="text-4xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000] mt-8 mb-4">

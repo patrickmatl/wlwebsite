@@ -307,8 +307,14 @@ export default function SEOPage() {
             {
               title: 'Website Design',
               description: 'Create a modern, SEO-friendly website that converts.',
-              href: '/pricing/website-design',
+              href: 'http://localhost:3001/pricing/website-design-pretoria',
               anchor: 'View Website Design'
+            },
+            {
+              title: 'Contact Us',
+              description: 'Get in touch for a custom SEO strategy.',
+              href: 'http://localhost:3001/get-in-touch-pretoria',
+              anchor: 'Contact Us'
             }
           ]}
         />

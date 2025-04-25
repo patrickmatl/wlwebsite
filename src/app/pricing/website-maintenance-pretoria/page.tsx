@@ -77,21 +77,27 @@ const WebsiteMaintenancePage = () => {
   const relatedServices = [
     {
       title: 'Website Design',
-      href: '/pricing/website-design',
+      href: 'http://localhost:3001/pricing/website-design-pretoria',
       description: 'Custom website design services',
       anchor: 'Website Design'
     },
     {
       title: 'SEO Services',
-      href: '/pricing/seo',
+      href: 'http://localhost:3001/pricing/seo-pretoria',
       description: 'Search engine optimization services',
       anchor: 'SEO'
     },
     {
       title: 'Website Security',
-      href: '/pricing/website-security',
+      href: 'http://localhost:3001/pricing/website-security',
       description: 'Website security and protection services',
       anchor: 'Security'
+    },
+    {
+      title: 'Contact Us',
+      href: 'http://localhost:3001/get-in-touch-pretoria',
+      description: 'Get in touch with us for any inquiries or questions',
+      anchor: 'Contact Us'
     }
   ];
 

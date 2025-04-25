@@ -47,7 +47,7 @@ const PackageCard = ({ name, price, period, features, popular = false }: Package
           </li>
         ))}
       </ul>
-      <Link href="/contact" className="block">
+      <Link href="http://localhost:3001/get-in-touch-pretoria" className="block">
         <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFC000] transition-colors duration-300">
           {period ? 'Subscribe Now' : 'Get Started'}
         </button>
