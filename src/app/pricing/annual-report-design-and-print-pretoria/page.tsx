@@ -581,50 +581,108 @@ export default function AnnualReportDesignPrintPretoria() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#FFD700] mb-4"
+          className="text-4xl sm:text-5xl font-extrabold text-white mb-4"
         >
-          Annual Report Design and Print Pretoria
+          Bespoke Annual Report Design
         </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-          className="text-lg md:text-xl text-neutral-200 mb-6"
-        >
-          Showcase your company’s achievements and vision with a professionally designed and printed annual report. We handle every detail, from creative layout to high-quality print, ensuring your report makes a lasting impression.
-        </motion.p>
-        <GetInTouchButton />
+        <p className="text-lg text-gray-300 mb-6">Showcase your achievements and vision with a professionally designed annual report tailored for your brand.</p>
+        <GetInTouchButton className="mx-auto" />
       </section>
 
-      {/* Pricing Plans Section */}
-      <section className="max-w-6xl mx-auto mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mb-2">1–250 Words</h3>
-            <p className="text-3xl font-bold text-[#FFD700] mb-2">R350</p>
-            <p className="text-gray-600 mb-4">Perfect for short reports or executive summaries.</p>
+      {/* Process Section */}
+      <section className="max-w-4xl mx-auto mb-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-2xl font-bold text-yellow-400 mb-8 text-center"
+        >
+          Our Creative Workflow
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Choose Your Project Team</h3>
+            <p className="text-gray-400 text-center">Select the ideal team from your company to coordinate and supply all necessary information for a seamless project experience.</p>
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mb-2">251–550 Words</h3>
-            <p className="text-3xl font-bold text-[#FFD700] mb-2">R650</p>
-            <p className="text-gray-600 mb-4">Ideal for standard-length annual report sections.</p>
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Gather Key Content Year-Round</h3>
+            <p className="text-gray-400 text-center">Consistently collect and organize your annual data to prevent last-minute rushes and ensure accuracy.</p>
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mb-2">551+ Words</h3>
-            <p className="text-3xl font-bold text-[#FFD700] mb-2">Custom Pricing</p>
-            <p className="text-gray-600 mb-4">Contact us for a tailored quote on large or complex reports.</p>
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Thorough Review & Edits</h3>
+            <p className="text-gray-400 text-center">Allow ample time for draft reviews and feedback so your report is polished and error-free.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Strategic Project Planning</h3>
+            <p className="text-gray-400 text-center">Define clear responsibilities and deadlines for every stage to keep your project on track.</p>
+          </div>
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Design, Copywriting & Photography</h3>
+            <p className="text-gray-400 text-center">Once the brief and content are ready, we craft your report’s narrative, visuals, and commission any required photography.</p>
+          </div>
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Print & Publication</h3>
+            <p className="text-gray-400 text-center">After final approval, we manage the print and delivery for a flawless, on-time result.</p>
           </div>
         </div>
       </section>
 
-      {/* How it Works Section */}
-      <section className="max-w-3xl mx-auto mb-16 text-center">
-        <h2 className="text-2xl font-bold text-[#FFD700] mb-4">How It Works</h2>
-        <div className="space-y-2 text-neutral-200">
-          <p><span className="font-semibold text-white">1. Choose your plan</span> – Select the package that fits your needs.</p>
-          <p><span className="font-semibold text-white">2. Get in touch</span> – Contact us and we’ll discuss your goals, content, and timeline.</p>
-          <p><span className="font-semibold text-white">3. We design & print</span> – Our team creates your annual report and manages the print process.</p>
-          <p><span className="font-semibold text-white">4. Delivery</span> – Receive your professionally printed annual reports, ready to impress.</p>
+      {/* Pricing Section */}
+      <section className="max-w-5xl mx-auto mb-20">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-2xl font-bold text-yellow-400 mb-8 text-center"
+        >
+          Design Packages & Pricing
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Starter */}
+          <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
+            <h3 className="text-xl font-semibold text-white mb-2">Starter</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 25 000</p>
+            <ul className="text-gray-400 mb-6 space-y-1 text-sm">
+              <li>Striking cover design</li>
+              <li>Custom collage artwork</li>
+              <li>Professional typography</li>
+              <li>Layout for up to 50 pages</li>
+            </ul>
+            <button className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Select Plan</button>
+          </div>
+          {/* Professional */}
+          <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
+            <h3 className="text-xl font-semibold text-white mb-2">Professional</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 48 000</p>
+            <ul className="text-gray-400 mb-6 space-y-1 text-sm">
+              <li>All Starter features</li>
+              <li>Layout for up to 100 pages</li>
+              <li>Enhanced typographic artwork</li>
+            </ul>
+            <button className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Select Plan</button>
+          </div>
+          {/* Premium */}
+          <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
+            <h3 className="text-xl font-semibold text-white mb-2">Premium</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 71 000</p>
+            <ul className="text-gray-400 mb-6 space-y-1 text-sm">
+              <li>All Professional features</li>
+              <li>Layout for up to 150 pages</li>
+            </ul>
+            <button className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Select Plan</button>
+          </div>
+          {/* Elite */}
+          <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
+            <h3 className="text-xl font-semibold text-white mb-2">Elite</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 94 000</p>
+            <ul className="text-gray-400 mb-6 space-y-1 text-sm">
+              <li>All Premium features</li>
+              <li>Layout for up to 200 pages</li>
+            </ul>
+            <button className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Select Plan</button>
+          </div>
         </div>
       </section>
 

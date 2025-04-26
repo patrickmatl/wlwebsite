@@ -137,7 +137,56 @@ const PricingPage = () => {
       description: "Ongoing website care, updates, and support packages.",
       link: "/pricing/website-maintenance-pretoria",
       packages: ["Basic", "Standard", "Premium"]
-    }
+    },
+    {
+      title: "Presentation Design Services Pretoria",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Custom PowerPoint, Google Slides, and Keynote presentations to impress your audience and elevate your brand.",
+      link: "/pricing/presentation-design-services-pretoria",
+      packages: ["Business Presentations", "Investor Decks", "Conference Slides"]
+    },
+    {
+      title: "Investor Relations Material Design Services Pretoria",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Professional design and copy for investor decks, shareholder updates, and financial communications.",
+      link: "/pricing/investor-relations-material-design-services-pretoria",
+      packages: ["Investor Decks", "Shareholder Reports", "Financial Updates"]
+    },
+    {
+      title: "Sustainability & ESG Report Design Services Pretoria",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Design and production of sustainability and ESG reports for companies committed to corporate responsibility.",
+      link: "/pricing/sustainability-esg-report-design-services-pretoria",
+      packages: ["Sustainability Reports", "ESG Reports", "Integrated Reports"]
+    },
+    {
+      title: "Infographic & Data Visualization Design Pretoria",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Custom infographics and visual data storytelling for reports, marketing, and digital content.",
+      link: "/pricing/infographic-data-visualization-design-pretoria",
+      packages: ["Infographics", "Charts & Graphs", "Data Visualizations"]
+    },
+    {
+      title: "Interactive Digital Publication & Interactive PDF Design Pretoria",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Creation of interactive PDFs and digital magazines for engaging online experiences.",
+      link: "/pricing/interactive-digital-publication-interactive-pdf-design-pretoria",
+      packages: ["Interactive PDFs", "Digital Magazines", "Clickable Brochures"]
+    },
+    {
+      title: "Internal Communications Design Pretoria",
+      icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Branded internal documents, onboarding kits, and employee handbooks for effective communication.",
+      link: "/pricing/internal-communications-design-pretoria",
+      packages: ["Employee Handbooks", "Onboarding Kits", "Internal Newsletters"]
+    },
+    {
+      title: "Event Branding Design Pretoria",
+      icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
+      description: "Branding, signage, and digital assets for corporate events, expos, and conferences.",
+      link: "/pricing/event-branding-design-pretoria",
+      packages: ["Event Branding", "Signage", "Event Programs"]
+    },
   ];
 
   return (

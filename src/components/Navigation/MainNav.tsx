@@ -26,6 +26,13 @@ const MainNav = () => {
         { label: 'Drone Video', href: '/pricing/drone-video-pretoria' },
         { label: 'Photography', href: '/pricing/photography-pretoria' },
         { label: 'Product Photography', href: '/pricing/product-photography-pretoria' },
+        { label: 'Presentation Design', href: '/pricing/presentation-design-services-pretoria' },
+        { label: 'Investor Relations Design', href: '/pricing/investor-relations-material-design-services-pretoria' },
+        { label: 'Sustainability & ESG Reports', href: '/pricing/sustainability-esg-report-design-services-pretoria' },
+        { label: 'Infographic & Data Visualization', href: '/pricing/infographic-data-visualization-design-pretoria' },
+        { label: 'Interactive PDF', href: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria' },
+        { label: 'Internal Communications', href: '/pricing/internal-communications-design-pretoria' },
+        { label: 'Event Branding', href: '/pricing/event-branding-design-pretoria' },
       ]
     },
     { label: 'Contact', href: '/get-in-touch-pretoria' },
