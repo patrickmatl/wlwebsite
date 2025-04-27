@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import GetInTouchButton from "@/components/GetInTouchButton";
 import RelatedServices from "@/components/RelatedServices";
+import Link from 'next/link';
 
 const relatedServices = [
   {
@@ -650,7 +651,7 @@ export default function AnnualReportDesignPrintPretoria() {
               <li>Professional typography</li>
               <li>Layout for up to 50 pages</li>
             </ul>
-            <a href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Select Plan</a>
+            <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Select Plan</Link>
           </div>
           {/* Professional */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
@@ -661,7 +662,7 @@ export default function AnnualReportDesignPrintPretoria() {
               <li>Layout for up to 100 pages</li>
               <li>Enhanced typographic artwork</li>
             </ul>
-            <a href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
+            <Link href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</Link>
           </div>
           {/* Premium */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
@@ -671,7 +672,7 @@ export default function AnnualReportDesignPrintPretoria() {
               <li>All Professional features</li>
               <li>Layout for up to 150 pages</li>
             </ul>
-            <a href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
+            <Link href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</Link>
           </div>
           {/* Elite */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
@@ -681,7 +682,7 @@ export default function AnnualReportDesignPrintPretoria() {
               <li>All Premium features</li>
               <li>Layout for up to 200 pages</li>
             </ul>
-            <a href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</a>
+            <Link href="/get-in-touch-pretoria" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block">Choose Plan</Link>
           </div>
         </div>
       </section>
@@ -698,7 +699,7 @@ export default function AnnualReportDesignPrintPretoria() {
       <section className="max-w-3xl mx-auto mb-16 text-center">
         <h2 className="text-xl font-bold text-[#FFD700] mb-2">Not sure which plan is right for you?</h2>
         <p className="text-neutral-200 mb-4">Contact us for a free consultation or a custom quote tailored to your organization’s needs.</p>
-        <a href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</a>
+        <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</Link>
       </section>
 
       {/* Related Services */}
