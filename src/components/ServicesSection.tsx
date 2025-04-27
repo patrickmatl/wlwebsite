@@ -9,13 +9,13 @@ const services = [
     title: 'Graphic Design',
     description: 'Professional graphic design services for all your visual communication needs.',
     icon: <FaPalette className="w-6 h-6" />,
-    href: 'http://localhost:3001/pricing/graphic-design-pretoria'
+    href: '/pricing/graphic-design-pretoria'
   },
   {
     title: 'Web Development',
     description: 'Custom website development using modern technologies and best practices.',
     icon: <FaCode className="w-6 h-6" />,
-    href: 'http://localhost:3001/pricing/website-design-pretoria'
+    href: '/pricing/website-design-pretoria'
   },
   {
     title: 'E-commerce',

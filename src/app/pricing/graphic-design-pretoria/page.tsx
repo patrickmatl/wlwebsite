@@ -97,20 +97,20 @@ const GraphicDesignPage = () => {
     },
     {
       title: 'Marketing Materials',
-      href: 'http://localhost:3001/pricing/marketing-materials-pretoria',
+      href: '/pricing/marketing-materials-pretoria',
       description: 'Professional marketing collateral design',
       anchor: 'Marketing'
     },
     {
       title: 'Website Design',
-      href: 'http://localhost:3001/pricing/website-design-pretoria',
+      href: '/pricing/website-design-pretoria',
       description: 'Custom website design services',
       anchor: 'Web Design'
     },
     {
       title: 'Contact Us',
       description: 'Get in touch for graphic design quotes and advice.',
-      href: 'http://localhost:3001/get-in-touch-pretoria',
+      href: '/get-in-touch-pretoria',
       anchor: 'Contact Us'
     }
   ];

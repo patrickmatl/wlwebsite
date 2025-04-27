@@ -299,25 +299,25 @@ const PackagingDesignPage = () => {
           {
             title: 'Print Design',
             description: 'Professional print design for all your marketing needs.',
-            href: 'http://localhost:3001/pricing/print-design-pretoria',
+            href: '/pricing/print-design-pretoria',
             anchor: 'View Print Design Services'
           },
           {
             title: 'Graphic Design',
             description: 'Creative graphic design for all your needs.',
-            href: 'http://localhost:3001/pricing/graphic-design-pretoria',
+            href: '/pricing/graphic-design-pretoria',
             anchor: 'View Graphic Design Services'
           },
           {
             title: 'Contact Us',
             description: 'Get in touch for packaging design advice.',
-            href: 'http://localhost:3001/get-in-touch-pretoria',
+            href: '/get-in-touch-pretoria',
             anchor: 'Contact Us'
           },
           {
             title: 'Marketing Materials',
             description: 'Comprehensive marketing material design services.',
-            href: 'http://localhost:3001/pricing/marketing-materials-pretoria',
+            href: '/pricing/marketing-materials-pretoria',
             anchor: 'View Marketing Materials'
           }
         ]}

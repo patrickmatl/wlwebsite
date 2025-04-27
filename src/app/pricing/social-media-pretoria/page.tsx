@@ -540,7 +540,7 @@ const SocialMediaPage = () => {
           {
             title: 'Contact Us',
             description: 'Get in touch with us for a free consultation.',
-            href: 'http://localhost:3001/get-in-touch-pretoria',
+            href: '/get-in-touch-pretoria',
             anchor: 'Contact Us'
           }
         ]}

@@ -120,14 +120,14 @@ const GoogleAdsPage = () => {
     },
     {
       title: 'Website Design',
-      href: 'http://localhost:3001/pricing/website-design-pretoria',
+      href: '/pricing/website-design-pretoria',
       description: 'Custom website design services',
       anchor: 'Web Design'
     },
     {
       title: 'Contact Us',
       description: 'Get in touch for Google Ads management.',
-      href: 'http://localhost:3001/get-in-touch-pretoria',
+      href: '/get-in-touch-pretoria',
       anchor: 'Contact Us'
     }
   ];

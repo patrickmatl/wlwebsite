@@ -94,7 +94,7 @@ export default function ProductPhotographyPage() {
           </ul>
         </div>
         <div className="mt-12 flex flex-col sm:flex-row gap-4">
-          <Link href="http://localhost:3001/get-in-touch-pretoria" className="px-8 py-3 bg-[#FFD700] text-black rounded-full font-bold text-lg hover:bg-[#FFA500] transition">Book a Shoot</Link>
+          <Link href="/get-in-touch-pretoria" className="px-8 py-3 bg-[#FFD700] text-black rounded-full font-bold text-lg hover:bg-[#FFA500] transition">Book a Shoot</Link>
         </div>
       </section>
       {/* Visually Hidden SEO FAQ Section with Schema.org markup - Batch 1 */}

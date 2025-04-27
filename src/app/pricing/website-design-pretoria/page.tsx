@@ -11,7 +11,7 @@ const WebsiteDesignPage = () => {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Website Design', href: 'http://localhost:3001/pricing/website-design-pretoria' }
+    { label: 'Website Design', href: '/pricing/website-design-pretoria' }
   ];
 
   const packages = [
@@ -119,25 +119,25 @@ const WebsiteDesignPage = () => {
     {
       title: 'Website Maintenance',
       description: 'Keep your website secure, up-to-date, and performing at its best.',
-      href: 'http://localhost:3001/pricing/website-maintenance-pretoria',
+      href: '/pricing/website-maintenance-pretoria',
       anchor: 'View Maintenance Plans'
     },
     {
       title: 'Digital Marketing',
       description: 'Boost your online presence with our digital marketing services.',
-      href: 'http://localhost:3001/pricing/google-ads-pretoria',
+      href: '/pricing/google-ads-pretoria',
       anchor: 'Explore Digital Marketing'
     },
     {
       title: 'Custom Development',
       description: 'Tailored web applications and custom functionality.',
-      href: 'http://localhost:3001/pricing/custom-development-pretoria',
+      href: '/pricing/custom-development-pretoria',
       anchor: 'View Development Services'
     },
     {
       title: 'Contact Us',
       description: 'Get in touch with us to discuss your project.',
-      href: 'http://localhost:3001/get-in-touch-pretoria',
+      href: '/get-in-touch-pretoria',
       anchor: 'Contact Us'
     }
   ];
