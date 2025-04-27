@@ -1,6 +1,7 @@
 // Copy Editing Services Pricing Page for Pretoria & Johannesburg
 "use client";
 import RelatedServices from "@/components/RelatedServices";
+import Link from 'next/link';
 
 const copyEditingPricing = [
   {
@@ -41,7 +42,11 @@ export default function CopyEditingServices() {
             </ul>
             {plan.description && <div className="text-xs text-[#FFD700]/80">{plan.description}</div>}
             {plan.quoteLink && (
-              <a href={plan.quoteLink} className="mt-2 inline-block bg-[#FFD700] text-zinc-900 font-bold px-6 py-2 rounded-lg hover:bg-[#FFD700]/90 transition">Get a Quote</a>
+              plan.quoteLink.startsWith('http') || plan.quoteLink.startsWith('mailto:') || plan.quoteLink.startsWith('tel:') ? (
+                <a href={plan.quoteLink} className="mt-2 inline-block bg-[#FFD700] text-zinc-900 font-bold px-6 py-2 rounded-lg hover:bg-[#FFD700]/90 transition" target="_blank" rel="noopener noreferrer">Get a Quote</a>
+              ) : (
+                <Link href={plan.quoteLink} className="mt-2 inline-block bg-[#FFD700] text-zinc-900 font-bold px-6 py-2 rounded-lg hover:bg-[#FFD700]/90 transition">Get a Quote</Link>
+              )
             )}
           </div>
         ))}
@@ -192,7 +197,7 @@ export default function CopyEditingServices() {
             },
             {
               '@type': 'Question',
-              'name': 'Do you offer copy editing for books in Johannesburg?',
+              'name': 'Do you provide copy editing for books in Johannesburg?',
               'acceptedAnswer': {
                 '@type': 'Answer',
                 'text': 'Yes, we edit manuscripts and books for authors in Johannesburg and Pretoria.'
