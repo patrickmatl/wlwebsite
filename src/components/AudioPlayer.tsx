@@ -54,7 +54,7 @@ const AudioPlayer = () => {
       audio.removeEventListener('error', handleError);
       audio.removeEventListener('canplay', handleCanPlay);
     };
-  }, []);
+  }, [setGlobalPlaying]);
 
   const togglePlay = async () => {
     const audio = audioRef.current;

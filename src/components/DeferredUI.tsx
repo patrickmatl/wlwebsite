@@ -11,7 +11,10 @@ export default function DeferredUI() {
   const [idle, setIdle] = useState(false);
 
   useEffect(() => {
-    const rIC = (window as any).requestIdleCallback as ((cb: () => void) => number) | undefined;
+    const hasRIC = typeof window !== 'undefined' && 'requestIdleCallback' in window;
+    const rIC: Window['requestIdleCallback'] | undefined = hasRIC
+      ? window.requestIdleCallback
+      : undefined;
     if (rIC) {
       rIC(() => setIdle(true));
     } else {
