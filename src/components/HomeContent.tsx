@@ -2,6 +2,8 @@
 
 import HeroSection from "./HeroSection";
 import Link from "next/link";
+import FAQAccordion from "./FAQ/FAQAccordion";
+import { homeFaqs } from "@/data/homeFaqs";
 
 export default function HomeContent() {
   return (
@@ -13,6 +15,8 @@ export default function HomeContent() {
         description="Leading graphic design agency in Pretoria, delivering innovative visual solutions and creative excellence for businesses nationwide."
       />
 
+      {/* Defer below-the-fold work from initial render */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '1200px' }}>
       {/* Visual Content Sections */}
       <section className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-4xl mx-auto">
@@ -103,6 +107,16 @@ export default function HomeContent() {
         </div>
       </section>
 
+      {/* Frequently Asked Questions */}
+      <section className="py-16 px-4 bg-black">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-syne font-bold mb-8 text-[#FFD700]">
+            Frequently Asked Questions
+          </h2>
+          <FAQAccordion faqs={homeFaqs} />
+        </div>
+      </section>
+
       {/* Call-to-Action Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-4xl mx-auto text-center">
@@ -129,6 +143,7 @@ export default function HomeContent() {
           </p>
         </div>
       </section>
+      </div>
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import Footer from './Footer';
+import { AudioPlaybackProvider } from './AudioContext';
 
 const CustomCursor = dynamic(() => import('./CustomCursor'), {
   ssr: false,
@@ -62,16 +63,20 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
 
   // During SSR and initial mount, return a minimal layout
   if (!mounted) {
-    return <>{children}</>;
+    return (
+      <AudioPlaybackProvider>
+        {children}
+      </AudioPlaybackProvider>
+    );
   }
 
   return (
-    <>
+    <AudioPlaybackProvider>
       {hasFinePointer && !prefersReducedMotion && mounted && <CustomCursor />}
       {mounted && <Navigation />}
       {children}
       {!isHomePage && mounted && <Footer />}
       <SchemaOrg />
-    </>
+    </AudioPlaybackProvider>
   );
 }

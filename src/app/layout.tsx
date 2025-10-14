@@ -2,13 +2,11 @@ import { Space_Grotesk, Syne } from 'next/font/google';
 import './globals.css';
 import { Metadata } from 'next';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
-import AudioPlayer from '@/components/AudioPlayer';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Navigation/Breadcrumb';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { Suspense } from 'react';
-import WhatsAppButton from '@/components/WhatsAppButton';
-import MobileContactBar from '@/components/MobileContactBar';
+import DeferredUI from '@/components/DeferredUI';
 
 // Configure fonts
 const spaceGrotesk = Space_Grotesk({
@@ -60,22 +58,22 @@ export default function RootLayout({
         <meta name="google-site-verification" content="jc8_wF_WjX96VJLj227cbJCEpeseZ-k9U7XSupr4QMw" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo192.png" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        {/** Font preconnects */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href="/videos/hero-bg.mp4" as="video" type="video/mp4" />
       </head>
       <body className="bg-black text-white font-space-grotesk" suppressHydrationWarning>
         <ClientRootWrapper>
-          <AudioPlayer />
           <BreadcrumbJsonLd />
+          <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white">
+            <Suspense fallback={null}>
+              {children}
+            </Suspense>
+          </main>
+          {/** Render breadcrumb after main to keep hero first in DOM */}
           <Breadcrumb />
-          <div className={`${typeof window !== 'undefined' && window.location.pathname === '/' ? 'h-screen overflow-hidden' : ''}`}>
-            <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white">
-              <Suspense fallback={null}>
-                {children}
-              </Suspense>
-            </main>
-          </div>
-          <WhatsAppButton />
-          <MobileContactBar />
+          <DeferredUI />
           <div className="hidden">
             <Footer />
           </div>

@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import LogoCarousel from './LogoCarousel';
-import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import { useAudioPlayback } from './AudioContext';
 import bgVideo from '../../public/videos/hero-bg.mp4';
 
 interface HeroSectionProps {
@@ -18,12 +18,12 @@ export default function HeroSection({
   subtitle = "Agency",
   description = "South Africa's leading graphic design agency, delivering innovative visual solutions and creative excellence for businesses nationwide.",
 }: HeroSectionProps) {
-  const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { isPlaying } = useAudioPlayback();
+  const LogoCarouselDyn = dynamic(() => import('./LogoCarousel'), { ssr: false, loading: () => null });
+  const HeroParticlesDyn = dynamic(() => import('./HeroParticles'), { ssr: false, loading: () => null });
 
   useEffect(() => {
-    setMounted(true);
     const video = videoRef.current;
     if (video) {
       const playVideo = async () => {
@@ -37,12 +37,14 @@ export default function HeroSection({
     }
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <section className="relative h-[100vh] w-full overflow-hidden bg-black">
+      {/* Particles overlay when audio is playing */}
+      {isPlaying && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <HeroParticlesDyn />
+        </div>
+      )}
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
         <video
@@ -51,6 +53,7 @@ export default function HeroSection({
           loop
           muted
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         >
           <source src={bgVideo} type="video/mp4" />
@@ -127,7 +130,7 @@ export default function HeroSection({
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-12"
           >
-            <LogoCarousel />
+            <LogoCarouselDyn />
           </motion.div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import audioFile from '../../public/audio/Website-Intro.mp3';
+import { useAudioPlayback } from './AudioContext';
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -9,6 +9,7 @@ const AudioPlayer = () => {
   const [timeRemaining, setTimeRemaining] = useState<string>('');
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const { setIsPlaying: setGlobalPlaying } = useAudioPlayback();
 
   useEffect(() => {
     setIsClient(true);
@@ -27,6 +28,7 @@ const AudioPlayer = () => {
 
     const handleEnded = () => {
       setIsPlaying(false);
+      setGlobalPlaying(false);
       if (audio) {
         audio.currentTime = 0;
       }
@@ -62,14 +64,17 @@ const AudioPlayer = () => {
       if (isPlaying) {
         audio.pause();
         setIsPlaying(false);
+        setGlobalPlaying(false);
       } else {
         await audio.play();
         setIsPlaying(true);
+        setGlobalPlaying(true);
         setError(null);
       }
     } catch (err) {
       console.error('Playback error:', err);
       setError('Failed to play audio');
+      setGlobalPlaying(false);
     }
   };
 
@@ -82,7 +87,7 @@ const AudioPlayer = () => {
       <audio
         ref={audioRef}
         preload="metadata"
-        src={audioFile}
+        src={'/audio/Website-Intro.mp3'}
         suppressHydrationWarning
       />
       {error ? (

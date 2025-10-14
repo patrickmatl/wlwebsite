@@ -1,5 +1,7 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import HomeContent from '@/components/HomeContent';
+import { homeFaqs } from '@/data/homeFaqs';
+import { generateFAQSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'WL CreationX | Top Graphic Design Agency Pretoria',
@@ -103,17 +105,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
       {/* FAQPage JSON-LD aligned with visible compact FAQ */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {"@type":"Question","name":"What graphic design services do you offer in Pretoria?","acceptedAnswer":{"@type":"Answer","text":"We provide branding, logo design, web design, print materials, social media graphics, packaging, and pitch decks for Pretoria businesses."}},
-          {"@type":"Question","name":"How much does a logo design cost in Pretoria?","acceptedAnswer":{"@type":"Answer","text":"Logo projects typically start around R1,500 and vary by concepts, revisions, and scope. Request a tailored quote."}},
-          {"@type":"Question","name":"Do you serve Pretoria East, Hatfield, and Centurion?","acceptedAnswer":{"@type":"Answer","text":"Yes — we serve all Pretoria suburbs and Gauteng, including Pretoria East, Hatfield, Centurion, Brooklyn, Menlyn, and more."}},
-          {"@type":"Question","name":"How long does a typical project take?","acceptedAnswer":{"@type":"Answer","text":"Timelines depend on scope. Simple assets can be delivered within a few days; full branding or websites take longer."}},
-          {"@type":"Question","name":"How do we get started?","acceptedAnswer":{"@type":"Answer","text":"Share your goals via our contact page. We’ll respond with a clear proposal and next steps."}}
-        ]
-      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: generateFAQSchema(homeFaqs) }} />
       {/* Structured Data for LocalBusiness SEO - Enhanced for Local Intent */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `{
         "@context": "https://schema.org",
