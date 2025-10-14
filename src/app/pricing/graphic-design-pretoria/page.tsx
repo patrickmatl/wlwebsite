@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import Link from 'next/link';
 
 const GraphicDesignPage = () => {
   const designPackages = [
@@ -349,6 +350,12 @@ const GraphicDesignPage = () => {
             currentService="graphic-design"
             services={relatedServices}
           />
+        </div>
+        {/* Contextual link to homepage with varied phrasing */}
+        <div className="mt-10 text-center">
+          <p className="text-neutral-400 text-sm">
+            Discover more from our <Link href="/" className="text-[#FFD700] hover:underline">graphic designers in Pretoria</Link> on the homepage.
+          </p>
         </div>
       </div>
     </div>

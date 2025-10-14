@@ -1,6 +1,7 @@
 "use client";
 
 import GetInTouchButton from "@/components/GetInTouchButton";
+import Link from 'next/link';
 
 const pricing = [
   {
@@ -219,6 +220,13 @@ export default function PresentationDesignServicesPretoria() {
         <p>Ready to elevate your presentations? Our Pretoria team is here to help you make a lasting impression. Reach out today for a free consultation and discover how our presentation design services can transform your next pitch, report, or event.</p>
         <p>Experience the difference of working with Pretoria’s top-rated presentation design specialists—your success is our priority.</p>
       </section>
+      <div className="mt-4 text-center">
+        <p className="text-neutral-400 text-sm">
+          Learn more on our {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria presentation design studio</Link>
+          {" "} homepage.
+        </p>
+      </div>
     </div>
   );
 }

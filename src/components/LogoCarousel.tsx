@@ -7,7 +7,7 @@ import Image from 'next/image';
 const LOGO_COUNT = 18; // Updated to match actual number of images
 const LOGOS = Array.from({ length: LOGO_COUNT }, (_, i) => ({
   path: `/images/clients/Client${i + 1}.webp`,
-  alt: `Client Logo ${i + 1}`
+  alt: `Client logo ${i + 1} – graphic design agency Pretoria – WL CreationX`
 }));
 
 export default function LogoCarousel() {

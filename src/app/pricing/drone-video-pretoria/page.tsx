@@ -224,6 +224,15 @@ export default function DroneVideoPage() {
         <p>Our Pretoria drone video experts are here to guide you through every step, from concept development to final delivery. Let us help you capture Pretoria from a whole new perspective.</p>
       </section>
       <RelatedServices currentService="Drone Video Services" services={relatedServices} />
+      <div className="mt-10 text-center">
+        <p className="text-neutral-400 text-sm">
+          Discover more from our
+          {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria aerial video company</Link>
+          {" "}
+          on the homepage.
+        </p>
+      </div>
     </main>
   );
 }

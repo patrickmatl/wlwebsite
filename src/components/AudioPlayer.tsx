@@ -78,7 +78,7 @@ const AudioPlayer = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed right-4 z-[60] bottom-24 md:bottom-4">
       <audio
         ref={audioRef}
         preload="metadata"

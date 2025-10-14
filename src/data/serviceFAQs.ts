@@ -4,6 +4,13 @@ export type FAQ = {
 };
 
 export const serviceFAQs: Record<string, FAQ[]> = {
+  'website-design': [
+    { question: "Do you build responsive websites?", answer: "Yes, all websites are fully responsive and optimized for mobile, tablet, and desktop." },
+    { question: "Can I update my website content?", answer: "Yes, we use CMS platforms and provide training so you can make updates easily." },
+    { question: "Do you provide hosting and domain setup?", answer: "We assist with hosting, domains, SSL certificates, and ongoing maintenance if required." },
+    { question: "How long does a website project take?", answer: "Typical timelines are 4–6 weeks for standard sites and 8–12 weeks for complex builds." },
+    { question: "Do you handle SEO basics?", answer: "Yes, we implement on-page SEO, sitemaps, metadata, and performance best practices." }
+  ],
   'ecommerce': [
     {
       question: "What e-commerce platforms do you support?",
@@ -25,6 +32,20 @@ export const serviceFAQs: Record<string, FAQ[]> = {
       question: "Do you handle product data migration?",
       answer: "Yes, we can help migrate your existing product catalog and customer data to your new e-commerce platform."
     }
+  ],
+  'branding': [
+    { question: "What’s included in a branding package?", answer: "Logo system, color palette, typography, brand guidelines, and key assets for print and digital." },
+    { question: "Do you redesign existing brands?", answer: "Yes, we can refine or reimagine your brand while preserving brand equity." },
+    { question: "Will I receive a brand style guide?", answer: "Yes, we deliver a comprehensive brand manual with usage rules and examples." },
+    { question: "How many logo concepts do you provide?", answer: "We typically present 2–3 strategic concepts with iterative refinement." },
+    { question: "Can you create social and stationery assets?", answer: "Yes, we design social templates and stationery such as business cards, letterheads, and email signatures." }
+  ],
+  'logo-design': [
+    { question: "What makes a good logo?", answer: "Distinctive, scalable, versatile across color and formats, and aligned with your brand positioning." },
+    { question: "Do you provide vector files?", answer: "Yes, logos are delivered in vector formats (AI, SVG, PDF) and raster formats (PNG, JPG)." },
+    { question: "How many revisions are included?", answer: "Standard packages include up to 3 revision rounds." },
+    { question: "Can you refresh an existing logo?", answer: "Yes, we can modernize and refine your logo while maintaining recognizability." },
+    { question: "Do you supply social media avatars and favicons?", answer: "Yes, we export platform-specific assets for consistent digital presence." }
   ],
   'website-maintenance': [
     {
@@ -145,18 +166,11 @@ export const serviceFAQs: Record<string, FAQ[]> = {
     }
   ],
   'packaging-design': [
-    {
-      question: "Do you create 3D mockups?",
-      answer: "Yes, we provide realistic 3D mockups to help visualize the final product before production."
-    },
-    {
-      question: "Can you work with specific packaging requirements?",
-      answer: "Yes, we design for all packaging types and ensure compliance with industry standards and regulations."
-    },
-    {
-      question: "Do you handle printing specifications?",
-      answer: "Yes, we provide print-ready files with proper specifications for your packaging manufacturer."
-    }
+    { question: "Do you create 3D mockups?", answer: "Yes, we provide realistic 3D mockups to visualize the final product before production." },
+    { question: "Can you work with specific packaging requirements?", answer: "Yes, we design for all packaging types and ensure compliance with industry standards and regulations." },
+    { question: "Do you handle printing specifications?", answer: "We deliver print-ready files with dielines, bleed, CMYK profiles, and finishing notes." },
+    { question: "Can you assist with vendors?", answer: "We coordinate with printers and packaging suppliers to ensure accurate production." },
+    { question: "Do you provide sustainability options?", answer: "We can recommend eco-friendly materials and printing techniques where available." }
   ],
   'print-design': [
     {

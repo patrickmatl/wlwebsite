@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import Link from 'next/link';
 
 const WebsiteMaintenancePage = () => {
   const maintenancePackages = [
@@ -301,6 +302,12 @@ const WebsiteMaintenancePage = () => {
             currentService="website-maintenance"
             services={relatedServices}
           />
+        </div>
+        {/* Contextual link to homepage with varied phrasing */}
+        <div className="mt-10 text-center">
+          <p className="text-neutral-400 text-sm">
+            Meet our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria graphic design company</Link> on the homepage.
+          </p>
         </div>
       </div>
     </div>

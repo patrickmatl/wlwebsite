@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 import { motion } from 'framer-motion';
 
@@ -406,8 +407,15 @@ const GraphicDesignPage = () => {
             <textarea id="message" name="message" className="w-full p-2 bg-zinc-900 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all" />
           </div>
           <button type="submit" className="w-full py-2 px-4 bg-[#FFD700] text-black font-semibold rounded hover:bg-[#FFE44D] transition-colors">Submit</button>
-        </form>
-      </div>
+    </form>
+  </div>
+
+  {/* Contextual link to homepage with varied phrasing */}
+  <div className="max-w-7xl mx-auto mt-10 text-center">
+    <p className="text-neutral-400 text-sm">
+      Prefer working with a <Link href="/" className="text-[#FFD700] hover:underline">Pretoria graphic design agency</Link>? Visit our homepage.
+    </p>
+  </div>
     </div>
   );
 };

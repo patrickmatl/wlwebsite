@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import Link from 'next/link';
 
 const EcommercePage = () => {
   const packages = [
@@ -322,9 +323,16 @@ const EcommercePage = () => {
           <p className="text-xl text-neutral-300 mb-8">
             Contact us for a free consultation and let's create your perfect e-commerce solution
           </p>
-          <GetInTouchButton variant="primary" text="Start Your Project" className="text-lg" />
-        </div>
+      <GetInTouchButton variant="primary" text="Start Your Project" className="text-lg" />
+      </div>
       </section>
+
+      {/* Contextual link to homepage with varied phrasing */}
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria eCommerce web design</Link> on the homepage.
+        </p>
+      </div>
     </div>
   );
 };

@@ -702,8 +702,14 @@ export default function AnnualReportDesignPrintPretoria() {
         <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</Link>
       </section>
 
-      {/* Related Services */}
-      <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
+  {/* Related Services */}
+  <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
+  {/* Contextual link to homepage with varied phrasing */}
+  <div className="max-w-3xl mx-auto text-center mt-8">
+    <p className="text-neutral-400 text-sm">
+      Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">graphic design company Pretoria</Link> on the homepage.
+    </p>
+  </div>
     </div>
   );
 }

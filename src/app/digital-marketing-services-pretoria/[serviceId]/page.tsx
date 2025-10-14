@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
 import { locations } from '@/data/locations';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import ServiceContent from '@/components/ServiceContent';
 import ServiceSchema from '@/components/ServiceSchema';
 

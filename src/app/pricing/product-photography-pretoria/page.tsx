@@ -193,6 +193,15 @@ export default function ProductPhotographyPage() {
         <p>Our Pretoria product photography experts are here to answer your questions and guide you through the process from start to finish. Let us help you create compelling visuals that convert browsers into buyers.</p>
       </section>
       <RelatedServices currentService="Product Photography" services={relatedServices} />
+      <div className="mt-10 text-center">
+        <p className="text-neutral-400 text-sm">
+          Discover more from our
+          {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria product photography studio</Link>
+          {" "}
+          on the homepage.
+        </p>
+      </div>
     </main>
   );
 }

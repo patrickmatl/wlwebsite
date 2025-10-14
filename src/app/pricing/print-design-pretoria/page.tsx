@@ -5,6 +5,7 @@ import { FaPrint, FaPalette, FaImages, FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import Link from 'next/link';
 
 const PrintDesignPage = () => {
   const categories = [
@@ -444,6 +445,12 @@ const PrintDesignPage = () => {
           <GetInTouchButton variant="primary" text="Get Started" className="text-lg" />
         </div>
       </section>
+      {/* Contextual link to homepage with varied phrasing */}
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Explore our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria design studio</Link> services on the homepage.
+        </p>
+      </div>
     </div>
   );
 };

@@ -98,6 +98,12 @@ export default function PhotographyPage() {
         </div>
       </section>
       <RelatedServices currentService="Photography Services" services={relatedServices} />
+      {/* Contextual link to homepage with varied phrasing */}
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria photography studio</Link> on the homepage.
+        </p>
+      </div>
       {/* Visually Hidden SEO FAQ Section with Schema.org markup - Batch 1 */}
       <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
         <h2>Frequently Asked Questions about Photography Pretoria</h2>

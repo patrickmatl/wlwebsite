@@ -16,7 +16,7 @@ export default function RootClientWrapper() {
       </div>
       <div className={styles.hiddenContent} aria-hidden="true">
         <div className="hiddenSeoContent">
-          <h1 className="sr-only">Graphic Design Company in Pretoria, South Africa</h1>
+          <h2 className="sr-only">Graphic Design Company in Pretoria, South Africa</h2>
           <div className="hiddenContent">
             <article>
               <h2>Professional Graphic Design Services in Pretoria</h2>
@@ -216,9 +216,23 @@ export default function RootClientWrapper() {
               "longitude": "28.2293"
             },
             "url": "https://wlcreationx.co.za",
-            "telephone": "+27623693769",
+            "telephone": "+27 62 369 3789",
             "priceRange": "$$",
             "areaServed": ["Pretoria", "Johannesburg", "Cape Town", "South Africa"],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "17:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "08:00",
+                "closes": "15:00"
+              }
+            ],
             "sameAs": [
               "https://facebook.com/wlcreationx",
               "https://twitter.com/wlcreationx",
@@ -241,7 +255,7 @@ export default function RootClientWrapper() {
             ],
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+27623693769",
+              "telephone": "+27 62 369 3789",
               "contactType": "customer service",
               "email": "info@wlcreationx.co.za",
               "availableLanguage": ["English"]

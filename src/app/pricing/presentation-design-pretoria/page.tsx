@@ -1,6 +1,7 @@
 "use client";
 
 import GetInTouchButton from "@/components/GetInTouchButton";
+import Link from 'next/link';
 
 export default function PresentationDesignPretoria() {
   return (
@@ -19,6 +20,15 @@ export default function PresentationDesignPretoria() {
           <li>Editable, reusable templates</li>
         </ul>
       </section>
+      <div className="mt-4 text-center">
+        <p className="text-neutral-400 text-sm">
+          Learn more on our
+          {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria presentation design experts</Link>
+          {" "}
+          homepage.
+        </p>
+      </div>
     </div>
   );
 }

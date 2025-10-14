@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import Link from 'next/link';
 
 const CustomDevelopmentPage = () => {
   const packages = [
@@ -329,6 +330,15 @@ const CustomDevelopmentPage = () => {
           <GetInTouchButton variant="primary" text="Start Your Project" className="text-lg" />
         </div>
       </section>
+      <div className="mt-4 text-center">
+        <p className="text-neutral-400 text-sm">
+          Learn more on our
+          {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria web development agency</Link>
+          {" "}
+          homepage.
+        </p>
+      </div>
     </div>
   );
 };

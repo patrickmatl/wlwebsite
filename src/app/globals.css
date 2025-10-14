@@ -105,6 +105,12 @@ html, body {
   font-synthesis: none;
 }
 
+/* Show default cursor on devices without a fine pointer */
+@media (pointer: coarse) {
+  html, body {
+    cursor: auto !important;
+  }
+}
 /* Custom font settings */
 .font-syne {
   font-variation-settings: "wght" 700;
@@ -152,9 +158,15 @@ html, body {
   border: 0;
 }
 
-/* Mobile-first styles */
+/* Pointer-aware visibility: hide custom cursor on coarse pointer devices */
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* Mobile performance: keep heavy visuals off on smaller screens */
 @media (max-width: 1024px) {
-  .custom-cursor,
   .orb,
   .animate-gradient {
     display: none;

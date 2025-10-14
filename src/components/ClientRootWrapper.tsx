@@ -25,7 +25,8 @@ interface ClientRootWrapperProps {
 
 export default function ClientRootWrapper({ children }: ClientRootWrapperProps) {
   const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);  // Default to false to match SSR
+  const [hasFinePointer, setHasFinePointer] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -33,18 +34,29 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
     // Handle hydration mismatch by deferring state updates
     const timer = setTimeout(() => {
       setMounted(true);
-      setIsDesktop(window.innerWidth >= 1024);
+      const finePointerMq = window.matchMedia('(pointer: fine)');
+      const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      setHasFinePointer(finePointerMq.matches);
+      setPrefersReducedMotion(reducedMotionMq.matches);
     }, 0);
 
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    const handlePointerChange = (e: MediaQueryListEvent) => {
+      setHasFinePointer(e.matches);
+    };
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
     };
     
-    window.addEventListener('resize', handleResize);
+    const finePointerMq = window.matchMedia('(pointer: fine)');
+    const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    finePointerMq.addEventListener('change', handlePointerChange);
+    reducedMotionMq.addEventListener('change', handleMotionChange);
     
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
+      finePointerMq.removeEventListener('change', handlePointerChange);
+      reducedMotionMq.removeEventListener('change', handleMotionChange);
     };
   }, []);
 
@@ -55,7 +67,7 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
 
   return (
     <>
-      {isDesktop && mounted && <CustomCursor />}
+      {hasFinePointer && !prefersReducedMotion && mounted && <CustomCursor />}
       {mounted && <Navigation />}
       {children}
       {!isHomePage && mounted && <Footer />}

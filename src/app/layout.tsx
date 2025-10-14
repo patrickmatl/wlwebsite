@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Navigation/Breadcrumb';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { Suspense } from 'react';
+import WhatsAppButton from '@/components/WhatsAppButton';
+import MobileContactBar from '@/components/MobileContactBar';
 
 // Configure fonts
 const spaceGrotesk = Space_Grotesk({
@@ -72,6 +74,8 @@ export default function RootLayout({
               </Suspense>
             </main>
           </div>
+          <WhatsAppButton />
+          <MobileContactBar />
           <div className="hidden">
             <Footer />
           </div>

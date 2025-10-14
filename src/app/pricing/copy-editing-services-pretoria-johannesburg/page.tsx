@@ -436,6 +436,15 @@ export default function CopyEditingServices() {
         { title: "Transcription Services", description: "Accurate audio/video to text.", href: "/pricing/transcription-services-pretoria-johannesburg", anchor: "View Service" },
         { title: "Copywriting Services", description: "Professional writing for all needs.", href: "/pricing/copywriting-services-pretoria-johannesburg", anchor: "View Service" }
       ]} />
+      <div className="mt-10 text-center">
+        <p className="text-neutral-400 text-sm">
+          Explore more on our
+          {" "}
+          <Link href="/" className="text-[#FFD700] hover:underline">Pretoria editing services</Link>
+          {" "}
+          homepage.
+        </p>
+      </div>
     </div>
   );
 }

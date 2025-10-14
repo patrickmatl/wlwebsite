@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const BrandIdentityPackages = () => {
   return (
@@ -95,11 +96,18 @@ const BrandIdentityPackages = () => {
         </div>
       </div>
 
-      {/* Disclaimer */}
-      <div className="max-w-7xl mx-auto text-sm text-gray-400 italic">
-        *All prices exclude native files, purchasing of rights managed stock photos or illustrations, 
-        proofreading, copywriting, content generation, printing, photography, and custom illustration work.
-      </div>
+  {/* Disclaimer */}
+  <div className="max-w-7xl mx-auto text-sm text-gray-400 italic">
+    *All prices exclude native files, purchasing of rights managed stock photos or illustrations, 
+    proofreading, copywriting, content generation, printing, photography, and custom illustration work.
+  </div>
+
+  {/* Contextual link to homepage with varied phrasing */}
+  <div className="max-w-7xl mx-auto mt-10 text-center">
+    <p className="text-neutral-400 text-sm">
+      Looking for a trusted <Link href="/" className="text-[#FFD700] hover:underline">graphic design company Pretoria</Link>? Explore our homepage for more.
+    </p>
+  </div>
     </div>
   );
 };

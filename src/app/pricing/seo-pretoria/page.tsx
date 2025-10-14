@@ -3,6 +3,7 @@
 import PackageCard from '@/components/PackageCard';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
+import Link from 'next/link';
 
 export default function SEOPage() {
   const packages = [
@@ -318,6 +319,12 @@ export default function SEOPage() {
             }
           ]}
         />
+        {/* Contextual link to homepage with varied phrasing */}
+        <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+          <p className="text-neutral-400 text-sm">
+            Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria SEO agency</Link> on the homepage.
+          </p>
+        </div>
       </div>
     </main>
   );

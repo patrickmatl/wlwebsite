@@ -171,6 +171,12 @@ export default function CorporateVideoPage() {
         <p>Ready to enhance your business communications with expert corporate video production in Pretoria? Contact us today to discuss your project, receive a personalized quote, and schedule your Pretoria video shoot. We are dedicated to helping Pretoria businesses succeed through the power of video.</p>
         <p>Our Pretoria corporate video specialists are here to guide you from concept to completion. Let us help you tell your story and achieve your business objectives with professional video content.</p>
       </section>
+      {/* Contextual link to homepage with varied phrasing */}
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria video production company</Link> on the homepage.
+        </p>
+      </div>
     </main>
   );
 }

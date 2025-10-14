@@ -11,7 +11,7 @@ export default function SEOContent() {
     "image": "https://wlcreationx.co.za/images/logo.png",
     "description": "Premier graphic design company in Pretoria offering professional branding, web design, and creative solutions. Trusted graphic design agency for businesses in Pretoria and Gauteng.",
     "url": "https://wlcreationx.co.za",
-    "telephone": "+27623693769",
+    "telephone": "+27 62 369 3789",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "210 Albertus St, La Montagne, Pretoria, 0183",
@@ -49,18 +49,20 @@ export default function SEOContent() {
       }
     ],
     "priceRange": "$$",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:00",
-      "closes": "17:00"
-    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
+        "opens": "08:00",
+        "closes": "15:00"
+      }
+    ],
     "sameAs": [
       "https://facebook.com/whitelabel",
       "https://instagram.com/whitelabel",
