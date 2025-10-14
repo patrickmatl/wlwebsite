@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
 import { locations } from '@/data/locations';
 import { services } from '@/data/services';
-import type { Service } from '@/types/service';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import LocationContent from '@/components/LocationContent';
 import LocationSchema from '@/components/LocationSchema';
 
@@ -95,30 +94,7 @@ export default async function LocationPage({ params }: Props) {
 
   const baseUrl = 'https://wlcreationx.co.za';
 
-  const locationServices: Service[] = location.content?.services?.list.map(service => {
-    const matchingService = services.find(s => 
-      s.title.toLowerCase() === service.h3.toLowerCase()
-    );
-    if (matchingService) return matchingService;
-
-    // Create a new service object if no matching service is found
-    return {
-      id: service.h3.toLowerCase(),
-      slug: service.h3.toLowerCase().replace(/\s+/g, '-'),
-      title: service.h3,
-      description: service.content,
-      features: service.features || [],
-      benefits: service.benefits || [],
-      intro: service.content,
-      content: {
-        intro: service.content,
-        features: service.features || [],
-        benefits: service.benefits || [],
-        process: [],
-        faqs: []
-      }
-    };
-  }) || [];
+  // Build-time helper previously unused; removed to silence ESLint warnings
 
   return (
     <div className="min-h-screen bg-black">

@@ -1,6 +1,7 @@
 import { Space_Grotesk, Syne } from 'next/font/google';
 import './globals.css';
 import { Metadata } from 'next';
+import { sharedViewport } from './shared-metadata';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Navigation/Breadcrumb';
@@ -45,6 +46,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = sharedViewport;
+
 export default function RootLayout({
   children,
 }: {
@@ -54,7 +57,6 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="jc8_wF_WjX96VJLj227cbJCEpeseZ-k9U7XSupr4QMw" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo192.png" />
