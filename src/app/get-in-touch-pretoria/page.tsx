@@ -379,7 +379,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-sm">Visit Us</h3>
                     <p className="text-gray-300 text-sm">
-                      210 Albertus St, La Montagne
+                      Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181
                     </p>
                   </div>
                 </div>
