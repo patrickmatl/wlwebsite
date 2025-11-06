@@ -56,7 +56,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="text-neutral-400 text-sm">Email: info@wlcreationx.co.za</li>
               <li className="text-neutral-400 text-sm">Phone: +27 (0)62 369 3789</li>
-              <li className="text-neutral-400 text-sm">Pretoria, South Africa</li>
+              <li className="text-neutral-400 text-sm">Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181, South Africa</li>
             </ul>
           </div>
         </div>
