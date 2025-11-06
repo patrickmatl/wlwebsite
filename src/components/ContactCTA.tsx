@@ -71,8 +71,8 @@ export default function ContactCTA() {
               </svg>
             </div>
             <h3 className="text-white font-syne font-bold mb-2">Call Us</h3>
-            <a href="tel:+27123456789" className="text-neutral-400 hover:text-[#FFD700] transition-colors duration-300">
-              +27 12 345 6789
+            <a href="tel:+27623693769" className="text-neutral-400 hover:text-[#FFD700] transition-colors duration-300">
+              +27 62 369 3769
             </a>
           </div>
 
