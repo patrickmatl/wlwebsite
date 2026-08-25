@@ -104,14 +104,14 @@ export default function InfographicDataVisualizationDesignPretoria() {
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Infographic & Data Visualization Design FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -134,30 +134,30 @@ export default function InfographicDataVisualizationDesignPretoria() {
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Infographic & Data Visualization Design in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Infographic & Data Visualization Design in Pretoria</h2>
         <p>Our infographic and data visualization design services in Pretoria help organizations turn complex data into clear, engaging visuals. We create custom infographics, charts, and interactive graphics for reports, presentations, and digital platforms.</p>
         <p>Pretoria businesses rely on us for professional data visualization that enhances understanding and drives decision-making across South Africa and beyond.</p>
-        <h3>b1. Why Choose Pretoria for Infographic Design?</h3>
+        <h3>Why Choose Pretoria for Infographic Design?</h3>
         <p>Pretoria is a center for research, business, and innovation. Our infographic designers understand local and global trends, ensuring your visuals resonate with Pretoria’s diverse audiences.</p>
         <p>We work with Pretoria companies, NGOs, and educational institutions to create infographics that support marketing, training, and stakeholder communication goals.</p>
-        <h4>c1. Custom Infographics, Dashboards, and Reports</h4>
+        <h4>Custom Infographics, Dashboards, and Reports</h4>
         <p>Every data visualization project is unique. We offer custom infographic design, dashboard creation, and report graphics for Pretoria clients. Our team ensures your data is presented accurately and attractively for maximum impact.</p>
         <p>From annual reports to marketing campaigns, our Pretoria infographic designers deliver visuals that engage, inform, and inspire action.</p>
-        <h5>d1. Serving Pretoria’s Business and Research Community</h5>
+        <h5>Serving Pretoria’s Business and Research Community</h5>
         <p>We serve a diverse range of Pretoria clients, from corporates to universities and non-profits. Our infographic design portfolio includes work for finance, health, education, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off infographic or ongoing data visualization support, our Pretoria team is ready to help you communicate your message.</p>
-        <h2>e1. Data Visualization Standards and Best Practices</h2>
+        <h2>Data Visualization Standards and Best Practices</h2>
         <p>Accuracy and clarity are critical in data visualization. We ensure all Pretoria infographics follow best practices for design, accessibility, and storytelling.</p>
         <p>Our Pretoria infographic design team stays current with new tools and trends, ensuring your visuals are always effective and engaging.</p>
-        <h3>f1. Affordable Infographic Design Packages Pretoria</h3>
+        <h3>Affordable Infographic Design Packages Pretoria</h3>
         <p>Our infographic design packages are competitively priced for Pretoria organizations. We offer transparent pricing, fast turnaround, and scalable solutions for projects of any size.</p>
         <p>Contact us to discuss your infographic and data visualization needs in Pretoria and discover how we can bring your data to life.</p>
-        <h4>g1. Pretoria, Gauteng, and South Africa Coverage</h4>
+        <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver infographic design excellence nationwide.</p>
         <p>We understand Pretoria’s business and research culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>h1. Get Started with Pretoria’s Infographic Design Experts</h5>
+        <h5>Get Started with Pretoria’s Infographic Design Experts</h5>
         <p>Ready to visualize your data? Our Pretoria team is here to support your next report, campaign, or presentation with world-class infographic design.</p>
         <p>Contact Pretoria’s leading infographic design specialists for a free consultation and see how we can help you communicate visually.</p>
       </section>

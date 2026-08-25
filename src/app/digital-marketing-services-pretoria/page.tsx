@@ -254,7 +254,7 @@ export default function ServicesPage() {
             Let's create something amazing together. Contact us to discuss your project and discover how we can help bring your vision to life.
           </p>
           <Link
-            href="/contact"
+            href="/get-in-touch-pretoria"
             className="inline-block bg-[#FFD700] text-black font-bold py-4 px-8 rounded-lg hover:bg-[#FFE55C] transition-colors duration-300"
           >
             Get in Touch

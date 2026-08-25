@@ -2,11 +2,10 @@
 
 import HeroSection from './HeroSection';
 import Link from 'next/link';
-import styles from '@/styles/hiddenContent.module.css';
 
 export default function RootClientWrapper() {
   return (
-    <main className="h-screen overflow-hidden">
+    <main>
       <div className="h-screen">
         <HeroSection
           title="Design"
@@ -14,10 +13,17 @@ export default function RootClientWrapper() {
           description="We specialize in creating stunning digital experiences that captivate audiences and drive results. Let's bring your vision to life."
         />
       </div>
-      <div className={styles.hiddenContent} aria-hidden="true">
-        <div className="hiddenSeoContent">
-          <h2 className="sr-only">Graphic Design Company in Pretoria, South Africa</h2>
-          <div className="hiddenContent">
+      {/*
+        This copy used to be wrapped in a clip-rect container with aria-hidden,
+        so crawlers could read it but users could not. That is hidden text.
+        It now renders as ordinary visible content — identical for every visitor.
+      */}
+      <section
+        aria-labelledby="pretoria-design-services"
+        className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-a:text-[#FFD700] prose-strong:text-white prose-li:text-neutral-300 prose-p:text-neutral-300"
+      >
+        <h2 id="pretoria-design-services">Graphic Design Company in Pretoria, South Africa</h2>
+        <div>
             <article>
               <h2>Professional Graphic Design Services in Pretoria</h2>
               <p>Welcome to WL CreationX, your trusted graphic design Agency in Pretoria. As a leading design business in Pretoria, we specialize in delivering exceptional graphic design services, including logo design, branding, web design, and print design solutions. With a team of visionary designers and a passion for creativity, we combine strategic thinking with innovative design to help businesses stand out in the competitive South African market.</p>
@@ -191,7 +197,7 @@ export default function RootClientWrapper() {
               Get a Free Consultation
             </Link>
           </div>
-        </div> </div>
+      </section>
 
 {/* Schema.org Markup */}
 <script type="application/ld+json" dangerouslySetInnerHTML={{

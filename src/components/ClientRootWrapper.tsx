@@ -75,7 +75,9 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
       {hasFinePointer && !prefersReducedMotion && mounted && <CustomCursor />}
       {mounted && <Navigation />}
       {children}
-      {!isHomePage && mounted && <Footer />}
+      {/* Visible on every page, homepage included. Previously the homepage got
+          only the `hidden` copy in layout.tsx, i.e. links for crawlers only. */}
+      <Footer />
       <SchemaOrg />
     </AudioPlaybackProvider>
   );

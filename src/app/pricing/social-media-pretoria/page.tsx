@@ -523,19 +523,19 @@ const SocialMediaPage = () => {
           {
             title: 'Content Marketing',
             description: 'Strategic content creation and distribution.',
-            href: '/pricing/content-marketing',
+            href: '/pricing/content-marketing-pretoria',
             anchor: 'View Content Marketing Services'
           },
           {
             title: 'Email Marketing',
             description: 'Targeted email campaigns and automation.',
-            href: '/pricing/email-marketing',
+            href: '/pricing/email-marketing-pretoria',
             anchor: 'View Email Marketing Services'
           },
           {
             title: 'SEO Services',
             description: 'Improve your search engine visibility.',
-            href: '/pricing/seo',
+            href: '/pricing/seo-pretoria',
             anchor: 'View SEO Services'
           },
           {

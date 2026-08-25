@@ -242,7 +242,7 @@ const PricingPage = () => {
           Contact us for a personalized quote.
         </p>
         <Link 
-          href="/contact"
+          href="/get-in-touch-pretoria"
           className="inline-block py-2 px-8 bg-[#FFD700] text-black font-semibold rounded hover:bg-[#FFE44D] transition-colors"
         >
           Get in Touch

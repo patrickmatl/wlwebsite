@@ -298,19 +298,19 @@ const CustomDevelopmentPage = () => {
         currentService="Custom Development"
         services={[
           { 
-            href: '/pricing/website-maintenance',
+            href: '/pricing/website-maintenance-pretoria',
             anchor: 'Website Maintenance',
             title: 'Website Maintenance Services',
             description: 'Keep your custom-built solutions running smoothly with our maintenance services'
           },
           { 
-            href: '/pricing/mobile-solutions',
+            href: '/pricing/mobile-solutions-pretoria',
             anchor: 'Mobile Solutions',
             title: 'Mobile Development Services',
             description: 'Extend your web applications with custom mobile solutions'
           },
           { 
-            href: '/pricing/ecommerce',
+            href: '/pricing/ecommerce-pretoria',
             anchor: 'E-commerce Solutions',
             title: 'E-commerce Development',
             description: 'Build custom e-commerce solutions tailored to your business needs'

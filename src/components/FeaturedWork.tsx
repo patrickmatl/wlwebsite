@@ -87,7 +87,7 @@ export default function FeaturedWork() {
           className="text-center mt-12"
         >
           <Link
-            href="/portfolio"
+            href="/project-showcase-pretoria"
             className="inline-flex items-center justify-center px-8 py-3 border border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black rounded-full transition-all duration-300"
           >
             View All Work

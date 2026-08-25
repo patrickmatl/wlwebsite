@@ -1,19 +1,10 @@
-const searchEngineUserAgents = [
-  'googlebot',
-  'bingbot',
-  'yandexbot',
-  'duckduckbot',
-  'baiduspider',
-  'yahoo',
-  'slurp',
-  'teoma',
-  'msnbot',
-  'crawler'
-];
-
-export function isSearchEngine(userAgent: string | null): boolean {
-  if (!userAgent) return false;
-  
-  const lowerCaseUA = userAgent.toLowerCase();
-  return searchEngineUserAgents.some(bot => lowerCaseUA.includes(bot));
-}
+/**
+ * REMOVED: isSearchEngine() / search-engine user-agent sniffing.
+ *
+ * This helper existed only to branch behaviour on whether the visitor was a
+ * crawler. Serving crawlers something different from users is cloaking and
+ * risks a manual action. Nothing in the app imports it any more.
+ *
+ * This file is safe to delete.
+ */
+export {};

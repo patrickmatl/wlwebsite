@@ -21,25 +21,25 @@ const services = [
     title: 'E-commerce',
     description: 'Complete e-commerce solutions to help you sell online effectively.',
     icon: <FaShoppingCart className="w-6 h-6" />,
-    href: '/pricing/ecommerce'
+    href: '/pricing/ecommerce-pretoria'
   },
   {
     title: 'Google Ads',
     description: 'Strategic Google Ads management to boost your online visibility.',
     icon: <FaSearchDollar className="w-6 h-6" />,
-    href: '/pricing/google-ads'
+    href: '/pricing/google-ads-pretoria'
   },
   {
     title: 'Mobile Solutions',
     description: 'Mobile app development and responsive design solutions.',
     icon: <FaMobileAlt className="w-6 h-6" />,
-    href: '/pricing/mobile-solutions'
+    href: '/pricing/mobile-solutions-pretoria'
   },
   {
     title: 'Packaging Design',
     description: 'Creative packaging design solutions that make your products stand out.',
     icon: <FaBox className="w-6 h-6" />,
-    href: '/pricing/packaging-design'
+    href: '/pricing/packaging-design-pretoria'
   }
 ];
 

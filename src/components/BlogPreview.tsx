@@ -96,7 +96,7 @@ export default function BlogPreview() {
         )}
         <div className="text-center mt-8">
           <Link 
-            href="/blog"
+            href="/creative-industry-blog-pretoria"
             className="inline-block px-8 py-3 bg-[#FFD700] text-black font-semibold rounded-full hover:bg-[#FFA500] transition-colors duration-300"
           >
             View All Posts

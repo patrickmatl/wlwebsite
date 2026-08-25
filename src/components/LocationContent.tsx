@@ -333,7 +333,7 @@ export default function LocationContent({ location }: LocationContentProps) {
                 <h3 className="text-2xl font-bold mb-6">Take Action</h3>
                 <div className="space-y-4">
                   <Link
-                    href="/contact"
+                    href="/get-in-touch-pretoria"
                     className="block w-full text-center bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 text-lg font-bold"
                   >
                     {contact.cta.primary}

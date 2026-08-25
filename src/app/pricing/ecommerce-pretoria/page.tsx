@@ -294,19 +294,19 @@ const EcommercePage = () => {
         currentService="E-commerce"
         services={[
           { 
-            href: '/pricing/website-maintenance',
+            href: '/pricing/website-maintenance-pretoria',
             anchor: 'Website Maintenance',
             title: 'Website Maintenance Services',
             description: 'Keep your e-commerce site running smoothly with our maintenance services'
           },
           { 
-            href: '/pricing/custom-development',
+            href: '/pricing/custom-development-pretoria',
             anchor: 'Custom Development',
             title: 'Custom Development Services',
             description: 'Get custom features and integrations for your e-commerce platform'
           },
           { 
-            href: '/pricing/google-ads',
+            href: '/pricing/google-ads-pretoria',
             anchor: 'Google Ads',
             title: 'Google Ads Management',
             description: 'Drive sales with targeted Google Ads campaigns for your e-commerce store'

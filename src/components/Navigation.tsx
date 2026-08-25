@@ -26,7 +26,7 @@ const menuItems = [
         label: 'Design Services',
         items: [
           { href: '/pricing/graphic-design-pretoria', label: 'Graphic Design' },
-          { href: '/pricing/brand-identity', label: 'Brand Identity' },
+          { href: '/branding-solutions-pretoria', label: 'Brand Identity' },
           { href: '/pricing/print-design-pretoria', label: 'Print Design' },
           { href: '/pricing/packaging-design-pretoria', label: 'Packaging Design' },
           { href: '/pricing/marketing-materials-pretoria', label: 'Marketing Materials' },

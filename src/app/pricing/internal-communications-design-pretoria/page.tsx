@@ -103,14 +103,14 @@ export default function InternalCommunicationsDesignPretoria() {
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Internal Communications Design FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -133,30 +133,30 @@ export default function InternalCommunicationsDesignPretoria() {
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Internal Communications Design in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Internal Communications Design in Pretoria</h2>
         <p>Our internal communications design services in Pretoria help organizations engage employees, share information, and build a strong company culture. We create newsletters, bulletins, onboarding packs, and digital campaigns tailored to Pretoria’s business landscape.</p>
         <p>Pretoria companies trust us for professional internal communications design that drives engagement and supports organizational objectives across South Africa.</p>
-        <h3>b1. Why Choose Pretoria for Internal Comms Design?</h3>
+        <h3>Why Choose Pretoria for Internal Comms Design?</h3>
         <p>Pretoria is home to leading corporates, government agencies, and NGOs. Our internal comms designers understand Pretoria’s unique workplace dynamics and craft materials that resonate with diverse employee audiences.</p>
         <p>We help Pretoria organizations improve employee engagement and retention through clear, branded communications aligned with local and global best practices.</p>
-        <h4>c1. Custom Newsletters, Campaigns, and Onboarding Packs</h4>
+        <h4>Custom Newsletters, Campaigns, and Onboarding Packs</h4>
         <p>Every internal communications project is unique. We offer custom newsletter design, employee campaign materials, and onboarding documentation for Pretoria clients. Our team ensures your content is visually appealing and easy to understand.</p>
         <p>From HR campaigns to executive communications, our Pretoria internal comms designers deliver materials that inform, motivate, and inspire action.</p>
-        <h5>d1. Serving Pretoria’s Business Community</h5>
+        <h5>Serving Pretoria’s Business Community</h5>
         <p>We serve a diverse range of Pretoria clients, from corporates to educational institutions and non-profits. Our internal communications design portfolio includes work for finance, health, education, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off internal campaign or ongoing communications support, our Pretoria team is ready to help you connect with your workforce.</p>
-        <h2>e1. Internal Comms Standards and Best Practices</h2>
+        <h2>Internal Comms Standards and Best Practices</h2>
         <p>Clarity and consistency are critical in internal communications. We ensure all Pretoria materials follow best practices for design, accessibility, and employee engagement.</p>
         <p>Our Pretoria internal comms design team stays current with new tools and trends, ensuring your materials are always effective and relevant.</p>
-        <h3>f1. Affordable Internal Communications Design Packages Pretoria</h3>
+        <h3>Affordable Internal Communications Design Packages Pretoria</h3>
         <p>Our internal communications design packages are competitively priced for Pretoria organizations. We offer transparent pricing, fast turnaround, and scalable solutions for projects of any size.</p>
         <p>Contact us to discuss your internal communications needs in Pretoria and discover how we can help you build a stronger organization.</p>
-        <h4>g1. Pretoria, Gauteng, and South Africa Coverage</h4>
+        <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver internal communications design excellence nationwide.</p>
         <p>We understand Pretoria’s business culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>h1. Get Started with Pretoria’s Internal Communications Design Experts</h5>
+        <h5>Get Started with Pretoria’s Internal Communications Design Experts</h5>
         <p>Ready to improve your internal communications? Our Pretoria team is here to support your next campaign, onboarding, or newsletter with world-class design.</p>
         <p>Contact Pretoria’s leading internal communications design specialists for a free consultation and see how we can help you engage your employees.</p>
       </section>

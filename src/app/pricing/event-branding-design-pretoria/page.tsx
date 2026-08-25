@@ -103,14 +103,14 @@ export default function EventBrandingDesignPretoria() {
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Event Branding Design FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -133,30 +133,30 @@ export default function EventBrandingDesignPretoria() {
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Event Branding Design in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Event Branding Design in Pretoria</h2>
         <p>Our event branding design services in Pretoria help organizations create memorable, cohesive visual identities for conferences, exhibitions, and corporate events. We design event logos, signage, invitations, and digital assets tailored to Pretoria’s vibrant business scene.</p>
         <p>Pretoria clients trust us for professional event branding that elevates attendee experience and reinforces brand recognition across South Africa.</p>
-        <h3>b1. Why Choose Pretoria for Event Branding?</h3>
+        <h3>Why Choose Pretoria for Event Branding?</h3>
         <p>Pretoria is a hub for major events, expos, and business gatherings. Our event branding designers understand the needs of Pretoria organizers and deliver creative solutions that stand out in competitive environments.</p>
         <p>We help Pretoria organizations make a lasting impression with event branding that combines local relevance and global design standards.</p>
-        <h4>c1. Custom Logos, Signage, and Digital Assets</h4>
+        <h4>Custom Logos, Signage, and Digital Assets</h4>
         <p>Every event is unique. We offer custom logo design, signage, and digital asset creation for Pretoria events. Our team ensures your event branding is consistent, impactful, and aligned with your objectives.</p>
         <p>From conferences to product launches, our Pretoria event branding designers deliver materials that engage, inform, and inspire attendees.</p>
-        <h5>d1. Serving Pretoria’s Event Community</h5>
+        <h5>Serving Pretoria’s Event Community</h5>
         <p>We serve a diverse range of Pretoria clients, from corporates to non-profits and government agencies. Our event branding portfolio includes work for finance, tech, education, and public sector events in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off event branding solution or ongoing support, our Pretoria team is ready to help you create unforgettable experiences.</p>
-        <h2>e1. Event Branding Standards and Best Practices</h2>
+        <h2>Event Branding Standards and Best Practices</h2>
         <p>Consistency and creativity are critical in event branding. We ensure all Pretoria event materials follow best practices for design, accessibility, and audience engagement.</p>
         <p>Our Pretoria event branding team stays current with new trends and technologies, ensuring your event stands out for all the right reasons.</p>
-        <h3>f1. Affordable Event Branding Packages Pretoria</h3>
+        <h3>Affordable Event Branding Packages Pretoria</h3>
         <p>Our event branding packages are competitively priced for Pretoria organizations. We offer transparent pricing, fast turnaround, and scalable solutions for events of any size.</p>
         <p>Contact us to discuss your event branding needs in Pretoria and discover how we can help you create a memorable event.</p>
-        <h4>g1. Pretoria, Gauteng, and South Africa Coverage</h4>
+        <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver event branding excellence nationwide.</p>
         <p>We understand Pretoria’s event culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>h1. Get Started with Pretoria’s Event Branding Experts</h5>
+        <h5>Get Started with Pretoria’s Event Branding Experts</h5>
         <p>Ready to brand your next event? Our Pretoria team is here to support your next conference, exhibition, or launch with world-class event branding.</p>
         <p>Contact Pretoria’s leading event branding specialists for a free consultation and see how we can help you create impact.</p>
       </section>

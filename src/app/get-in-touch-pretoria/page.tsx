@@ -303,11 +303,11 @@ function ContactFormContent() {
           />
           <label htmlFor="terms" className="text-xs">
             I agree to the{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
-            <Link href="/terms" className="text-[#FFD700] hover:text-[#FFA500] underline">
+            <Link href="/legal-terms-pretoria" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Terms of Service
             </Link>{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
             and{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
-            <Link href="/privacy-policy" className="text-[#FFD700] hover:text-[#FFA500] underline">
+            <Link href="/data-protection-policy-pretoria" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Privacy Policy
             </Link>
           </label>

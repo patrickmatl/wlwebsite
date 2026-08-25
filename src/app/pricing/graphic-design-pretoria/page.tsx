@@ -92,7 +92,7 @@ const GraphicDesignPage = () => {
   const relatedServices = [
     {
       title: 'Brand Identity',
-      href: '/pricing/brand-identity',
+      href: '/branding-solutions-pretoria',
       description: 'Complete brand identity solutions',
       anchor: 'Brand Identity'
     },

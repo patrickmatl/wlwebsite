@@ -259,13 +259,13 @@ export default function ContentMarketingPage() {
             {
               title: 'SEO Services',
               description: 'Improve your search engine rankings and drive organic traffic.',
-              href: '/pricing/seo',
+              href: '/pricing/seo-pretoria',
               anchor: 'View SEO Services'
             },
             {
               title: 'Email Marketing',
               description: 'Build lasting relationships with your audience through targeted campaigns.',
-              href: '/pricing/email-marketing',
+              href: '/pricing/email-marketing-pretoria',
               anchor: 'View Email Marketing'
             }
           ]}

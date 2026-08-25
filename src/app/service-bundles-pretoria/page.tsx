@@ -176,12 +176,12 @@ const PackagesPage = () => {
               Book a free consultation with our experts to discuss your project needs and discover how we can help you achieve your business goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="block">
+              <Link href="/get-in-touch-pretoria" className="block">
                 <button className="w-full sm:w-auto px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors duration-300">
                   Schedule a Consultation
                 </button>
               </Link>
-              <Link href="/portfolio" className="block">
+              <Link href="/project-showcase-pretoria" className="block">
                 <button className="w-full sm:w-auto px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors duration-300">
                   View Our Work
                 </button>
@@ -560,7 +560,7 @@ const PackagesPage = () => {
         <p className="text-gray-300 mb-6">
           Ready to elevate your brand? Contact us for a personalized consultation.
         </p>
-        <Link href="/contact" className="block">
+        <Link href="/get-in-touch-pretoria" className="block">
           <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
             Schedule a Consultation
           </button>
@@ -575,12 +575,12 @@ const PackagesPage = () => {
           how we can help you achieve your business goals.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/contact" className="block">
+          <Link href="/get-in-touch-pretoria" className="block">
             <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
               Schedule a Consultation
             </button>
           </Link>
-          <Link href="/portfolio" className="block">
+          <Link href="/project-showcase-pretoria" className="block">
             <button className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors">
               View Our Work
             </button>
@@ -626,12 +626,12 @@ const PackagesPage = () => {
           to discuss your project needs and discover how we can help elevate your brand.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/contact" className="block">
+          <Link href="/get-in-touch-pretoria" className="block">
             <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
               Schedule a Free Consultation
             </button>
           </Link>
-          <Link href="/portfolio" className="block">
+          <Link href="/project-showcase-pretoria" className="block">
             <button className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors">
               View Our Pretoria Portfolio
             </button>

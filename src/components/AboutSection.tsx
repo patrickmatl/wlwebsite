@@ -44,7 +44,7 @@ export default function AboutSection() {
             </div>
 
             <Link
-              href="/about"
+              href="/about-graphic-design-company-pretoria"
               className="inline-flex items-center justify-center px-8 py-3 border border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black rounded-full transition-all duration-300"
             >
               Learn More About Us

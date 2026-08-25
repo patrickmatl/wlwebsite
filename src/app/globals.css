@@ -145,8 +145,17 @@ html, body {
   animation-play-state: paused;
 }
 
-/* SEO-only class for hidden but crawlable content */
-.seo-only {
+/*
+ * REMOVED: .seo-only ("hidden but crawlable content").
+ *
+ * Hiding copy from users while leaving it for crawlers is hidden text and a
+ * Search Essentials spam violation. Content that is worth ranking for is worth
+ * showing — put it on the page.
+ *
+ * For genuine accessibility needs use .sr-only below, and keep it to short
+ * functional strings (labels, skip links), never marketing paragraphs.
+ */
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;

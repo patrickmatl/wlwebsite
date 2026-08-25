@@ -103,14 +103,14 @@ export default function InvestorRelationsMaterialDesignServicesPretoria() {
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Investor Relations Material Design Services FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -133,30 +133,30 @@ export default function InvestorRelationsMaterialDesignServicesPretoria() {
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Investor Relations Material Design in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Investor Relations Material Design in Pretoria</h2>
         <p>Our investor relations material design services in Pretoria empower companies to communicate effectively with shareholders, analysts, and the investment community. We create compelling IR decks, shareholder updates, and financial presentations that comply with industry regulations and resonate with Pretoria’s business audience.</p>
         <p>With a focus on clarity, compliance, and visual impact, we help Pretoria-based companies build trust and credibility through expertly designed investor relations materials tailored for both local and international investors.</p>
-        <h3>b1. Why Choose Pretoria for IR Design?</h3>
+        <h3>Why Choose Pretoria for IR Design?</h3>
         <p>Pretoria is a hub for corporate headquarters and listed companies in South Africa. Our IR design services leverage local market insights and global best practices to ensure your materials stand out in investor communications, AGMs, and results announcements.</p>
         <p>We understand the needs of Pretoria’s financial sector and can adapt our IR design solutions for JSE-listed companies, private firms, and startups alike.</p>
-        <h4>c1. Custom IR Decks, Reports, and Presentations</h4>
+        <h4>Custom IR Decks, Reports, and Presentations</h4>
         <p>Every investor relations project is unique. We offer custom IR deck design, annual and integrated report layouts, and tailored financial presentations for Pretoria clients. Our team integrates your branding, data, and messaging for maximum impact.</p>
         <p>From IPO roadshows to quarterly results, our Pretoria IR designers deliver professional, compliant, and engaging materials that support your investor relations strategy.</p>
-        <h5>d1. Serving Pretoria’s Corporate Community</h5>
+        <h5>Serving Pretoria’s Corporate Community</h5>
         <p>We serve a diverse range of Pretoria clients, from blue-chip corporates to innovative startups. Our IR design portfolio includes work for major financial institutions, mining companies, and technology firms in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off investor presentation or ongoing IR support, our Pretoria team is ready to help you achieve your communication goals.</p>
-        <h2>e1. IR Design Compliance and Best Practices</h2>
+        <h2>IR Design Compliance and Best Practices</h2>
         <p>Compliance is critical in investor relations. We ensure all Pretoria IR materials follow JSE, King IV, and global IR standards, giving your stakeholders confidence in your communications.</p>
         <p>Our Pretoria IR design team stays up to date with evolving disclosure requirements and industry trends, ensuring your materials are always relevant and effective.</p>
-        <h3>f1. Affordable Investor Relations Design Packages Pretoria</h3>
+        <h3>Affordable Investor Relations Design Packages Pretoria</h3>
         <p>Our investor relations design packages are competitively priced for Pretoria businesses. We offer transparent pricing, fast turnaround, and scalable solutions for projects of any size.</p>
         <p>Contact us to discuss your IR design needs in Pretoria and discover how we can elevate your investor communications.</p>
-        <h4>g1. Pretoria, Gauteng, and South Africa Coverage</h4>
+        <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver IR design excellence to companies nationwide.</p>
         <p>We understand Pretoria’s corporate culture and can adapt our services for local, national, or cross-border investor audiences.</p>
-        <h5>h1. Get Started with Pretoria’s IR Design Experts</h5>
+        <h5>Get Started with Pretoria’s IR Design Experts</h5>
         <p>Ready to improve your investor relations materials? Our Pretoria team is here to support your next AGM, results announcement, or investor roadshow with world-class design.</p>
         <p>Contact Pretoria’s leading IR design specialists for a free consultation and see how we can help you communicate with confidence.</p>
       </section>

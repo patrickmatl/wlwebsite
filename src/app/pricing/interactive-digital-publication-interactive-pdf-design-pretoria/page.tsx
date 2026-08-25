@@ -103,14 +103,14 @@ export default function InteractiveDigitalPublicationInteractivePdfDesignPretori
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Interactive Digital Publication & Interactive PDF Design FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -133,30 +133,30 @@ export default function InteractiveDigitalPublicationInteractivePdfDesignPretori
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Interactive Digital Publication & PDF Design in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Interactive Digital Publication & PDF Design in Pretoria</h2>
         <p>Our interactive digital publication and PDF design services in Pretoria help organizations create engaging, multimedia-rich documents for online and offline audiences. We design interactive reports, brochures, and eBooks that drive engagement and deliver information effectively.</p>
         <p>Pretoria clients trust us for professional interactive PDF design that combines usability, accessibility, and visual appeal for all types of digital publications.</p>
-        <h3>b1. Why Choose Pretoria for Interactive Publication Design?</h3>
+        <h3>Why Choose Pretoria for Interactive Publication Design?</h3>
         <p>Pretoria is a hub for innovation and digital transformation. Our interactive publication designers understand the needs of Pretoria businesses, government, and non-profits, delivering solutions that stand out in the digital landscape.</p>
         <p>We help Pretoria organizations modernize their communications with interactive PDFs, flipbooks, and digital magazines tailored to their audiences.</p>
-        <h4>c1. Custom Interactive Reports, Brochures, and Magazines</h4>
+        <h4>Custom Interactive Reports, Brochures, and Magazines</h4>
         <p>Every digital publication project is unique. We offer custom interactive report design, digital brochure layouts, and multimedia eBooks for Pretoria clients. Our team ensures your content is presented in an engaging, user-friendly format.</p>
         <p>From annual reports to marketing materials, our Pretoria interactive publication designers deliver digital documents that inform, persuade, and inspire action.</p>
-        <h5>d1. Serving Pretoria’s Digital Community</h5>
+        <h5>Serving Pretoria’s Digital Community</h5>
         <p>We serve a diverse range of Pretoria clients, from corporates to educational institutions and NGOs. Our interactive publication design portfolio includes work for finance, education, health, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off digital publication or ongoing interactive design support, our Pretoria team is ready to help you communicate your message.</p>
-        <h2>e1. Digital Publication Standards and Best Practices</h2>
+        <h2>Digital Publication Standards and Best Practices</h2>
         <p>Usability and accessibility are critical in digital publication design. We ensure all Pretoria interactive PDFs follow best practices for navigation, accessibility, and multimedia integration.</p>
         <p>Our Pretoria digital publication design team stays current with new technologies and trends, ensuring your publications are always effective and engaging.</p>
-        <h3>f1. Affordable Interactive PDF Design Packages Pretoria</h3>
+        <h3>Affordable Interactive PDF Design Packages Pretoria</h3>
         <p>Our interactive PDF design packages are competitively priced for Pretoria organizations. We offer transparent pricing, fast turnaround, and scalable solutions for projects of any size.</p>
         <p>Contact us to discuss your interactive digital publication needs in Pretoria and discover how we can bring your documents to life.</p>
-        <h4>g1. Pretoria, Gauteng, and South Africa Coverage</h4>
+        <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver digital publication design excellence nationwide.</p>
         <p>We understand Pretoria’s digital culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>h1. Get Started with Pretoria’s Interactive Publication Design Experts</h5>
+        <h5>Get Started with Pretoria’s Interactive Publication Design Experts</h5>
         <p>Ready to make your publications interactive? Our Pretoria team is here to support your next report, brochure, or magazine with world-class digital design.</p>
         <p>Contact Pretoria’s leading interactive publication design specialists for a free consultation and see how we can help you engage your audience.</p>
       </section>

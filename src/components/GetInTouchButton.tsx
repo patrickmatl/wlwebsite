@@ -28,7 +28,7 @@ const GetInTouchButton = ({
       whileTap={{ scale: 0.95 }}
     >
       <Link 
-        href="/contact" 
+        href="/get-in-touch-pretoria" 
         className={`${baseStyles} ${variantStyles[variant]} ${className}`}
       >
         {text}

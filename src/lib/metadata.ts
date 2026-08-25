@@ -90,20 +90,20 @@ export const servicesMetadata = {
     description: 'Professional social media design and management services to boost your online presence.',
     keywords: 'social media design, social media management, content creation, social media marketing, South Africa',
     ogImage: 'social-media.jpg',
-    path: '/pricing/social-media'
+    path: '/pricing/social-media-pretoria'
   },
   'google-ads': {
     title: 'Google Ads & Digital Marketing Services',
     description: 'Professional Google Ads management and digital marketing services to grow your online presence.',
     keywords: 'Google Ads, PPC, digital marketing, search advertising, display ads, remarketing, South Africa',
     ogImage: 'google-ads.jpg',
-    path: '/pricing/google-ads'
+    path: '/pricing/google-ads-pretoria'
   },
   'website-maintenance': {
     title: 'Website Maintenance Services',
     description: 'Professional website maintenance services to keep your website secure, up-to-date, and performing at its best.',
     keywords: 'website maintenance, WordPress updates, security monitoring, backups, performance optimization, South Africa',
     ogImage: 'website-maintenance.jpg',
-    path: '/pricing/website-maintenance'
+    path: '/pricing/website-maintenance-pretoria'
   }
 };

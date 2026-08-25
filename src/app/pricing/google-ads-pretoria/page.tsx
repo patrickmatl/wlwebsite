@@ -109,13 +109,13 @@ const GoogleAdsPage = () => {
   const relatedServices = [
     {
       title: 'SEO Services',
-      href: '/pricing/seo',
+      href: '/pricing/seo-pretoria',
       description: 'Search engine optimization services',
       anchor: 'SEO'
     },
     {
       title: 'Social Media Marketing',
-      href: '/pricing/social-media',
+      href: '/pricing/social-media-pretoria',
       description: 'Social media marketing and management',
       anchor: 'Social Media'
     },

@@ -1,62 +1,27 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// List of known bots
-const KNOWN_BOTS = [
-  'googlebot',
-  'bingbot',
-  'yandexbot',
-  'duckduckbot',
-  'slurp',
-  'baiduspider',
-  'facebookexternalhit',
-  'twitterbot',
-  'rogerbot',
-  'linkedinbot',
-  'embedly',
-  'quora link preview',
-  'showyoubot',
-  'outbrain',
-  'pinterest',
-  'slackbot',
-  'vkShare',
-  'W3C_Validator',
-  'crawler',
-  'spider',
-  'ahrefsbot'
-];
-
-function isBot(userAgent: string): boolean {
-  const lowerUA = userAgent.toLowerCase();
-  return KNOWN_BOTS.some(bot => lowerUA.includes(bot)) || lowerUA.includes('bot');
-}
-
-export function middleware(request: NextRequest) {
-  const userAgent = request.headers.get('user-agent') || '';
-  const url = request.nextUrl.clone();
-  const path = url.pathname;
-
-  // If it's a bot, let it access the original path
-  if (isBot(userAgent)) {
-    return NextResponse.next();
-  }
-
-  // For regular users, only redirect if it's a location page
-  if (
-    !path.startsWith('/_next') &&
-    !path.startsWith('/api') &&
-    !path.startsWith('/static') &&
-    !path.startsWith('/images') &&
-    !path.startsWith('/fonts') &&
-    !path.startsWith('/favicon') &&
-    path !== '/' &&
-    (path.startsWith('/locations/') || path.match(/^\/[^/]+\/(graphic-design-company|website-design-company|branding-agency|logo-design-company|packaging-design-company)$/))
-  ) {
-    // Create a new URL for the homepage but keep the original URL visible
-    const response = NextResponse.redirect(new URL('/', request.url));
-    response.headers.set('X-Middleware-Cache', 'no-cache');
-    return response;
-  }
-
+/**
+ * NOTE: This middleware previously detected search-engine user agents and served
+ * them different behaviour to real visitors — bots were allowed through to the
+ * location/service pages while human visitors were 302-redirected to the homepage.
+ *
+ * That is cloaking, an explicit violation of Google Search Essentials
+ * ("Don't show different content to search engines than you show to users").
+ * It is one of the easiest spam signals for Google to detect, because Googlebot
+ * regularly re-crawls with a normal browser user agent and compares the result.
+ *
+ * The behaviour has been removed. Every visitor — human or crawler — now gets
+ * exactly the same response for every URL. Do not reintroduce user-agent
+ * branching here.
+ *
+ * The matcher below is intentionally empty so this middleware never executes.
+ * The file is kept only to carry this note; it is safe to delete outright.
+ */
+export function middleware(_request: NextRequest) {
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: [],
+};

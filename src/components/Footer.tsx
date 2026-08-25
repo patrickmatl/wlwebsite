@@ -1,16 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
+/**
+ * This footer used to `return null` on the homepage, while layout.tsx rendered a
+ * second copy inside a `hidden` wrapper. The net effect was that the homepage's
+ * internal links existed in the HTML for crawlers but were invisible to users.
+ * The footer is now rendered once, visibly, on every page.
+ */
 export default function Footer() {
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
-
-  if (isHomePage) {
-    return null;
-  }
-
   return (
     <footer className="bg-black w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -28,22 +26,22 @@ export default function Footer() {
             <h3 className="text-white font-syne font-bold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <Link href="/about-graphic-design-company-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <Link href="/pricing" className="text-neutral-400 hover:text-white transition-colors text-sm">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <Link href="/project-showcase-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                   Portfolio
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <Link href="/get-in-touch-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                   Contact
                 </Link>
               </li>
@@ -68,10 +66,10 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} WL CreationX. All rights reserved.
             </p>
             <div className="flex space-x-4">
-              <Link href="/privacy-policy" className="text-neutral-400 hover:text-white transition-colors text-sm">
+              <Link href="/data-protection-policy-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-neutral-400 hover:text-white transition-colors text-sm">
+              <Link href="/legal-terms-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                 Terms of Service
               </Link>
             </div>

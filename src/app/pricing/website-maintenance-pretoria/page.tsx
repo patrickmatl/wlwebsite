@@ -84,7 +84,7 @@ const WebsiteMaintenancePage = () => {
     },
     {
       title: 'Website Security',
-      href: '/pricing/website-security',
+      href: '/pricing/website-maintenance-pretoria',
       description: 'Website security and protection services',
       anchor: 'Security'
     },

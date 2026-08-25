@@ -29,7 +29,7 @@ export default function HomeContent() {
             <Link href="/visual-communication-services-pretoria" className="text-[#FFD700] hover:underline"> visual communication services</Link> tailored for Pretoria.
           </p>
           <p className="text-neutral-300 text-base leading-relaxed mb-6">
-            As one of the top <Link href="/services" className="text-[#FFD700] hover:underline">graphic design companies in Pretoria</Link>, we pride ourselves on delivering innovative and creative solutions tailored to your unique needs. From <Link href="/services/branding" className="text-[#FFD700] hover:underline">branding</Link> and <Link href="/services/logo-design" className="text-[#FFD700] hover:underline">logo design</Link> to <Link href="/services/web-design" className="text-[#FFD700] hover:underline">web design</Link> and marketing materials, we've got you covered.
+            As one of the top <Link href="/pricing" className="text-[#FFD700] hover:underline">graphic design companies in Pretoria</Link>, we pride ourselves on delivering innovative and creative solutions tailored to your unique needs. From <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">branding</Link> and <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">logo design</Link> to <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">web design</Link> and marketing materials, we've got you covered.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
             <Link href="/branding-solutions-pretoria" className="group">
@@ -66,7 +66,7 @@ export default function HomeContent() {
             </Link>
           </div>
           <div className="mt-12 text-center">
-            <Link href="/contact" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">
+            <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-bold hover:bg-[#FFD700]/90 transition-all">
               Get Free Consultation
             </Link>
           </div>
@@ -127,7 +127,7 @@ export default function HomeContent() {
             Partner with Pretoria's leading graphic design company and take your business to the next level. Whether you need a new logo, a website redesign, or a complete branding strategy, we're here to help.
           </p>
           <Link
-            href="/contact"
+            href="/get-in-touch-pretoria"
             className="inline-flex items-center justify-center px-8 py-3 bg-[#FFD700] text-black hover:bg-[#FFD700]/90 transition-all duration-300 font-medium text-lg"
           >
             Get a Free Consultation

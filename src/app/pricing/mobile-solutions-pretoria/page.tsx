@@ -64,7 +64,7 @@ const MobileSolutionsPage = () => {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Mobile Solutions', href: '/pricing/mobile-solutions' }
+    { label: 'Mobile Solutions', href: '/pricing/mobile-solutions-pretoria' }
   ];
 
   return (
@@ -264,19 +264,19 @@ const MobileSolutionsPage = () => {
         currentService="Mobile Solutions"
         services={[
           { 
-            href: '/pricing/custom-development',
+            href: '/pricing/custom-development-pretoria',
             anchor: 'Custom Development',
             title: 'Custom Development Services',
             description: 'Build custom web applications that integrate with your mobile solutions'
           },
           { 
-            href: '/pricing/website-maintenance',
+            href: '/pricing/website-maintenance-pretoria',
             anchor: 'Website Maintenance',
             title: 'Website Maintenance Services',
             description: 'Keep your mobile and web applications running smoothly'
           },
           { 
-            href: '/pricing/ecommerce',
+            href: '/pricing/ecommerce-pretoria',
             anchor: 'E-commerce Solutions',
             title: 'E-commerce Development',
             description: 'Create mobile-friendly e-commerce solutions for your business'

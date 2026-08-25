@@ -13,7 +13,7 @@ const PackagingDesignPage = () => {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Packaging Design', href: '/pricing/packaging-design' }
+    { label: 'Packaging Design', href: '/pricing/packaging-design-pretoria' }
   ];
 
   const packages = [

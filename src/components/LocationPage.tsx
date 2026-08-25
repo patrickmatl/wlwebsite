@@ -2,10 +2,18 @@
 
 import React from 'react';
 import { Location, Service } from '@/types';
-import dynamic from 'next/dynamic';
 
-const RootClientWrapper = dynamic(() => import('@/components/RootClientWrapper'));
-
+/**
+ * This page used to render <RootClientWrapper /> above its own content, which
+ * stamped the same ~600 lines of generic Pretoria marketing copy onto every
+ * /[city]/[service] URL. Dozens of URLs carrying near-identical text is the
+ * definition of a doorway page, and it also produced two <main> elements and a
+ * duplicated hero per page.
+ *
+ * The page now renders only content that actually varies by location and
+ * service. If you want more depth on these pages, add genuinely
+ * location-specific copy to the `content` field in src/data/regions.ts.
+ */
 interface LocationPageProps {
   location: Location;
   service: Service;
@@ -66,8 +74,7 @@ export default function LocationPage({ location, service }: LocationPageProps) {
           })
         }}
       />
-      <RootClientWrapper />
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-white mb-8">
           {service.title} in {location.city}
         </h1>
@@ -129,7 +136,7 @@ export default function LocationPage({ location, service }: LocationPageProps) {
             </section>
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

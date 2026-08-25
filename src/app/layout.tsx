@@ -3,7 +3,6 @@ import './globals.css';
 import { Metadata } from 'next';
 import { sharedViewport } from './shared-metadata';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
-import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Navigation/Breadcrumb';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { Suspense } from 'react';
@@ -76,9 +75,12 @@ export default function RootLayout({
           {/** Render breadcrumb after main to keep hero first in DOM */}
           <Breadcrumb />
           <DeferredUI />
-          <div className="hidden">
-            <Footer />
-          </div>
+          {/*
+            The Footer used to be rendered inside a `hidden` wrapper here, which
+            put a block of internal links in the HTML that no user could see or
+            click. Hidden links are a Search Essentials violation.
+            ClientRootWrapper now renders a single, visible Footer on every page.
+          */}
         </ClientRootWrapper>
       </body>
     </html>

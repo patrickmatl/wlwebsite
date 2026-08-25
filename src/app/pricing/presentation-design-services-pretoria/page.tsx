@@ -163,14 +163,14 @@ export default function PresentationDesignServicesPretoria() {
           ))}
         </div>
       </section>
-      {/* FAQ Section (hidden for users, present for SEO) */}
-      <section aria-label="Frequently Asked Questions" className="hidden">
+      {/* FAQ - shown to every visitor; mirrors the FAQPage JSON-LD below */}
+      <section aria-label="Frequently Asked Questions" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Presentation Design Services FAQ</h2>
-        <dl>
+        <dl className="not-prose mt-8 space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+            <div key={i} className="rounded-lg border border-zinc-800 bg-black/40 p-5">
+              <dt className="font-syne text-lg font-semibold text-white">{faq.q}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -193,30 +193,30 @@ export default function PresentationDesignServicesPretoria() {
           })
         }}
       />
-      {/* Hidden Keyword-Rich Content for SEO */}
-      <section className="hidden" aria-label="SEO Content">
-        <h2>a1. Expert Presentation Design Services in Pretoria</h2>
+      {/* Service detail - visible on-page content */}
+      <section aria-label="Service Detail" className="mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Expert Presentation Design Services in Pretoria</h2>
         <p>Our presentation design services in Pretoria are tailored to help businesses, professionals, and organizations create visually compelling slides that captivate audiences and communicate key messages effectively. Whether you need investor presentations, sales decks, or conference visuals, our Pretoria-based team combines creativity with strategic storytelling for maximum impact.</p>
         <p>By leveraging the latest design trends and tools, we ensure your presentations stand out in a competitive market. Our expertise covers PowerPoint, Google Slides, and custom solutions, making us the go-to choice for presentation design in Pretoria and throughout South Africa.</p>
-        <h3>b1. Why Choose Our Pretoria Presentation Designers?</h3>
+        <h3>Why Choose Our Pretoria Presentation Designers?</h3>
         <p>Choosing our Pretoria presentation designers means partnering with professionals who understand both local and global business needs. We offer personalized service, fast turnaround times, and a commitment to quality that sets us apart from generic online providers.</p>
         <p>Our portfolio includes work for leading Pretoria companies, NGOs, and government agencies, ensuring your presentation aligns with industry standards and resonates with your target audience.</p>
-        <h4>c1. Custom Business Presentation Solutions</h4>
+        <h4>Custom Business Presentation Solutions</h4>
         <p>Every business has unique goals, which is why we offer custom presentation design solutions tailored to your brand and objectives. From pitch decks for Pretoria startups to corporate reports for established enterprises, our team delivers results that drive engagement and action.</p>
         <p>We integrate your branding, data, and messaging to create cohesive, persuasive presentations that help you win clients, secure funding, or inform stakeholders.</p>
-        <h5>d1. Pretoria Presentation Design for All Industries</h5>
+        <h5>Pretoria Presentation Design for All Industries</h5>
         <p>Our Pretoria presentation design services cater to a wide range of industries, including finance, healthcare, education, and technology. We understand sector-specific requirements and adapt our approach to meet your unique needs.</p>
         <p>Whether you’re presenting to investors, employees, or customers, our designs help you communicate with clarity and confidence across Pretoria and beyond.</p>
-        <h2>e1. PowerPoint and Google Slides Specialists in Pretoria</h2>
+        <h2>PowerPoint and Google Slides Specialists in Pretoria</h2>
         <p>We specialize in designing high-impact PowerPoint and Google Slides presentations for Pretoria clients. Our team ensures seamless compatibility, easy editing, and visually consistent slides that reinforce your message and brand identity.</p>
         <p>With years of experience in Pretoria’s business landscape, we know how to create presentations that impress local and international audiences alike.</p>
-        <h3>f1. Affordable Presentation Design Packages Pretoria</h3>
+        <h3>Affordable Presentation Design Packages Pretoria</h3>
         <p>Our affordable presentation design packages are structured to suit businesses of all sizes in Pretoria. Transparent pricing, clear deliverables, and no hidden fees make us the preferred choice for professional presentation design in Gauteng and South Africa.</p>
         <p>Contact us to learn more about our Pretoria presentation design packages, or request a custom quote for your next project.</p>
-        <h4>g1. Serving Pretoria, Gauteng, and South Africa</h4>
+        <h4>Serving Pretoria, Gauteng, and South Africa</h4>
         <p>Based in Pretoria, we proudly serve clients across Gauteng and South Africa. Our remote collaboration tools allow us to work with businesses nationwide, delivering presentation design excellence wherever you are located.</p>
         <p>We understand the Pretoria market and can adapt our services to local trends, languages, and business cultures for maximum relevance and effectiveness.</p>
-        <h5>h1. Get Started with Pretoria’s Leading Presentation Designers</h5>
+        <h5>Get Started with Pretoria’s Leading Presentation Designers</h5>
         <p>Ready to elevate your presentations? Our Pretoria team is here to help you make a lasting impression. Reach out today for a free consultation and discover how our presentation design services can transform your next pitch, report, or event.</p>
         <p>Experience the difference of working with Pretoria’s top-rated presentation design specialists—your success is our priority.</p>
       </section>
