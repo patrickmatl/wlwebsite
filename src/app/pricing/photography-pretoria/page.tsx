@@ -229,6 +229,10 @@ export default function PhotographyPage() {
         <p>Ready to capture beautiful images in Pretoria? Contact us today to discuss your photography needs, explore our packages, and schedule your session. We look forward to helping you create lasting memories and effective marketing visuals in Pretoria.</p>
         <p>Our Pretoria photography experts are here to answer your questions and provide a customized quote. Let us help you showcase your best self, products, or events with professional photography services in Pretoria.</p>
       </section>
-    </main>
-  );
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Browse <Link href="/photography-services-pretoria" className="text-[#FFD700] hover:underline">all our photography services in Pretoria</Link>.
+        </p>
+      </div>
+    </main>  );
 }

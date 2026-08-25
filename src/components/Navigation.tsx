@@ -49,9 +49,11 @@ const menuItems = [
       {
         label: 'Video & Image Services',
         items: [
+          { href: '/videography-services-pretoria', label: 'Videography Pretoria' },
+          { href: '/photography-services-pretoria', label: 'Photography Pretoria' },
           { href: '/pricing/corporate-video-pretoria', label: 'Corporate Video' },
           { href: '/pricing/drone-video-pretoria', label: 'Drone Video' },
-          { href: '/pricing/photography-pretoria', label: 'Photography' },
+          { href: '/pricing/photography-pretoria', label: 'Photography Pricing' },
           { href: '/pricing/product-photography-pretoria', label: 'Product Photography' }
         ]
       }

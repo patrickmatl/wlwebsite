@@ -202,6 +202,10 @@ export default function ProductPhotographyPage() {
           on the homepage.
         </p>
       </div>
-    </main>
-  );
+      <div className="max-w-4xl mx-auto px-4 text-center mt-6">
+        <p className="text-neutral-400 text-sm">
+          Browse <Link href="/photography-services-pretoria" className="text-[#FFD700] hover:underline">all our photography services in Pretoria</Link>.
+        </p>
+      </div>
+    </main>  );
 }

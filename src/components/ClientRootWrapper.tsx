@@ -61,11 +61,15 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
     };
   }, []);
 
-  // During SSR and initial mount, return a minimal layout
+  // During SSR and initial mount, return a minimal layout.
+  // The Footer is included here as well as below: it has no browser-only
+  // dependencies, and leaving it out meant the site's internal links were
+  // absent from the server-rendered HTML entirely.
   if (!mounted) {
     return (
       <AudioPlaybackProvider>
         {children}
+        <Footer />
       </AudioPlaybackProvider>
     );
   }
