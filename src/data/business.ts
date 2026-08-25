@@ -18,10 +18,11 @@ export const BUSINESS = {
   ogImage: 'https://wlcreationx.co.za/images/og-image.jpg',
   email: 'info@wlcreationx.co.za',
 
-  // Phone — the number the WhatsApp / call buttons actually dial.
-  phoneDisplay: '+27 62 369 3789',
-  phoneE164: '+27623693789',
-  whatsappNumber: '27623693789',
+  // Phone — matches the verified Google Business Profile, Facebook and
+  // Bizcommunity listings. Confirmed 2026-08-25 against GBP.
+  phoneDisplay: '+27 62 369 3769',
+  phoneE164: '+27623693769',
+  whatsappNumber: '27623693769',
 
   // Address — confirmed current office (2026-08).
   address: {

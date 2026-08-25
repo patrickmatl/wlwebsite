@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-const PHONE_DISPLAY = '+27 62 369 3789';
-const PHONE_E164 = '27623693789';
+const PHONE_DISPLAY = '+27 62 369 3769';
+const PHONE_E164 = '27623693769';
 
 export default function MobileContactBar() {
   const waUrl = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent('Hi WL CreationX 👋, I’d like to chat about design services.')}`;

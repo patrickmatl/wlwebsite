@@ -159,7 +159,7 @@ After this period, we securely delete or anonymize your information.`
 
 • Name: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3789
+• Phone: +27 62 369 3769
 • Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181
 
 You may also contact the Information Regulator (South Africa):

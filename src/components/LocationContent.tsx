@@ -315,7 +315,7 @@ export default function LocationContent({ location }: LocationContentProps) {
                     <div>
                       <h4 className="font-syne font-bold text-lg text-[#FFD700]">Phone</h4>
                       <p className="text-xl text-gray-300">
-                        <a href="tel:+27623693789" className="hover:text-[#FFD700] transition-colors">
+                        <a href="tel:+27623693769" className="hover:text-[#FFD700] transition-colors">
                           {contact.phone}
                         </a>
                       </p>

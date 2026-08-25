@@ -160,7 +160,7 @@ export default function PhotographyServicesPretoria() {
               name: 'WL CreationX',
               image: 'https://wlcreationx.co.za/images/og-image.jpg',
               url: 'https://wlcreationx.co.za',
-              telephone: '+27 62 369 3789',
+              telephone: '+27 62 369 3769',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Park Lane West Building, 194 Bancor Ave',

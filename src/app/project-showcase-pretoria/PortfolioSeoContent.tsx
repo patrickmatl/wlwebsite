@@ -45,7 +45,7 @@ export const portfolioFaqs: { question: string; answer: string }[] = [
   {
     question: 'How do I get started with WL CreationX?',
     answer:
-      'Contact us through the website, email info@wlcreationx.co.za, or call +27 62 369 3789 to discuss your project. We will review your needs and put together a tailored proposal.',
+      'Contact us through the website, email info@wlcreationx.co.za, or call +27 62 369 3769 to discuss your project. We will review your needs and put together a tailored proposal.',
   },
 ];
 

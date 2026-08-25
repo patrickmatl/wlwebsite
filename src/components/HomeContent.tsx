@@ -151,7 +151,7 @@ export default function HomeContent() {
             </div>
             <div>
               <p className="text-white font-semibold">Phone</p>
-              <p>+27 62 369 3789</p>
+              <p>+27 62 369 3769</p>
             </div>
             <div>
               <p className="text-white font-semibold">Hours</p>

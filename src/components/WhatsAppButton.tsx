@@ -1,7 +1,7 @@
 'use client';
 
 export default function WhatsAppButton() {
-  const phoneNumberIntl = '27623693789'; // +27 62 369 3789 without symbols for wa.me
+  const phoneNumberIntl = '27623693769'; // +27 62 369 3769 without symbols for wa.me
   const message = encodeURIComponent("Hi WL CreationX, I'd like to chat about a project.");
   const whatsappHref = `https://wa.me/${phoneNumberIntl}?text=${message}`;
   const telHref = `tel:+${phoneNumberIntl}`;
