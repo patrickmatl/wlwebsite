@@ -55,7 +55,7 @@ export default function AboutPage() {
     {
       year: '2023',
       title: 'Creative Innovation',
-      description: 'Celebrating 10 years of creative excellence and continuous innovation.'
+      description: 'Marked ten years since the studio began — a 2013-to-2023 milestone on the way to today.'
     },
     {
       year: '2026',
