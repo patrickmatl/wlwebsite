@@ -6,6 +6,8 @@ import { notifyOwner } from '@/lib/server/notify';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+// Drafting can take ~10s; the webhook must not time out before it finishes.
+export const maxDuration = 60;
 
 /**
  * Inbound email webhook (Resend).
