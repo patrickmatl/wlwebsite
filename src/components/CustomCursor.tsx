@@ -37,10 +37,13 @@ export default function CustomCursor() {
 
   useEffect(() => {
     setMounted(true);
+    // Only hide the OS cursor while the custom cursor is mounted
+    document.documentElement.classList.add('custom-cursor-active');
     document.addEventListener('mousemove', moveCursor, { passive: true });
     document.addEventListener('mouseover', updateCursorStyle, { passive: true });
 
     return () => {
+      document.documentElement.classList.remove('custom-cursor-active');
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mouseover', updateCursorStyle);
       if (frameRef.current) {

@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Graphic Design Services | WL Creationx',
-  description: 'Professional graphic design services including logo design, branding, marketing materials, and more.',
+  title: 'Graphic Design Pricing Pretoria',
+  description: 'Graphic design pricing from WL CreationX in Pretoria. Logo design, corporate identity and marketing material design packages with upfront, itemised rates.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/graphic-design-pretoria',
+  },
+  openGraph: {
+    title: 'Graphic Design Pricing Pretoria',
+    description: 'Graphic design pricing from WL CreationX in Pretoria. Logo design, corporate identity and marketing material design packages with upfront, itemised rates.',
+    url: 'https://wlcreationx.co.za/pricing/graphic-design-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

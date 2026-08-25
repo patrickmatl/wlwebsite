@@ -15,7 +15,7 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
     <nav className="py-4 px-4 sm:px-6 lg:px-8 bg-neutral-800">
       <ol className="flex items-center space-x-2 text-sm">
         <li>
-          <Link href="/" className="text-neutral-400 hover:text-gold-500">
+          <Link href="/" className="text-neutral-400 hover:text-[#FFD700]">
             Home
           </Link>
         </li>
@@ -23,9 +23,9 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
           <li key={item.href} className="flex items-center">
             <FaChevronRight className="text-neutral-600 mx-2" size={12} />
             {index === items.length - 1 ? (
-              <span className="text-gold-500">{item.label}</span>
+              <span className="text-[#FFD700]">{item.label}</span>
             ) : (
-              <Link href={item.href} className="text-neutral-400 hover:text-gold-500">
+              <Link href={item.href} className="text-neutral-400 hover:text-[#FFD700]">
                 {item.label}
               </Link>
             )}

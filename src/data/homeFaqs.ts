@@ -9,7 +9,7 @@ export const homeFaqs: FAQ[] = [
   {
     question: 'How much does a logo design cost in Pretoria?',
     answer:
-      'Logo projects typically start around R1,500 and vary by concepts, revisions, and scope. Request a tailored quote.'
+      'Logo design starts at R2,080 for two unique concepts with two revision rounds; budget bundle logos from R650 are available on our service bundles page. Pricing varies by concepts and scope — request a tailored quote.'
   },
   {
     question: 'Do you serve Pretoria East, Hatfield, and Centurion?',

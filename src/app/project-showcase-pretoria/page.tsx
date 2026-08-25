@@ -4,72 +4,20 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import PortfolioModal from '@/components/PortfolioModal';
-import PortfolioSeoContent from './PortfolioSeoContent';
-import Head from 'next/head';
-
-// Generate array of logo paths with SEO-optimized descriptions
-const seoDescriptions = [
-  'Modern minimalist logo design for Pretoria business branding',
-  'Corporate identity logo design for South African company',
-  'Creative brand mark design for Pretoria startup',
-  'Professional business logo design for Gauteng enterprise',
-  'Custom typography logo for South African brand',
-  'Elegant logo design for Pretoria luxury brand',
-  'Contemporary logo design for tech company in Pretoria',
-  'Unique brand identity design for local business',
-  'Premium logo design for South African corporate',
-  'Innovative logo concept for Pretoria digital agency',
-  'Strategic brand identity for Gauteng company',
-  'Artistic logo design for creative business in Pretoria',
-  'Professional corporate branding for SA enterprise',
-  'Modern icon design for tech startup in Pretoria',
-  'Distinctive logo mark for South African brand',
-  'Clean and professional logo for Pretoria business',
-  'Dynamic brand identity for growing company',
-  'Sophisticated logo design for premium brand',
-  'Contemporary business branding for local company',
-  'Creative logo solution for Pretoria enterprise',
-  'Professional brand mark for South African startup',
-  'Minimalist logo design for modern business',
-  'Strategic visual identity for Pretoria company',
-  'Unique corporate logo for SA business',
-  'Premium brand design for local enterprise',
-  'Innovative logo mark for tech company',
-  'Professional business branding for Pretoria',
-  'Creative corporate identity design',
-  'Modern brand solution for SA company',
-  'Distinctive logo for local business',
-  'Strategic brand mark for Pretoria enterprise',
-  'Professional logo design for growing company',
-  'Creative visual identity for South African brand',
-  'Contemporary logo for tech startup',
-  'Premium business branding solution',
-  'Innovative corporate identity design',
-  'Professional logo mark for local company',
-  'Strategic brand identity for Pretoria business'
-];
-
-const packageDescriptions = [
-  'Elegant packaging design for premium South African product',
-  'Modern product packaging for Pretoria brand',
-  'Creative package design for local consumer goods',
-  'Professional retail packaging for SA company',
-  'Innovative product packaging for Gauteng brand',
-  'Premium packaging solution for South African market'
-];
+import PortfolioSeoContent, { portfolioFaqs } from './PortfolioSeoContent';
 
 const logos = Array.from({ length: 38 }, (_, i) => ({
   src: `/images/logos/Logo${i + 1}.webp`,
-  alt: `${seoDescriptions[i % seoDescriptions.length]} - WL Creations Portfolio`,
+  alt: `Logo design project ${i + 1} by WL CreationX, Pretoria`,
   category: 'Logo Design',
-  description: `Professional ${seoDescriptions[i % seoDescriptions.length].toLowerCase()}. Crafted with precision and creativity by WL Creations.`
+  description: `Logo design project ${i + 1} from the WL CreationX portfolio. Designed in Pretoria, South Africa.`
 }));
 
 const packages = Array.from({ length: 6 }, (_, i) => ({
   src: `/images/packages/Package${i + 1}.webp`,
-  alt: `${packageDescriptions[i]} - WL Creations Portfolio`,
+  alt: `Packaging design project ${i + 1} by WL CreationX, Pretoria`,
   category: 'Packaging Design',
-  description: `${packageDescriptions[i]}. Designed to stand out on shelves and capture consumer attention.`,
+  description: `Packaging design project ${i + 1} from the WL CreationX portfolio. Designed in Pretoria, South Africa.`,
   width: 354,
   height: 564
 }));
@@ -82,6 +30,19 @@ const categories = [
   'Logo Design',
   'Packaging Design'
 ];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: portfolioFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+};
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -102,103 +63,12 @@ export default function Portfolio() {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              'mainEntity': [
-                {
-                  '@type': 'Question',
-                  'name': 'What types of projects are featured in your Pretoria portfolio?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Our Pretoria portfolio showcases a diverse range of graphic design projects, including logo design, brand identity, packaging design, marketing materials, and website design. Each project highlights our creative process and the results we deliver for businesses in Pretoria and beyond. We feature work from various industries—tech startups, retail, hospitality, corporate, and more—demonstrating our versatility and expertise in meeting unique client needs. Our portfolio is continuously updated with our latest and most impactful projects.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'How does WL CreationX approach logo design for Pretoria businesses?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Our logo design process begins with in-depth research and discovery to understand your brand’s vision, values, and target market in Pretoria. We then develop multiple concepts, refining them based on your feedback to ensure a unique, memorable logo that stands out. We focus on creating logos that are versatile, scalable, and aligned with your business goals, helping Pretoria companies establish a strong and professional brand presence.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'Can you showcase your expertise in packaging design?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Absolutely. Our portfolio includes innovative packaging designs for Pretoria brands, from luxury products to everyday consumer goods. We prioritize both visual appeal and practical functionality, ensuring your packaging attracts customers and communicates your brand effectively. We work closely with Pretoria businesses to develop packaging solutions that stand out on the shelf and comply with industry standards, helping you make a lasting impression in the market.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'What makes your graphic design services unique in Pretoria?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'WL CreationX combines local market insight with global design trends to deliver creative solutions tailored for Pretoria businesses. Our team’s passion, experience, and collaborative approach set us apart, ensuring every project is innovative and impactful. We build long-term partnerships with our clients, providing ongoing support and creative direction to help their brands grow and succeed in Pretoria’s competitive environment.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'Do you offer web design as part of your portfolio?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Yes, our portfolio includes a range of web design projects for Pretoria businesses, from modern landing pages to full-scale e-commerce platforms. We focus on creating visually stunning, user-friendly websites that drive engagement and conversions. Our web design services are tailored to each client’s needs, incorporating responsive layouts, SEO best practices, and seamless user experiences for Pretoria audiences.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'How do you ensure your designs are effective for Pretoria businesses?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'We use a data-driven approach, combining creative expertise with market research to develop designs that resonate with Pretoria audiences. Our process includes competitor analysis, audience profiling, and performance tracking to ensure every design achieves its intended goals. Client feedback and measurable results are central to our approach, allowing us to refine our work and maximize its impact for Pretoria businesses.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'What industries do you serve in your Pretoria portfolio?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Our Pretoria portfolio spans a wide range of industries, including technology, retail, hospitality, healthcare, education, and professional services. This diversity demonstrates our ability to adapt our creative approach to meet the unique challenges and opportunities of each sector. We have experience working with startups, SMEs, and large corporations, providing tailored design solutions that drive growth and brand recognition in Pretoria.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'Can you provide examples of branding projects in Pretoria?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Yes, our portfolio features comprehensive branding projects for Pretoria clients, covering everything from logo design and brand guidelines to marketing collateral and digital assets. Each project is designed to create a cohesive and memorable brand identity. We work closely with clients to ensure their brand vision is realized, resulting in strong, consistent branding that resonates with their target audience in Pretoria.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'How does WL CreationX handle project timelines and deadlines?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'We pride ourselves on delivering projects on time and within budget. Our team follows a structured project management process, setting clear milestones and maintaining open communication with clients throughout every stage. For Pretoria businesses, we provide regular updates and accommodate feedback to ensure the final deliverables meet expectations and deadlines are consistently met.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  'name': 'What is your process for client collaboration?',
-                  'acceptedAnswer': {
-                    '@type': 'Answer',
-                    'text': 'Collaboration is at the heart of our process. We involve Pretoria clients from the initial consultation through to final delivery, encouraging feedback and input at every stage. This ensures the end result aligns perfectly with your vision and business goals. We use mood boards, prototypes, and regular check-ins to keep clients informed and engaged, making the design journey transparent and enjoyable.'
-                  }
-                },
-                // ... (additional FAQ entries as needed)
-              ]
-            })
-          }}
-        />
-      </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="min-h-screen bg-black text-white">
-        <PortfolioSeoContent />
-        {/* Hero Section with SEO-optimized content */}
+        {/* Hero Section */}
         <section className="relative py-24 px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/10 to-transparent opacity-20" />
           <motion.div
@@ -268,6 +138,9 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
+
+        {/* Supporting content and FAQ */}
+        <PortfolioSeoContent />
 
         {/* Portfolio Modal */}
         {modalImage.isOpen && (

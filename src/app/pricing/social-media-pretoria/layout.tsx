@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Social Media Services | WL Creationx',
-  description: 'Professional social media management and marketing services to boost your online presence.',
+  title: 'Social Media Management Pricing Pretoria',
+  description: 'Social media management pricing from WL CreationX in Pretoria. Content creation, scheduling and channel management packages with clear monthly rates.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/social-media-pretoria',
+  },
+  openGraph: {
+    title: 'Social Media Management Pricing Pretoria',
+    description: 'Social media management pricing from WL CreationX in Pretoria. Content creation, scheduling and channel management packages with clear monthly rates.',
+    url: 'https://wlcreationx.co.za/pricing/social-media-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

@@ -10,7 +10,7 @@ const BrandIdentityPackages = () => {
           BRAND IDENTITY DESIGN PACKAGES
         </h1>
         <p className="text-lg mb-4">
-          Choose from three design packages at 10% discount.
+          Choose from three design packages at a 10% discount on standard package pricing — mention this page when you enquire.
         </p>
         <p className="text-gray-300 max-w-3xl mx-auto">
           Professional visual identity and logo design packages for startup businesses. 
@@ -102,10 +102,9 @@ const BrandIdentityPackages = () => {
     proofreading, copywriting, content generation, printing, photography, and custom illustration work.
   </div>
 
-  {/* Contextual link to homepage with varied phrasing */}
   <div className="max-w-7xl mx-auto mt-10 text-center">
     <p className="text-neutral-400 text-sm">
-      Looking for a trusted <Link href="/" className="text-[#FFD700] hover:underline">graphic design company Pretoria</Link>? Explore our homepage for more.
+      Not sure which package fits? See everything <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link> offers, from design to web, video, and photography.
     </p>
   </div>
     </div>

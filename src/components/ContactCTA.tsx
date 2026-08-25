@@ -8,7 +8,6 @@ export default function ContactCTA() {
     <section className="py-20 bg-black relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-[#FFD700]/20 to-transparent opacity-30" />
-        <div className="absolute inset-0 bg-[url('/images/pattern-dark.png')] opacity-30 mix-blend-overlay" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -71,8 +70,8 @@ export default function ContactCTA() {
               </svg>
             </div>
             <h3 className="text-white font-syne font-bold mb-2">Call Us</h3>
-            <a href="tel:+27623693769" className="text-neutral-400 hover:text-[#FFD700] transition-colors duration-300">
-              +27 62 369 3769
+            <a href="tel:+27623693789" className="text-neutral-400 hover:text-[#FFD700] transition-colors duration-300">
+              +27 62 369 3789
             </a>
           </div>
 

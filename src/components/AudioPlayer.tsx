@@ -98,10 +98,13 @@ const AudioPlayer = () => {
       ) : (
         <button
           onClick={togglePlay}
+          aria-label={isPlaying ? 'Pause audio introduction' : 'Play audio introduction'}
           className="flex items-center space-x-3 text-white/80 group"
         >
           <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#FFD700] text-black transition-all duration-300 hover:scale-110">
-            <span className="material-icons text-xl select-none">
+            {/* aria-hidden: the icon ligature text ("pause"/"play_arrow") would
+                otherwise be read aloud; the button's aria-label carries meaning */}
+            <span className="material-icons text-xl select-none" aria-hidden="true">
               {isPlaying ? 'pause' : 'play_arrow'}
             </span>
           </div>

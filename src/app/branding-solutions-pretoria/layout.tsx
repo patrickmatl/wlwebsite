@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Brand Identity Packages | WL Creationx',
-  description: 'Professional brand identity design packages to establish and strengthen your brand presence.',
+  title: 'Branding Solutions Pretoria',
+  description: 'Brand identity design in Pretoria from WL CreationX. Logo design, corporate identity packs and brand guidelines that give your business a consistent look.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/branding-solutions-pretoria',
+  },
+  openGraph: {
+    title: 'Branding Solutions Pretoria',
+    description: 'Brand identity design in Pretoria from WL CreationX. Logo design, corporate identity packs and brand guidelines that give your business a consistent look.',
+    url: 'https://wlcreationx.co.za/branding-solutions-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

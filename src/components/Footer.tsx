@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { BUSINESS, FULL_ADDRESS } from '@/data/business';
 
 /**
  * This footer used to `return null` on the homepage, while layout.tsx rendered a
@@ -52,9 +53,9 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-syne font-bold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-2">
-              <li className="text-neutral-400 text-sm">Email: info@wlcreationx.co.za</li>
-              <li className="text-neutral-400 text-sm">Phone: +27 (0)62 369 3789</li>
-              <li className="text-neutral-400 text-sm">Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181, South Africa</li>
+              <li className="text-neutral-400 text-sm">Email: <a href={`mailto:${BUSINESS.email}`} className="hover:text-white">{BUSINESS.email}</a></li>
+              <li className="text-neutral-400 text-sm">Phone: <a href={`tel:${BUSINESS.phoneE164}`} className="hover:text-white">{BUSINESS.phoneDisplay}</a></li>
+              <li className="text-neutral-400 text-sm">{FULL_ADDRESS}, South Africa</li>
             </ul>
           </div>
         </div>

@@ -43,7 +43,7 @@ export const serviceFAQs: Record<string, FAQ[]> = {
   'logo-design': [
     { question: "What makes a good logo?", answer: "Distinctive, scalable, versatile across color and formats, and aligned with your brand positioning." },
     { question: "Do you provide vector files?", answer: "Yes, logos are delivered in vector formats (AI, SVG, PDF) and raster formats (PNG, JPG)." },
-    { question: "How many revisions are included?", answer: "Standard packages include up to 3 revision rounds." },
+    { question: "How many revisions are included?", answer: "Standard packages include 2 revision rounds, with additional rounds available if needed." },
     { question: "Can you refresh an existing logo?", answer: "Yes, we can modernize and refine your logo while maintaining recognizability." },
     { question: "Do you supply social media avatars and favicons?", answer: "Yes, we export platform-specific assets for consistent digital presence." }
   ],
@@ -102,7 +102,7 @@ export const serviceFAQs: Record<string, FAQ[]> = {
     },
     {
       question: "How many revisions are included?",
-      answer: "Our packages typically include 2-3 rounds of revisions to ensure your complete satisfaction."
+      answer: "Our standard packages include 2 revision rounds. Additional rounds can be arranged if needed."
     },
     {
       question: "Do you offer rush services?",
@@ -119,10 +119,6 @@ export const serviceFAQs: Record<string, FAQ[]> = {
     {
       question: "Do you provide source files after project completion?",
       answer: "Yes, we provide all necessary source files in various formats suitable for both print and digital use."
-    },
-    {
-      question: "How many revisions are included in your design process?",
-      answer: "Our standard packages include up to 3 revision rounds. Additional revisions can be arranged if needed."
     },
     {
       question: "Can you work with existing brand guidelines?",

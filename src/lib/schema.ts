@@ -48,13 +48,13 @@ export type RelatedService = {
 
 const organization: Omit<SchemaOrganization, '@context'> = {
   '@type': 'Organization',
-  name: "WL Creationx",
+  name: "WL CreationX",
   url: "https://wlcreationx.co.za",
-  logo: "https://wlcreationx.co.za/images/logo.png",
+  logo: "https://wlcreationx.co.za/images/brand/logo-512.png",
   sameAs: [
-    "https://facebook.com/wlcreations",
-    "https://instagram.com/wlcreations",
-    "https://linkedin.com/company/wlcreations"
+    "https://facebook.com/wlcreationx",
+    "https://instagram.com/wlcreationx",
+    "https://linkedin.com/company/wlcreationx"
   ]
 };
 

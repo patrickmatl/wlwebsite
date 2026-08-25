@@ -1,48 +1,17 @@
-name: Deploy to GitHub Pages
+# DISABLED — this workflow used to deploy to GitHub Pages via `next export`,
+# a command removed in Next.js 14+, so it failed on every push. It also raced
+# nextjs.yml in the same "pages" concurrency group. The site cannot be hosted
+# on GitHub Pages at all (it is a Node server build with API routes).
+# Kept as a manually-triggerable no-op so the file's history is preserved;
+# safe to delete.
+name: Deploy to GitHub Pages (disabled)
 
 on:
-  push:
-    branches: [main]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  workflow_dispatch:
 
 jobs:
-  build:
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build and Export
-        run: npm run export
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Explain
+        run: echo "GitHub Pages deploy is disabled — see .github/workflows/nextjs.yml (CI build check). The site deploys to its own server."

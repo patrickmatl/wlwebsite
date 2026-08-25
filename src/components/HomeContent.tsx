@@ -73,6 +73,60 @@ export default function HomeContent() {
         </div>
       </section>
 
+      {/* How We Work: Process Strip */}
+      <section className="py-16 px-4 bg-black">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-syne font-semibold mb-4 text-[#FFD700] opacity-90">
+            How We Work
+          </h2>
+          <p className="mb-8 text-neutral-300 text-base leading-relaxed">
+            Every project follows the same five steps, so you always know where things stand and what it will cost before we start.
+          </p>
+          <ol className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <li className="bg-zinc-900/50 p-5 rounded-lg border border-[#FFD700]/20">
+              <span className="block text-[#FFD700] font-syne font-bold text-lg mb-2">1</span>
+              <h3 className="text-white font-semibold text-sm mb-1">Consultation &amp; Fixed Quote</h3>
+              <p className="text-neutral-400 text-xs leading-relaxed">We discuss your brief and give you a fixed quote — no surprises later.</p>
+            </li>
+            <li className="bg-zinc-900/50 p-5 rounded-lg border border-[#FFD700]/20">
+              <span className="block text-[#FFD700] font-syne font-bold text-lg mb-2">2</span>
+              <h3 className="text-white font-semibold text-sm mb-1">Research &amp; Strategy</h3>
+              <p className="text-neutral-400 text-xs leading-relaxed">We look at your market, audience, and competitors before any design work begins.</p>
+            </li>
+            <li className="bg-zinc-900/50 p-5 rounded-lg border border-[#FFD700]/20">
+              <span className="block text-[#FFD700] font-syne font-bold text-lg mb-2">3</span>
+              <h3 className="text-white font-semibold text-sm mb-1">Concept Development</h3>
+              <p className="text-neutral-400 text-xs leading-relaxed">You receive initial concepts with the thinking behind each one explained.</p>
+            </li>
+            <li className="bg-zinc-900/50 p-5 rounded-lg border border-[#FFD700]/20">
+              <span className="block text-[#FFD700] font-syne font-bold text-lg mb-2">4</span>
+              <h3 className="text-white font-semibold text-sm mb-1">Refinement</h3>
+              <p className="text-neutral-400 text-xs leading-relaxed">Two revision rounds to fine-tune your chosen concept until it's right.</p>
+            </li>
+            <li className="bg-zinc-900/50 p-5 rounded-lg border border-[#FFD700]/20">
+              <span className="block text-[#FFD700] font-syne font-bold text-lg mb-2">5</span>
+              <h3 className="text-white font-semibold text-sm mb-1">Handover</h3>
+              <p className="text-neutral-400 text-xs leading-relaxed">Final files delivered in open formats you can use anywhere, with any supplier.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      {/* One Studio for the Whole Job */}
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-syne font-semibold mb-4 text-[#FFD700] opacity-90">
+            One Studio for the Whole Job
+          </h2>
+          <p className="mb-4 text-neutral-300 text-base leading-relaxed">
+            Design, web, video, and photography all sit under one roof at our Pretoria studio. That means your logo, website, product photos, and promotional video come from the same team, share the same brand thinking, and don't need three separate briefs.
+          </p>
+          <p className="mb-6 text-neutral-300 text-base leading-relaxed">
+            Start with <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">graphic design</Link> or a full <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">brand identity</Link>, then add <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">website design</Link>, <Link href="/videography-services-pretoria" className="text-[#FFD700] hover:underline">video production</Link>, or <Link href="/photography-services-pretoria" className="text-[#FFD700] hover:underline">photography</Link> as your project grows — everything stays consistent because one studio holds the whole picture.
+          </p>
+        </div>
+      </section>
+
       {/* Internal Links: Strengthen Site Architecture */}
       <section className="py-10 px-4 bg-black/60">
         <div className="max-w-4xl mx-auto">
@@ -97,11 +151,12 @@ export default function HomeContent() {
             </div>
             <div>
               <p className="text-white font-semibold">Phone</p>
-              <p>+27 62 369 3769</p>
+              <p>+27 62 369 3789</p>
             </div>
             <div>
               <p className="text-white font-semibold">Hours</p>
-              <p>Mon–Fri: 09:00–17:00</p>
+              <p>Mon–Fri: 08:00–17:00</p>
+                <p>Sat: 08:00–15:00</p>
             </div>
           </div>
         </div>

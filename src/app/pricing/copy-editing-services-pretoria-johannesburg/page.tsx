@@ -25,6 +25,49 @@ const copyEditingPricing = [
   }
 ];
 
+const faqs = [
+  {
+    question: "What is copy editing?",
+    answer: "Copy editing improves the grammar, clarity, style, tone, and consistency of your writing, with tracked changes so you can see every improvement."
+  },
+  {
+    question: "What types of documents do you edit?",
+    answer: "We edit articles, reports, web content, academic papers, business proposals, marketing materials, CVs and cover letters, and more."
+  },
+  {
+    question: "How is pricing calculated?",
+    answer: "Pricing is based on word count: R200 for 1–250 words, R400 for 251–550 words, and a custom quote for longer documents, with bulk discounts for larger or ongoing projects."
+  },
+  {
+    question: "Can I request revisions?",
+    answer: "Yes. The 1–250 word package includes 1 round of revisions and the 251–550 word package includes 2 rounds. Revision terms for larger projects are agreed in your custom quote."
+  },
+  {
+    question: "Is my content confidential?",
+    answer: "Absolutely. All documents are handled with strict confidentiality and security, and NDAs are available on request."
+  },
+  {
+    question: "How long does copy editing take?",
+    answer: "Most projects are completed within 2–4 business days. Expedited turnaround for urgent work is available, subject to availability."
+  },
+  {
+    question: "Do you edit for non-native English speakers?",
+    answer: "Yes, we regularly edit documents written by non-native English speakers to make the writing read naturally and clearly."
+  },
+  {
+    question: "Can you format documents to a specific style guide?",
+    answer: "Yes, we can edit and format documents to meet APA, Chicago, and other common style guides."
+  },
+  {
+    question: "Is there a minimum order size?",
+    answer: "No, we accept copy editing projects of any size, from a single email to a full manuscript."
+  },
+  {
+    question: "How do I send my documents?",
+    answer: "Contact us through our website or email your documents to us, and we will confirm the scope, price, and turnaround before starting."
+  }
+];
+
 export default function CopyEditingServices() {
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
@@ -52,384 +95,28 @@ export default function CopyEditingServices() {
         ))}
       </div>
       <div className="max-w-3xl mx-auto mb-12">
-        <h2 className="text-2xl font-bold text-[#FFD700] mb-4">FAQs</h2>
+        <h2 className="text-2xl font-bold text-[#FFD700] mb-4">Frequently Asked Questions</h2>
         <div className="space-y-4">
-          <div>
-            <h3 className="font-semibold">What is copy editing?</h3>
-            <p className="text-neutral-300">Copy editing improves grammar, clarity, and style in your documents.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">What types of documents do you edit?</h3>
-            <p className="text-neutral-300">We edit articles, reports, web content, academic papers, and more.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">How is pricing calculated?</h3>
-            <p className="text-neutral-300">Pricing is per word, with discounts for larger projects or ongoing work.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Can I request revisions?</h3>
-            <p className="text-neutral-300">Yes, all packages include at least 2 revisions. Premium includes 3.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Is my content confidential?</h3>
-            <p className="text-neutral-300">Absolutely. All documents are handled with strict confidentiality and security.</p>
-          </div>
+          {faqs.map((faq) => (
+            <div key={faq.question} className="bg-zinc-900/50 rounded-xl p-5 border border-[#FFD700]/30">
+              <h3 className="font-semibold text-[#FFD700] mb-1">{faq.question}</h3>
+              <p className="text-neutral-300">{faq.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
-      {/* First batch of hidden SEO FAQ Schema Markup for Copy Editing Services Pretoria & Johannesburg */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'What are copy editing services in Pretoria and Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Copy editing services in Pretoria and Johannesburg involve reviewing and improving grammar, clarity, and style in your documents.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How much do copy editing services cost in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Copy editing services in Pretoria typically cost R0.80 to R1.20 per word, depending on complexity and turnaround time.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you edit academic documents in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit theses, dissertations, and research papers for students and academics in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you provide fast copy editing in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we offer expedited copy editing services in Pretoria and Johannesburg for urgent projects.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Is proofreading included with copy editing in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Proofreading is included in all copy editing services in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'What types of documents do you edit in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'We edit business documents, academic papers, web content, and more in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you offer editing for non-native English speakers in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we specialize in editing documents for non-native English speakers in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How long does copy editing take in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Most copy editing projects in Pretoria and Johannesburg are completed within 2-4 business days.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit legal documents in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit contracts, agreements, and other legal documents for clients in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How do I order copy editing services in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Contact us online or by phone to discuss your copy editing needs in Pretoria or Johannesburg and receive a quote.'
-              }
+          'mainEntity': faqs.map((faq) => ({
+            '@type': 'Question',
+            'name': faq.question,
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': faq.answer
             }
-          ]
-        })
-      }} />
-      {/* Second batch of hidden SEO FAQ Schema Markup for Copy Editing Services Pretoria & Johannesburg */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'Can you edit website content for Pretoria businesses?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit website content for businesses in Pretoria and Johannesburg, improving clarity and SEO.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for marketing materials in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit brochures, flyers, and other marketing materials for Johannesburg and Pretoria clients.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit CVs and cover letters in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we offer copy editing for CVs and cover letters in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for books in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit manuscripts and books for authors in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How do you ensure confidentiality for Pretoria copy editing projects?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'All copy editing projects in Pretoria and Johannesburg are handled with strict confidentiality and NDAs are available.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit technical documents in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we have experience editing technical, medical, and scientific documents in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide feedback and suggestions during copy editing in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we provide detailed feedback and suggestions to improve your documents in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you format documents according to style guides in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we format and edit documents to meet APA, Chicago, and other style guides in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Is there a minimum order size for copy editing in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'No, we accept copy editing projects of any size in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How do I send files for copy editing in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'You can upload your documents securely online or email them for copy editing in Johannesburg and Pretoria.'
-              }
-            }
-          ]
-        })
-      }} />
-      {/* Third batch of hidden SEO FAQ Schema Markup for Copy Editing Services Pretoria & Johannesburg */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing for grant proposals in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit grant proposals and funding applications for clients in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit speeches and presentations in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit speeches and presentations for events and professionals in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for newsletters in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit newsletters and email campaigns for Pretoria and Johannesburg businesses.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit advertising copy in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit advertising and marketing copy for Johannesburg and Pretoria clients.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing for annual reports in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit annual reports and corporate documents for Pretoria and Johannesburg companies.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit resumes for Johannesburg job seekers?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit resumes and LinkedIn profiles for job seekers in Johannesburg and Pretoria.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for blog posts in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit blog posts and online articles for Pretoria and Johannesburg clients.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit non-profit documents in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit non-profit documents, reports, and proposals for Johannesburg and Pretoria organizations.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing for multilingual documents in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit English and multilingual documents for clients in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How do you handle urgent copy editing requests in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'We accept urgent copy editing requests in Johannesburg and Pretoria, subject to availability.'
-              }
-            }
-          ]
-        })
-      }} />
-      {/* Fourth batch of hidden SEO FAQ Schema Markup for Copy Editing Services Pretoria & Johannesburg */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing for government documents in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit government documents and official reports for Pretoria and Johannesburg clients.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit scripts and screenplays in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit scripts, screenplays, and creative writing for Johannesburg and Pretoria writers.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for business proposals in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit business proposals and presentations for Pretoria and Johannesburg companies.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit product manuals in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit product manuals and technical guides for Johannesburg and Pretoria businesses.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing for real estate listings in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit real estate listings, brochures, and web content for Pretoria and Johannesburg agencies.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit training materials in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit training manuals and e-learning content for Johannesburg and Pretoria organizations.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you provide copy editing for scientific papers in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit scientific papers and research articles for Pretoria and Johannesburg academics.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Can you edit funding applications in Johannesburg?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we edit funding and grant applications for Johannesburg and Pretoria clients.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you offer copy editing retainers for ongoing work in Pretoria?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, we provide monthly copy editing retainers for ongoing content needs in Pretoria and Johannesburg.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'How do you handle revisions for Johannesburg copy editing projects?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'We offer multiple revision rounds to ensure Johannesburg and Pretoria clients are fully satisfied.'
-              }
-            }
-          ]
+          }))
         })
       }} />
       <RelatedServices currentService="Copy Editing Services" services={[

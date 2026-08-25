@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Website Maintenance Services | WL Creationx',
-  description: 'Professional website maintenance services to keep your site secure, up-to-date, and performing optimally.',
+  title: 'Website Maintenance Pricing Pretoria',
+  description: 'Website maintenance pricing from WL CreationX in Pretoria. Updates, backups, security and support plans that keep your site fast, secure and up to date.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/website-maintenance-pretoria',
+  },
+  openGraph: {
+    title: 'Website Maintenance Pricing Pretoria',
+    description: 'Website maintenance pricing from WL CreationX in Pretoria. Updates, backups, security and support plans that keep your site fast, secure and up to date.',
+    url: 'https://wlcreationx.co.za/pricing/website-maintenance-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

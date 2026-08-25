@@ -2,8 +2,20 @@ import { Metadata } from 'next';
 import { FaBriefcase, FaGraduationCap, FaHandshake, FaRocket, FaUsers, FaLightbulb } from 'react-icons/fa';
 
 export const metadata: Metadata = {
-  title: 'Careers | Join WL CreationX - Creative Design Agency',
-  description: 'Join our dynamic team at WL CreationX. We\'re looking for talented designers, developers, and creative professionals to help shape the future of digital design.',
+  title: 'Design & Development Careers Pretoria',
+  description: 'Join the WL CreationX team in Pretoria. We hire talented graphic designers, developers and creative professionals who want to shape great design work.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/join-our-team-pretoria',
+  },
+  openGraph: {
+    title: 'Design & Development Careers Pretoria',
+    description: 'Join the WL CreationX team in Pretoria. We hire talented graphic designers, developers and creative professionals who want to shape great design work.',
+    url: 'https://wlcreationx.co.za/join-our-team-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 const positions = [

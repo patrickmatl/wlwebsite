@@ -21,16 +21,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // NOTE: resolvedParams.city (the URL segment) is used for the canonical —
+  // findLocation() may resolve a sublocation, but the canonical must match
+  // the URL actually being served.
+  const canonicalUrl = `https://wlcreationx.co.za/${resolvedParams.city}/${service.slug}`;
+
   return {
-    title: `${service.title} in ${location.city} | WL CreationX`,
-    description: `Professional ${service.title} services in ${location.city}. ${service.description}`,
+    title: { absolute: `${service.title} in ${location.city} | WL CreationX` },
+    description: `Professional ${service.title} services in ${location.city}, delivered from our Pretoria studio. ${service.description}`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: `${service.title} in ${location.city} | WL CreationX`,
       description: `Professional ${service.title} services in ${location.city}. ${service.description}`,
-      url: `https://wlcreationx.co.za/${location.slug}/${service.slug}`,
+      url: canonicalUrl,
       siteName: 'WL CreationX',
       locale: 'en_ZA',
       type: 'website',
+      images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'WL CreationX — Graphic Design Company in Pretoria' }],
     },
   };
 }

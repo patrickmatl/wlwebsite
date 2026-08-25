@@ -2,8 +2,22 @@ import React from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog | WL Creationx',
-  description: 'Insights and updates from WL Creationx on web design, development, and digital marketing.',
+  title: 'Design & Marketing Blog Pretoria',
+  description:
+    'Practical articles on graphic design, branding, web design and digital marketing from WL CreationX, a Pretoria design agency serving businesses across South Africa.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/creative-industry-blog-pretoria',
+  },
+  openGraph: {
+    title: 'Design & Marketing Blog Pretoria | WL CreationX',
+    description:
+      'Practical articles on graphic design, branding, web design and digital marketing from WL CreationX, a Pretoria design agency serving businesses across South Africa.',
+    url: 'https://wlcreationx.co.za/creative-industry-blog-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 export default function BlogLayout({

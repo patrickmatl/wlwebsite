@@ -4,9 +4,25 @@ import { sharedViewport } from '../shared-metadata';
 
 export const viewport = sharedViewport;
 
+const pageTitle = 'Contact WL CreationX | Graphic Design Pretoria';
+const pageDescription =
+  'Contact WL CreationX in Waterkloof Glen, Pretoria for a free consultation and quote on graphic design, branding, and web design. Call, WhatsApp, or send the form.';
+
 export const metadata: Metadata = {
-  title: 'Contact Us | WL Creationx',
-  description: 'Get in touch with WL Creationx for all your digital needs. Professional web design, development, and digital marketing services in South Africa.',
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/get-in-touch-pretoria',
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: 'https://wlcreationx.co.za/get-in-touch-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

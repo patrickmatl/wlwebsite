@@ -76,35 +76,6 @@ export default function ContentMarketingPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Content Marketing Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Content Marketing Services in Pretoria | WL CreationX</h1>
-        <p>WL CreationX delivers strategic content marketing for Pretoria businesses, helping you attract, engage, and convert your ideal customers with SEO-optimized content.</p>
-        <h2>Pretoria’s Leading Content Marketing Agency</h2>
-        <p>Our Pretoria team specializes in blog writing, content strategy, social media content, and lead generation. We help Pretoria companies build authority and drive results online.</p>
-        <h3>SEO Content & Blogging for Pretoria Businesses</h3>
-        <p>Boost your Pretoria website’s rankings with keyword-rich blog posts, landing pages, and content campaigns tailored to your audience and goals.</p>
-        <h4>Affordable Content Packages & Pricing in Pretoria</h4>
-        <p>Choose from monthly content packages or once-off services. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
-        <h5>Why Choose WL CreationX for Content Marketing in Pretoria?</h5>
-        <p>Local expertise, creative writers, and proven strategies. WL CreationX is Pretoria’s trusted partner for content that converts and grows your business.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Content Marketing Pretoria */}
-      {/* BEGIN: Visually Hidden Content Marketing FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Content Marketing in Pretoria</h2>
-        <div><h3>What is content marketing?</h3><p>Content marketing is a strategy focused on creating and distributing valuable, relevant content to attract and engage your target Pretoria audience, ultimately driving profitable customer action.</p></div>
-        <div><h3>How much does content marketing cost in Pretoria?</h3><p>WL CreationX offers content marketing packages starting from R3,850/month. Pricing depends on the number of blog posts, strategy, and additional services required.</p></div>
-        <div><h3>What types of content do you create?</h3><p>We create blog posts, website copy, social media content, email newsletters, lead magnets, infographics, and more for Pretoria businesses.</p></div>
-        <div><h3>Is content marketing effective for Pretoria businesses?</h3><p>Yes! Strategic content marketing improves SEO, builds brand authority, and generates leads for Pretoria companies across industries.</p></div>
-        <div><h3>How long does it take to see results?</h3><p>Content marketing is a long-term strategy. Most Pretoria clients see improved rankings, traffic, and engagement within 3–6 months.</p></div>
-        <div><h3>Do you offer one-off content projects?</h3><p>Yes, we offer single blog posts, content audits, and once-off campaigns for Pretoria businesses that need specific deliverables.</p></div>
-        <div><h3>Can you help with content strategy?</h3><p>Absolutely. We develop custom content strategies for Pretoria clients, including keyword research, content calendars, and performance tracking.</p></div>
-        <div><h3>Is your content SEO-optimized?</h3><p>All our content is optimized for Pretoria SEO best practices, including keyword usage, internal linking, and structure for higher rankings.</p></div>
-        <div><h3>Do you provide reports?</h3><p>Yes, monthly clients receive performance reports showing rankings, traffic, and content engagement for their Pretoria business.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
-      </section>
-      {/* END: Visually Hidden Content Marketing FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Content Marketing Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -281,6 +252,34 @@ export default function ContentMarketingPage() {
           </p>
         </div>
       </div>
+    
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Content Marketing Services in Pretoria | WL CreationX</h2>
+        <p>WL CreationX delivers strategic content marketing for Pretoria businesses, helping you attract, engage, and convert your ideal customers with SEO-optimized content.</p>
+        <h3>Pretoria’s Leading Content Marketing Agency</h3>
+        <p>Our Pretoria team specializes in blog writing, content strategy, social media content, and lead generation. We help Pretoria companies build authority and drive results online.</p>
+        <h4>SEO Content & Blogging for Pretoria Businesses</h4>
+        <p>Boost your Pretoria website’s rankings with keyword-rich blog posts, landing pages, and content campaigns tailored to your audience and goals.</p>
+        <h5>Affordable Content Packages & Pricing in Pretoria</h5>
+        <p>Choose from monthly content packages or once-off services. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
+        <h6>Why Choose WL CreationX for Content Marketing in Pretoria?</h6>
+        <p>Local expertise, creative writers, and proven strategies. WL CreationX is Pretoria’s trusted partner for content that converts and grows your business.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Content Marketing in Pretoria</h3>
+        <div><h4>What is content marketing?</h4><p>Content marketing is a strategy focused on creating and distributing valuable, relevant content to attract and engage your target Pretoria audience, ultimately driving profitable customer action.</p></div>
+        <div><h4>How much does content marketing cost in Pretoria?</h4><p>WL CreationX offers content marketing packages starting from R3,850/month. Pricing depends on the number of blog posts, strategy, and additional services required.</p></div>
+        <div><h4>What types of content do you create?</h4><p>We create blog posts, website copy, social media content, email newsletters, lead magnets, infographics, and more for Pretoria businesses.</p></div>
+        <div><h4>Is content marketing effective for Pretoria businesses?</h4><p>Yes! Strategic content marketing improves SEO, builds brand authority, and generates leads for Pretoria companies across industries.</p></div>
+        <div><h4>How long does it take to see results?</h4><p>Content marketing is a long-term strategy. Most Pretoria clients see improved rankings, traffic, and engagement within 3–6 months.</p></div>
+        <div><h4>Do you offer one-off content projects?</h4><p>Yes, we offer single blog posts, content audits, and once-off campaigns for Pretoria businesses that need specific deliverables.</p></div>
+        <div><h4>Can you help with content strategy?</h4><p>Absolutely. We develop custom content strategies for Pretoria clients, including keyword research, content calendars, and performance tracking.</p></div>
+        <div><h4>Is your content SEO-optimized?</h4><p>All our content is optimized for Pretoria SEO best practices, including keyword usage, internal linking, and structure for higher rankings.</p></div>
+        <div><h4>Do you provide reports?</h4><p>Yes, monthly clients receive performance reports showing rankings, traffic, and content engagement for their Pretoria business.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
+      </section>
     </main>
   );
 }

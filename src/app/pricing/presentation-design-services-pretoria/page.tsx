@@ -218,7 +218,7 @@ export default function PresentationDesignServicesPretoria() {
         <p>We understand the Pretoria market and can adapt our services to local trends, languages, and business cultures for maximum relevance and effectiveness.</p>
         <h5>Get Started with Pretoria’s Leading Presentation Designers</h5>
         <p>Ready to elevate your presentations? Our Pretoria team is here to help you make a lasting impression. Reach out today for a free consultation and discover how our presentation design services can transform your next pitch, report, or event.</p>
-        <p>Experience the difference of working with Pretoria’s top-rated presentation design specialists—your success is our priority.</p>
+        <p>Experience the difference of working with Pretoria presentation design specialists—your success is our priority.</p>
       </section>
       <div className="mt-4 text-center">
         <p className="text-neutral-400 text-sm">

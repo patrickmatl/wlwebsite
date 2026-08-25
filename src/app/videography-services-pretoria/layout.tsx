@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Videography Pretoria | Video Production Company | WL CreationX',
+  title: 'Videography Pretoria | Video Production Company',
   description:
     'Videography and video production in Pretoria. Corporate video, event coverage, brand films, drone and product video, shot and edited in-house by WL CreationX. Get a quote.',
   keywords: [
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     siteName: 'WL CreationX',
     locale: 'en_ZA',
     type: 'website',
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'WL CreationX — Graphic Design Company in Pretoria' }],
   },
   robots: {
     index: true,

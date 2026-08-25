@@ -99,40 +99,6 @@ const WebsiteMaintenancePage = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Website Maintenance Pretoria */}
-        <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-          <h1>Pretoria Website Maintenance Services | WL CreationX</h1>
-          <p>WL CreationX provides professional website maintenance services in Pretoria, ensuring your site remains secure, up-to-date, and fully optimized. Our Pretoria maintenance team handles everything from software updates to performance checks, so you can focus on your business.</p>
-          <p>With proactive monitoring and fast support, we help Pretoria businesses prevent downtime, improve user experience, and safeguard their online presence.</p>
-          <h2>Leading Website Maintenance Agency in Pretoria</h2>
-          <p>As a trusted website maintenance agency in Pretoria, we combine technical expertise with responsive service to deliver reliable results. Our maintenance packages are designed to suit businesses of all sizes, from startups to enterprises.</p>
-          <p>We keep your Pretoria website running smoothly with regular backups, security monitoring, and ongoing performance optimization.</p>
-          <h3>Custom Website Maintenance Solutions for Pretoria Businesses</h3>
-          <p>Our Pretoria website maintenance solutions are tailored to your platform, traffic, and business needs. We offer essential, professional, and enterprise packages, each with a range of features and flexible support options.</p>
-          <p>From content updates to advanced security, our Pretoria team ensures your website remains competitive and compliant with industry standards.</p>
-          <h4>Affordable Website Maintenance Packages in Pretoria</h4>
-          <p>Choose from transparent, competitively priced maintenance packages for Pretoria businesses. We provide monthly reports, priority support, and no hidden fees, making quality website care accessible to all.</p>
-          <p>Our Pretoria clients benefit from peace of mind, knowing their website is in expert hands every day of the year.</p>
-          <h5>Why Choose WL CreationX for Website Maintenance in Pretoria?</h5>
-          <p>WL CreationX is renowned for reliability, technical skill, and customer service in Pretoria website maintenance. Our team has a proven record of preventing issues before they arise and delivering fast, effective solutions when needed.</p>
-          <p>We prioritize long-term partnerships, transparent communication, and measurable results for all our Pretoria website maintenance clients.</p>
-        </section>
-        {/* END: Visually Hidden SEO Headings H1-H5 for Website Maintenance Pretoria */}
-        {/* BEGIN: Visually Hidden Website Maintenance FAQ for Pretoria */}
-        <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-          <h2>Frequently Asked Questions about Website Maintenance in Pretoria</h2>
-          <div><h3>What is included in your website maintenance services?</h3><p>Our Pretoria website maintenance covers software updates, security monitoring, backups, performance optimization, and content updates.</p><p>We offer different packages to suit the needs and budgets of all Pretoria businesses.</p></div>
-          <div><h3>How often do you perform updates and backups?</h3><p>Depending on your package, we perform updates and backups monthly, weekly, or even hourly for Pretoria clients.</p><p>Regular maintenance ensures your website is always secure and running smoothly.</p></div>
-          <div><h3>Do you offer emergency website support?</h3><p>Yes, our Pretoria team provides emergency support for urgent issues, including downtime, security breaches, and technical failures.</p><p>Enterprise clients receive 24/7 priority assistance for critical incidents.</p></div>
-          <div><h3>Can you maintain websites built on any platform?</h3><p>We support all major platforms, including WordPress, Shopify, custom CMS, and more for Pretoria businesses.</p><p>Our team is experienced with a wide range of technologies and frameworks.</p></div>
-          <div><h3>How do you keep my website secure?</h3><p>We implement advanced security monitoring, SSL management, and regular vulnerability scans for Pretoria websites.</p><p>Proactive measures help prevent hacks, malware, and data breaches.</p></div>
-          <div><h3>Is website maintenance necessary for small businesses?</h3><p>Yes, regular maintenance is essential for all Pretoria businesses to prevent issues, improve performance, and protect customer data.</p><p>We offer affordable packages tailored to small business needs.</p></div>
-          <div><h3>Do you provide maintenance reports?</h3><p>All Pretoria maintenance clients receive detailed monthly or real-time reports, depending on their package.</p><p>Reports cover updates performed, security status, and recommendations for improvement.</p></div>
-          <div><h3>Can you update my website content?</h3><p>Yes, we handle content updates, image changes, and new page additions for Pretoria clients as part of our maintenance packages.</p><p>Fast turnaround times ensure your website stays current and relevant.</p></div>
-          <div><h3>Do you offer website optimization as part of maintenance?</h3><p>Performance optimization, speed improvements, and SEO checks are included in our Pretoria website maintenance services.</p><p>We help your website load faster and rank better in search engines.</p></div>
-          <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p><p>Remote consultations and digital support are available for your convenience.</p></div>
-        </section>
-        {/* END: Visually Hidden Website Maintenance FAQ for Pretoria */}
         {/* BEGIN: FAQPage Structured Data for Website Maintenance Pretoria */}
         <script type="application/ld+json" suppressHydrationWarning>
           {`
@@ -310,6 +276,39 @@ const WebsiteMaintenancePage = () => {
           </p>
         </div>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+          <h2>Pretoria Website Maintenance Services | WL CreationX</h2>
+          <p>WL CreationX provides professional website maintenance services in Pretoria, ensuring your site remains secure, up-to-date, and fully optimized. Our Pretoria maintenance team handles everything from software updates to performance checks, so you can focus on your business.</p>
+          <p>With proactive monitoring and fast support, we help Pretoria businesses prevent downtime, improve user experience, and safeguard their online presence.</p>
+          <h3>Leading Website Maintenance Agency in Pretoria</h3>
+          <p>As a trusted website maintenance agency in Pretoria, we combine technical expertise with responsive service to deliver reliable results. Our maintenance packages are designed to suit businesses of all sizes, from startups to enterprises.</p>
+          <p>We keep your Pretoria website running smoothly with regular backups, security monitoring, and ongoing performance optimization.</p>
+          <h4>Custom Website Maintenance Solutions for Pretoria Businesses</h4>
+          <p>Our Pretoria website maintenance solutions are tailored to your platform, traffic, and business needs. We offer essential, professional, and enterprise packages, each with a range of features and flexible support options.</p>
+          <p>From content updates to advanced security, our Pretoria team ensures your website remains competitive and compliant with industry standards.</p>
+          <h5>Affordable Website Maintenance Packages in Pretoria</h5>
+          <p>Choose from transparent, competitively priced maintenance packages for Pretoria businesses. We provide monthly reports, priority support, and no hidden fees, making quality website care accessible to all.</p>
+          <p>Our Pretoria clients benefit from peace of mind, knowing their website is in expert hands every day of the year.</p>
+          <h6>Why Choose WL CreationX for Website Maintenance in Pretoria?</h6>
+          <p>WL CreationX is renowned for reliability, technical skill, and customer service in Pretoria website maintenance. Our team has a proven record of preventing issues before they arise and delivering fast, effective solutions when needed.</p>
+          <p>We prioritize long-term partnerships, transparent communication, and measurable results for all our Pretoria website maintenance clients.</p>
+        </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+          <h3>Frequently Asked Questions about Website Maintenance in Pretoria</h3>
+          <div><h4>What is included in your website maintenance services?</h4><p>Our Pretoria website maintenance covers software updates, security monitoring, backups, performance optimization, and content updates.</p><p>We offer different packages to suit the needs and budgets of all Pretoria businesses.</p></div>
+          <div><h4>How often do you perform updates and backups?</h4><p>Depending on your package, we perform updates and backups monthly, weekly, or even hourly for Pretoria clients.</p><p>Regular maintenance ensures your website is always secure and running smoothly.</p></div>
+          <div><h4>Do you offer emergency website support?</h4><p>Yes, our Pretoria team provides emergency support for urgent issues, including downtime, security breaches, and technical failures.</p><p>Enterprise clients receive 24/7 priority assistance for critical incidents.</p></div>
+          <div><h4>Can you maintain websites built on any platform?</h4><p>We support all major platforms, including WordPress, Shopify, custom CMS, and more for Pretoria businesses.</p><p>Our team is experienced with a wide range of technologies and frameworks.</p></div>
+          <div><h4>How do you keep my website secure?</h4><p>We implement advanced security monitoring, SSL management, and regular vulnerability scans for Pretoria websites.</p><p>Proactive measures help prevent hacks, malware, and data breaches.</p></div>
+          <div><h4>Is website maintenance necessary for small businesses?</h4><p>Yes, regular maintenance is essential for all Pretoria businesses to prevent issues, improve performance, and protect customer data.</p><p>We offer affordable packages tailored to small business needs.</p></div>
+          <div><h4>Do you provide maintenance reports?</h4><p>All Pretoria maintenance clients receive detailed monthly or real-time reports, depending on their package.</p><p>Reports cover updates performed, security status, and recommendations for improvement.</p></div>
+          <div><h4>Can you update my website content?</h4><p>Yes, we handle content updates, image changes, and new page additions for Pretoria clients as part of our maintenance packages.</p><p>Fast turnaround times ensure your website stays current and relevant.</p></div>
+          <div><h4>Do you offer website optimization as part of maintenance?</h4><p>Performance optimization, speed improvements, and SEO checks are included in our Pretoria website maintenance services.</p><p>We help your website load faster and rank better in search engines.</p></div>
+          <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p><p>Remote consultations and digital support are available for your convenience.</p></div>
+        </section>
     </div>
   );
 };

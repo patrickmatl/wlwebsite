@@ -134,7 +134,7 @@ const faqs = [
   {
     question: 'Which areas of Pretoria do you cover?',
     answer:
-      'We are based in La Montagne and shoot across Pretoria East, North and West, plus Hatfield, Brooklyn, Menlyn, Lynnwood, Arcadia, Silver Lakes and Centurion at no extra travel cost. Johannesburg, Sandton and Midrand shoots are routine, and travel is quoted separately for work further afield.',
+      'We are based in Waterkloof Glen and shoot across Pretoria East, North and West, plus Hatfield, Brooklyn, Menlyn, Lynnwood, Arcadia, Silver Lakes and Centurion at no extra travel cost. Johannesburg, Sandton and Midrand shoots are routine, and travel is quoted separately for work further afield.',
   },
 ];
 
@@ -160,16 +160,16 @@ export default function PhotographyServicesPretoria() {
               name: 'WL CreationX',
               image: 'https://wlcreationx.co.za/images/og-image.jpg',
               url: 'https://wlcreationx.co.za',
-              telephone: '+27 62 369 3769',
+              telephone: '+27 62 369 3789',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Chambord Apartments, 210 Albertus St, La Montagne',
+                streetAddress: 'Park Lane West Building, 194 Bancor Ave',
                 addressLocality: 'Pretoria',
                 addressRegion: 'Gauteng',
-                postalCode: '0183',
+                postalCode: '0181',
                 addressCountry: 'ZA',
               },
-              geo: { '@type': 'GeoCoordinates', latitude: -25.7479, longitude: 28.2293 },
+              geo: { '@type': 'GeoCoordinates', latitude: -25.7846, longitude: 28.2905 },
             },
             areaServed: [
               { '@type': 'City', name: 'Pretoria' },
@@ -296,7 +296,7 @@ export default function PhotographyServicesPretoria() {
           Where We Shoot
         </h2>
         <p className="text-neutral-300 leading-relaxed mb-4">
-          Our studio is in La Montagne, Pretoria, and we shoot on location across Pretoria East,
+          Our studio is in Waterkloof Glen, Pretoria, and we shoot on location across Pretoria East,
           Pretoria North, Pretoria West, Hatfield, Brooklyn, Menlyn, Lynnwood, Arcadia, Silver
           Lakes and Centurion with no additional travel charge. Johannesburg, Sandton and Midrand
           shoots are routine, and travel is quoted separately for work elsewhere in South Africa.

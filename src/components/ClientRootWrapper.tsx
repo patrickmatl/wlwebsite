@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
 import Footer from './Footer';
 import { AudioPlaybackProvider } from './AudioContext';
 
@@ -16,10 +15,6 @@ const Navigation = dynamic(() => import('./Navigation'), {
   loading: () => null,
 });
 
-const SchemaOrg = dynamic(() => import('./SchemaOrg'), {
-  ssr: false,
-});
-
 interface ClientRootWrapperProps {
   children: React.ReactNode;
 }
@@ -28,8 +23,6 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
   const [mounted, setMounted] = useState(false);
   const [hasFinePointer, setHasFinePointer] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
 
   useEffect(() => {
     // Handle hydration mismatch by deferring state updates
@@ -82,7 +75,6 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
       {/* Visible on every page, homepage included. Previously the homepage got
           only the `hidden` copy in layout.tsx, i.e. links for crawlers only. */}
       <Footer />
-      <SchemaOrg />
     </AudioPlaybackProvider>
   );
 }

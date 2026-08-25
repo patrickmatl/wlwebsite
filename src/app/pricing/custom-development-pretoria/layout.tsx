@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Custom Development Services | WL Creationx',
-  description: 'Custom software development solutions tailored to your business needs. Expert developers, modern technologies.',
+  title: 'Custom Development Pricing Pretoria',
+  description: 'Custom software and web application development pricing from WL CreationX in Pretoria. Tailored builds, modern technologies and transparent project quotes.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/custom-development-pretoria',
+  },
+  openGraph: {
+    title: 'Custom Development Pricing Pretoria',
+    description: 'Custom software and web application development pricing from WL CreationX in Pretoria. Tailored builds, modern technologies and transparent project quotes.',
+    url: 'https://wlcreationx.co.za/pricing/custom-development-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

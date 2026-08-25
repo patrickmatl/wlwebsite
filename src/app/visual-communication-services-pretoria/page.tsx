@@ -25,8 +25,8 @@ const GraphicDesignPage = () => {
     "2 X Free Design Revision Rounds Included In Price",
     "Custom Unique Designs To Choose From (We Do Not Use Templates)",
     "Project Manager Assigned To Your Project To Guide You",
-    "Professional & Certified Team Working On Your Designs",
-    "Experts Working On Your Project With 19 Years Design Experience",
+    "Professional Team Working On Your Designs",
+    "Experts Working On Your Project — Designing Professionally Since 2013",
     "Quality Control Throughout The Process"
   ];
 

@@ -204,7 +204,7 @@ const PricingPage = () => {
 
       {/* Categories Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {pricingCategories.map((category, index) => (
+        {pricingCategories.map((category, _index) => (
           <div
             key={category.title}
             className="bg-zinc-900 rounded-lg p-8 border border-[#FFD700]/20 hover:border-[#FFD700]/40 transition-all"

@@ -1,37 +1,90 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare } from 'react-icons/fa';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
+import { BUSINESS, FULL_ADDRESS } from '@/data/business';
 
-// Initialize Supabase client
-const supabaseUrl = 'https://itpmauqewzpxmwsdprmq.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cG1hdXFld3pweG13c2Rwcm1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTI5NTAsImV4cCI6MjA1MDE4ODk1MH0.TSeTdVFUcitGocIDNcNN3yRRQDN--SF72az-Ih7tWLM'
+// Supabase configuration.
+// NOTE: the anon key is public-by-design (it ships in the client bundle).
+// Row Level Security (RLS) on the `contact_submissions` table MUST restrict
+// the anon role to INSERT only — never rely on this key being secret.
+const SUPABASE_URL = 'https://itpmauqewzpxmwsdprmq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cG1hdXFld3pweG13c2Rwcm1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTI5NTAsImV4cCI6MjA1MDE4ODk1MH0.TSeTdVFUcitGocIDNcNN3yRRQDN--SF72az-Ih7tWLM';
 
-// Create Supabase client with error logging
-const supabase = createClient(supabaseUrl, supabaseKey, {
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
     persistSession: false
   }
 });
 
-// Test Supabase connection
-const testConnection = async () => {
-  try {
-    const { error } = await supabase
-      .from('contact_submissions')
-      .select('count')
-      .limit(1);
-    
-    if (error) {
-      console.error('Supabase connection test error:', error);
-    } else {
-      console.log('Supabase connection successful');
-    }
-  } catch (err) {
-    console.error('Failed to test Supabase connection:', err);
+// FAQ content — the single source for both the visible FAQ section and the
+// FAQPage JSON-LD below. Keep them identical by only editing this array.
+const FAQS: { question: string; answer: string }[] = [
+  {
+    question: 'What services do you offer?',
+    answer:
+      'We offer a comprehensive range of design services including logo design, brand identity, website design, print design, packaging design, and social media design.'
+  },
+  {
+    question: 'How long does a project typically take?',
+    answer:
+      "Project timelines vary depending on complexity and scope. Simple projects might take 1-2 weeks, while more complex ones can take several months. We'll provide a detailed timeline during our initial consultation."
+  },
+  {
+    question: 'What is your payment process?',
+    answer:
+      'We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. We accept various payment methods and can discuss payment plans for larger projects.'
+  },
+  {
+    question: 'How quickly do you respond to inquiries?',
+    answer:
+      'We aim to respond to all inquiries within 24 hours during business days. For urgent matters, you can reach us directly via WhatsApp or phone during business hours (8:00 AM - 5:00 PM SAST).'
+  },
+  {
+    question: 'Do you provide after-hours support?',
+    answer:
+      'While our regular business hours are Monday to Friday, we do offer emergency support for critical issues. Additional charges may apply for after-hours support.'
+  },
+  {
+    question: 'Do you offer revisions?',
+    answer:
+      "Yes, we include a set number of revisions in our project quotes. Additional revisions can be arranged at an hourly rate. We work closely with you to ensure you're completely satisfied with the final result."
+  },
+  {
+    question: 'Can you work with clients remotely?',
+    answer:
+      'Absolutely! We work with clients worldwide using various communication tools. We can schedule video calls, use project management software, and maintain regular communication throughout the project.'
+  },
+  {
+    question: 'What do I need to get started?',
+    answer:
+      "Fill out our contact form with your project details, and we'll schedule a consultation to discuss your needs, timeline, and budget. We'll then provide a detailed proposal for your review."
+  },
+  {
+    question: 'Do you sign NDAs?',
+    answer:
+      "Yes, we're happy to sign Non-Disclosure Agreements (NDAs) to protect your intellectual property and ensure confidentiality throughout our collaboration."
+  },
+  {
+    question: 'What happens after I submit the contact form?',
+    answer:
+      "After submission, you'll receive an immediate confirmation. Our team will review your requirements and contact you within 24 hours to schedule a consultation or request additional information."
   }
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
 };
 
 // Contact Form Component
@@ -48,19 +101,18 @@ function ContactFormContent() {
 
     try {
       const formData = new FormData(e.currentTarget as HTMLFormElement);
-      
+
       // Check honeypot field
       const honeypot = formData.get('website')?.toString();
       if (honeypot) {
         // Silently reject bot submissions
-        console.log('Bot submission detected');
         setSuccess(true); // Fake success to avoid giving feedback to bots
         setTimeout(() => setSuccess(false), 5000);
         return;
       }
 
       const contactMethod = formData.get('preferred_contact_method')?.toString();
-      
+
       // Create submission data object
       const submissionData = {
         name: formData.get('name')?.toString() || '',
@@ -73,8 +125,8 @@ function ContactFormContent() {
         reference_links: formData.get('reference_links')?.toString() || null,
         how_did_you_hear: formData.get('how_did_you_hear')?.toString() || null,
         preferred_contact_method: contactMethod,
-        contact_details: contactMethod === 'email' 
-          ? formData.get('email')?.toString() 
+        contact_details: contactMethod === 'email'
+          ? formData.get('email')?.toString()
           : formData.get('phone')?.toString(),
         terms_accepted: true,
         status: 'new'
@@ -92,7 +144,7 @@ function ContactFormContent() {
       setSuccess(true);
       formRef.current?.reset();
       setTimeout(() => setSuccess(false), 5000);
-      
+
     } catch (err) {
       console.error('Form submission error:', err);
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
@@ -104,13 +156,13 @@ function ContactFormContent() {
   return (
     <div className="bg-zinc-900/50 p-6 rounded-lg relative">
       <h2 className="text-2xl font-bold text-[#FFD700] mb-4">Send Us a Message</h2>
-      
+
       {error && (
         <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded text-red-200 text-sm">
           {error}
         </div>
       )}
-      
+
       {success && (
         <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/95 rounded-lg">
           <div className="text-center p-6">
@@ -270,7 +322,7 @@ function ContactFormContent() {
         <div>
           <label className="block text-xs mb-2">Preferred Contact Method *</label>
           <div className="grid grid-cols-3 gap-2">
-            {[/* eslint-disable @typescript-eslint/no-unused-vars */
+            {[
               { id: 'email', label: 'Email', icon: FaEnvelope },
               { id: 'phone', label: 'Phone', icon: FaPhone },
               { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp }
@@ -302,11 +354,11 @@ function ContactFormContent() {
             className="mt-1"
           />
           <label htmlFor="terms" className="text-xs">
-            I agree to the{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
+            I agree to the{' '}
             <Link href="/legal-terms-pretoria" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Terms of Service
-            </Link>{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
-            and{' '/* eslint-disable @typescript-eslint/no-unused-vars */}
+            </Link>{' '}
+            and{' '}
             <Link href="/data-protection-policy-pretoria" className="text-[#FFD700] hover:text-[#FFA500] underline">
               Privacy Policy
             </Link>
@@ -329,13 +381,26 @@ function ContactFormContent() {
 
 // Main Contact Page Component
 export default function Contact() {
-  // Test connection on component mount
-  useEffect(() => {
-    testConnection();
-  }, []);
+  const [linkedinUrl, instagramUrl, facebookUrl] = [
+    BUSINESS.sameAs.find((url) => url.includes('linkedin')),
+    BUSINESS.sameAs.find((url) => url.includes('instagram')),
+    BUSINESS.sameAs.find((url) => url.includes('facebook'))
+  ];
 
   return (
     <main className="min-h-screen bg-black text-white py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
+        <h1 className="font-syne text-4xl md:text-5xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">
+          Contact WL CreationX in Pretoria
+        </h1>
+        <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+          Tell us about your project and we&apos;ll come back with a fixed quote — usually within one working day.
+        </p>
+      </div>
       <div className="max-w-5xl mx-auto px-4 bg-zinc-900/30 rounded-lg shadow-2xl backdrop-blur-sm">
         <div className="p-6 space-y-8">
           <div className="grid md:grid-cols-2 gap-8">
@@ -354,7 +419,11 @@ export default function Contact() {
                   <FaPhone className="text-[#FFD700] text-lg" />
                   <div>
                     <h3 className="font-semibold text-sm">Call Us</h3>
-                    <p className="text-gray-300 text-sm">+27 62 369 3789</p>
+                    <p className="text-gray-300 text-sm">
+                      <a href={`tel:${BUSINESS.phoneE164}`} className="hover:text-[#FFD700] transition-colors">
+                        {BUSINESS.phoneDisplay}
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -362,7 +431,11 @@ export default function Contact() {
                   <FaEnvelope className="text-[#FFD700] text-lg" />
                   <div>
                     <h3 className="font-semibold text-sm">Email Us</h3>
-                    <p className="text-gray-300 text-sm">info@wlcreationx.co.za</p>
+                    <p className="text-gray-300 text-sm">
+                      <a href={`mailto:${BUSINESS.email}`} className="hover:text-[#FFD700] transition-colors">
+                        {BUSINESS.email}
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -370,7 +443,16 @@ export default function Contact() {
                   <FaWhatsapp className="text-[#FFD700] text-lg" />
                   <div>
                     <h3 className="font-semibold text-sm">WhatsApp</h3>
-                    <p className="text-gray-300 text-sm">+27 62 369 3789</p>
+                    <p className="text-gray-300 text-sm">
+                      <a
+                        href={`https://wa.me/${BUSINESS.whatsappNumber}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-[#FFD700] transition-colors"
+                      >
+                        {BUSINESS.phoneDisplay}
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -378,9 +460,7 @@ export default function Contact() {
                   <FaMapMarkerAlt className="text-[#FFD700] text-lg" />
                   <div>
                     <h3 className="font-semibold text-sm">Visit Us</h3>
-                    <p className="text-gray-300 text-sm">
-                      Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181
-                    </p>
+                    <p className="text-gray-300 text-sm">{FULL_ADDRESS}</p>
                   </div>
                 </div>
               </div>
@@ -395,7 +475,7 @@ export default function Contact() {
                   </div>
                   <div className="flex justify-between">
                     <span>Saturday</span>
-                    <span className="text-[#FFD700]">9:00 AM - 1:00 PM</span>
+                    <span className="text-[#FFD700]">8:00 AM - 3:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sunday</span>
@@ -408,15 +488,39 @@ export default function Contact() {
               <div>
                 <h3 className="text-lg font-bold mb-2">Connect With Us</h3>
                 <div className="flex space-x-4">
-                  <Link href="https://linkedin.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
-                    <FaLinkedin size={20} />
-                  </Link>
-                  <Link href="https://instagram.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
-                    <FaInstagram size={20} />
-                  </Link>
-                  <Link href="https://facebook.com" className="text-[#FFD700] hover:text-[#FFA500] transition-colors">
-                    <FaFacebookSquare size={20} />
-                  </Link>
+                  {linkedinUrl && (
+                    <a
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="WL CreationX on LinkedIn"
+                      className="text-[#FFD700] hover:text-[#FFA500] transition-colors"
+                    >
+                      <FaLinkedin size={20} />
+                    </a>
+                  )}
+                  {instagramUrl && (
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="WL CreationX on Instagram"
+                      className="text-[#FFD700] hover:text-[#FFA500] transition-colors"
+                    >
+                      <FaInstagram size={20} />
+                    </a>
+                  )}
+                  {facebookUrl && (
+                    <a
+                      href={facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="WL CreationX on Facebook"
+                      className="text-[#FFD700] hover:text-[#FFA500] transition-colors"
+                    >
+                      <FaFacebookSquare size={20} />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -430,68 +534,20 @@ export default function Contact() {
             <h2 className="text-2xl font-bold text-[#FFD700] mb-6">Frequently Asked Questions</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">What services do you offer?</h3>
-                  <p className="text-gray-300 text-sm">
-                    We offer a comprehensive range of design services including logo design, brand identity, website design, print design, packaging design, and social media design.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">How long does a project typically take?</h3>
-                  <p className="text-gray-300 text-sm">
-                    Project timelines vary depending on complexity and scope. Simple projects might take 1-2 weeks, while more complex ones can take several months. We'll provide a detailed timeline during our initial consultation.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">What is your payment process?</h3>
-                  <p className="text-gray-300 text-sm">
-                    We typically require a 50% deposit to begin work, with the remaining balance due upon project completion. We accept various payment methods and can discuss payment plans for larger projects.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">How quickly do you respond to inquiries?</h3>
-                  <p className="text-gray-300 text-sm">
-                    We aim to respond to all inquiries within 24 hours during business days. For urgent matters, you can reach us directly via WhatsApp or phone during business hours (8:00 AM - 5:00 PM SAST).
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Do you provide after-hours support?</h3>
-                  <p className="text-gray-300 text-sm">
-                    While our regular business hours are Monday to Friday, we do offer emergency support for critical issues. Additional charges may apply for after-hours support.
-                  </p>
-                </div>
+                {FAQS.slice(0, 5).map((faq) => (
+                  <div key={faq.question}>
+                    <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                    <p className="text-gray-300 text-sm">{faq.answer}</p>
+                  </div>
+                ))}
               </div>
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Do you offer revisions?</h3>
-                  <p className="text-gray-300 text-sm">
-                    Yes, we include a set number of revisions in our project quotes. Additional revisions can be arranged at an hourly rate. We work closely with you to ensure you're completely satisfied with the final result.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Can you work with clients remotely?</h3>
-                  <p className="text-gray-300 text-sm">
-                    Absolutely! We work with clients worldwide using various communication tools. We can schedule video calls, use project management software, and maintain regular communication throughout the project.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">What do I need to get started?</h3>
-                  <p className="text-gray-300 text-sm">
-                    Fill out our contact form with your project details, and we'll schedule a consultation to discuss your needs, timeline, and budget. We'll then provide a detailed proposal for your review.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Do you sign NDAs?</h3>
-                  <p className="text-gray-300 text-sm">
-                    Yes, we're happy to sign Non-Disclosure Agreements (NDAs) to protect your intellectual property and ensure confidentiality throughout our collaboration.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">What happens after I submit the contact form?</h3>
-                  <p className="text-gray-300 text-sm">
-                    After submission, you'll receive an immediate confirmation. Our team will review your requirements and contact you within 24 hours to schedule a consultation or request additional information.
-                  </p>
-                </div>
+                {FAQS.slice(5).map((faq) => (
+                  <div key={faq.question}>
+                    <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                    <p className="text-gray-300 text-sm">{faq.answer}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

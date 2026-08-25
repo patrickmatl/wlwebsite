@@ -1,8 +1,20 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | WL CreationX',
-  description: 'Our commitment to protecting your privacy and personal information in accordance with POPIA (Protection of Personal Information Act).',
+  title: 'Privacy & Data Protection Policy',
+  description: 'How WL CreationX collects, uses and protects your personal information under the Protection of Personal Information Act (POPIA), and your rights.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/data-protection-policy-pretoria',
+  },
+  openGraph: {
+    title: 'Privacy & Data Protection Policy',
+    description: 'How WL CreationX collects, uses and protects your personal information under the Protection of Personal Information Act (POPIA), and your rights.',
+    url: 'https://wlcreationx.co.za/data-protection-policy-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 export default function PrivacyPolicy() {
@@ -147,8 +159,8 @@ After this period, we securely delete or anonymize your information.`
 
 • Name: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3769
-• Address: 210 Albertus St, La Montagne, Pretoria, 0183
+• Phone: +27 62 369 3789
+• Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181
 
 You may also contact the Information Regulator (South Africa):
 • Website: www.justice.gov.za/inforeg

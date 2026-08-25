@@ -1,23 +1,63 @@
 import type { Metadata } from 'next';
 
+const PAGE_URL =
+  'https://wlcreationx.co.za/creative-industry-blog-pretoria/the-history-of-graphic-design-in-south-africa';
+
 export const metadata: Metadata = {
-  title: 'The History of Graphic Design in South Africa | WL Creationx',
-  description: 'Explore the rich history of graphic design in South Africa, from indigenous art forms to contemporary digital design. Learn about influential designers, cultural movements, and the evolution of South African visual communication.',
-  keywords: ['South Africa', 'Graphic Design', 'Design History', 'Visual Arts', 'African Design'],
+  title: 'History of Graphic Design in South Africa',
+  description:
+    'Explore the history of graphic design in South Africa — from San rock art and colonial print to protest graphics, post-apartheid identity and digital design.',
+  alternates: {
+    canonical: PAGE_URL,
+  },
   openGraph: {
-    title: 'The History of Graphic Design in South Africa | WL Creationx',
-    description: 'Explore the rich history of graphic design in South Africa, from indigenous art forms to contemporary digital design.',
-    url: 'https://wlcreationx.com/blog/the-history-of-graphic-design-in-south-africa',
-    siteName: 'WL Creationx',
-    locale: 'en_US',
+    title: 'History of Graphic Design in South Africa | WL CreationX',
+    description:
+      'Explore the history of graphic design in South Africa — from San rock art and colonial print to protest graphics, post-apartheid identity and digital design.',
+    url: PAGE_URL,
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
     type: 'article',
     publishedTime: '2024-12-25T19:59:45+02:00',
+    images: ['/images/og-image.jpg'],
+  },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'The History of Graphic Design in South Africa',
+  description:
+    'Explore the history of graphic design in South Africa — from San rock art and colonial print to protest graphics, post-apartheid identity and digital design.',
+  image: 'https://wlcreationx.co.za/images/og-image.jpg',
+  datePublished: '2024-12-25T19:59:45+02:00',
+  dateModified: '2024-12-25T19:59:45+02:00',
+  author: {
+    '@type': 'Organization',
+    name: 'WL CreationX',
+    url: 'https://wlcreationx.co.za',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'WL CreationX',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://wlcreationx.co.za/images/brand/logo-512.png',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': PAGE_URL,
   },
 };
 
 export default function BlogPost() {
   return (
     <article className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <header className="mb-12">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 font-syne">
           The History of Graphic Design in South Africa
@@ -103,13 +143,10 @@ export default function BlogPost() {
         </p>
 
         <div className="mt-12 border-t border-neutral-800 pt-8">
-          <h3>References and Further Reading</h3>
-          <ul>
-            <li>South African History Online (SAHO)</li>
-            <li>Design Indaba Archives</li>
-            <li>The History of Graphic Design in South Africa by Keith Dietrich</li>
-            <li>Images of Change: South African Design and Political Graphics by Judy Seidman</li>
-          </ul>
+          <p>
+            WL CreationX is a graphic design agency based in Pretoria, working
+            within this evolving South African design tradition since 2013.
+          </p>
         </div>
       </div>
     </article>

@@ -4,9 +4,25 @@ import { sharedViewport } from '../shared-metadata';
 
 export const viewport = sharedViewport;
 
+const title = 'Design Portfolio Pretoria';
+const description =
+  'Browse the WL CreationX portfolio: logo design and packaging design projects created in Pretoria for businesses across South Africa since 2013.';
+
 export const metadata: Metadata = {
-  title: 'Portfolio | WL Creationx',
-  description: 'Explore our portfolio of successful digital projects. Web design, development, and digital marketing case studies from South Africa.',
+  title,
+  description,
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/project-showcase-pretoria',
+  },
+  openGraph: {
+    title,
+    description,
+    url: 'https://wlcreationx.co.za/project-showcase-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,
@@ -25,6 +41,5 @@ export default function PortfolioLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Removed Breadcrumb and Head imports, and Breadcrumb/Head usage since handled globally
   return <>{children}</>;
 }

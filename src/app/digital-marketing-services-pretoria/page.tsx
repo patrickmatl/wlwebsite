@@ -3,8 +3,20 @@ import { FaPalette, FaCode, FaMobileAlt, FaShoppingCart, FaSearch, FaPrint, FaMe
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Our Services | WL Creations - Creative Design Solutions',
-  description: 'Discover our comprehensive range of creative services including web design, branding, UI/UX, print design, and digital marketing solutions.',
+  title: 'Digital Marketing Services Pretoria',
+  description: 'Digital marketing services in Pretoria: SEO, social media, content strategy, email marketing, PPC and analytics from WL CreationX, established in 2013.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/digital-marketing-services-pretoria',
+  },
+  openGraph: {
+    title: 'Digital Marketing Services Pretoria | WL CreationX',
+    description: 'Digital marketing services in Pretoria: SEO, social media, content strategy, email marketing, PPC and analytics from WL CreationX, established in 2013.',
+    url: 'https://wlcreationx.co.za/digital-marketing-services-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 const services = [
@@ -158,9 +170,9 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black z-10" />
         <div className="absolute inset-0 bg-[url('/images/services-hero.jpg')] bg-cover bg-center" />
         <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#FFD700]">Our Services</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#FFD700]">Digital Marketing &amp; Creative Services in Pretoria</h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
-            Comprehensive creative solutions tailored to elevate your brand and drive business growth
+            SEO, Google Ads, social media, email and content marketing — backed by the design services to match
           </p>
         </div>
       </section>
@@ -168,11 +180,20 @@ export default function ServicesPage() {
       {/* Introduction Section */}
       <section className="py-20 bg-zinc-900/50">
         <div className="container mx-auto px-4 max-w-6xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FFD700]">Why Choose Us?</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-            With over a decade of experience, we combine creativity with strategic thinking to deliver solutions that make an impact. Our comprehensive approach ensures your brand stands out in today's competitive landscape.
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FFD700]">Digital Marketing from Our Pretoria Studio</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-6">
+            From our studio in Waterkloof Glen, Pretoria, we help businesses get found and grow online. Our digital marketing work covers{' '}
+            <Link href="/pricing/seo-pretoria" className="text-[#FFD700] underline hover:text-[#FFE55C]">SEO</Link>,{' '}
+            <Link href="/pricing/google-ads-pretoria" className="text-[#FFD700] underline hover:text-[#FFE55C]">Google Ads</Link>,{' '}
+            <Link href="/pricing/social-media-pretoria" className="text-[#FFD700] underline hover:text-[#FFE55C]">social media marketing</Link>,{' '}
+            <Link href="/pricing/email-marketing-pretoria" className="text-[#FFD700] underline hover:text-[#FFE55C]">email marketing</Link> and{' '}
+            <Link href="/pricing/content-marketing-pretoria" className="text-[#FFD700] underline hover:text-[#FFE55C]">content marketing</Link>{' '}
+            — each with clear pricing on its own page.
           </p>
-          
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+            Because we are also a design studio, the same team that runs your campaigns can produce the branding, websites and creative assets they depend on. The full range of services is below.
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -224,7 +245,7 @@ export default function ServicesPage() {
                   </div>
 
                   <Link 
-                    href={`/contact?service=${encodeURIComponent(service.name)}`}
+                    href={`/get-in-touch-pretoria?service=${encodeURIComponent(service.name)}`}
                     className="inline-block mt-8 bg-[#FFD700] text-black font-bold py-3 px-6 rounded-lg hover:bg-[#FFE55C] transition-colors duration-300"
                   >
                     Get Started

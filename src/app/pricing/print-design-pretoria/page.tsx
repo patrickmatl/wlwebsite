@@ -198,40 +198,6 @@ const PrintDesignPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Print Design Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Print Design Services in Pretoria | WL CreationX</h1>
-        <p>WL CreationX offers expert print design services for Pretoria businesses, delivering high-quality business cards, letterheads, brochures, banners, flyers, and more. Our experienced designers ensure every print asset is visually striking and professionally crafted to elevate your brand in the competitive Pretoria market.</p>
-        <p>We combine creative vision with technical precision, using the latest design software and print techniques to produce materials that stand out. Our Pretoria clients benefit from custom solutions tailored to their brand, audience, and marketing objectives.</p>
-        <h2>Pretoria’s Leading Print Design Agency</h2>
-        <p>As Pretoria’s leading print design agency, WL CreationX is known for its attention to detail, fast turnaround, and commitment to quality. We manage the entire print process, from initial concept to final delivery, ensuring your materials meet the highest standards.</p>
-        <p>Our team collaborates closely with Pretoria businesses to understand their unique needs, offering guidance on paper stocks, finishes, and print specifications for the best possible results. We help you make a lasting impression with every printed piece.</p>
-        <h3>Business Essentials, Marketing Materials & Large Format Printing</h3>
-        <p>We provide comprehensive print design services for business essentials (business cards, letterheads), marketing materials (brochures, flyers), and large format items (banners, signage). Each category is designed to boost your brand’s visibility and credibility in Pretoria.</p>
-        <p>Our designers ensure consistency across all print and digital touchpoints, so your Pretoria business presents a unified, professional image to clients and partners alike.</p>
-        <h4>Affordable Print Design Packages in Pretoria</h4>
-        <p>Our print design packages are competitively priced to suit Pretoria businesses of all sizes, from startups to established enterprises. We offer transparent pricing, flexible options, and no hidden fees, making professional print design accessible to everyone.</p>
-        <p>With WL CreationX, you receive value-driven solutions that maximize your marketing budget and deliver measurable results in the Pretoria marketplace.</p>
-        <h5>Why Choose WL CreationX for Print Design in Pretoria?</h5>
-        <p>WL CreationX is trusted by Pretoria businesses for our creativity, reliability, and dedication to client satisfaction. Our team brings years of experience and a passion for design to every project, ensuring your print materials exceed expectations.</p>
-        <p>We prioritize open communication, fast delivery, and ongoing support, making us the go-to print design partner for Pretoria companies seeking to grow their brand and reach new audiences.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Print Design Pretoria */}
-      {/* BEGIN: Visually Hidden Print Design FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Print Design in Pretoria</h2>
-        <div><h3>What print design services do you offer?</h3><p>We offer a full spectrum of print design services for Pretoria businesses, including business cards, letterheads, brochures, flyers, banners, and large format signage. Our team works with you to create custom designs that reflect your brand and marketing goals.</p><p>Whether you need a single item or a complete set of print materials, we ensure every design is optimized for quality, clarity, and impact in the Pretoria market.</p></div>
-        <div><h3>How much does print design cost in Pretoria?</h3><p>WL CreationX provides transparent, competitive pricing for print design services in Pretoria. Costs vary depending on the type and quantity of materials, complexity of design, and any special finishes or requirements.</p><p>We offer detailed quotes and package options to suit all budgets, ensuring Pretoria businesses receive professional results without overspending.</p></div>
-        <div><h3>Can you manage the printing process?</h3><p>Yes, we offer end-to-end print management for Pretoria clients, coordinating with trusted print partners to ensure your materials are produced to the highest standards. Our team handles file preparation, proofing, and quality checks for a seamless experience.</p><p>This service saves you time and ensures your print assets are delivered on schedule and exactly as envisioned.</p></div>
-        <div><h3>Do you provide source files for print designs?</h3><p>Absolutely. All final print designs include editable source files, giving Pretoria clients full control for future updates or reprints. We use industry-standard formats compatible with major print shops and digital platforms.</p><p>Having access to source files ensures your brand remains consistent and adaptable as your Pretoria business grows.</p></div>
-        <div><h3>Can you design for both small and large format printing?</h3><p>Yes, we specialize in both small format (business cards, flyers) and large format (banners, signage) print design for Pretoria businesses. Our team understands the technical requirements of each format and delivers designs that look great at any size.</p><p>We also advise on material selection, resolution, and finishing options to ensure the best results for every print project.</p></div>
-        <div><h3>How long does a print design project take?</h3><p>Most Pretoria print design projects are completed within 2–7 days, depending on complexity and revisions required. We provide clear timelines and keep you updated throughout the process for complete peace of mind.</p><p>For urgent needs, we offer rush services to ensure your materials are ready for important events or campaigns.</p></div>
-        <div><h3>How many revisions are included?</h3><p>Revision rounds vary by package, but all Pretoria clients receive at least 2–3 rounds to ensure satisfaction. We work collaboratively to refine each design until it meets your expectations and business needs.</p><p>Additional revisions can be arranged for a small fee, providing flexibility and control over the final product.</p></div>
-        <div><h3>Do you design custom print items?</h3><p>Yes, we offer fully custom print design services for unique items such as specialty packaging, event materials, and branded merchandise for Pretoria businesses. Our designers enjoy creative challenges and bring your ideas to life with originality and flair.</p><p>We welcome custom projects and provide expert advice to ensure your print assets stand out in the Pretoria marketplace.</p></div>
-        <div><h3>Can you update my existing print materials?</h3><p>We can refresh or update your current print materials to reflect new branding, messaging, or design trends. Our Pretoria team works efficiently to ensure a seamless transition and maintain brand consistency across all your assets.</p><p>Updating your print materials is a cost-effective way to keep your brand relevant and competitive in Pretoria.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely, providing the same high level of service wherever your business is based.</p><p>No matter your location in Pretoria, WL CreationX is ready to help you elevate your print design and marketing presence.</p></div>
-      </section>
-      {/* END: Visually Hidden Print Design FAQ for Pretoria */}
       {/* FAQPage Structured Data for Print Design Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -241,83 +207,53 @@ const PrintDesignPage = () => {
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "What types of print materials do you design?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We design business cards, letterheads, brochures, flyers, banners, posters, and more for Pretoria businesses. Our team ensures every print material is tailored to your brand and marketing objectives."
-              }
+              "name": "What print design services do you offer?",
+              "acceptedAnswer": { "@type": "Answer", "text": "We offer a full spectrum of print design services for Pretoria businesses, including business cards, letterheads, brochures, flyers, banners, and large format signage. Our team works with you to create custom designs that reflect your brand and marketing goals. Whether you need a single item or a complete set of print materials, we ensure every design is optimized for quality, clarity, and impact in the Pretoria market." }
             },
             {
               "@type": "Question",
               "name": "How much does print design cost in Pretoria?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Our print design packages start from R350, with pricing based on the type of material, design complexity, and additional services. We provide transparent quotes and flexible options for Pretoria clients."
-              }
+              "acceptedAnswer": { "@type": "Answer", "text": "WL CreationX provides transparent, competitive pricing for print design services in Pretoria. Costs vary depending on the type and quantity of materials, complexity of design, and any special finishes or requirements. We offer detailed quotes and package options to suit all budgets, ensuring Pretoria businesses receive professional results without overspending." }
             },
             {
               "@type": "Question",
-              "name": "Can you provide print-ready files?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, all designs include high-resolution, print-ready files compatible with local Pretoria printers or national print shops. We also offer guidance on paper types, finishes, and print specifications."
-              }
+              "name": "Can you manage the printing process?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, we offer end-to-end print management for Pretoria clients, coordinating with trusted print partners to ensure your materials are produced to the highest standards. Our team handles file preparation, proofing, and quality checks for a seamless experience. This service saves you time and ensures your print assets are delivered on schedule and exactly as envisioned." }
             },
             {
               "@type": "Question",
-              "name": "Do you offer rush print design services?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, we provide rush services for urgent print design needs in Pretoria, delivering quality results within tight deadlines. Contact us for availability and turnaround times on expedited projects."
-              }
+              "name": "Do you provide source files for print designs?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All final print designs include editable source files, giving Pretoria clients full control for future updates or reprints. We use industry-standard formats compatible with major print shops and digital platforms. Having access to source files ensures your brand remains consistent and adaptable as your Pretoria business grows." }
             },
             {
               "@type": "Question",
-              "name": "Can you help with content and copywriting?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Absolutely! We assist Pretoria clients with content creation, copywriting, and layout to ensure your print materials are clear and persuasive. Our team works collaboratively to deliver compelling messaging and attractive design."
-              }
+              "name": "Can you design for both small and large format printing?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, we specialize in both small format (business cards, flyers) and large format (banners, signage) print design for Pretoria businesses. Our team understands the technical requirements of each format and delivers designs that look great at any size. We also advise on material selection, resolution, and finishing options to ensure the best results for every print project." }
             },
             {
               "@type": "Question",
-              "name": "Do you design for large format printing?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, we specialize in large format print design, including banners, signage, and posters for Pretoria businesses and events. Our designs are optimized for clarity and impact at any scale."
-              }
+              "name": "How long does a print design project take?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Most Pretoria print design projects are completed within 2–7 days, depending on complexity and revisions required. We provide clear timelines and keep you updated throughout the process for complete peace of mind. For urgent needs, we offer rush services to ensure your materials are ready for important events or campaigns." }
             },
             {
               "@type": "Question",
-              "name": "Can you match my existing brand guidelines?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We work with your existing brand guidelines to ensure consistency across all print materials for your Pretoria business. If you need new guidelines, we can help establish a cohesive visual identity."
-              }
+              "name": "How many revisions are included?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Revision rounds vary by package, but all Pretoria clients receive at least 2–3 rounds to ensure satisfaction. We work collaboratively to refine each design until it meets your expectations and business needs. Additional revisions can be arranged for a small fee, providing flexibility and control over the final product." }
             },
             {
               "@type": "Question",
-              "name": "Do you offer eco-friendly print design solutions?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We support Pretoria clients in choosing sustainable papers and inks, and design for minimal waste and environmental impact. Ask us about eco-friendly print options for your next project."
-              }
+              "name": "Do you design custom print items?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, we offer fully custom print design services for unique items such as specialty packaging, event materials, and branded merchandise for Pretoria businesses. Our designers enjoy creative challenges and bring your ideas to life with originality and flair. We welcome custom projects and provide expert advice to ensure your print assets stand out in the Pretoria marketplace." }
             },
             {
               "@type": "Question",
-              "name": "Can you update or redesign my old print materials?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We refresh and modernize outdated print materials for Pretoria businesses, bringing your brand up to date with current trends. Our redesigns improve both aesthetics and effectiveness."
-              }
+              "name": "Can you update my existing print materials?",
+              "acceptedAnswer": { "@type": "Answer", "text": "We can refresh or update your current print materials to reflect new branding, messaging, or design trends. Our Pretoria team works efficiently to ensure a seamless transition and maintain brand consistency across all your assets. Updating your print materials is a cost-effective way to keep your brand relevant and competitive in Pretoria." }
             },
             {
               "@type": "Question",
               "name": "Which areas of Pretoria do you serve?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Remote consultations and digital deliveries are available for your convenience."
-              }
+              "acceptedAnswer": { "@type": "Answer", "text": "We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely, providing the same high level of service wherever your business is based. No matter your location in Pretoria, WL CreationX is ready to help you elevate your print design and marketing presence." }
             }
           ]
         }
@@ -451,6 +387,39 @@ const PrintDesignPage = () => {
           Explore our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria design studio</Link> services on the homepage.
         </p>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Print Design Services in Pretoria | WL CreationX</h2>
+        <p>WL CreationX offers expert print design services for Pretoria businesses, delivering high-quality business cards, letterheads, brochures, banners, flyers, and more. Our experienced designers ensure every print asset is visually striking and professionally crafted to elevate your brand in the competitive Pretoria market.</p>
+        <p>We combine creative vision with technical precision, using the latest design software and print techniques to produce materials that stand out. Our Pretoria clients benefit from custom solutions tailored to their brand, audience, and marketing objectives.</p>
+        <h3>Pretoria’s Leading Print Design Agency</h3>
+        <p>As Pretoria’s leading print design agency, WL CreationX is known for its attention to detail, fast turnaround, and commitment to quality. We manage the entire print process, from initial concept to final delivery, ensuring your materials meet the highest standards.</p>
+        <p>Our team collaborates closely with Pretoria businesses to understand their unique needs, offering guidance on paper stocks, finishes, and print specifications for the best possible results. We help you make a lasting impression with every printed piece.</p>
+        <h4>Business Essentials, Marketing Materials & Large Format Printing</h4>
+        <p>We provide comprehensive print design services for business essentials (business cards, letterheads), marketing materials (brochures, flyers), and large format items (banners, signage). Each category is designed to boost your brand’s visibility and credibility in Pretoria.</p>
+        <p>Our designers ensure consistency across all print and digital touchpoints, so your Pretoria business presents a unified, professional image to clients and partners alike.</p>
+        <h5>Affordable Print Design Packages in Pretoria</h5>
+        <p>Our print design packages are competitively priced to suit Pretoria businesses of all sizes, from startups to established enterprises. We offer transparent pricing, flexible options, and no hidden fees, making professional print design accessible to everyone.</p>
+        <p>With WL CreationX, you receive value-driven solutions that maximize your marketing budget and deliver measurable results in the Pretoria marketplace.</p>
+        <h6>Why Choose WL CreationX for Print Design in Pretoria?</h6>
+        <p>WL CreationX is trusted by Pretoria businesses for our creativity, reliability, and dedication to client satisfaction. Our team brings years of experience and a passion for design to every project, ensuring your print materials exceed expectations.</p>
+        <p>We prioritize open communication, fast delivery, and ongoing support, making us the go-to print design partner for Pretoria companies seeking to grow their brand and reach new audiences.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Print Design in Pretoria</h3>
+        <div><h4>What print design services do you offer?</h4><p>We offer a full spectrum of print design services for Pretoria businesses, including business cards, letterheads, brochures, flyers, banners, and large format signage. Our team works with you to create custom designs that reflect your brand and marketing goals.</p><p>Whether you need a single item or a complete set of print materials, we ensure every design is optimized for quality, clarity, and impact in the Pretoria market.</p></div>
+        <div><h4>How much does print design cost in Pretoria?</h4><p>WL CreationX provides transparent, competitive pricing for print design services in Pretoria. Costs vary depending on the type and quantity of materials, complexity of design, and any special finishes or requirements.</p><p>We offer detailed quotes and package options to suit all budgets, ensuring Pretoria businesses receive professional results without overspending.</p></div>
+        <div><h4>Can you manage the printing process?</h4><p>Yes, we offer end-to-end print management for Pretoria clients, coordinating with trusted print partners to ensure your materials are produced to the highest standards. Our team handles file preparation, proofing, and quality checks for a seamless experience.</p><p>This service saves you time and ensures your print assets are delivered on schedule and exactly as envisioned.</p></div>
+        <div><h4>Do you provide source files for print designs?</h4><p>Absolutely. All final print designs include editable source files, giving Pretoria clients full control for future updates or reprints. We use industry-standard formats compatible with major print shops and digital platforms.</p><p>Having access to source files ensures your brand remains consistent and adaptable as your Pretoria business grows.</p></div>
+        <div><h4>Can you design for both small and large format printing?</h4><p>Yes, we specialize in both small format (business cards, flyers) and large format (banners, signage) print design for Pretoria businesses. Our team understands the technical requirements of each format and delivers designs that look great at any size.</p><p>We also advise on material selection, resolution, and finishing options to ensure the best results for every print project.</p></div>
+        <div><h4>How long does a print design project take?</h4><p>Most Pretoria print design projects are completed within 2–7 days, depending on complexity and revisions required. We provide clear timelines and keep you updated throughout the process for complete peace of mind.</p><p>For urgent needs, we offer rush services to ensure your materials are ready for important events or campaigns.</p></div>
+        <div><h4>How many revisions are included?</h4><p>Revision rounds vary by package, but all Pretoria clients receive at least 2–3 rounds to ensure satisfaction. We work collaboratively to refine each design until it meets your expectations and business needs.</p><p>Additional revisions can be arranged for a small fee, providing flexibility and control over the final product.</p></div>
+        <div><h4>Do you design custom print items?</h4><p>Yes, we offer fully custom print design services for unique items such as specialty packaging, event materials, and branded merchandise for Pretoria businesses. Our designers enjoy creative challenges and bring your ideas to life with originality and flair.</p><p>We welcome custom projects and provide expert advice to ensure your print assets stand out in the Pretoria marketplace.</p></div>
+        <div><h4>Can you update my existing print materials?</h4><p>We can refresh or update your current print materials to reflect new branding, messaging, or design trends. Our Pretoria team works efficiently to ensure a seamless transition and maintain brand consistency across all your assets.</p><p>Updating your print materials is a cost-effective way to keep your brand relevant and competitive in Pretoria.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely, providing the same high level of service wherever your business is based.</p><p>No matter your location in Pretoria, WL CreationX is ready to help you elevate your print design and marketing presence.</p></div>
+      </section>
     </div>
   );
 };

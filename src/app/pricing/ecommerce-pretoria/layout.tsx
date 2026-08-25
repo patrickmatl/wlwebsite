@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'E-commerce Solutions | WL Creationx',
-  description: 'Professional e-commerce development services for your online business. Custom solutions, integrations, and more.',
+  title: 'E-commerce Website Pricing Pretoria',
+  description: 'E-commerce website development pricing from WL CreationX in Pretoria. Online store builds, payment integration and product setup with clear package costs.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/ecommerce-pretoria',
+  },
+  openGraph: {
+    title: 'E-commerce Website Pricing Pretoria',
+    description: 'E-commerce website development pricing from WL CreationX in Pretoria. Online store builds, payment integration and product setup with clear package costs.',
+    url: 'https://wlcreationx.co.za/pricing/ecommerce-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

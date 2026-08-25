@@ -65,10 +65,13 @@ export default function LogoCarousel() {
             </div>
           </div>
         ))}
-        {/* Duplicate set for infinite scroll */}
+        {/* Duplicate set for infinite scroll — purely decorative, so it is
+            hidden from assistive tech (a legitimate aria-hidden use: it
+            duplicates content already exposed above, not unique content). */}
         {LOGOS.map((logo, index) => (
           <div
             key={`second-${index}`}
+            aria-hidden="true"
             className="relative w-32 h-32 mx-6 flex-shrink-0"
           >
             <div className="relative w-full h-full">

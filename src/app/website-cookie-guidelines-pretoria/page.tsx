@@ -1,8 +1,20 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | WL CreationX',
-  description: 'Learn about how WL CreationX uses cookies and similar technologies on our website.',
+  title: 'Cookie Policy',
+  description: 'How WL CreationX uses cookies and similar technologies on wlcreationx.co.za, the types of cookies we set, and how you can manage or disable them.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/website-cookie-guidelines-pretoria',
+  },
+  openGraph: {
+    title: 'Cookie Policy',
+    description: 'How WL CreationX uses cookies and similar technologies on wlcreationx.co.za, the types of cookies we set, and how you can manage or disable them.',
+    url: 'https://wlcreationx.co.za/website-cookie-guidelines-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 export default function CookiePolicy() {
@@ -142,8 +154,8 @@ Changes will be effective when posted on the website.`
 • Registration: K2016514024
 • Contact: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3769
-• Address: 210 Albertus St, La Montagne, Pretoria, 0183`
+• Phone: +27 62 369 3789
+• Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181`
                 }
               ].map((section) => (
                 <div key={section.title} className="space-y-4">

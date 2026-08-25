@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next';
+import fs from 'fs';
+import path from 'path';
 import { regions } from '@/data/regions';
 import { services } from '@/data/services';
 
@@ -31,7 +33,6 @@ const CORE_ROUTES: Array<[string, number, MetadataRoute.Sitemap[number]['changeF
   ['/get-in-touch-pretoria', 0.8, 'monthly'],
   ['/service-areas-pretoria', 0.75, 'weekly'],
   ['/creative-industry-blog-pretoria', 0.75, 'weekly'],
-  ['/annual-report-design-and-print-pretoria', 0.7, 'monthly'],
   ['/join-our-team-pretoria', 0.5, 'monthly'],
   ['/creative-industry-blog-pretoria/the-history-of-graphic-design-in-south-africa', 0.6, 'monthly'],
   ['/legal-terms-pretoria', 0.3, 'yearly'],
@@ -63,22 +64,33 @@ const PRICING_SLUGS = [
   'copywriting-services-pretoria-johannesburg',
   'copy-editing-services-pretoria-johannesburg',
   'transcription-services-pretoria-johannesburg',
+  // NOTE: the old thin duplicates (event-branding-pretoria,
+  // infographic-design-pretoria, interactive-digital-publication(s)-...,
+  // internal-communications-pretoria, investor-relations-pretoria,
+  // presentation-design-pretoria, sustainability-esg-reports-pretoria and the
+  // top-level annual-report page) now 301-redirect to the canonical versions
+  // below, so they must NOT appear in the sitemap.
   'event-branding-design-pretoria',
-  'event-branding-pretoria',
-  'infographic-design-pretoria',
   'infographic-data-visualization-design-pretoria',
-  'interactive-digital-publications-pretoria',
-  'interactive-digital-publication-design-pretoria',
   'interactive-digital-publication-interactive-pdf-design-pretoria',
-  'internal-communications-pretoria',
   'internal-communications-design-pretoria',
-  'investor-relations-pretoria',
   'investor-relations-material-design-services-pretoria',
-  'presentation-design-pretoria',
   'presentation-design-services-pretoria',
-  'sustainability-esg-reports-pretoria',
   'sustainability-esg-report-design-services-pretoria',
 ];
+
+/** Blog post slugs read from the MDX content directory, so new posts are
+ *  picked up automatically. */
+function blogSlugs(): string[] {
+  try {
+    return fs
+      .readdirSync(path.join(process.cwd(), 'src/content/blog'))
+      .filter((f) => f.endsWith('.mdx'))
+      .map((f) => f.replace(/\.mdx$/, ''));
+  } catch {
+    return [];
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date().toISOString();
@@ -94,6 +106,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
+    });
+  }
+
+  // Blog posts.
+  for (const slug of blogSlugs()) {
+    routes.push({
+      url: `${BASE_URL}/creative-industry-blog-pretoria/${slug}`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     });
   }
 

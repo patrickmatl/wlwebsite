@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Photography Pretoria | Commercial Photographer | WL CreationX',
+  title: 'Photography Pretoria | Commercial Photographer',
   description:
     'Commercial photography in Pretoria. Product, corporate headshot, event, food and property photography, shot and retouched in-house by WL CreationX. Get a quote.',
   keywords: [
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     siteName: 'WL CreationX',
     locale: 'en_ZA',
     type: 'website',
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'WL CreationX — Graphic Design Company in Pretoria' }],
   },
   robots: {
     index: true,

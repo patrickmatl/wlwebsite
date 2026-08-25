@@ -135,35 +135,6 @@ const GoogleAdsPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Google Ads Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Google Ads Management in Pretoria | WL CreationX</h1>
-        <p>WL CreationX is Pretoria’s trusted Google Ads agency, driving targeted traffic and conversions with expertly managed PPC campaigns for local businesses.</p>
-        <h2>Pretoria’s Leading Google Ads Agency</h2>
-        <p>Our Pretoria-based team creates, manages, and optimizes Google Ads campaigns for maximum ROI. We help Pretoria companies grow with data-driven SEM strategies.</p>
-        <h3>PPC & SEM Services for Pretoria Businesses</h3>
-        <p>From search to display and shopping ads, we deliver measurable results for Pretoria clients using advanced targeting, creative ad copy, and conversion tracking.</p>
-        <h4>Affordable Google Ads Packages in Pretoria</h4>
-        <p>Choose from starter to enterprise packages with transparent pricing and expert support for Pretoria SMEs and corporates.</p>
-        <h5>Why Choose WL CreationX for Google Ads in Pretoria?</h5>
-        <p>Local expertise, certified professionals, and a proven track record. WL CreationX is Pretoria’s go-to partner for Google Ads success.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Google Ads Pretoria */}
-      {/* BEGIN: Visually Hidden Google Ads FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Google Ads in Pretoria</h2>
-        <div><h3>What is Google Ads management?</h3><p>Google Ads management is the process of creating, optimizing, and monitoring paid search campaigns to drive targeted traffic and leads for Pretoria businesses.</p></div>
-        <div><h3>How much does Google Ads management cost in Pretoria?</h3><p>WL CreationX offers Google Ads packages starting from R4,850/month, plus recommended ad spend. Pricing depends on package and campaign complexity.</p></div>
-        <div><h3>What types of Google Ads do you manage?</h3><p>We manage search, display, shopping, and remarketing campaigns for Pretoria businesses across all industries.</p></div>
-        <div><h3>Is Google Ads effective for Pretoria businesses?</h3><p>Yes! Google Ads delivers instant visibility and qualified leads for Pretoria companies looking to grow online.</p></div>
-        <div><h3>Do you provide landing page design?</h3><p>Yes, we design high-converting landing pages tailored to your Pretoria campaigns for better results.</p></div>
-        <div><h3>Can you track conversions?</h3><p>Absolutely. We set up conversion tracking and provide detailed monthly reports for Pretoria clients.</p></div>
-        <div><h3>Do you manage shopping campaigns?</h3><p>Yes, we set up and optimize Google Shopping campaigns for Pretoria e-commerce businesses.</p></div>
-        <div><h3>How soon will I see results?</h3><p>Most Pretoria clients see initial results within the first month, with ongoing optimization improving performance over time.</p></div>
-        <div><h3>Do you offer support?</h3><p>All packages include email or priority support for Pretoria clients, plus regular strategy calls or meetings.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and nearby regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
-      </section>
-      {/* END: Visually Hidden Google Ads FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Google Ads Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -371,6 +342,34 @@ const GoogleAdsPage = () => {
           </p>
         </div>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Google Ads Management in Pretoria | WL CreationX</h2>
+        <p>WL CreationX is Pretoria’s trusted Google Ads agency, driving targeted traffic and conversions with expertly managed PPC campaigns for local businesses.</p>
+        <h3>Google Ads Agency in Pretoria</h3>
+        <p>Our Pretoria-based team creates, manages, and optimizes Google Ads campaigns for maximum ROI. We help Pretoria companies grow with data-driven SEM strategies.</p>
+        <h4>PPC & SEM Services for Pretoria Businesses</h4>
+        <p>From search to display and shopping ads, we deliver measurable results for Pretoria clients using advanced targeting, creative ad copy, and conversion tracking.</p>
+        <h5>Affordable Google Ads Packages in Pretoria</h5>
+        <p>Choose from starter to enterprise packages with transparent pricing and expert support for Pretoria SMEs and corporates.</p>
+        <h6>Why Choose WL CreationX for Google Ads in Pretoria?</h6>
+        <p>Local expertise, hands-on campaign management, and transparent monthly reporting. WL CreationX partners with Pretoria businesses to get the most from their Google Ads budgets.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Google Ads in Pretoria</h3>
+        <div><h4>What is Google Ads management?</h4><p>Google Ads management is the process of creating, optimizing, and monitoring paid search campaigns to drive targeted traffic and leads for Pretoria businesses.</p></div>
+        <div><h4>How much does Google Ads management cost in Pretoria?</h4><p>WL CreationX offers Google Ads packages starting from R4,850/month, plus recommended ad spend. Pricing depends on package and campaign complexity.</p></div>
+        <div><h4>What types of Google Ads do you manage?</h4><p>We manage search, display, shopping, and remarketing campaigns for Pretoria businesses across all industries.</p></div>
+        <div><h4>Is Google Ads effective for Pretoria businesses?</h4><p>Yes! Google Ads delivers instant visibility and qualified leads for Pretoria companies looking to grow online.</p></div>
+        <div><h4>Do you provide landing page design?</h4><p>Yes, we design high-converting landing pages tailored to your Pretoria campaigns for better results.</p></div>
+        <div><h4>Can you track conversions?</h4><p>Absolutely. We set up conversion tracking and provide detailed monthly reports for Pretoria clients.</p></div>
+        <div><h4>Do you manage shopping campaigns?</h4><p>Yes, we set up and optimize Google Shopping campaigns for Pretoria e-commerce businesses.</p></div>
+        <div><h4>How soon will I see results?</h4><p>Most Pretoria clients see initial results within the first month, with ongoing optimization improving performance over time.</p></div>
+        <div><h4>Do you offer support?</h4><p>All packages include email or priority support for Pretoria clients, plus regular strategy calls or meetings.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and nearby regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
+      </section>
     </div>
   );
 };

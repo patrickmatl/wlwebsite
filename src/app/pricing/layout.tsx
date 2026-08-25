@@ -1,10 +1,24 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { sharedViewport } from '@/app/shared-metadata';
 
-// Base metadata that will be used across all pricing pages
+export const viewport = sharedViewport;
+
 export const metadata: Metadata = {
-  title: 'Services & Pricing | WL Creationx',
-  description: 'Explore our range of digital services and transparent pricing options.',
+  title: 'Pricing & Packages',
+  description: 'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing',
+  },
+  openGraph: {
+    title: 'Pricing & Packages',
+    description: 'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
+    url: 'https://wlcreationx.co.za/pricing',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,
@@ -18,7 +32,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Simple layout component without params handling
 export default function PricingLayout({
   children,
 }: {

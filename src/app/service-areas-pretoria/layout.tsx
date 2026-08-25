@@ -5,22 +5,13 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Locations | WL Creationx',
-  description: 'Find WL Creationx offices and service areas.',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  title: {
+    default: 'Service Areas | WL CreationX',
+    template: '%s',
   },
 };
 
-export default function LocationsLayout({
+export default function ServiceAreasLayout({
   children,
 }: {
   children: React.ReactNode;

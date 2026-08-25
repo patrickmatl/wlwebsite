@@ -1,8 +1,20 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | WL CreationX',
-  description: 'Terms and conditions for using WL CreationX services. Read our comprehensive terms of service.',
+  title: 'Terms of Service',
+  description: 'The terms and conditions that govern the use of WL CreationX design, web and marketing services, covering quotes, payment, revisions and delivery.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/legal-terms-pretoria',
+  },
+  openGraph: {
+    title: 'Terms of Service',
+    description: 'The terms and conditions that govern the use of WL CreationX design, web and marketing services, covering quotes, payment, revisions and delivery.',
+    url: 'https://wlcreationx.co.za/legal-terms-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 export default function TermsOfService() {
@@ -157,8 +169,8 @@ Upon termination:
 • Registration: K2016514024
 • Contact: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3769
-• Address: 210 Albertus St, La Montagne, Pretoria, 0183`
+• Phone: +27 62 369 3789
+• Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181`
                 }
               ].map((section) => (
                 <div key={section.title} className="space-y-4">

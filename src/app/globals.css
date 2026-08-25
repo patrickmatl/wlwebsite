@@ -1,7 +1,3 @@
-/* Import critical CSS first */
-@import '../styles/critical.css';
-
-/* Then import Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,7 +89,6 @@
 
 /* Base styles */
 html, body {
-  cursor: none !important;
   background-color: black;
   color: white;
   overflow-x: hidden;
@@ -105,9 +100,18 @@ html, body {
   font-synthesis: none;
 }
 
+/* Hide the OS cursor only while the custom cursor is actually mounted
+   (CustomCursor adds/removes .custom-cursor-active on <html>). This way the
+   native cursor is never lost if the custom cursor fails to load. */
+html.custom-cursor-active,
+html.custom-cursor-active body {
+  cursor: none !important;
+}
+
 /* Show default cursor on devices without a fine pointer */
 @media (pointer: coarse) {
-  html, body {
+  html.custom-cursor-active,
+  html.custom-cursor-active body {
     cursor: auto !important;
   }
 }

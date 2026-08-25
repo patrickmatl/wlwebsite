@@ -5,8 +5,8 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | WL Creationx',
-  description: 'Learn about how WL Creationx uses cookies and similar technologies to improve your browsing experience.',
+  title: 'Cookie Policy',
+  description: 'How WL CreationX uses cookies and similar technologies on wlcreationx.co.za, the types of cookies we set, and how you can manage or disable them.',
   robots: {
     index: true,
     follow: true,

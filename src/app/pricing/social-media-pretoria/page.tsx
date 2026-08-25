@@ -264,40 +264,6 @@ const SocialMediaPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Social Media Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Pretoria Social Media Services | WL CreationX</h1>
-        <p>WL CreationX delivers expert social media services in Pretoria, empowering businesses to build strong online communities and drive engagement across all major platforms. Our Pretoria social media team crafts tailored strategies that amplify your brand voice and increase your digital reach.</p>
-        <p>From profile setup to ongoing content creation, we help Pretoria businesses stand out with creative, consistent, and impactful social media campaigns.</p>
-        <h2>Leading Social Media Agency in Pretoria</h2>
-        <p>As a top social media agency in Pretoria, we combine data-driven insights with creative storytelling to grow your audience and foster brand loyalty. Our Pretoria specialists stay ahead of trends, ensuring your social presence is fresh, relevant, and effective.</p>
-        <p>We provide end-to-end social media management, from strategy and design to analytics and optimization, for businesses of all sizes in Pretoria.</p>
-        <h3>Custom Social Media Solutions for Pretoria Businesses</h3>
-        <p>Our Pretoria social media packages are designed for startups, SMEs, and large enterprises, offering everything from post and story templates to full monthly management. We tailor every campaign to your goals and target audience.</p>
-        <p>Whether you need brand awareness, lead generation, or community engagement, our Pretoria team delivers measurable results on platforms like Facebook, Instagram, LinkedIn, and more.</p>
-        <h4>Affordable Social Media Packages in Pretoria</h4>
-        <p>Choose from a range of social media packages with transparent pricing and no hidden costs. Our Pretoria clients benefit from flexible options, monthly reports, and ongoing support for continuous growth.</p>
-        <p>We make professional social media management accessible to all Pretoria businesses, regardless of size or industry.</p>
-        <h5>Why Choose WL CreationX for Social Media in Pretoria?</h5>
-        <p>WL CreationX is trusted by Pretoria businesses for our creative approach, technical expertise, and dedication to client success. Our social media team has a proven record of increasing engagement, followers, and brand awareness.</p>
-        <p>We focus on authentic storytelling, ethical growth, and transparent communication with all our Pretoria clients.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Social Media Pretoria */}
-      {/* BEGIN: Visually Hidden Social Media FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Social Media in Pretoria</h2>
-        <div><h3>Which social media platforms do you manage?</h3><p>We manage Facebook, Instagram, LinkedIn, Twitter, and more for Pretoria businesses, ensuring consistent branding and engagement across all channels.</p><p>Our team stays updated on the latest platform features and trends to maximize your results.</p></div>
-        <div><h3>How do your social media packages work?</h3><p>Our Pretoria social media packages include profile setup, content creation, post scheduling, engagement monitoring, and monthly reporting.</p><p>Choose from one-time setup or ongoing monthly management, depending on your needs.</p></div>
-        <div><h3>Can you create custom content for my brand?</h3><p>Yes, we design custom posts, stories, and templates that reflect your Pretoria brand’s identity and messaging.</p><p>Our creative team ensures every piece of content is on-brand and optimized for engagement.</p></div>
-        <div><h3>How do you measure social media success?</h3><p>We track engagement, follower growth, reach, and conversions for Pretoria clients using advanced analytics tools.</p><p>Monthly reports provide insights into performance and recommendations for improvement.</p></div>
-        <div><h3>Do you offer social media advertising?</h3><p>Yes, we provide social media advertising services for Pretoria businesses, including campaign setup, targeting, and optimization.</p><p>Our team helps you reach new audiences and achieve your marketing goals.</p></div>
-        <div><h3>Can you train my team on social media best practices?</h3><p>Absolutely! We offer training and consultation for Pretoria businesses, empowering your team to manage social media effectively.</p><p>Workshops and ongoing support are available on request.</p></div>
-        <div><h3>Is social media management suitable for small businesses?</h3><p>Yes, our Pretoria social media services are ideal for small businesses looking to grow their presence and connect with local customers.</p><p>We offer affordable packages and personalized support for every stage of growth.</p></div>
-        <div><h3>How soon can I expect to see results?</h3><p>Most Pretoria clients notice increased engagement and follower growth within the first few months, depending on your goals and activity level.</p><p>Consistent posting and ongoing optimization are key to long-term success.</p></div>
-        <div><h3>Do you offer content calendars and planning?</h3><p>Yes, we provide detailed content calendars for Pretoria clients, ensuring your social media is organized, strategic, and effective.</p><p>Our planning process keeps your content consistent and aligned with your business goals.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p><p>Remote consultations and digital delivery are available for your convenience.</p></div>
-      </section>
-      {/* END: Visually Hidden Social Media FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Social Media Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -565,6 +531,39 @@ const SocialMediaPage = () => {
           Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria creative agency</Link> on the homepage.
         </p>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Pretoria Social Media Services | WL CreationX</h2>
+        <p>WL CreationX delivers expert social media services in Pretoria, empowering businesses to build strong online communities and drive engagement across all major platforms. Our Pretoria social media team crafts tailored strategies that amplify your brand voice and increase your digital reach.</p>
+        <p>From profile setup to ongoing content creation, we help Pretoria businesses stand out with creative, consistent, and impactful social media campaigns.</p>
+        <h3>Leading Social Media Agency in Pretoria</h3>
+        <p>As a top social media agency in Pretoria, we combine data-driven insights with creative storytelling to grow your audience and foster brand loyalty. Our Pretoria specialists stay ahead of trends, ensuring your social presence is fresh, relevant, and effective.</p>
+        <p>We provide end-to-end social media management, from strategy and design to analytics and optimization, for businesses of all sizes in Pretoria.</p>
+        <h4>Custom Social Media Solutions for Pretoria Businesses</h4>
+        <p>Our Pretoria social media packages are designed for startups, SMEs, and large enterprises, offering everything from post and story templates to full monthly management. We tailor every campaign to your goals and target audience.</p>
+        <p>Whether you need brand awareness, lead generation, or community engagement, our Pretoria team delivers measurable results on platforms like Facebook, Instagram, LinkedIn, and more.</p>
+        <h5>Affordable Social Media Packages in Pretoria</h5>
+        <p>Choose from a range of social media packages with transparent pricing and no hidden costs. Our Pretoria clients benefit from flexible options, monthly reports, and ongoing support for continuous growth.</p>
+        <p>We make professional social media management accessible to all Pretoria businesses, regardless of size or industry.</p>
+        <h6>Why Choose WL CreationX for Social Media in Pretoria?</h6>
+        <p>WL CreationX is trusted by Pretoria businesses for our creative approach, technical expertise, and dedication to client success. Our social media team has a proven record of increasing engagement, followers, and brand awareness.</p>
+        <p>We focus on authentic storytelling, ethical growth, and transparent communication with all our Pretoria clients.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Social Media in Pretoria</h3>
+        <div><h4>Which social media platforms do you manage?</h4><p>We manage Facebook, Instagram, LinkedIn, Twitter, and more for Pretoria businesses, ensuring consistent branding and engagement across all channels.</p><p>Our team stays updated on the latest platform features and trends to maximize your results.</p></div>
+        <div><h4>How do your social media packages work?</h4><p>Our Pretoria social media packages include profile setup, content creation, post scheduling, engagement monitoring, and monthly reporting.</p><p>Choose from one-time setup or ongoing monthly management, depending on your needs.</p></div>
+        <div><h4>Can you create custom content for my brand?</h4><p>Yes, we design custom posts, stories, and templates that reflect your Pretoria brand’s identity and messaging.</p><p>Our creative team ensures every piece of content is on-brand and optimized for engagement.</p></div>
+        <div><h4>How do you measure social media success?</h4><p>We track engagement, follower growth, reach, and conversions for Pretoria clients using advanced analytics tools.</p><p>Monthly reports provide insights into performance and recommendations for improvement.</p></div>
+        <div><h4>Do you offer social media advertising?</h4><p>Yes, we provide social media advertising services for Pretoria businesses, including campaign setup, targeting, and optimization.</p><p>Our team helps you reach new audiences and achieve your marketing goals.</p></div>
+        <div><h4>Can you train my team on social media best practices?</h4><p>Absolutely! We offer training and consultation for Pretoria businesses, empowering your team to manage social media effectively.</p><p>Workshops and ongoing support are available on request.</p></div>
+        <div><h4>Is social media management suitable for small businesses?</h4><p>Yes, our Pretoria social media services are ideal for small businesses looking to grow their presence and connect with local customers.</p><p>We offer affordable packages and personalized support for every stage of growth.</p></div>
+        <div><h4>How soon can I expect to see results?</h4><p>Most Pretoria clients notice increased engagement and follower growth within the first few months, depending on your goals and activity level.</p><p>Consistent posting and ongoing optimization are key to long-term success.</p></div>
+        <div><h4>Do you offer content calendars and planning?</h4><p>Yes, we provide detailed content calendars for Pretoria clients, ensuring your social media is organized, strategic, and effective.</p><p>Our planning process keeps your content consistent and aligned with your business goals.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p><p>Remote consultations and digital delivery are available for your convenience.</p></div>
+      </section>
     </div>
   );
 };

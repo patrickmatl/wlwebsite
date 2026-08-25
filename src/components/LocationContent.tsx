@@ -8,6 +8,16 @@ interface LocationContentProps {
   location: Location;
 }
 
+/** Map internal service slugs to real routes on this site. */
+const SERVICE_ROUTES: Record<string, string> = {
+  'graphic-design': '/pricing/graphic-design-pretoria',
+  'web-design': '/pricing/website-design-pretoria',
+  branding: '/branding-solutions-pretoria',
+  'packaging-design': '/pricing/packaging-design-pretoria',
+  'marketing-materials': '/pricing/marketing-materials-pretoria',
+  'digital-marketing': '/digital-marketing-services-pretoria',
+};
+
 export default function LocationContent({ location }: LocationContentProps) {
   if (!location.content) return null;
 
@@ -18,57 +28,71 @@ export default function LocationContent({ location }: LocationContentProps) {
     services,
     expertise,
     industries,
-    testimonials,
     faqs,
     contact
   } = location.content;
 
+  const isHomeCity = location.slug === 'pretoria';
+
+  const heroHeading = location.title || `Design Services for ${location.city} Businesses`;
+  const rawServicesHeading = h2.services || `Design Services for ${location.city} Businesses`;
+  // Avoid repeating the hero heading verbatim in the services section.
+  const servicesHeading =
+    rawServicesHeading === heroHeading
+      ? `Our Core Services for ${location.city} Businesses`
+      : rawServicesHeading;
+
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-black to-gray-900 text-white py-20">
+      <section className="relative bg-gradient-to-b from-black to-zinc-900 text-white py-20 rounded-2xl border border-[#FFD700]/20">
         <div className="container mx-auto text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            {location.title || `${location.content?.services?.mainService} in ${location.city}`}
-          </h1>
-          <h2 className="text-2xl md:text-3xl text-gray-300 mb-8">
-            {location.subtitle || `Professional ${location.content?.services?.mainService} Company in ${location.city}`}
+          <h2 className="font-syne text-4xl md:text-5xl font-bold mb-6">
+            {heroHeading}
           </h2>
-          <p className="text-lg max-w-3xl mx-auto">{intro}</p>
+          {location.subtitle && (
+            <p className="text-xl md:text-2xl text-[#FFD700] mb-8">{location.subtitle}</p>
+          )}
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto">{intro}</p>
         </div>
       </section>
 
-      {/* About Area */}
+      {/* About */}
       {aboutArea && (
-        <section className="bg-white py-16">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-8 text-center">
-              {h2.about || `Leading ${location.content?.services?.mainService} Agency in ${location.city}`}
+            <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              {h2.about || 'About WL CreationX'}
             </h2>
-            <div className="prose max-w-none">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Why Choose Us</h3>
-                  <div dangerouslySetInnerHTML={{ __html: aboutArea.content }} />
-                  <div className="mt-6">
-                    <h4 className="text-xl font-bold mb-3">Our Expertise</h4>
-                    <ul className="list-disc pl-5 space-y-2">
-                      {aboutArea.keyPoints.map((point: string, index: number) => (
-                        <li key={index}>{point}</li>
-                      ))}
-                    </ul>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                <h3 className="font-syne text-2xl font-bold text-white mb-4">How We Work</h3>
+                <div className="space-y-4 text-gray-300">
+                  {aboutArea.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph.trim()}</p>
+                  ))}
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Benefits</h3>
-                  <div className="space-y-4">
-                    {aboutArea.benefits.map((benefit: { title: string; description: string }, index: number) => (
-                      <div key={index}>
-                        <h4 className="text-xl font-bold mb-2">{benefit.title}</h4>
-                        <p>{benefit.description}</p>
-                      </div>
+                <div className="mt-6">
+                  <h4 className="font-syne text-xl font-bold text-white mb-3">At a Glance</h4>
+                  <ul className="space-y-2 text-gray-300">
+                    {aboutArea.keyPoints.map((point: string, index: number) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-[#FFD700] mr-2">•</span>
+                        <span>{point}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                <h3 className="font-syne text-2xl font-bold text-white mb-4">Why Clients Stay</h3>
+                <div className="space-y-6">
+                  {aboutArea.benefits.map((benefit: { title: string; description: string }, index: number) => (
+                    <div key={index}>
+                      <h4 className="font-syne text-xl font-bold text-[#FFD700] mb-2">{benefit.title}</h4>
+                      <p className="text-gray-300">{benefit.description}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -78,29 +102,32 @@ export default function LocationContent({ location }: LocationContentProps) {
 
       {/* Services */}
       {services && (
-        <section className="bg-gray-50 py-16">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-8 text-center">
-              {h2.services || `Our ${location.content?.services?.mainService} Services in ${location.city}`}
+            <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              {servicesHeading}
             </h2>
-            <p className="text-xl text-center mb-12">{services.intro}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <p className="text-xl text-gray-300 text-center mb-12">{services.intro}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {services.list.map((service: { h3: string; content: string; features?: string[]; slug?: string }, index: number) => (
-                <div key={index} className="bg-white p-8 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-bold mb-4">{service.h3}</h3>
-                  <div dangerouslySetInnerHTML={{ __html: service.content }} />
-                  <h4 className="text-lg font-semibold mb-3">Key Features:</h4>
-                  <ul className="list-disc pl-5 mb-6">
+                <div key={index} className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                  <h3 className="font-syne text-2xl font-bold text-white mb-4">{service.h3}</h3>
+                  <p className="text-gray-300 mb-6">{service.content}</p>
+                  <h4 className="font-syne text-lg font-semibold text-[#FFD700] mb-3">What&apos;s Included</h4>
+                  <ul className="space-y-2 mb-6 text-gray-300">
                     {service.features?.map((feature: string, idx: number) => (
-                      <li key={idx}>{feature}</li>
+                      <li key={idx} className="flex items-start">
+                        <span className="text-[#FFD700] mr-2">•</span>
+                        <span>{feature}</span>
+                      </li>
                     ))}
                   </ul>
-                  {service.slug && (
+                  {service.slug && SERVICE_ROUTES[service.slug] && (
                     <Link
-                      href={`/services/${service.slug}`}
-                      className="inline-block bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700"
+                      href={SERVICE_ROUTES[service.slug]}
+                      className="inline-block bg-[#FFD700] text-black py-2 px-6 rounded-lg font-bold hover:bg-[#FFD700]/80 transition-colors"
                     >
-                      Learn More
+                      View Pricing & Details
                     </Link>
                   )}
                 </div>
@@ -112,64 +139,35 @@ export default function LocationContent({ location }: LocationContentProps) {
 
       {/* Expertise */}
       {expertise && (
-        <section className="bg-white p-8 rounded-lg">
-          <h2 className="text-3xl font-bold mb-4">{h2.expertise}</h2>
-          <div dangerouslySetInnerHTML={{ __html: expertise.content }} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+          <h2 className="font-syne text-3xl font-bold text-white mb-4">{h2.expertise}</h2>
+          <p className="text-gray-300 mb-8">{expertise.content}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {expertise.areas.map((area: { title: string; description: string }, index: number) => (
-              <div key={index} className="border p-6 rounded-lg bg-white">
-                <h3 className="text-xl font-bold mb-2">{area.title}</h3>
-                <p>{area.description}</p>
+              <div key={index} className="border border-[#FFD700]/20 p-6 rounded-lg bg-black/40">
+                <h3 className="font-syne text-xl font-bold text-[#FFD700] mb-2">{area.title}</h3>
+                <p className="text-gray-300">{area.description}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-{industries && (
-  <section className="bg-gray-50 py-16">
-    <div className="container mx-auto px-4">
-      <h2 className="text-4xl font-bold mb-8 text-center">
-        {h2.industries || `Industries We Serve in ${location.city}`}
-      </h2>
-      <div dangerouslySetInnerHTML={{ __html: industries.content }} />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {industries.sectors.map((sector: string, index: number) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <h3 className="text-xl font-bold mb-2">{sector}</h3>
-            {industries.descriptions?.[index] && (
-              <p className="text-gray-600">{industries.descriptions[index].description}</p>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
-      {/* Client Testimonials */}
-      {testimonials && testimonials.length > 0 && (
-        <section className="bg-white py-16">
+      {/* Industries */}
+      {industries && (
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-8 text-center">
-              {h2.testimonials || `What Our ${location.city} Clients Say`}
+            <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-4 text-center">
+              {h2.industries || 'Industries We Work With'}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {testimonials.map((testimonial: { client: string; company: string; rating: number; content: string }, index: number) => (
-                <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-lg">
-                  <h3 className="sr-only">Client Testimonial</h3>
-                  <div className="flex items-center mb-6">
-                    <div>
-                      <h4 className="font-bold text-xl">{testimonial.client}</h4>
-                      <p className="text-gray-600">{testimonial.company}</p>
-                    </div>
-                    <div className="ml-auto">
-                      <span className="text-yellow-400 text-xl">{'★'.repeat(testimonial.rating)}</span>
-                    </div>
-                  </div>
-                  <blockquote>
-                    <p className="text-lg italic">{testimonial.content}</p>
-                  </blockquote>
+            <p className="text-gray-300 text-center mb-8">{industries.content}</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {industries.sectors.map((sector: string, index: number) => (
+                <div key={index} className="bg-zinc-900/50 border border-[#FFD700]/20 p-6 rounded-lg text-center">
+                  <h3 className="font-syne text-lg font-bold text-white mb-2">{sector}</h3>
+                  {industries.descriptions?.[index] && (
+                    <p className="text-gray-400 text-sm">{industries.descriptions[index].description}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -179,16 +177,16 @@ export default function LocationContent({ location }: LocationContentProps) {
 
       {/* Frequently Asked Questions */}
       {faqs && faqs.length > 0 && (
-        <section className="bg-gray-50 py-16">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-8 text-center">
-              {h2.faq || `Frequently Asked Questions About ${location.content?.services?.mainService} in ${location.city}`}
+            <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              {h2.faq || 'Frequently Asked Questions'}
             </h2>
             <div className="max-w-3xl mx-auto space-y-6">
               {faqs.map((faq: { question: string; answer: string }, index: number) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-                  <h3 className="text-xl font-bold mb-3">{faq.question}</h3>
-                  <p className="text-gray-700">{faq.answer}</p>
+                <div key={index} className="bg-zinc-900/50 border border-[#FFD700]/20 p-6 rounded-lg">
+                  <h3 className="font-syne text-xl font-bold text-white mb-3">{faq.question}</h3>
+                  <p className="text-gray-300">{faq.answer}</p>
                 </div>
               ))}
             </div>
@@ -196,94 +194,104 @@ export default function LocationContent({ location }: LocationContentProps) {
         </section>
       )}
 
-      {/* Location-Specific Content */}
-      <section className="bg-white py-16">
+      {/* Areas Served */}
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-8 text-center">
-            {`Design Services in ${location.areas?.join(', ') || location.city}`}
+          <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-4 text-center">
+            {`Areas We Serve in ${location.city}`}
           </h2>
+          <p className="text-gray-300 text-center max-w-3xl mx-auto mb-12">
+            {isHomeCity
+              ? 'All work is produced at our Waterkloof Glen studio. We regularly meet clients and deliver projects across these Pretoria areas:'
+              : `All work is produced at our Pretoria studio. From there we deliver projects to businesses across these ${location.city} areas:`}
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Primary Service Areas</h3>
-              <ul className="space-y-2">
+            <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+              <h3 className="font-syne text-2xl font-bold text-white mb-4">Frequently Served Areas</h3>
+              <ul className="space-y-2 text-gray-300">
                 {location.serviceAreas?.primary.map((area: string, index: number) => (
                   <li key={index} className="flex items-center">
-                    <span className="text-blue-600 mr-2">•</span>
+                    <span className="text-[#FFD700] mr-2">•</span>
                     <span>{area}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Extended Coverage</h3>
-              <ul className="space-y-2">
+            <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+              <h3 className="font-syne text-2xl font-bold text-white mb-4">Also Served</h3>
+              <ul className="space-y-2 text-gray-300">
                 {location.serviceAreas?.secondary.map((area: string, index: number) => (
                   <li key={index} className="flex items-center">
-                    <span className="text-blue-600 mr-2">•</span>
+                    <span className="text-[#FFD700] mr-2">•</span>
                     <span>{area}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <div className="mt-12">
-            <h3 className="text-2xl font-bold mb-4">Nearby Areas We Serve</h3>
-            <p className="text-lg mb-4">
-              We also provide our professional design services to businesses in:
-            </p>
-            <div className="flex flex-wrap gap-4">
-              {location.nearbyAreas?.map((area: string, index: number) => (
-                <span key={index} className="bg-gray-100 px-4 py-2 rounded-full">
-                  {area}
-                </span>
-              ))}
+          {location.nearbyAreas && location.nearbyAreas.length > 0 && (
+            <div className="mt-12">
+              <h3 className="font-syne text-2xl font-bold text-white mb-4">Beyond {location.city}</h3>
+              <div className="flex flex-wrap gap-4">
+                {location.nearbyAreas.map((area: string, index: number) => (
+                  <span key={index} className="bg-zinc-900/50 border border-[#FFD700]/20 text-gray-300 px-4 py-2 rounded-full">
+                    {area}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* Local Business Focus */}
-      <section className="bg-gray-50 py-16">
+      {/* How We Serve This City */}
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-8 text-center">
-            {`Local Business Solutions in ${location.city}`}
+          <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+            {isHomeCity ? 'A Pretoria Studio, In Person' : `How We Serve ${location.city} from Pretoria`}
           </h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg mb-8">
-              {`As a leading design agency in ${location.city}, we understand the unique challenges and opportunities of the local market. Our team of experienced designers and developers are committed to helping ${location.city} businesses succeed with professional design solutions.`}
+            <p className="text-lg text-gray-300 mb-8">
+              {isHomeCity
+                ? 'WL CreationX is based in Waterkloof Glen, Pretoria — the one and only office we have. Local clients can meet us face to face for briefings, concept presentations and print handovers at any stage of a project.'
+                : `WL CreationX has one studio, in Waterkloof Glen, Pretoria. We serve ${location.city} businesses from there — on-site meetings are available across Gauteng, and everywhere else we work remotely over video calls and email, with printed work delivered by courier.`}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Local Expertise</h3>
-                <ul className="space-y-4">
+              <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                <h3 className="font-syne text-2xl font-bold text-white mb-4">What You Can Expect</h3>
+                <ul className="space-y-4 text-gray-300">
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>{`Deep understanding of ${location.city}'s business landscape`}</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>The same Pretoria design team on every project, start to finish</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>{`Knowledge of local market trends and consumer preferences`}</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>A written scope and timeline agreed before work begins</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>{`Experience working with diverse ${location.city} businesses`}</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>Staged reviews so you approve concepts before final artwork</span>
                   </li>
                 </ul>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Local Benefits</h3>
-                <ul className="space-y-4">
+              <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                <h3 className="font-syne text-2xl font-bold text-white mb-4">Meetings & Delivery</h3>
+                <ul className="space-y-4 text-gray-300">
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>Face-to-face consultations available</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>
+                      {location.region === 'Gauteng'
+                        ? 'In-person consultations available across Gauteng'
+                        : 'Video-call consultations at times that suit you'}
+                    </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>Quick response times and local support</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>Digital files delivered online; print couriered nationwide</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    <span>Understanding of local competition</span>
+                    <span className="text-[#FFD700] mr-2">✓</span>
+                    <span>One point of contact by phone, email or WhatsApp</span>
                   </li>
                 </ul>
               </div>
@@ -294,47 +302,55 @@ export default function LocationContent({ location }: LocationContentProps) {
 
       {/* Contact Section */}
       {contact && (
-        <section className="bg-white py-16">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center">
-              {h2.contact || `Contact Our ${location.city} Team`}
+            <h2 className="font-syne text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+              {h2.contact || 'Contact WL CreationX'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              <div>
-                <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+              <div className="bg-zinc-900/50 border border-[#FFD700]/20 rounded-xl p-8">
+                <h3 className="font-syne text-2xl font-bold text-white mb-6">Get in Touch</h3>
                 <div className="space-y-4">
                   {contact.phone && (
                     <div>
-                      <h4 className="font-bold text-lg">Phone</h4>
-                      <p className="text-xl">{contact.phone}</p>
+                      <h4 className="font-syne font-bold text-lg text-[#FFD700]">Phone</h4>
+                      <p className="text-xl text-gray-300">
+                        <a href="tel:+27623693789" className="hover:text-[#FFD700] transition-colors">
+                          {contact.phone}
+                        </a>
+                      </p>
                     </div>
                   )}
                   {contact.email && (
                     <div>
-                      <h4 className="font-bold text-lg">Email</h4>
-                      <p className="text-xl">{contact.email}</p>
+                      <h4 className="font-syne font-bold text-lg text-[#FFD700]">Email</h4>
+                      <p className="text-xl text-gray-300">
+                        <a href={`mailto:${contact.email}`} className="hover:text-[#FFD700] transition-colors">
+                          {contact.email}
+                        </a>
+                      </p>
                     </div>
                   )}
                   {contact.address && (
                     <div>
-                      <h4 className="font-bold text-lg">Address</h4>
-                      <p className="text-xl">{contact.address}</p>
+                      <h4 className="font-syne font-bold text-lg text-[#FFD700]">Address</h4>
+                      <p className="text-xl text-gray-300">{contact.address}</p>
                     </div>
                   )}
                   {contact.hours && (
                     <div>
-                      <h4 className="font-bold text-lg">Business Hours</h4>
-                      <p className="text-xl">{contact.hours}</p>
+                      <h4 className="font-syne font-bold text-lg text-[#FFD700]">Business Hours</h4>
+                      <p className="text-xl text-gray-300">{contact.hours}</p>
                     </div>
                   )}
                 </div>
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-6">Take Action</h3>
+                <h3 className="font-syne text-2xl font-bold text-white mb-6">Take Action</h3>
                 <div className="space-y-4">
                   <Link
                     href="/get-in-touch-pretoria"
-                    className="block w-full text-center bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 text-lg font-bold"
+                    className="block w-full text-center bg-[#FFD700] text-black py-4 px-6 rounded-lg hover:bg-[#FFD700]/80 text-lg font-bold transition-colors"
                   >
                     {contact.cta.primary}
                   </Link>
@@ -342,7 +358,7 @@ export default function LocationContent({ location }: LocationContentProps) {
                     <Link
                       key={index}
                       href={action.url}
-                      className="block w-full text-center border-2 border-blue-600 text-blue-600 py-4 px-6 rounded-lg hover:bg-blue-50 text-lg font-bold"
+                      className="block w-full text-center border-2 border-[#FFD700] text-[#FFD700] py-4 px-6 rounded-lg hover:bg-[#FFD700]/10 text-lg font-bold transition-colors"
                     >
                       {action.text}
                     </Link>

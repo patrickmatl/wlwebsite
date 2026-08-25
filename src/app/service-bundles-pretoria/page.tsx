@@ -349,34 +349,6 @@ const PackagesPage = () => {
         </div>
       </div>
 
-      {/* Client Testimonials */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700] text-center">Client Success Stories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-zinc-900 p-8 rounded-lg border border-[#FFD700]/20">
-            <p className="text-gray-300 mb-6 italic">
-              "WL CreationX transformed our brand completely. The attention to detail 
-              and professional service exceeded our expectations."
-            </p>
-            <p className="font-bold">- CEO, Financial Services Firm</p>
-          </div>
-          <div className="bg-zinc-900 p-8 rounded-lg border border-[#FFD700]/20">
-            <p className="text-gray-300 mb-6 italic">
-              "Our e-commerce sales increased by 300% after implementing their 
-              digital marketing strategy. Exceptional results!"
-            </p>
-            <p className="font-bold">- Marketing Director, Retail Brand</p>
-          </div>
-          <div className="bg-zinc-900 p-8 rounded-lg border border-[#FFD700]/20">
-            <p className="text-gray-300 mb-6 italic">
-              "The website they created for us perfectly captures our brand essence 
-              and has significantly improved user engagement."
-            </p>
-            <p className="font-bold">- Founder, Tech Startup</p>
-          </div>
-        </div>
-      </div>
-
       {/* Process Timeline */}
       <div className="max-w-7xl mx-auto mb-20">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700] text-center">Our Process</h2>
@@ -500,22 +472,22 @@ const PackagesPage = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h3 className="text-xl font-bold mb-4 text-[#FFD700]">Why Choose Our Technical Expertise?</h3>
             <p className="text-gray-300 mb-6">
-              With over a decade of experience in the creative industry, our team combines cutting-edge 
-              technical skills with artistic excellence. We stay ahead of industry trends and utilize 
-              the latest tools and technologies to deliver exceptional results for our clients.
+              In business since 2013, we combine technical skill with creative craft.
+              We stay current with industry trends and use the latest tools and
+              technologies to deliver dependable results for our clients.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div>
-                <p className="text-3xl font-bold text-[#FFD700] mb-2">10+</p>
-                <p className="text-sm text-gray-300">Years Experience</p>
+                <p className="text-3xl font-bold text-[#FFD700] mb-2">2013</p>
+                <p className="text-sm text-gray-300">In Business Since</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-[#FFD700] mb-2">200+</p>
-                <p className="text-sm text-gray-300">Projects Completed</p>
+                <p className="text-3xl font-bold text-[#FFD700] mb-2">Full-Service</p>
+                <p className="text-sm text-gray-300">Design, Web & Marketing Studio</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-[#FFD700] mb-2">50+</p>
-                <p className="text-sm text-gray-300">Regular Clients</p>
+                <p className="text-3xl font-bold text-[#FFD700] mb-2">Fixed</p>
+                <p className="text-sm text-gray-300">Upfront Package Pricing</p>
               </div>
             </div>
           </div>
@@ -555,39 +527,6 @@ const PackagesPage = () => {
         </div>
       </div>
 
-      {/* Contact CTA */}
-      <div className="max-w-3xl mx-auto text-center">
-        <p className="text-gray-300 mb-6">
-          Ready to elevate your brand? Contact us for a personalized consultation.
-        </p>
-        <Link href="/get-in-touch-pretoria" className="block">
-          <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
-            Schedule a Consultation
-          </button>
-        </Link>
-      </div>
-
-      {/* Enhanced Contact CTA */}
-      <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-zinc-900 to-black p-12 rounded-lg border border-[#FFD700]/20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#FFD700]">Ready to Transform Your Brand?</h2>
-        <p className="text-gray-300 mb-8 text-lg">
-          Book a free consultation with our experts to discuss your project needs and discover 
-          how we can help you achieve your business goals.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/get-in-touch-pretoria" className="block">
-            <button className="inline-block px-8 py-3 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFA500] transition-colors">
-              Schedule a Consultation
-            </button>
-          </Link>
-          <Link href="/project-showcase-pretoria" className="block">
-            <button className="inline-block px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold rounded-lg hover:bg-[#FFD700] hover:text-black transition-colors">
-              View Our Work
-            </button>
-          </Link>
-        </div>
-      </div>
-
       {/* Pretoria Business Section */}
       <div className="max-w-7xl mx-auto mb-20">
         <div className="bg-gradient-to-r from-zinc-900 to-black p-8 rounded-lg border border-[#FFD700]/20">
@@ -595,22 +534,22 @@ const PackagesPage = () => {
             Pretoria's Premier Graphic Design Studio
           </h2>
           <p className="text-gray-300 mb-6 text-center">
-            Based in the heart of Pretoria, we've been serving local businesses with world-class 
-            design solutions. Our deep understanding of the local market combined with international 
-            design standards makes us the preferred choice for businesses in Pretoria and beyond.
+            Based in Waterkloof Glen, Pretoria, we serve local businesses with professional
+            design solutions. We work on-site across Gauteng and remotely for clients
+            nationwide, all from our single Pretoria studio.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
-              <p className="text-3xl font-bold text-[#FFD700] mb-2">100+</p>
-              <p className="text-sm text-gray-300">Pretoria Businesses Served</p>
+              <p className="text-3xl font-bold text-[#FFD700] mb-2">2013</p>
+              <p className="text-sm text-gray-300">In Business Since</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-[#FFD700] mb-2">10+</p>
-              <p className="text-sm text-gray-300">Years in Pretoria</p>
+              <p className="text-3xl font-bold text-[#FFD700] mb-2">Pretoria</p>
+              <p className="text-sm text-gray-300">Studio, Serving Gauteng & Beyond</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-[#FFD700] mb-2">5★</p>
-              <p className="text-sm text-gray-300">Rated Design Agency</p>
+              <p className="text-3xl font-bold text-[#FFD700] mb-2">Fixed</p>
+              <p className="text-sm text-gray-300">Quotes Before Work Begins</p>
             </div>
           </div>
         </div>
@@ -666,7 +605,7 @@ const PackagesPage = () => {
                   "name": "How much do your graphic design packages cost in Pretoria?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Our packages start from R650 for basic logo design up to R85,000 for comprehensive brand solutions. We offer competitive rates while maintaining professional quality that meets international standards."
+                    "text": "Our bundle deals start from R650 for a basic logo; standalone logo design starts at R2,080. Bundles go up to R29,999 for our Enterprise Brand Package, monthly digital marketing and maintenance plans range from R1,500 to R25,000 per month, and every project gets a fixed quote before work begins."
                   }
                 },
                 {
@@ -707,9 +646,10 @@ const PackagesPage = () => {
               How much do your graphic design packages cost in Pretoria?
             </h3>
             <p className="text-gray-300">
-              Our packages start from R650 for basic logo design up to R85,000 for 
-              comprehensive brand solutions. We offer competitive rates while maintaining 
-              professional quality that meets international standards.
+              Our bundle deals start from R650 for a basic logo; standalone logo design
+              starts at R2,080. Bundles go up to R29,999 for our Enterprise Brand Package,
+              monthly digital marketing and maintenance plans range from R1,500 to R25,000
+              per month, and every project gets a fixed quote before work begins.
             </p>
           </div>
 

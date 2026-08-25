@@ -5,8 +5,20 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Print Design Services | WL Creationx',
-  description: 'Professional print design services for all your business needs. Brochures, business cards, flyers, and more.',
+  title: 'Print Design Pricing Pretoria',
+  description: 'Print design pricing from WL CreationX in Pretoria. Brochures, posters, business cards and print-ready artwork with itemised, transparent package rates.',
+  alternates: {
+    canonical: 'https://wlcreationx.co.za/pricing/print-design-pretoria',
+  },
+  openGraph: {
+    title: 'Print Design Pricing Pretoria',
+    description: 'Print design pricing from WL CreationX in Pretoria. Brochures, posters, business cards and print-ready artwork with itemised, transparent package rates.',
+    url: 'https://wlcreationx.co.za/pricing/print-design-pretoria',
+    siteName: 'WL CreationX',
+    locale: 'en_ZA',
+    type: 'website',
+    images: ['/images/og-image.jpg'],
+  },
   robots: {
     index: true,
     follow: true,

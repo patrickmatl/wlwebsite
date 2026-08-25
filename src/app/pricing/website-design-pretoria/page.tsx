@@ -145,35 +145,6 @@ const WebsiteDesignPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Website Design Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Professional Website Design in Pretoria | WL CreationX</h1>
-        <p>WL CreationX delivers modern, mobile-friendly website design for Pretoria businesses. Our expert team builds high-performance websites tailored to your brand, industry, and Pretoria audience.</p>
-        <h2>Pretoria’s Top Web Design Agency</h2>
-        <p>We specialize in custom web design, WordPress development, and business websites for Pretoria companies of all sizes. From startups to established brands, we create websites that convert visitors into customers.</p>
-        <h3>Affordable Website Packages for Pretoria Businesses</h3>
-        <p>Choose from our range of website packages, including 3-page, 6-page, and 9-page sites, as well as catalog and ecommerce options. All packages include SEO, analytics, and ongoing support for Pretoria clients.</p>
-        <h4>Why Invest in a Pretoria Website?</h4>
-        <p>Stand out in the Pretoria market with a fast, secure, and visually stunning website. Our Pretoria web design services help you attract local customers and grow your business online.</p>
-        <h5>Why Choose WL CreationX for Website Design in Pretoria?</h5>
-        <p>We combine Pretoria market knowledge, creative design, and technical expertise to deliver websites that drive results. Get personal service and fast support from our local team.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Website Design Pretoria */}
-      {/* BEGIN: Visually Hidden Website Design FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Website Design in Pretoria</h2>
-        <div><h3>How much does a website cost in Pretoria?</h3><p>Website design packages at WL CreationX start from R8,980 for a 3-page site and go up to R23,690+ for ecommerce or advanced features. Pricing depends on the number of pages, custom development, and integrations.</p></div>
-        <div><h3>What is included in your website packages?</h3><p>All packages include responsive design, SEO setup, analytics, contact forms, social media integration, and training for Pretoria business owners. Support is included for 3–12 months depending on the package.</p></div>
-        <div><h3>How long does it take to build a website?</h3><p>Most Pretoria website projects take 1–4 weeks, depending on requirements and content readiness. Rush options are available for urgent projects.</p></div>
-        <div><h3>Do you offer custom web development?</h3><p>Yes, we provide custom development for unique features, integrations, or business needs. Our Pretoria team builds solutions tailored to your goals.</p></div>
-        <div><h3>Will my website work on mobile devices?</h3><p>Absolutely. Every site we build is fully responsive and optimized for mobile, tablet, and desktop users in Pretoria and beyond.</p></div>
-        <div><h3>Can I update my website myself?</h3><p>Yes, our websites are built on user-friendly platforms like WordPress. We provide training so Pretoria business owners can easily update content, images, and more.</p></div>
-        <div><h3>Do you offer SEO services?</h3><p>All sites include basic SEO setup. We also offer advanced SEO and digital marketing services to help Pretoria businesses rank higher and attract more customers.</p></div>
-        <div><h3>Do you provide website hosting?</h3><p>We recommend reliable hosting providers for Pretoria businesses and can assist with setup and migration. Hosting is not included by default but can be arranged.</p></div>
-        <div><h3>What makes your web design different?</h3><p>We combine Pretoria market insights, creative design, and technical skill to deliver websites that look great and perform. Our focus is on results and client satisfaction.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Remote and on-site consultations are available.</p></div>
-      </section>
-      {/* END: Visually Hidden Website Design FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Website Design Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -381,6 +352,34 @@ const WebsiteDesignPage = () => {
           Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">Pretoria web design studio</Link> on the homepage.
         </p>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Professional Website Design in Pretoria | WL CreationX</h2>
+        <p>WL CreationX delivers modern, mobile-friendly website design for Pretoria businesses. Our expert team builds high-performance websites tailored to your brand, industry, and Pretoria audience.</p>
+        <h3>Pretoria’s Top Web Design Agency</h3>
+        <p>We specialize in custom web design, WordPress development, and business websites for Pretoria companies of all sizes. From startups to established brands, we create websites that convert visitors into customers.</p>
+        <h4>Affordable Website Packages for Pretoria Businesses</h4>
+        <p>Choose from our range of website packages, including 3-page, 6-page, and 9-page sites, as well as catalog and ecommerce options. All packages include SEO, analytics, and ongoing support for Pretoria clients.</p>
+        <h5>Why Invest in a Pretoria Website?</h5>
+        <p>Stand out in the Pretoria market with a fast, secure, and visually stunning website. Our Pretoria web design services help you attract local customers and grow your business online.</p>
+        <h6>Why Choose WL CreationX for Website Design in Pretoria?</h6>
+        <p>We combine Pretoria market knowledge, creative design, and technical expertise to deliver websites that drive results. Get personal service and fast support from our local team.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Website Design in Pretoria</h3>
+        <div><h4>How much does a website cost in Pretoria?</h4><p>Website design packages at WL CreationX start from R8,980 for a 3-page site and go up to R23,690+ for ecommerce or advanced features. Pricing depends on the number of pages, custom development, and integrations.</p></div>
+        <div><h4>What is included in your website packages?</h4><p>All packages include responsive design, SEO setup, analytics, contact forms, social media integration, and training for Pretoria business owners. Support is included for 3–12 months depending on the package.</p></div>
+        <div><h4>How long does it take to build a website?</h4><p>Most Pretoria website projects take 1–4 weeks, depending on requirements and content readiness. Rush options are available for urgent projects.</p></div>
+        <div><h4>Do you offer custom web development?</h4><p>Yes, we provide custom development for unique features, integrations, or business needs. Our Pretoria team builds solutions tailored to your goals.</p></div>
+        <div><h4>Will my website work on mobile devices?</h4><p>Absolutely. Every site we build is fully responsive and optimized for mobile, tablet, and desktop users in Pretoria and beyond.</p></div>
+        <div><h4>Can I update my website myself?</h4><p>Yes, our websites are built on user-friendly platforms like WordPress. We provide training so Pretoria business owners can easily update content, images, and more.</p></div>
+        <div><h4>Do you offer SEO services?</h4><p>All sites include basic SEO setup. We also offer advanced SEO and digital marketing services to help Pretoria businesses rank higher and attract more customers.</p></div>
+        <div><h4>Do you provide website hosting?</h4><p>We recommend reliable hosting providers for Pretoria businesses and can assist with setup and migration. Hosting is not included by default but can be arranged.</p></div>
+        <div><h4>What makes your web design different?</h4><p>We combine Pretoria market insights, creative design, and technical skill to deliver websites that look great and perform. Our focus is on results and client satisfaction.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Remote and on-site consultations are available.</p></div>
+      </section>
     </div>
   );
 };

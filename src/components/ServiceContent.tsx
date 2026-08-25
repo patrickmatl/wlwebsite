@@ -41,7 +41,7 @@ export default function ServiceContent({ service, locations = [] }: ServiceConte
                 <h3 className="font-bold">{location.city}</h3>
                 <p className="text-sm text-gray-600">{location.region}</p>
                 <Link 
-                  href={`/locations/${location.slug}`}
+                  href={`/service-areas-pretoria/${location.slug}`}
                   className="text-blue-400 hover:text-blue-300"
                 >
                   Learn more about our services in {location.city} →

@@ -9,6 +9,10 @@ export type BlogPost = {
   slug: string
   title: string
   date: string
+  /** ISO 8601 date string for machine-readable use (metadata, JSON-LD) */
+  isoDate: string
+  /** Unix timestamp used for reliable chronological sorting */
+  timestamp: number
   author: string
   excerpt: string
   coverImage: string
@@ -16,8 +20,13 @@ export type BlogPost = {
   content: string
 }
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory)
+export function getPostSlugs(): string[] {
+  if (!fs.existsSync(postsDirectory)) {
+    return []
+  }
+  return fs
+    .readdirSync(postsDirectory)
+    .filter((file) => file.endsWith('.mdx'))
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
@@ -46,6 +55,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       slug: realSlug,
       title: data.title || '',
       date: format(parsedDate, 'MMMM dd, yyyy'),
+      isoDate: parsedDate.toISOString(),
+      timestamp: parsedDate.getTime(),
       author: data.author || 'WL CreationX Team',
       excerpt: data.excerpt || '',
       coverImage: data.coverImage || '/images/blog/default.jpg',
@@ -64,7 +75,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     slugs.map(async (slug) => await getPostBySlug(slug.replace(/\.mdx$/, '')))
   )
   return posts.filter((post): post is BlogPost => post !== null)
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+    .sort((post1, post2) => post2.timestamp - post1.timestamp)
 }
 
 export async function getRandomPosts(count: number = 3): Promise<BlogPost[]> {

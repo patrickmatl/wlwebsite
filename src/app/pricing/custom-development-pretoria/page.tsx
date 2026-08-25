@@ -83,35 +83,6 @@ const CustomDevelopmentPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Custom Development Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Custom Software Development in Pretoria | WL CreationX</h1>
-        <p>WL CreationX offers bespoke software and web application development for Pretoria businesses. We turn your ideas into secure, scalable, and high-performance digital solutions.</p>
-        <h2>Pretoria’s Leading Custom Development Agency</h2>
-        <p>Our Pretoria-based team specializes in web apps, enterprise systems, APIs, and integrations. We help Pretoria companies innovate and grow with tailored technology.</p>
-        <h3>Web & Mobile App Development for Pretoria Businesses</h3>
-        <p>From MVPs to complex platforms, we deliver custom solutions using React, Node.js, AWS, and more. Pretoria clients trust us for quality, speed, and support.</p>
-        <h4>Affordable Custom Development Packages in Pretoria</h4>
-        <p>Choose from flexible packages for startups, SMEs, and enterprises. Transparent pricing and expert guidance for Pretoria businesses of all sizes.</p>
-        <h5>Why Choose WL CreationX for Custom Development in Pretoria?</h5>
-        <p>Local expertise, agile process, and proven results. WL CreationX is Pretoria’s trusted partner for custom software and app development.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Custom Development Pretoria */}
-      {/* BEGIN: Visually Hidden Custom Development FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Custom Development in Pretoria</h2>
-        <div><h3>What is custom software development?</h3><p>Custom software development is the process of designing, building, and deploying solutions tailored to your Pretoria business’s unique needs, workflows, and goals.</p></div>
-        <div><h3>How much does custom development cost in Pretoria?</h3><p>WL CreationX offers custom development packages starting from R18,780. Pricing depends on complexity, features, and integrations required for your Pretoria project.</p></div>
-        <div><h3>What technologies do you use?</h3><p>We use React, Node.js, MongoDB, AWS, and other modern technologies to build scalable, secure solutions for Pretoria businesses.</p></div>
-        <div><h3>Can you integrate with my existing systems?</h3><p>Yes. We specialize in API development and integration, connecting your Pretoria business with CRMs, ERPs, payment gateways, and more.</p></div>
-        <div><h3>How long does a custom project take?</h3><p>Project timelines vary, but most Pretoria custom development projects take 2–12 weeks depending on requirements and scope.</p></div>
-        <div><h3>Do you provide support and maintenance?</h3><p>All packages include 6–12 months of support for Pretoria clients. Ongoing maintenance plans are also available.</p></div>
-        <div><h3>Can you build mobile apps?</h3><p>Yes, we develop cross-platform mobile apps and integrate them with your web systems for Pretoria businesses.</p></div>
-        <div><h3>Is my data secure?</h3><p>Security is a top priority. We follow best practices for authentication, encryption, and data protection for Pretoria clients.</p></div>
-        <div><h3>Do you sign NDAs?</h3><p>Yes, we sign NDAs to protect your ideas and business information throughout the custom development process in Pretoria.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
-      </section>
-      {/* END: Visually Hidden Custom Development FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Custom Development Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -339,6 +310,34 @@ const CustomDevelopmentPage = () => {
           homepage.
         </p>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Custom Software Development in Pretoria | WL CreationX</h2>
+        <p>WL CreationX offers bespoke software and web application development for Pretoria businesses. We turn your ideas into secure, scalable, and high-performance digital solutions.</p>
+        <h3>Pretoria’s Leading Custom Development Agency</h3>
+        <p>Our Pretoria-based team specializes in web apps, enterprise systems, APIs, and integrations. We help Pretoria companies innovate and grow with tailored technology.</p>
+        <h4>Web & Mobile App Development for Pretoria Businesses</h4>
+        <p>From MVPs to complex platforms, we deliver custom solutions using React, Node.js, AWS, and more. Pretoria clients trust us for quality, speed, and support.</p>
+        <h5>Affordable Custom Development Packages in Pretoria</h5>
+        <p>Choose from flexible packages for startups, SMEs, and enterprises. Transparent pricing and expert guidance for Pretoria businesses of all sizes.</p>
+        <h6>Why Choose WL CreationX for Custom Development in Pretoria?</h6>
+        <p>Local expertise, agile process, and proven results. WL CreationX is Pretoria’s trusted partner for custom software and app development.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Custom Development in Pretoria</h3>
+        <div><h4>What is custom software development?</h4><p>Custom software development is the process of designing, building, and deploying solutions tailored to your Pretoria business’s unique needs, workflows, and goals.</p></div>
+        <div><h4>How much does custom development cost in Pretoria?</h4><p>WL CreationX offers custom development packages starting from R18,780. Pricing depends on complexity, features, and integrations required for your Pretoria project.</p></div>
+        <div><h4>What technologies do you use?</h4><p>We use React, Node.js, MongoDB, AWS, and other modern technologies to build scalable, secure solutions for Pretoria businesses.</p></div>
+        <div><h4>Can you integrate with my existing systems?</h4><p>Yes. We specialize in API development and integration, connecting your Pretoria business with CRMs, ERPs, payment gateways, and more.</p></div>
+        <div><h4>How long does a custom project take?</h4><p>Project timelines vary, but most Pretoria custom development projects take 2–12 weeks depending on requirements and scope.</p></div>
+        <div><h4>Do you provide support and maintenance?</h4><p>All packages include 6–12 months of support for Pretoria clients. Ongoing maintenance plans are also available.</p></div>
+        <div><h4>Can you build mobile apps?</h4><p>Yes, we develop cross-platform mobile apps and integrate them with your web systems for Pretoria businesses.</p></div>
+        <div><h4>Is my data secure?</h4><p>Security is a top priority. We follow best practices for authentication, encryption, and data protection for Pretoria clients.</p></div>
+        <div><h4>Do you sign NDAs?</h4><p>Yes, we sign NDAs to protect your ideas and business information throughout the custom development process in Pretoria.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding areas, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
+      </section>
     </div>
   );
 };

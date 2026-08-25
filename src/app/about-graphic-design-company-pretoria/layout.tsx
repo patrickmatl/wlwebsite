@@ -1,11 +1,7 @@
 import React from 'react';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'About Us | WL Creationx',
-  description: 'Learn more about WL Creationx and our digital solutions expertise.',
-};
-
+// Metadata for this route lives in page.tsx (title, description, canonical,
+// Open Graph). Keeping it out of the layout avoids conflicting values.
 export default function AboutLayout({
   children,
 }: {

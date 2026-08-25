@@ -76,35 +76,6 @@ export default function EmailMarketingPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Email Marketing Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Email Marketing Services in Pretoria | WL CreationX</h1>
-        <p>WL CreationX helps Pretoria businesses grow with targeted, high-converting email marketing campaigns, automation, and analytics. Build lasting relationships and boost ROI with our expert team.</p>
-        <h2>Pretoria’s Leading Email Marketing Agency</h2>
-        <p>Our Pretoria specialists design, write, and manage email campaigns that engage your audience and drive results. From newsletters to automation, we handle it all.</p>
-        <h3>Email Campaigns & Automation for Pretoria Businesses</h3>
-        <p>Reach your Pretoria customers with personalized, mobile-friendly emails, advanced segmentation, and data-driven strategies for maximum impact.</p>
-        <h4>Affordable Email Marketing Packages in Pretoria</h4>
-        <p>Choose from flexible monthly packages or once-off campaigns. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
-        <h5>Why Choose WL CreationX for Email Marketing in Pretoria?</h5>
-        <p>Local expertise, creative content, and proven strategies. WL CreationX is Pretoria’s trusted partner for email marketing that delivers real business growth.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Email Marketing Pretoria */}
-      {/* BEGIN: Visually Hidden Email Marketing FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Email Marketing in Pretoria</h2>
-        <div><h3>What is email marketing?</h3><p>Email marketing is the use of targeted emails to promote your Pretoria business, build relationships, and drive sales or engagement.</p></div>
-        <div><h3>How much does email marketing cost in Pretoria?</h3><p>WL CreationX offers email marketing packages starting from R2,850/month. Pricing depends on the number of campaigns, automation, and additional services.</p></div>
-        <div><h3>What types of emails do you create?</h3><p>We create newsletters, promotional campaigns, automated sequences, onboarding emails, and more for Pretoria businesses.</p></div>
-        <div><h3>Is email marketing effective for Pretoria businesses?</h3><p>Yes! Email marketing delivers high ROI and is one of the most effective channels for Pretoria companies to nurture leads and increase repeat business.</p></div>
-        <div><h3>Can you set up automation?</h3><p>Absolutely. We set up automated email workflows for Pretoria clients, including welcome series, abandoned cart, follow-ups, and more.</p></div>
-        <div><h3>Do you provide reporting?</h3><p>Yes, all packages include performance tracking and monthly reports for Pretoria clients, showing opens, clicks, and conversions.</p></div>
-        <div><h3>Can you design custom templates?</h3><p>Yes, we design branded, mobile-responsive email templates tailored to your Pretoria business and audience.</p></div>
-        <div><h3>Do you comply with POPIA?</h3><p>Yes, all our email marketing services for Pretoria businesses are POPIA-compliant and follow best practices for consent and data privacy.</p></div>
-        <div><h3>Do you offer once-off campaigns?</h3><p>Yes, we offer single campaign management and setup for Pretoria businesses that need a one-time email push.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
-      </section>
-      {/* END: Visually Hidden Email Marketing FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Email Marketing Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -282,6 +253,34 @@ export default function EmailMarketingPage() {
           </p>
         </div>
       </div>
+    
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Email Marketing Services in Pretoria | WL CreationX</h2>
+        <p>WL CreationX helps Pretoria businesses grow with targeted, high-converting email marketing campaigns, automation, and analytics. Build lasting relationships and boost ROI with our expert team.</p>
+        <h3>Pretoria’s Leading Email Marketing Agency</h3>
+        <p>Our Pretoria specialists design, write, and manage email campaigns that engage your audience and drive results. From newsletters to automation, we handle it all.</p>
+        <h4>Email Campaigns & Automation for Pretoria Businesses</h4>
+        <p>Reach your Pretoria customers with personalized, mobile-friendly emails, advanced segmentation, and data-driven strategies for maximum impact.</p>
+        <h5>Affordable Email Marketing Packages in Pretoria</h5>
+        <p>Choose from flexible monthly packages or once-off campaigns. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
+        <h6>Why Choose WL CreationX for Email Marketing in Pretoria?</h6>
+        <p>Local expertise, creative content, and proven strategies. WL CreationX is Pretoria’s trusted partner for email marketing that delivers real business growth.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Email Marketing in Pretoria</h3>
+        <div><h4>What is email marketing?</h4><p>Email marketing is the use of targeted emails to promote your Pretoria business, build relationships, and drive sales or engagement.</p></div>
+        <div><h4>How much does email marketing cost in Pretoria?</h4><p>WL CreationX offers email marketing packages starting from R2,850/month. Pricing depends on the number of campaigns, automation, and additional services.</p></div>
+        <div><h4>What types of emails do you create?</h4><p>We create newsletters, promotional campaigns, automated sequences, onboarding emails, and more for Pretoria businesses.</p></div>
+        <div><h4>Is email marketing effective for Pretoria businesses?</h4><p>Yes! Email marketing delivers high ROI and is one of the most effective channels for Pretoria companies to nurture leads and increase repeat business.</p></div>
+        <div><h4>Can you set up automation?</h4><p>Absolutely. We set up automated email workflows for Pretoria clients, including welcome series, abandoned cart, follow-ups, and more.</p></div>
+        <div><h4>Do you provide reporting?</h4><p>Yes, all packages include performance tracking and monthly reports for Pretoria clients, showing opens, clicks, and conversions.</p></div>
+        <div><h4>Can you design custom templates?</h4><p>Yes, we design branded, mobile-responsive email templates tailored to your Pretoria business and audience.</p></div>
+        <div><h4>Do you comply with POPIA?</h4><p>Yes, all our email marketing services for Pretoria businesses are POPIA-compliant and follow best practices for consent and data privacy.</p></div>
+        <div><h4>Do you offer once-off campaigns?</h4><p>Yes, we offer single campaign management and setup for Pretoria businesses that need a one-time email push.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
+      </section>
     </main>
   );
 }

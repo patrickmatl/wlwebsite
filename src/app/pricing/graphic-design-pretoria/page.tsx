@@ -69,7 +69,7 @@ const GraphicDesignPage = () => {
   const additionalServices = [
     {
       name: "Logo Design",
-      price: "From R2,850",
+      price: "From R2,080",
       features: ["3 Concepts", "3 Revisions", "Source Files", "Brand Guidelines"]
     },
     {
@@ -84,7 +84,7 @@ const GraphicDesignPage = () => {
     },
     {
       name: "Packaging Design",
-      price: "From R4,850",
+      price: "From R2,500",
       features: ["3D Mockups", "Print-Ready Files", "Technical Specifications", "Production Support"]
     }
   ];
@@ -118,40 +118,6 @@ const GraphicDesignPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* BEGIN: Visually Hidden SEO Headings H1-H5 for Graphic Design Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h1>Graphic Design Services in Pretoria | WL CreationX</h1>
-        <p>WL CreationX provides professional graphic design for Pretoria businesses—logos, branding, packaging, social media, and more. Our creative team combines artistic vision with technical expertise to deliver designs that elevate your visual identity and set you apart in the Pretoria market.</p>
-        <p>We understand the unique needs of Pretoria businesses and tailor every project to your brand, audience, and marketing goals. From concept to final delivery, our designers ensure your graphics are impactful, memorable, and aligned with your business objectives.</p>
-        <h2>Pretoria’s Leading Graphic Design Agency</h2>
-        <p>Our Pretoria-based designers craft unique, impactful visuals for brands of all sizes. From startups to corporates, we deliver design that gets noticed and drives engagement both online and offline.</p>
-        <p>As Pretoria’s leading graphic design agency, we stay ahead of trends and use the latest tools to provide innovative solutions. We pride ourselves on fast turnaround, open communication, and a collaborative approach that puts your vision first.</p>
-        <h3>Branding & Visual Communication for Pretoria Businesses</h3>
-        <p>We specialize in logos, stationery, marketing materials, and digital graphics tailored to Pretoria audiences for maximum engagement. Our branding services help businesses build recognition, trust, and loyalty in a competitive landscape.</p>
-        <p>Whether you need a full brand identity or a one-off campaign, our Pretoria team ensures every design element works together to tell your story and connect with your customers.</p>
-        <h4>Affordable Graphic Design Packages in Pretoria</h4>
-        <p>Choose from essential to enterprise packages, with transparent pricing and expert support for Pretoria SMEs and established brands. Our packages are designed to provide value at every level, making professional design accessible to all.</p>
-        <p>Each package includes consultation, multiple design concepts, revisions, and source files, so Pretoria businesses receive a comprehensive solution that meets their needs and budget.</p>
-        <h5>Why Choose WL CreationX for Graphic Design in Pretoria?</h5>
-        <p>Local expertise, creative excellence, and a proven portfolio. WL CreationX is Pretoria’s trusted partner for all things design. Our team’s dedication to quality and client satisfaction ensures your business stands out from the crowd.</p>
-        <p>We offer ongoing support, fast delivery, and a collaborative process that makes working with us easy and enjoyable for Pretoria businesses of all sizes.</p>
-      </section>
-      {/* END: Visually Hidden SEO Headings H1-H5 for Graphic Design Pretoria */}
-      {/* BEGIN: Visually Hidden Graphic Design FAQ for Pretoria */}
-      <section style={{position:'absolute',left:'-9999px',top:'auto',width:'1px',height:'1px',overflow:'hidden'}} aria-hidden="true">
-        <h2>Frequently Asked Questions about Graphic Design in Pretoria</h2>
-        <div><h3>What graphic design services do you offer?</h3><p>We offer logo design, branding, packaging, marketing materials, social media graphics, and more for Pretoria businesses. Our services are tailored to your specific goals and industry, ensuring your brand stands out in a crowded marketplace.</p><p>From initial brainstorming to final files, we work closely with Pretoria clients to deliver creative solutions that drive results and support your business growth.</p></div>
-        <div><h3>How much does graphic design cost in Pretoria?</h3><p>WL CreationX offers packages starting from R3,850. Pricing depends on project scope, complexity, and deliverables. We provide transparent quotes and flexible options for Pretoria businesses of all sizes.</p><p>Our goal is to deliver exceptional value and quality, helping Pretoria companies invest confidently in their brand’s visual presence.</p></div>
-        <div><h3>Can you design a logo for my Pretoria business?</h3><p>Absolutely! We create memorable, professional logos tailored to your Pretoria brand identity and audience. Our logo design process includes research, concept development, and multiple revisions to ensure the perfect result.</p><p>Your logo will be delivered in all necessary formats for print and digital use, giving your Pretoria business a strong and versatile visual foundation.</p></div>
-        <div><h3>Do you provide brand guidelines?</h3><p>Yes, all comprehensive packages include detailed brand guidelines for Pretoria clients to ensure consistent visual identity. These guidelines cover logo usage, color palettes, typography, and more.</p><p>Brand guidelines empower Pretoria businesses to maintain a cohesive look and feel across all marketing channels, both now and in the future.</p></div>
-        <div><h3>Can you design for print and digital?</h3><p>Yes, we design for both print (business cards, flyers, packaging) and digital (social media, web graphics) for Pretoria businesses. Our team understands the unique requirements of each medium and ensures your designs look great everywhere.</p><p>We provide print-ready files and digital assets, so Pretoria clients can launch campaigns with confidence and consistency.</p></div>
-        <div><h3>How long does a design project take?</h3><p>Most Pretoria design projects are completed within 3–10 days, depending on complexity and revisions. We provide clear timelines and regular updates, so you always know what to expect.</p><p>For urgent needs, we offer expedited services to help Pretoria businesses meet tight deadlines without sacrificing quality.</p></div>
-        <div><h3>How many revisions are included?</h3><p>Revision rounds vary by package, but all Pretoria clients receive at least 2–3 rounds to ensure satisfaction. We believe in a collaborative process and work with you until the design meets your expectations.</p><p>Additional revisions can be arranged if needed, providing flexibility and peace of mind for Pretoria businesses.</p></div>
-        <div><h3>Do you provide source files?</h3><p>Yes, all final designs include editable source files for Pretoria clients. We use industry-standard formats, making it easy for you to update or repurpose designs in the future.</p><p>Having access to source files gives Pretoria businesses full control over their brand assets and ensures long-term value from every project.</p></div>
-        <div><h3>Can you work with my existing brand?</h3><p>Yes, we can refresh or extend your current Pretoria brand identity to keep it modern and consistent. Our team respects your existing brand equity while introducing creative updates that align with your goals.</p><p>Updating your brand is a cost-effective way for Pretoria businesses to stay relevant and competitive in a dynamic market.</p></div>
-        <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely or in person, providing the same high level of service wherever you are.</p><p>No matter your location in Pretoria, WL CreationX is ready to help you achieve your graphic design goals and elevate your brand presence.</p></div>
-      </section>
-      {/* END: Visually Hidden Graphic Design FAQ for Pretoria */}
       {/* BEGIN: FAQPage Structured Data for Graphic Design Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -172,7 +138,7 @@ const GraphicDesignPage = () => {
               "name": "How much does graphic design cost in Pretoria?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "WL CreationX offers packages starting from R3,850. Pricing depends on project scope, complexity, and deliverables."
+                "text": "Standalone logo design starts from R2,080, and full design packages start from R3,850. Pricing depends on project scope, complexity, and deliverables."
               }
             },
             {
@@ -358,6 +324,39 @@ const GraphicDesignPage = () => {
           </p>
         </div>
       </div>
+
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h2>Graphic Design Services in Pretoria | WL CreationX</h2>
+        <p>WL CreationX provides professional graphic design for Pretoria businesses—logos, branding, packaging, social media, and more. Our creative team combines artistic vision with technical expertise to deliver designs that elevate your visual identity and set you apart in the Pretoria market.</p>
+        <p>We understand the unique needs of Pretoria businesses and tailor every project to your brand, audience, and marketing goals. From concept to final delivery, our designers ensure your graphics are impactful, memorable, and aligned with your business objectives.</p>
+        <h3>Pretoria’s Leading Graphic Design Agency</h3>
+        <p>Our Pretoria-based designers craft unique, impactful visuals for brands of all sizes. From startups to corporates, we deliver design that gets noticed and drives engagement both online and offline.</p>
+        <p>As Pretoria’s leading graphic design agency, we stay ahead of trends and use the latest tools to provide innovative solutions. We pride ourselves on fast turnaround, open communication, and a collaborative approach that puts your vision first.</p>
+        <h4>Branding & Visual Communication for Pretoria Businesses</h4>
+        <p>We specialize in logos, stationery, marketing materials, and digital graphics tailored to Pretoria audiences for maximum engagement. Our branding services help businesses build recognition, trust, and loyalty in a competitive landscape.</p>
+        <p>Whether you need a full brand identity or a one-off campaign, our Pretoria team ensures every design element works together to tell your story and connect with your customers.</p>
+        <h5>Affordable Graphic Design Packages in Pretoria</h5>
+        <p>Choose from essential to enterprise packages, with transparent pricing and expert support for Pretoria SMEs and established brands. Our packages are designed to provide value at every level, making professional design accessible to all.</p>
+        <p>Each package includes consultation, multiple design concepts, revisions, and source files, so Pretoria businesses receive a comprehensive solution that meets their needs and budget.</p>
+        <h6>Why Choose WL CreationX for Graphic Design in Pretoria?</h6>
+        <p>Local expertise, creative excellence, and a proven portfolio. WL CreationX is Pretoria’s trusted partner for all things design. Our team’s dedication to quality and client satisfaction ensures your business stands out from the crowd.</p>
+        <p>We offer ongoing support, fast delivery, and a collaborative process that makes working with us easy and enjoyable for Pretoria businesses of all sizes.</p>
+      </section>
+      {/* Previously hidden off-screen; now visible to every visitor */}
+      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
+        <h3>Frequently Asked Questions about Graphic Design in Pretoria</h3>
+        <div><h4>What graphic design services do you offer?</h4><p>We offer logo design, branding, packaging, marketing materials, social media graphics, and more for Pretoria businesses. Our services are tailored to your specific goals and industry, ensuring your brand stands out in a crowded marketplace.</p><p>From initial brainstorming to final files, we work closely with Pretoria clients to deliver creative solutions that drive results and support your business growth.</p></div>
+        <div><h4>How much does graphic design cost in Pretoria?</h4><p>Standalone logo design starts from R2,080, and full design packages start from R3,850. Pricing depends on project scope, complexity, and deliverables. We provide transparent quotes and flexible options for Pretoria businesses of all sizes.</p><p>Our goal is to deliver exceptional value and quality, helping Pretoria companies invest confidently in their brand’s visual presence.</p></div>
+        <div><h4>Can you design a logo for my Pretoria business?</h4><p>Absolutely! We create memorable, professional logos tailored to your Pretoria brand identity and audience. Our logo design process includes research, concept development, and multiple revisions to ensure the perfect result.</p><p>Your logo will be delivered in all necessary formats for print and digital use, giving your Pretoria business a strong and versatile visual foundation.</p></div>
+        <div><h4>Do you provide brand guidelines?</h4><p>Yes, all comprehensive packages include detailed brand guidelines for Pretoria clients to ensure consistent visual identity. These guidelines cover logo usage, color palettes, typography, and more.</p><p>Brand guidelines empower Pretoria businesses to maintain a cohesive look and feel across all marketing channels, both now and in the future.</p></div>
+        <div><h4>Can you design for print and digital?</h4><p>Yes, we design for both print (business cards, flyers, packaging) and digital (social media, web graphics) for Pretoria businesses. Our team understands the unique requirements of each medium and ensures your designs look great everywhere.</p><p>We provide print-ready files and digital assets, so Pretoria clients can launch campaigns with confidence and consistency.</p></div>
+        <div><h4>How long does a design project take?</h4><p>Most Pretoria design projects are completed within 3–10 days, depending on complexity and revisions. We provide clear timelines and regular updates, so you always know what to expect.</p><p>For urgent needs, we offer expedited services to help Pretoria businesses meet tight deadlines without sacrificing quality.</p></div>
+        <div><h4>How many revisions are included?</h4><p>Revision rounds vary by package, but all Pretoria clients receive at least 2–3 rounds to ensure satisfaction. We believe in a collaborative process and work with you until the design meets your expectations.</p><p>Additional revisions can be arranged if needed, providing flexibility and peace of mind for Pretoria businesses.</p></div>
+        <div><h4>Do you provide source files?</h4><p>Yes, all final designs include editable source files for Pretoria clients. We use industry-standard formats, making it easy for you to update or repurpose designs in the future.</p><p>Having access to source files gives Pretoria businesses full control over their brand assets and ensures long-term value from every project.</p></div>
+        <div><h4>Can you work with my existing brand?</h4><p>Yes, we can refresh or extend your current Pretoria brand identity to keep it modern and consistent. Our team respects your existing brand equity while introducing creative updates that align with your goals.</p><p>Updating your brand is a cost-effective way for Pretoria businesses to stay relevant and competitive in a dynamic market.</p></div>
+        <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely or in person, providing the same high level of service wherever you are.</p><p>No matter your location in Pretoria, WL CreationX is ready to help you achieve your graphic design goals and elevate your brand presence.</p></div>
+      </section>
     </div>
   );
 };

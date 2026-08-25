@@ -22,17 +22,23 @@ export async function generateMetadata(
     metadataBase: new URL('https://wlcreationx.co.za'),
   };
 
+  const pageUrl = `https://wlcreationx.co.za/digital-marketing-services-pretoria/${service.slug}`;
+
   return {
     title: service.metaTitle || `${service.title} | WL CreationX`,
     description: service.metaDescription || service.description,
     metadataBase: new URL('https://wlcreationx.co.za'),
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: service.metaTitle || `${service.title} | WL CreationX`,
       description: service.metaDescription || service.description,
-      url: `https://wlcreationx.co.za/services/${service.slug}`,
+      url: pageUrl,
       siteName: 'WL CreationX',
       locale: 'en_ZA',
       type: 'website',
+      images: ['/images/og-image.jpg'],
     },
   };
 }

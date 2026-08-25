@@ -160,16 +160,16 @@ export default function VideographyServicesPretoria() {
               name: 'WL CreationX',
               image: 'https://wlcreationx.co.za/images/og-image.jpg',
               url: 'https://wlcreationx.co.za',
-              telephone: '+27 62 369 3769',
+              telephone: '+27 62 369 3789',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Chambord Apartments, 210 Albertus St, La Montagne',
+                streetAddress: 'Park Lane West Building, 194 Bancor Ave',
                 addressLocality: 'Pretoria',
                 addressRegion: 'Gauteng',
-                postalCode: '0183',
+                postalCode: '0181',
                 addressCountry: 'ZA',
               },
-              geo: { '@type': 'GeoCoordinates', latitude: -25.7479, longitude: 28.2293 },
+              geo: { '@type': 'GeoCoordinates', latitude: -25.7846, longitude: 28.2905 },
             },
             areaServed: [
               { '@type': 'City', name: 'Pretoria' },
@@ -294,7 +294,7 @@ export default function VideographyServicesPretoria() {
           Where We Film
         </h2>
         <p className="text-neutral-300 leading-relaxed mb-4">
-          We are based in La Montagne, Pretoria, and film across Pretoria East, Pretoria North,
+          We are based in Waterkloof Glen, Pretoria, and film across Pretoria East, Pretoria North,
           Pretoria West, Hatfield, Brooklyn, Menlyn, Lynnwood, Arcadia, Silver Lakes and
           Centurion at no extra travel charge. Shoots in Johannesburg, Sandton and Midrand are
           routine, and we quote travel separately for work elsewhere in South Africa.

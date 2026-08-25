@@ -1,16 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    minimumCacheTTL: 60,
-  },
-  experimental: {
-    optimizeCss: true,
-  },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-};
+/**
+ * DUPLICATE CONFIG — intentionally a re-export.
+ *
+ * Next.js loads next.config.js first, so that file is the single real config.
+ * This file used to hold a SECOND, different config (different image and
+ * compiler settings), which made it ambiguous which settings were active.
+ * It now simply re-exports the real one. Safe to delete.
+ */
+import config from './next.config.js';
 
-export default nextConfig;
+export default config;

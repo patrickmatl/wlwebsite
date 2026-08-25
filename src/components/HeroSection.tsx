@@ -7,6 +7,9 @@ import dynamic from 'next/dynamic';
 import { useAudioPlayback } from './AudioContext';
 import bgVideo from '../../public/videos/hero-bg.mp4';
 
+const LogoCarouselDyn = dynamic(() => import('./LogoCarousel'), { ssr: false, loading: () => null });
+const HeroParticlesDyn = dynamic(() => import('./HeroParticles'), { ssr: false, loading: () => null });
+
 interface HeroSectionProps {
   title?: string;
   subtitle?: string;
@@ -16,12 +19,10 @@ interface HeroSectionProps {
 export default function HeroSection({
   title = "Design",
   subtitle = "Agency",
-  description = "South Africa's leading graphic design agency, delivering innovative visual solutions and creative excellence for businesses nationwide.",
+  description = "A Pretoria graphic design studio crafting brands, websites and campaigns since 2013.",
 }: HeroSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { isPlaying } = useAudioPlayback();
-  const LogoCarouselDyn = dynamic(() => import('./LogoCarousel'), { ssr: false, loading: () => null });
-  const HeroParticlesDyn = dynamic(() => import('./HeroParticles'), { ssr: false, loading: () => null });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -87,15 +88,18 @@ export default function HeroSection({
             className="space-y-1"
           >
             <div className="relative">
-              <h1 className="font-syne font-bold leading-[0.85] tracking-tight">
+              {/* Rendered as <p>, not <h1>: the page's single H1 is the
+                  keyword heading in the page content (e.g. HomeContent).
+                  The old sr-only keyword span in here was hidden text. */}
+              <p className="font-syne font-bold leading-[0.85] tracking-tight">
                 <span className="text-[#FFD700] block text-4xl sm:text-6xl md:text-7xl lg:text-[8.3rem]">
                   {title}
                 </span>
                 <span className="text-white block text-3xl sm:text-5xl md:text-6xl lg:text-[6.8rem] -mt-1 sm:-mt-2">
                   {subtitle}
                 </span>
-                <span className="sr-only"> - WL CreationX - Top Graphic Design Agency in South Africa</span>
-              </h1>
+                
+              </p>
             </div>
             <p className="font-space-grotesk text-base sm:text-lg md:text-xl text-neutral-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto mt-[5vh]">
               {description}

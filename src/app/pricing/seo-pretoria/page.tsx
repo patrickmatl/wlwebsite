@@ -297,8 +297,8 @@ export default function SEOPage() {
       <section className="w-full mx-auto max-w-4xl px-4 py-16 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <p>WL CreationX provides expert SEO services in Pretoria, helping businesses achieve higher search engine rankings and increased organic traffic. Our Pretoria SEO specialists use proven strategies tailored to your industry and target audience.</p>
         <p>From keyword research to technical optimization, we deliver comprehensive SEO solutions that drive real results for Pretoria companies of all sizes.</p>
-        <h2>Leading SEO Agency in Pretoria</h2>
-        <p>As a top-rated SEO agency in Pretoria, we combine data-driven insights with creative content strategies to boost your online visibility. Our team stays updated with the latest search engine algorithms and best practices to keep your website ahead of the competition.</p>
+        <h2>SEO Agency in Pretoria</h2>
+        <p>As a Pretoria SEO agency in business since 2013, we combine data-driven insights with creative content strategies to boost your online visibility. Our team stays updated with the latest search engine algorithms and best practices to keep your website ahead of the competition.</p>
         <p>We work closely with Pretoria businesses to develop custom SEO campaigns that align with your goals and deliver measurable ROI.</p>
         <h3>Custom SEO Solutions for Pretoria Businesses</h3>
         <p>Our SEO packages in Pretoria are designed to meet the unique needs of local businesses, e-commerce stores, and enterprises. We offer on-page, off-page, and technical SEO to ensure your website performs at its best.</p>
@@ -307,7 +307,7 @@ export default function SEOPage() {
         <p>Choose from essential, professional, or enterprise SEO packages, all with transparent pricing and no hidden fees. Our Pretoria clients benefit from flexible options, monthly reporting, and ongoing support.</p>
         <p>We believe in making high-quality SEO accessible to businesses of all sizes throughout Pretoria and beyond.</p>
         <h5>Why Choose WL CreationX for SEO in Pretoria?</h5>
-        <p>WL CreationX is trusted by Pretoria businesses for our results-driven approach, technical expertise, and commitment to client success. Our SEO team has a proven track record of delivering top rankings and increased leads.</p>
+        <p>Pretoria businesses choose WL CreationX for our results-driven approach, technical expertise, and commitment to client success. We focus on sustainable, ethical SEO aimed at improving rankings and generating more leads over time.</p>
         <p>We prioritize long-term growth, ethical SEO practices, and transparent communication with all our Pretoria clients.</p>
       </section>
       
