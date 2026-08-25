@@ -67,7 +67,7 @@ Keep both values for the next step.
 
 | Name | Value |
 |---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://itpmauqewzpxmwsdprmq.supabase.co` |
+| `SUPABASE_URL` | `https://lknoyvycrbfcbvumozew.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **service_role** (secret!) |
 | `GEMINI_API_KEY` | from step 2 |
 | `GEMINI_MODEL` | optional — defaults to `gemini-2.5-pro` |

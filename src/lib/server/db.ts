@@ -13,12 +13,15 @@ let cached: SupabaseClient | null = null;
 export function db(): SupabaseClient {
   if (cached) return cached;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // SUPABASE_URL (no NEXT_PUBLIC_ prefix) so the project URL never ships in the
+  // browser bundle — nothing client-side talks to Supabase any more. The
+  // NEXT_PUBLIC_ name is still accepted as a fallback for older deployments.
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
     throw new Error(
-      'Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
+      'Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
     );
   }
 
@@ -31,7 +34,7 @@ export function db(): SupabaseClient {
 /** True when the quote system has everything it needs to run. */
 export function quoteSystemConfigured(): boolean {
   return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL) &&
       process.env.SUPABASE_SERVICE_ROLE_KEY &&
       process.env.GEMINI_API_KEY,
   );

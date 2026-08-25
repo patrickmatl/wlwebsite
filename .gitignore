@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 PortableGit-2.51.0-64-bit.7z.exe
+
+.vercel
+.env*
+
+.vercel

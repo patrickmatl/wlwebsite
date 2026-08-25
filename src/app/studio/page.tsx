@@ -19,7 +19,7 @@ export default async function StudioPage() {
           <h1 className="font-syne text-2xl font-bold text-[#FFD700] mb-3">Studio</h1>
           <p className="text-neutral-300 text-sm leading-relaxed">
             The quote system isn&apos;t configured yet. Add{' '}
-            <code className="text-[#FFD700]">NEXT_PUBLIC_SUPABASE_URL</code>,{' '}
+            <code className="text-[#FFD700]">SUPABASE_URL</code>,{' '}
             <code className="text-[#FFD700]">SUPABASE_SERVICE_ROLE_KEY</code> and{' '}
             <code className="text-[#FFD700]">GEMINI_API_KEY</code> in Vercel, then run{' '}
             <code className="text-[#FFD700]">supabase/schema.sql</code>. See{' '}
