@@ -16,6 +16,16 @@ export default function BreadcrumbJsonLd() {
   // No breadcrumb schema needed on the homepage.
   if (segments.length === 0) return null;
 
+  // Only real routes may carry an `item` URL — intermediate path segments that
+  // are not pages themselves (e.g. the bare city in /pretoria/graphic-design)
+  // must be name-only ListItems, otherwise the schema points crawlers at 404s.
+  const LINKABLE_INTERMEDIATE = new Set([
+    "/pricing",
+    "/service-areas-pretoria",
+    "/creative-industry-blog-pretoria",
+    "/digital-marketing-services-pretoria",
+  ]);
+
   const itemListElement = [
     {
       "@type": "ListItem",
@@ -23,15 +33,22 @@ export default function BreadcrumbJsonLd() {
       name: "Home",
       item: baseUrl + "/",
     },
-    ...segments.map((segment, idx) => ({
-      "@type": "ListItem",
-      position: idx + 2,
-      name: segment
-        .split("-")
-        .map((w) => (w === 'seo' ? 'SEO' : w === 'faq' ? 'FAQ' : w.charAt(0).toUpperCase() + w.slice(1)))
-        .join(" "),
-      item: baseUrl + "/" + segments.slice(0, idx + 1).join("/"),
-    })),
+    ...segments.map((segment, idx) => {
+      const path = "/" + segments.slice(0, idx + 1).join("/");
+      const isLast = idx === segments.length - 1;
+      const entry: Record<string, unknown> = {
+        "@type": "ListItem",
+        position: idx + 2,
+        name: segment
+          .split("-")
+          .map((w) => (w === 'seo' ? 'SEO' : w === 'faq' ? 'FAQ' : w.charAt(0).toUpperCase() + w.slice(1)))
+          .join(" "),
+      };
+      if (isLast || LINKABLE_INTERMEDIATE.has(path)) {
+        entry.item = baseUrl + path;
+      }
+      return entry;
+    }),
   ];
 
   return (
