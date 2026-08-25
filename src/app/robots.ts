@@ -15,7 +15,8 @@ import { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
   const contentRules = {
     allow: '/',
-    disallow: ['/api/'],
+    // /studio is the private quote-approval queue — no crawler needs it.
+    disallow: ['/api/', '/studio'],
   };
 
   return {

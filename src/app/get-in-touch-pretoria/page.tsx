@@ -3,21 +3,7 @@
 import { useState, useRef } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaInstagram, FaFacebookSquare } from 'react-icons/fa';
 import Link from 'next/link';
-import { createClient } from '@supabase/supabase-js';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
-
-// Supabase configuration.
-// NOTE: the anon key is public-by-design (it ships in the client bundle).
-// Row Level Security (RLS) on the `contact_submissions` table MUST restrict
-// the anon role to INSERT only — never rely on this key being secret.
-const SUPABASE_URL = 'https://itpmauqewzpxmwsdprmq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cG1hdXFld3pweG13c2Rwcm1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTI5NTAsImV4cCI6MjA1MDE4ODk1MH0.TSeTdVFUcitGocIDNcNN3yRRQDN--SF72az-Ih7tWLM';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: false
-  }
-});
 
 // FAQ content — the single source for both the visible FAQ section and the
 // FAQPage JSON-LD below. Keep them identical by only editing this array.
@@ -113,32 +99,37 @@ function ContactFormContent() {
 
       const contactMethod = formData.get('preferred_contact_method')?.toString();
 
-      // Create submission data object
-      const submissionData = {
-        name: formData.get('name')?.toString() || '',
-        email: formData.get('email')?.toString() || '',
-        phone: formData.get('phone')?.toString() || null,
-        service_interested: formData.get('service_interested')?.toString() || '',
-        project_timeline: formData.get('project_timeline')?.toString() || '',
-        budget_range: formData.get('budget_range')?.toString() || '',
-        project_details: formData.get('project_details')?.toString() || '',
-        reference_links: formData.get('reference_links')?.toString() || null,
-        how_did_you_hear: formData.get('how_did_you_hear')?.toString() || null,
-        preferred_contact_method: contactMethod,
-        contact_details: contactMethod === 'email'
-          ? formData.get('email')?.toString()
-          : formData.get('phone')?.toString(),
-        terms_accepted: true,
-        status: 'new'
-      };
+      const referenceLinks = formData.get('reference_links')?.toString();
+      const heardVia = formData.get('how_did_you_hear')?.toString();
 
-      // Insert the data
-      const { error: insertError } = await supabase
-        .from('contact_submissions')
-        .insert([submissionData]);
+      // Posted to our own API route (server-side) rather than inserted from the
+      // browser: the server holds the service-role key, files the lead, asks the
+      // quote agent for a draft and pings the owner. The anon key can no longer
+      // write anything, which is the point.
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name')?.toString() || '',
+          email: formData.get('email')?.toString() || '',
+          phone: formData.get('phone')?.toString() || null,
+          service: formData.get('service_interested')?.toString() || null,
+          timeline: formData.get('project_timeline')?.toString() || null,
+          budget: formData.get('budget_range')?.toString() || null,
+          details: [
+            formData.get('project_details')?.toString() || '',
+            referenceLinks ? `\n\nReference links: ${referenceLinks}` : '',
+            heardVia ? `\nHeard about us via: ${heardVia}` : '',
+            contactMethod ? `\nPrefers contact by: ${contactMethod}` : '',
+          ].join(''),
+          source_page: typeof window !== 'undefined' ? window.location.pathname : null,
+          website: honeypot ?? '',
+        }),
+      });
 
-      if (insertError) {
-        throw new Error(insertError.message);
+      if (!res.ok) {
+        const payload = await res.json().catch(() => ({}));
+        throw new Error(payload.error || 'Could not send your enquiry. Please try again.');
       }
 
       setSuccess(true);
