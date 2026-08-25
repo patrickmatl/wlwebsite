@@ -70,7 +70,7 @@ Keep both values for the next step.
 | `SUPABASE_URL` | `https://lknoyvycrbfcbvumozew.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **service_role** (secret!) |
 | `GEMINI_API_KEY` | from step 2 |
-| `GEMINI_MODEL` | optional — defaults to `gemini-2.5-pro` |
+| `GEMINI_MODEL` | optional — defaults to `gemini-3.7-flash` |
 | `RESEND_API_KEY` | from step 3 |
 | `RESEND_WEBHOOK_SECRET` | signing secret from step 3.6 |
 | `QUOTE_FROM_EMAIL` | `WL CreationX <quotes@wlcreationx.co.za>` |

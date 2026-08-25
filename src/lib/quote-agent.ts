@@ -18,7 +18,11 @@ import { priceListForPrompt, findPriceItem, formatPrice, CURRENCY_SYMBOL } from 
  * provider-agnostic, so changing LLM means changing only this file.
  */
 
-const DEFAULT_MODEL = 'gemini-2.5-pro';
+// Verified working on this account 2026-08-25. The gemini-2.5-* family returns
+// 404 "no longer available to new users", and the Pro tier returns 429 on this
+// key's quota. Flash suits the task: drafting from a fixed price list is not a
+// hard-reasoning problem, and it is faster and cheaper per quote.
+const DEFAULT_MODEL = 'gemini-3.7-flash';
 
 function modelId(): string {
   return process.env.GEMINI_MODEL || DEFAULT_MODEL;
