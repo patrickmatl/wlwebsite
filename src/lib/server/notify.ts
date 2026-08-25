@@ -85,6 +85,8 @@ export async function sendEmail(params: {
   to: string;
   subject: string;
   text: string;
+  /** Optional HTML half. Clients that can render it will; the rest see `text`. */
+  html?: string;
   replyTo?: string;
   /** Set to thread outbound mail correctly in the client's inbox */
   headers?: Record<string, string>;
@@ -115,6 +117,7 @@ export async function sendEmail(params: {
       to: params.to,
       subject: params.subject,
       text: params.text,
+      html: params.html,
       // No Reply-To by default: replies must land back in the quotes@ mailbox
       // that /api/inbound/poll reads, or the conversation loop breaks.
       replyTo: params.replyTo,
@@ -140,6 +143,7 @@ export async function sendEmail(params: {
       to: [params.to],
       subject: params.subject,
       text: params.text,
+      html: params.html,
       reply_to: params.replyTo ?? BUSINESS.email,
       headers: params.headers,
     }),

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/server/db';
 import { isAuthedRequest, checkToken, cookieValue, ADMIN_COOKIE_NAME } from '@/lib/server/admin-auth';
 import { sendEmail } from '@/lib/server/notify';
-import { renderClientEmail } from '@/lib/server/render-quote';
+import { renderClientEmail, renderClientEmailHtml } from '@/lib/server/render-quote';
 import { draftReply, type ConversationTurn } from '@/lib/quote-agent';
 
 export const runtime = 'nodejs';
@@ -61,19 +61,22 @@ export async function POST(request: Request) {
       const finalBody = body.editedBody ? String(body.editedBody) : msg.body;
       const finalSubject = body.editedSubject ? String(body.editedSubject) : msg.subject;
 
-      const email = renderClientEmail({
+      const emailParams = {
         body: finalBody,
         lines: (msg.quote_lines ?? []) as never[],
         total: msg.quote_total,
         validityDays: 30,
         clientName: lead.name,
-      });
+      };
+      const email = renderClientEmail(emailParams);
+      const emailHtml = renderClientEmailHtml(emailParams);
 
       try {
         await sendEmail({
           to: lead.email,
           subject: finalSubject ?? thread.subject,
           text: email,
+          html: emailHtml,
         });
       } catch (err) {
         console.error('[studio] send failed', err);

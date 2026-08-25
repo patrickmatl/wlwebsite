@@ -18,6 +18,7 @@ When they reply, the loop repeats until the scope is clear enough to quote.
 | `/studio` | browser | Your approval queue: read, edit, approve, redraft, discard |
 | `POST /api/studio` | server | Login, approve/send, reject, redraft, close, push subscribe |
 | `src/data/pricing.ts` | — | **The only prices that exist.** The model may not invent numbers. |
+| `src/lib/server/email-signature.ts` | — | The studio signature, shared by the quote emails and your mail client |
 
 ---
 

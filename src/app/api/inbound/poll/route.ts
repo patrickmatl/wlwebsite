@@ -82,10 +82,16 @@ export async function GET(request: Request) {
         const fromRaw = mail.from?.text ?? '';
         const text = mail.text ?? '';
 
-        // Ignore bounces, vacation replies and our own outbound copies.
+        // Ignore bounces, vacation replies, server notices and our own copies.
+        // Without this, cPanel's own status mail reaches the "unknown sender"
+        // branch and pings the owner every time it arrives.
+        const senderLocal = (fromRaw.match(/<([^>]+)>/)?.[1] ?? fromRaw).split('@')[0];
         const isAuto =
           Boolean(mail.headers.get('auto-submitted')) ||
-          /^(mailer-daemon|postmaster|no-?reply)@/i.test(fromRaw) ||
+          Boolean(mail.headers.get('list-unsubscribe')) ||
+          /^(mailer-daemon|postmaster|no-?reply|noreply|cpanel|root|bounces?|daemon)$/i.test(
+            senderLocal.trim(),
+          ) ||
           fromRaw.toLowerCase().includes(user.toLowerCase());
 
         if (isAuto) {
