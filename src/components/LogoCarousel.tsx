@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 // Define logos outside component to avoid hydration mismatch
@@ -12,27 +12,15 @@ const LOGOS = Array.from({ length: LOGO_COUNT }, (_, i) => ({
 
 export default function LogoCarousel() {
   const [isLoaded, setIsLoaded] = useState<{ [key: string]: boolean }>({});
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleImageLoad = (logoPath: string) => {
     setIsLoaded(prev => ({ ...prev, [logoPath]: true }));
   };
 
-  // Server-side and initial client render
-  if (!isMounted) {
-    return (
-      <div className="w-full py-8">
-        <div className="flex justify-center">
-          <div className="h-32 w-32 bg-black/20 animate-pulse rounded-lg" />
-        </div>
-      </div>
-    );
-  }
-
+  // NOTE: no mounted gate. The strip is real client proof and must exist in
+  // the server HTML — the old `if (!isMounted) return placeholder` meant the
+  // homepage shipped ZERO <img> elements to crawlers. Per-image fade-in via
+  // isLoaded handles the visual polish; markup renders on the server.
   return (
     <div className="relative w-full overflow-hidden py-8">
       {/* Gradient overlays for smooth fade effect */}

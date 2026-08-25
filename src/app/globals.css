@@ -17,38 +17,55 @@
   --background-end-rgb: 0, 0, 0;
 }
 
-/* Custom Cursor */
-.custom-cursor {
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, #FFD700 0%, rgba(255, 215, 0, 0.8) 50%, rgba(255, 215, 0, 0) 100%);
-  border-radius: 50%;
+/* Custom Cursor — dot tracks 1:1, ring lerps behind it in JS.
+   CRITICAL: no `transition` on transform here. The old 0.2s ease made the
+   cursor permanently trail the pointer, and blur+mix-blend-mode forced
+   expensive compositing over the hero video. Scale lives on the INNER
+   elements so it can never fight the JS translate on the wrapper. */
+.cursor-dot,
+.cursor-ring {
   position: fixed;
+  top: 0;
+  left: 0;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.2s ease;
-  filter: blur(1px);
-  left: 0;
-  top: 0;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.25s ease;
 }
 
-.custom-cursor::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  background: #FFD700;
+.cursor-dot-inner {
+  display: block;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
   border-radius: 50%;
-  box-shadow: 0 0 15px #FFD700;
+  background: #FFD700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.55);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background 0.18s ease;
 }
 
-.custom-cursor.hover {
-  transform: scale(1.5);
-  background: radial-gradient(circle, #FFA500 0%, rgba(255, 165, 0, 0.8) 50%, rgba(255, 165, 0, 0) 100%);
+.cursor-ring-inner {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 215, 0, 0.45);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease;
+}
+
+.cursor-dot.is-hover .cursor-dot-inner {
+  transform: scale(0.55);
+}
+
+.cursor-ring.is-hover .cursor-ring-inner {
+  transform: scale(1.45);
+  border-color: rgba(255, 215, 0, 0.9);
+}
+
+.cursor-ring.is-down .cursor-ring-inner {
+  transform: scale(0.85);
 }
 
 /* Custom Scrollbar */
@@ -121,6 +138,38 @@ html.custom-cursor-active body {
   letter-spacing: -0.02em;
 }
 
+/* Hero headline entrance — transform-only so the LCP element is NEVER hidden.
+   (The old framer-motion opacity gate kept the headline invisible until ~85KB
+   of JS hydrated, wrecking mobile LCP.) */
+@keyframes hero-rise {
+  from { transform: translateY(18px); }
+  to   { transform: translateY(0); }
+}
+.hero-rise {
+  animation: hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise { animation: none; }
+}
+
+/* Visible keyboard focus for interactive elements — polish + accessibility */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #FFD700;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Balanced headings site-wide */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
 /* Custom gradient text */
 .gradient-text {
   background: linear-gradient(to right, var(--primary), var(--primary-dark));
@@ -173,7 +222,8 @@ html.custom-cursor-active body {
 
 /* Pointer-aware visibility: hide custom cursor on coarse pointer devices */
 @media (pointer: coarse) {
-  .custom-cursor {
+  .cursor-dot,
+  .cursor-ring {
     display: none;
   }
 }
