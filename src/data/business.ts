@@ -52,6 +52,8 @@ export const BUSINESS = {
   ],
 
   sameAs: [
+    // Verified Google Business Profile (Maps) — strongest entity corroboration
+    'https://maps.google.com/?cid=11662630280010273748',
     'https://www.facebook.com/wlcreationx',
     'https://www.instagram.com/wlcreationx',
     'https://www.linkedin.com/company/wlcreationx',

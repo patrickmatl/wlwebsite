@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useAudioPlayback } from './AudioContext';
+import { GoogleRatingBadge } from './GoogleReviews';
 
 // SSR enabled: the client-logo strip is real proof content and should exist in
 // the server HTML (it previously shipped zero <img> elements to crawlers).
@@ -124,6 +125,11 @@ export default function HeroSection({
               View Portfolio
             </Link>
           </motion.div>
+
+          {/* Verified Google rating — real social proof above the fold */}
+          <div className="flex justify-center pt-2">
+            <GoogleRatingBadge />
+          </div>
 
           {/* Client logos — server-rendered proof band */}
           <motion.div

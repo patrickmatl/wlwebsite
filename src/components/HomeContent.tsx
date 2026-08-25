@@ -3,6 +3,7 @@
 import HeroSection from "./HeroSection";
 import Link from "next/link";
 import FAQAccordion from "./FAQ/FAQAccordion";
+import GoogleReviews from "./GoogleReviews";
 import { homeFaqs } from "@/data/homeFaqs";
 
 export default function HomeContent() {
@@ -161,6 +162,9 @@ export default function HomeContent() {
           </div>
         </div>
       </section>
+
+      {/* Real Google reviews — 4.9 from 40 verified reviews */}
+      <GoogleReviews />
 
       {/* Frequently Asked Questions */}
       <section className="py-16 px-4 bg-black">
