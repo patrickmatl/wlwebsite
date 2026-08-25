@@ -24,8 +24,11 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^11.13.5",
     "gray-matter": "^4.0.3",
+    "imapflow": "^1.7.6",
+    "mailparser": "^3.9.16",
     "next": "15.0.7",
     "next-mdx-remote": "^6.0.0",
+    "nodemailer": "^9.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-recaptcha": "^3.1.0",
@@ -36,7 +39,9 @@
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
+    "@types/mailparser": "^3.4.6",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-google-recaptcha": "^2.1.9",

@@ -70,7 +70,17 @@ export async function sendOwnerPush(payload: {
   return { sent, failed };
 }
 
-/** Send an email through Resend. Returns the provider message id. */
+/**
+ * Send an email.
+ *
+ * Two transports, picked automatically:
+ *  1. SMTP (SMTP_HOST set) — sends through the studio's own cPanel mailbox, so
+ *     mail comes from the real wlcreationx.co.za domain at no extra cost.
+ *  2. Resend (RESEND_API_KEY set) — better deliverability and inbound reply
+ *     webhooks, but needs a paid plan to add the domain.
+ *
+ * SMTP wins if both are configured.
+ */
 export async function sendEmail(params: {
   to: string;
   subject: string;
@@ -79,10 +89,43 @@ export async function sendEmail(params: {
   /** Set to thread outbound mail correctly in the client's inbox */
   headers?: Record<string, string>;
 }): Promise<string | null> {
-  const key = process.env.RESEND_API_KEY;
   const from = process.env.QUOTE_FROM_EMAIL;
+
+  if (process.env.SMTP_HOST) {
+    if (!from || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+      console.warn('[notify] SMTP partially configured — email not sent');
+      return null;
+    }
+    // Imported lazily: nodemailer is Node-only and should never be pulled into
+    // an edge/client bundle by accident.
+    const nodemailer = (await import('nodemailer')).default;
+    const port = Number(process.env.SMTP_PORT ?? 465);
+    const transport = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port,
+      secure: port === 465, // 465 = implicit TLS, 587 = STARTTLS
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+
+    const info = await transport.sendMail({
+      from,
+      to: params.to,
+      subject: params.subject,
+      text: params.text,
+      // No Reply-To by default: replies must land back in the quotes@ mailbox
+      // that /api/inbound/poll reads, or the conversation loop breaks.
+      replyTo: params.replyTo,
+      headers: params.headers,
+    });
+    return info.messageId ?? null;
+  }
+
+  const key = process.env.RESEND_API_KEY;
   if (!key || !from) {
-    console.warn('[notify] Resend not configured — email not sent');
+    console.warn('[notify] No email transport configured — email not sent');
     return null;
   }
 

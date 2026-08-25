@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { db } from '@/lib/server/db';
-import { draftReply, type ConversationTurn } from '@/lib/quote-agent';
-import { notifyOwner } from '@/lib/server/notify';
+import { processInboundEmail } from '@/lib/server/inbound';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,9 +10,9 @@ export const maxDuration = 60;
 /**
  * Inbound email webhook (Resend).
  *
- * When a client replies to a quote, this appends their message to the thread,
- * asks the agent for the next move, and queues that draft for approval.
- * The client never receives an automated reply without a human approving it.
+ * Only used when the studio sends through Resend. On the SMTP transport the
+ * equivalent path is /api/inbound/poll, which pulls the same messages over
+ * IMAP. Both funnel into processInboundEmail().
  */
 
 /** Verify the Svix-style signature Resend sends, so randoms can't inject mail. */
@@ -47,27 +45,6 @@ function verifySignature(rawBody: string, headers: Headers): boolean {
   });
 }
 
-/** Strip quoted history so the agent reads only what the client just wrote. */
-function stripQuotedReply(text: string): string {
-  const cutMarkers = [
-    /^On .+ wrote:$/m,
-    /^-{2,}\s*Original Message\s*-{2,}$/im,
-    /^_{10,}$/m,
-    /^From:\s.+$/m,
-    /^─{20,}$/m, // our own quote divider
-  ];
-  let out = text;
-  for (const marker of cutMarkers) {
-    const m = out.match(marker);
-    if (m && m.index !== undefined) out = out.slice(0, m.index);
-  }
-  return out
-    .split('\n')
-    .filter((l) => !l.trim().startsWith('>'))
-    .join('\n')
-    .trim();
-}
-
 export async function POST(request: Request) {
   const raw = await request.text();
 
@@ -89,109 +66,13 @@ export async function POST(request: Request) {
   }
 
   const data = event.data ?? {};
-  const fromRaw = data.from ?? '';
-  const fromEmail = (fromRaw.match(/<([^>]+)>/)?.[1] ?? fromRaw).trim().toLowerCase();
-  const body = stripQuotedReply(data.text ?? '');
-
-  if (!fromEmail || !body) {
-    return NextResponse.json({ ok: true, skipped: 'no usable sender or body' });
-  }
-
-  // Find this sender's most recent lead, and its thread.
-  const { data: lead } = await db()
-    .from('leads')
-    .select('*')
-    .ilike('email', fromEmail)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (!lead) {
-    // Unknown sender — notify rather than drop it on the floor.
-    await notifyOwner({
-      title: `Email from unknown sender: ${fromEmail}`,
-      summary: body.slice(0, 160),
-      threadId: '',
-    }).catch(() => {});
-    return NextResponse.json({ ok: true, skipped: 'no matching lead' });
-  }
-
-  const { data: thread } = await db()
-    .from('quote_threads')
-    .select('*')
-    .eq('lead_id', lead.id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (!thread) return NextResponse.json({ ok: true, skipped: 'no thread' });
-
-  await db().from('quote_messages').insert({
-    thread_id: thread.id,
-    role: 'client',
+  const result = await processInboundEmail({
+    fromRaw: data.from ?? '',
     subject: data.subject ?? null,
-    body,
+    text: data.text ?? '',
   });
 
-  try {
-    // Rebuild the conversation (sent messages only — drafts never happened
-    // from the client's point of view).
-    const { data: msgs } = await db()
-      .from('quote_messages')
-      .select('role, body, sent_at')
-      .eq('thread_id', thread.id)
-      .order('created_at', { ascending: true });
-
-    const history: ConversationTurn[] = (msgs ?? [])
-      .filter((m) => m.role === 'client' || (m.role === 'studio' && m.sent_at))
-      .map((m) => ({ role: m.role === 'client' ? 'client' : 'studio', text: m.body }));
-
-    const draft = await draftReply({
-      enquiry: {
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        service: lead.service,
-        budget: lead.budget,
-        timeline: lead.timeline,
-        details: lead.details,
-      },
-      history,
-    });
-
-    await db().from('quote_messages').insert({
-      thread_id: thread.id,
-      role: 'draft',
-      subject: draft.email_subject,
-      body: draft.email_body,
-      action: draft.action,
-      reasoning: draft.reasoning,
-      confidence: draft.confidence,
-      quote_lines: draft.lines,
-      quote_total: draft.total,
-    });
-
-    await db()
-      .from('quote_threads')
-      .update({ state: 'awaiting_approval' })
-      .eq('id', thread.id);
-
-    await notifyOwner({
-      title:
-        draft.action === 'quote'
-          ? `${lead.name} replied — quote ready (${draft.totalFormatted})`
-          : `${lead.name} replied — draft ready`,
-      summary: body.slice(0, 160),
-      threadId: thread.id,
-    });
-  } catch (err) {
-    console.error('[inbound] drafting failed', err);
-    await notifyOwner({
-      title: `${lead.name} replied (AI draft failed)`,
-      summary: body.slice(0, 160),
-      threadId: thread.id,
-    }).catch(() => {});
-  }
-
-  return NextResponse.json({ ok: true });
+  return NextResponse.json(
+    result.handled ? { ok: true } : { ok: true, skipped: result.reason },
+  );
 }

@@ -13,7 +13,8 @@ When they reply, the loop repeats until the scope is clear enough to quote.
 | Piece | Where | What it does |
 |---|---|---|
 | `POST /api/leads` | server | Website form → saves lead → asks Gemini for a draft → notifies you |
-| `POST /api/inbound` | server | Client's email reply → appends to thread → new draft → notifies you |
+| `GET /api/inbound/poll` | server | Cron reads the `quotes@` mailbox over IMAP → new draft → notifies you |
+| `POST /api/inbound` | server | Same, but pushed by Resend's webhook (only if you use Resend) |
 | `/studio` | browser | Your approval queue: read, edit, approve, redraft, discard |
 | `POST /api/studio` | server | Login, approve/send, reject, redraft, close, push subscribe |
 | `src/data/pricing.ts` | — | **The only prices that exist.** The model may not invent numbers. |
@@ -37,21 +38,51 @@ read or write them.
 2. Gemini has a free tier that covers low volume. On paid, budget roughly **R1–3 per quote conversation**
    — a busy month of 50 enquiries is under R200.
 
-### 3. Resend (sending + receiving quote emails)
+### 3. Email
 
-1. Sign up at <https://resend.com> — free tier covers 3,000 emails/month.
-2. **Domains → Add Domain →** `wlcreationx.co.za`.
-3. Resend shows you DNS records (SPF/DKIM). Add them in **cPanel → Zone Editor**
-   for `wlcreationx.co.za`. *Only add the records it lists — don't modify or
-   delete existing MX records or your normal email breaks.*
-4. Wait for **Verified** (usually minutes).
-5. **API Keys →** create one.
-6. For client replies to come back in: **Webhooks → Add** →
-   endpoint `https://wlcreationx.co.za/api/inbound`, event `email.received`.
-   Copy the **signing secret**.
+The studio sends through its own cPanel mailbox over SMTP. That means the mail
+genuinely comes from `wlcreationx.co.za`, and it costs nothing.
 
-> Skipping step 6 still gives you AI-drafted first quotes; you just won't get
+1. **cPanel → Email Accounts → Create** — `quotes@wlcreationx.co.za`, with a
+   long generated password. Keep the password; it goes in the env vars below.
+2. **Email Accounts → Connect Devices** shows the server settings. For this
+   host they are `c5.my-control-panel.com`, SMTP port **465** (SSL), IMAP port
+   **993**.
+3. Check **cPanel → Email Deliverability** shows `wlcreationx.co.za` as
+   **Valid**. DKIM, SPF, DMARC and PTR must all be valid or quotes land in spam.
+   Use its **Repair** button if any are not. *Never modify or delete the
+   existing MX records — your normal email breaks.*
+
+#### Reading client replies
+
+SMTP can only send. To keep the back-and-forth conversation working, a cron job
+calls `/api/inbound/poll`, which reads unseen mail out of the `quotes@` mailbox
+and drafts a reply for each one.
+
+Generate a secret:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(24).toString('base64url'))"
+```
+
+Set it as `INBOUND_POLL_SECRET` (below), then **cPanel → Cron Jobs**:
+
+- Common Settings: **Once Per Five Minutes**
+- Command:
+  `curl -s -o /dev/null "https://wlcreationx.co.za/api/inbound/poll?secret=YOUR_SECRET"`
+
+Approved quotes go out with **no Reply-To**, so replies come back to `quotes@`
+where the poll can see them. Don't add a Reply-To or the loop breaks.
+
+> Skipping the cron still gives you AI-drafted first quotes; you just won't get
 > automatic drafts for their replies.
+
+#### Alternative: Resend
+
+If you ever outgrow SMTP, set `RESEND_API_KEY` and leave `SMTP_HOST` unset.
+Resend needs a paid plan to add a fourth domain, and its inbound webhook
+(`https://wlcreationx.co.za/api/inbound`, event `email.received`) replaces the
+cron above.
 
 ### 4. Push notifications
 
@@ -71,8 +102,11 @@ Keep both values for the next step.
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **service_role** (secret!) |
 | `GEMINI_API_KEY` | from step 2 |
 | `GEMINI_MODEL` | optional — defaults to `gemini-3.7-flash` |
-| `RESEND_API_KEY` | from step 3 |
-| `RESEND_WEBHOOK_SECRET` | signing secret from step 3.6 |
+| `SMTP_HOST` | `c5.my-control-panel.com` |
+| `SMTP_PORT` | `465` |
+| `SMTP_USER` | `quotes@wlcreationx.co.za` |
+| `SMTP_PASSWORD` | the mailbox password from step 3 |
+| `INBOUND_POLL_SECRET` | the secret from step 3 |
 | `QUOTE_FROM_EMAIL` | `WL CreationX <quotes@wlcreationx.co.za>` |
 | `OWNER_EMAIL` | where the backup alert goes |
 | `ADMIN_TOKEN` | a long random string — this is your `/studio` password |
@@ -136,17 +170,21 @@ emails all read from that one file, so they can never disagree.
 | | |
 |---|---|
 | Supabase | Free tier |
-| Resend | Free to 3,000 emails/month |
+| Email (cPanel SMTP) | Free — already in your hosting |
 | Push | Free |
 | Gemini | free tier, then ~R1–3 per conversation |
 
 ## If something breaks
 
 - **`/studio` says not configured** — an env var is missing; check the table above.
-- **Drafts appear but won't send** — `RESEND_API_KEY` or `QUOTE_FROM_EMAIL` wrong,
-  or the domain isn't Verified in Resend.
-- **Client replies don't create drafts** — webhook not set up (step 3.6), or the
-  reply came from a different address than the one on the enquiry.
+- **Drafts appear but won't send** — `SMTP_PASSWORD` or `QUOTE_FROM_EMAIL` wrong.
+  Test the mailbox in cPanel's webmail first to rule the password out.
+- **Quotes land in spam** — cPanel → Email Deliverability must show **Valid**
+  for all four of DKIM, SPF, DMARC and PTR.
+- **Client replies don't create drafts** — the cron job isn't running, the
+  reply came from a different address than the one on the enquiry, or someone
+  already opened the mail in webmail (the poll only reads *unseen* messages).
+  Hit the poll URL in a browser to see exactly what it found.
 - **No push** — re-run **Enable notifications**; on iPhone it must be the
   home-screen app, not Safari.
 - Vercel → your project → **Logs** shows every API error.
