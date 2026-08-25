@@ -24,9 +24,28 @@ import { priceListForPrompt, findPriceItem, formatPrice, CURRENCY_SYMBOL } from 
 // hard-reasoning problem, and it is faster and cheaper per quote.
 const DEFAULT_MODEL = 'gemini-3.7-flash';
 
-function modelId(): string {
-  return process.env.GEMINI_MODEL || DEFAULT_MODEL;
+/**
+ * Models tried in order. Gemini returns transient 503 "high demand" and 429
+ * under load; a lead should never lose its draft to a momentary capacity blip,
+ * so we retry with backoff and then fall back to a sibling model.
+ */
+function modelChain(): string[] {
+  const primary = process.env.GEMINI_MODEL || DEFAULT_MODEL;
+  const fallbacks = ['gemini-flash-latest', 'gemini-3.7-flash'];
+  return [primary, ...fallbacks.filter((m) => m !== primary)];
 }
+
+const RETRYABLE = new Set([429, 500, 502, 503, 504]);
+
+function statusOf(err: unknown): number | null {
+  const e = err as { status?: number; message?: string };
+  if (typeof e?.status === 'number') return e.status;
+  // The SDK stringifies the API error into the message
+  const m = e?.message?.match(/"code"\s*:\s*(\d{3})/);
+  return m ? Number(m[1]) : null;
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /**
  * Response schema in the OpenAPI subset Gemini accepts.
@@ -273,24 +292,42 @@ export async function draftReply(params: {
     });
   }
 
-  const response = await ai.models.generateContent({
-    model: modelId(),
-    contents,
-    config: {
-      systemInstruction: systemPrompt(),
-      responseMimeType: 'application/json',
-      responseSchema: RESPONSE_SCHEMA as never,
-      temperature: 0.3,
-      maxOutputTokens: 8192,
-    },
-  });
+  const config = {
+    systemInstruction: systemPrompt(),
+    responseMimeType: 'application/json',
+    responseSchema: RESPONSE_SCHEMA as never,
+    temperature: 0.3,
+    maxOutputTokens: 8192,
+  };
 
-  const raw = response.text;
+  // Try each model, with two backoff retries per model on transient failures.
+  let raw: string | undefined;
+  let lastError: unknown;
+
+  outer: for (const model of modelChain()) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const response = await ai.models.generateContent({ model, contents, config });
+        if (response.text) {
+          raw = response.text;
+          break outer;
+        }
+        lastError = new Error(
+          `empty response (finishReason: ${response.candidates?.[0]?.finishReason ?? 'unknown'})`,
+        );
+      } catch (err) {
+        lastError = err;
+        const status = statusOf(err);
+        // Not worth retrying a bad request / missing model / bad key
+        if (status !== null && !RETRYABLE.has(status)) break;
+      }
+      if (attempt < 2) await sleep(1200 * Math.pow(2, attempt)); // 1.2s, 2.4s
+    }
+  }
+
   if (!raw) {
-    const reason = response.candidates?.[0]?.finishReason;
-    throw new Error(
-      `Quote agent returned no output${reason ? ` (finishReason: ${reason})` : ''}`,
-    );
+    const msg = lastError instanceof Error ? lastError.message : String(lastError);
+    throw new Error(`Quote agent failed after retries: ${msg.slice(0, 300)}`);
   }
 
   let parsed: AgentOutput;
