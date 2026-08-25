@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
-    formats: ['image/webp'],
+    // Optimization re-enabled: it was disabled sitewide, serving raw files.
+    // On Vercel, next/image serves resized AVIF/WebP from the edge for free
+    // at this site's scale (~62 unique source images).
+    formats: ['image/avif', 'image/webp'],
   },
   webpack: (config) => {
     config.module.rules.push({

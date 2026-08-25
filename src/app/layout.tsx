@@ -96,7 +96,6 @@ export default function RootLayout({
         {/** Font preconnects */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" href="/videos/hero-bg.mp4" as="video" type="video/mp4" />
       </head>
       <body className="bg-black text-white font-space-grotesk" suppressHydrationWarning>
         <script

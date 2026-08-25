@@ -5,14 +5,23 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Pricing & Packages',
-  description: 'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
+  // NOTE: this must stay a {default, template} object. A plain-string title
+  // here cuts off the root layout's title template for every /pricing/* child
+  // (Next.js applies only the CLOSEST parent's template), which stripped the
+  // "| WL CreationX" brand from 27 pricing titles in the SERPs.
+  title: {
+    default: 'Pricing & Packages',
+    template: '%s | WL CreationX',
+  },
+  description:
+    'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/pricing',
   },
   openGraph: {
-    title: 'Pricing & Packages',
-    description: 'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
+    title: 'Pricing & Packages | WL CreationX',
+    description:
+      'Transparent pricing for graphic design, web design, marketing and creative services from WL CreationX in Pretoria. Compare packages, rates and add-ons.',
     url: 'https://wlcreationx.co.za/pricing',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

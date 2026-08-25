@@ -12,7 +12,7 @@ export default function HomeContent() {
       <HeroSection
         title="Design"
         subtitle="Agency"
-        description="Leading graphic design agency in Pretoria, delivering innovative visual solutions and creative excellence for businesses nationwide."
+        description="Graphic design agency in Pretoria — branding, websites, video and photography for businesses across South Africa since 2013."
       />
 
       {/* Defer below-the-fold work from initial render */}
