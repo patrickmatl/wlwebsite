@@ -19,11 +19,30 @@ import { priceListForPrompt, findPriceItem, formatPrice, CURRENCY_SYMBOL } from 
  * provider-agnostic, so changing LLM means changing only this file.
  */
 
-// Verified working on this account 2026-08-25. The gemini-2.5-* family returns
-// 404 "no longer available to new users", and the Pro tier returns 429 on this
-// key's quota. Flash suits the task: drafting from a fixed price list is not a
-// hard-reasoning problem, and it is faster and cheaper per quote.
-const DEFAULT_MODEL = 'gemini-3.7-flash';
+// Probed against this key on 2026-08-26, because the model landscape moves and
+// guessing costs a silent outage:
+//   gemini-3.5-flash      OK  (~6s)
+//   gemini-3.6-flash      OK  (~10s)
+//   gemini-3.7-flash      429 quota exceeded on this key
+//   gemini-flash-latest   HANGS — never responds, never errors
+//   gemini-2.5-*          404 "no longer available to new users"
+//
+// Flash suits the task: drafting from a fixed price list is not a hard-
+// reasoning problem, and it is faster and cheaper per quote.
+const DEFAULT_MODEL = 'gemini-3.5-flash';
+
+/**
+ * Hard ceiling on any single model call.
+ *
+ * gemini-flash-latest does not answer and does not fail — it simply never
+ * returns. On Vercel the platform's own function timeout hid that; on a
+ * long-running Node server nothing cuts it off, so one hung request took the
+ * whole drafting pipeline down silently: the lead, contact and deal were
+ * created and then nothing further ever happened.
+ *
+ * A model that has not answered in this long is not going to.
+ */
+const CALL_TIMEOUT_MS = 45_000;
 
 /**
  * Models tried in order. Gemini returns transient 503 "high demand" and 429
@@ -32,8 +51,26 @@ const DEFAULT_MODEL = 'gemini-3.7-flash';
  */
 function modelChain(): string[] {
   const primary = process.env.GEMINI_MODEL || DEFAULT_MODEL;
-  const fallbacks = ['gemini-flash-latest', 'gemini-3.7-flash'];
+  // Only models actually confirmed to answer on this key. gemini-flash-latest
+  // is deliberately absent: it hangs, and a fallback that hangs is worse than
+  // no fallback at all.
+  const fallbacks = ['gemini-3.6-flash', 'gemini-3.5-flash'];
   return [primary, ...fallbacks.filter((m) => m !== primary)];
+}
+
+/** Reject rather than wait forever on a model that has stopped answering. */
+async function withTimeout<T>(work: Promise<T>, ms: number, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${label} did not respond in ${ms}ms`)), ms);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
 }
 
 const RETRYABLE = new Set([429, 500, 502, 503, 504]);
@@ -376,6 +413,77 @@ function resolveLines(output: AgentOutput): {
   return { lines, total };
 }
 
+/**
+ * Groq, as a second provider.
+ *
+ * Gemini went down for this studio not by erroring but by rate-limiting one
+ * model and hanging on another, which took the whole drafting pipeline with it.
+ * One provider is a single point of failure for the thing the business runs on,
+ * so when every Gemini model has been tried and failed, the same prompt goes to
+ * Groq instead.
+ *
+ * Groq speaks the OpenAI chat API and honours response_format json_object, so
+ * the same system prompt and the same parsing work unchanged — only the
+ * transport differs. Verified against this key on 2026-08-26: all three models
+ * below returned the full nine-field object in one to two seconds.
+ */
+const GROQ_MODELS = ['openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b'];
+
+async function draftWithGroq(
+  system: string,
+  contents: { role: 'user' | 'model'; parts: { text: string }[] }[],
+): Promise<string | null> {
+  const key = process.env.GROQ_API_KEY;
+  if (!key) return null;
+
+  // Gemini's 'model' role is OpenAI's 'assistant'; everything else maps directly.
+  const messages = [
+    {
+      role: 'system',
+      content: system + '\n\nReply with a single JSON object and nothing else.',
+    },
+    ...contents.map((c) => ({
+      role: c.role === 'model' ? 'assistant' : 'user',
+      content: c.parts.map((p) => p.text).join('\n'),
+    })),
+  ];
+
+  for (const model of GROQ_MODELS) {
+    try {
+      const res = await withTimeout(
+        fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model,
+            messages,
+            response_format: { type: 'json_object' },
+            temperature: 0.75,
+            max_tokens: 4096,
+          }),
+        }),
+        CALL_TIMEOUT_MS,
+        `groq:${model}`,
+      );
+
+      if (!res.ok) {
+        console.warn(`[quote-agent] groq ${model} -> ${res.status}`);
+        continue;
+      }
+
+      const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+      const text = json.choices?.[0]?.message?.content;
+      if (text) {
+        console.info(`[quote-agent] drafted via groq:${model}`);
+        return text;
+      }
+    } catch (err) {
+      console.warn(`[quote-agent] groq ${model} failed`, err);
+    }
+  }
+  return null;
+}
+
 export type ConversationTurn = { role: 'client' | 'studio'; text: string };
 
 /**
@@ -466,7 +574,11 @@ export async function draftReply(params: {
   outer: for (const model of modelChain()) {
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        const response = await ai.models.generateContent({ model, contents, config });
+        const response = await withTimeout(
+          ai.models.generateContent({ model, contents, config }),
+          CALL_TIMEOUT_MS,
+          model,
+        );
         if (response.text) {
           raw = response.text;
           break outer;
@@ -484,9 +596,14 @@ export async function draftReply(params: {
     }
   }
 
+  // Every Gemini model failed. Rather than lose the lead, try the other provider.
+  if (!raw) {
+    raw = (await draftWithGroq(config.systemInstruction, contents)) ?? undefined;
+  }
+
   if (!raw) {
     const msg = lastError instanceof Error ? lastError.message : String(lastError);
-    throw new Error(`Quote agent failed after retries: ${msg.slice(0, 300)}`);
+    throw new Error(`Quote agent failed on every provider: ${msg.slice(0, 300)}`);
   }
 
   let parsed: AgentOutput;
