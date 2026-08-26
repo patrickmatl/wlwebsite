@@ -645,12 +645,49 @@ export async function draftReply(params: {
     throw new Error(`Quote agent failed on every provider: ${msg.slice(0, 300)}`);
   }
 
+/**
+ * Undo a model that escaped its newlines twice.
+ *
+ * Groq returned an email_body containing the two characters backslash-n where a
+ * line break belonged, so a real client received "Hi Patrick,\n\nI can help"
+ * with the escapes visible. JSON.parse cannot catch this: the JSON was valid,
+ * the string simply had a literal backslash in it.
+ *
+ * Only applied when the text has no real line breaks at all. Text that already
+ * wraps properly is left alone, so a legitimate backslash in a filename or a
+ * path survives untouched.
+ */
+function unescapeNewlines(text: string): string {
+  if (!text) return text;
+
+  // Already wraps properly — leave it completely alone.
+  if (text.includes('\n')) return text;
+
+  // BACKSLASH is the literal character, not an escape: we are looking for text
+  // that contains a backslash followed by n, which is what a double-escaped
+  // model emits where a line break belonged.
+  const BACKSLASH = String.fromCharCode(92);
+  if (!text.includes(BACKSLASH)) return text;
+
+  return text
+    .split(BACKSLASH + 'r' + BACKSLASH + 'n')
+    .join('\n')
+    .split(BACKSLASH + 'n')
+    .join('\n')
+    .split(BACKSLASH + 't')
+    .join(' ');
+}
+
   let parsed: AgentOutput;
   try {
     parsed = JSON.parse(raw) as AgentOutput;
   } catch {
     throw new Error('Quote agent returned unparseable JSON');
   }
+
+  // Whichever provider answered, the prose must contain real line breaks.
+  parsed.email_body = unescapeNewlines(parsed.email_body ?? '');
+  parsed.email_subject = unescapeNewlines(parsed.email_subject ?? '').replace(/\s+/g, ' ').trim();
 
   const VALID_ACTIONS: AgentAction[] = ['ask', 'quote', 'accept', 'ignore', 'handover'];
   if (!VALID_ACTIONS.includes(parsed.action)) {
