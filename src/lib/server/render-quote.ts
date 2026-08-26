@@ -1,7 +1,101 @@
 import { BUSINESS } from '@/data/business';
 import { STANDARD_INCLUSIONS, CURRENCY_SYMBOL } from '@/data/pricing';
-import type { QuoteLineResolved } from '@/lib/quote-agent';
+import { signOffName, type QuoteLineResolved } from '@/lib/quote-agent';
 import { signatureHtml, signatureText } from './email-signature';
+
+/**
+ * Both ends of the letter, written here rather than by the model.
+ *
+ * The agent is told to open on the substance of the enquiry, which it does
+ * well — but nothing ever required it to greet the client, so it decided per
+ * email. One real reply opened "Hi Patrick," and the next began "Ember Roast
+ * sounds like a great addition to the Centurion coffee scene", with no
+ * greeting at all. Either can be defended; having both is what reads as
+ * machine-written.
+ *
+ * So the greeting and the sign-off are fixed here and the model's own attempt
+ * at either is stripped first, which also puts the sign-off where it belongs —
+ * after the itemised quote instead of stranded above it.
+ */
+
+/** "Dear" reads more formal than "Hi"; set EMAIL_SALUTATION to swap it. */
+const SALUTATION_WORD = process.env.EMAIL_SALUTATION?.trim() || 'Dear';
+
+function salutation(clientName: string): string {
+  const name = greetingName(clientName);
+  // greetingName() returns "there" when it has nothing usable, and
+  // "Dear there," is worse than not naming them at all.
+  return name === 'there' ? 'Good day,' : `${SALUTATION_WORD} ${name},`;
+}
+
+function closing(): string {
+  return `Kind regards,\n${signOffName()}`;
+}
+
+/** A greeting the model wrote: one short line, nothing but the hello. */
+const GREETING_LINE =
+  /^(hi|hello|hey|dear|good\s+(morning|afternoon|evening|day))\b[^.!?]{0,40}[,.!]?$/i;
+
+/** A sign-off the model wrote, on a line of its own. */
+const SIGN_OFF_LINE =
+  /^(kind regards|warm regards|best regards|best wishes|regards|sincerely|yours sincerely|yours faithfully|many thanks|thank you|thanks|cheers|all the best|best)[.,!]?$/i;
+
+function stripSalutation(body: string): string {
+  const lines = body.split('\n');
+  while (lines.length && lines[0].trim() === '') lines.shift();
+  if (lines.length && GREETING_LINE.test(lines[0].trim())) {
+    lines.shift();
+    while (lines.length && lines[0].trim() === '') lines.shift();
+  }
+  return lines.join('\n');
+}
+
+function stripSignOff(body: string): string {
+  const lines = body.split('\n');
+  const dropTrailingBlanks = () => {
+    while (lines.length && lines[lines.length - 1].trim() === '') lines.pop();
+  };
+  dropTrailingBlanks();
+
+  // Either "Kind regards," alone, or "Kind regards," followed by a name.
+  for (const take of [2, 1]) {
+    const at = lines.length - take;
+    if (at >= 0 && SIGN_OFF_LINE.test(lines[at].trim())) {
+      lines.splice(at);
+      break;
+    }
+  }
+
+  dropTrailingBlanks();
+  return lines.join('\n');
+}
+
+/** The agent's prose with any greeting or sign-off of its own removed. */
+function letterBody(body: string): string {
+  return stripSignOff(stripSalutation(body.trim())).trim();
+}
+
+/**
+ * Prose to HTML paragraphs.
+ *
+ * Blank-line-separated blocks become <p>; single newlines inside a block stay
+ * as line breaks. Margin and line-height live here so every email in the file
+ * breathes the same way instead of each one carrying its own copy.
+ */
+function paragraphsHtml(text: string, opts: { topMargin?: number } = {}): string {
+  const top = opts.topMargin ?? 0;
+  return text
+    .trim()
+    .split(/\n\s*\n/)
+    .filter((p) => p.trim() !== '')
+    .map(
+      (p, i) =>
+        `<p style="margin:${i === 0 ? top : 0}px 0 18px 0;font-family:${FONT};font-size:15px;line-height:25px;color:${INK};">${esc(
+          p.trim(),
+        ).replace(/\n/g, '<br />')}</p>`,
+    )
+    .join('');
+}
 
 /**
  * Renders the final client-facing email: the agent's prose, then a clean
@@ -17,7 +111,7 @@ export function renderClientEmail(params: {
   /** Where the client can open the quote and accept it, if it has been issued. */
   viewUrl?: string | null;
 }): string {
-  const parts: string[] = [params.body.trim()];
+  const parts: string[] = [salutation(params.clientName), '', letterBody(params.body)];
 
   if (params.lines.length) {
     parts.push('', '─'.repeat(52), 'QUOTE', '─'.repeat(52), '');
@@ -50,7 +144,9 @@ export function renderClientEmail(params: {
     }
   }
 
-  parts.push('', signatureText());
+  // The sign-off closes the letter, so it goes after the quote rather than
+  // above it — otherwise the itemised prices read as a postscript.
+  parts.push('', closing(), '', signatureText());
 
   return parts.join('\n');
 }
@@ -68,30 +164,19 @@ export function renderAck(params: { clientName: string; service?: string | null 
   text: string;
   html: string;
 } {
-  const first = greetingName(params.clientName);
   const about = params.service ? ` about ${params.service.toLowerCase()}` : '';
 
   const body =
-    `Hi ${first}\n\n` +
     `Thanks for getting in touch${about} — your enquiry has come through and we are looking at it now.\n\n` +
     `You will hear back from us shortly, either with a quote or with a couple of questions if we need to pin the scope down first.\n\n` +
     `If it is urgent, phone or WhatsApp us on ${BUSINESS.phoneDisplay} and we will pick it up straight away.`;
 
+  const letter = `${salutation(params.clientName)}\n\n${body}\n\n${closing()}`;
+
   return {
     subject: `We have your enquiry — ${BUSINESS.name}`,
-    text: `${body}\n\n${signatureText()}`,
-    html: wrapEmail(
-      body
-        .split(/\n\s*\n/)
-        .map(
-          (p) =>
-            `<p style="margin:0 0 14px 0;font-family:${FONT};font-size:15px;line-height:23px;color:${INK};">${esc(
-              p,
-            ).replace(/\n/g, '<br />')}</p>`,
-        )
-        .join(''),
-      'We have your enquiry',
-    ),
+    text: `${letter}\n\n${signatureText()}`,
+    html: wrapEmail(paragraphsHtml(letter), 'We have your enquiry'),
   };
 }
 
@@ -133,30 +218,18 @@ export function renderHandoverAck(params: { clientName: string }): {
   text: string;
   html: string;
 } {
-  const first = greetingName(params.clientName);
-
   const body =
-    `Hi ${first}\n\n` +
     `Thanks for your message — it has reached us and I have read it.\n\n` +
     `This one deserves a proper answer rather than a quick one, so I am passing it to ` +
     `someone who can deal with it directly. You will hear back from us personally.\n\n` +
     `If it is urgent in the meantime, phone or WhatsApp ${BUSINESS.phoneDisplay}.`;
 
+  const letter = `${salutation(params.clientName)}\n\n${body}\n\n${closing()}`;
+
   return {
     subject: 'We have your message',
-    text: `${body}\n\n${signatureText()}`,
-    html: wrapEmail(
-      body
-        .split(/\n\s*\n/)
-        .map(
-          (p) =>
-            `<p style="margin:0 0 14px 0;font-family:${FONT};font-size:15px;line-height:23px;color:${INK};">${esc(
-              p,
-            ).replace(/\n/g, '<br />')}</p>`,
-        )
-        .join(''),
-      'We have your message',
-    ),
+    text: `${letter}\n\n${signatureText()}`,
+    html: wrapEmail(paragraphsHtml(letter), 'We have your message'),
   };
 }
 
@@ -194,16 +267,8 @@ export function renderClientEmailHtml(params: {
   clientName: string;
   viewUrl?: string | null;
 }): string {
-  const paragraphs = params.body
-    .trim()
-    .split(/\n\s*\n/)
-    .map(
-      (p) =>
-        `<p style="margin:0 0 14px 0;font-family:${FONT};font-size:15px;line-height:23px;color:${INK};">${esc(
-          p.trim(),
-        ).replace(/\n/g, '<br />')}</p>`,
-    )
-    .join('');
+  const paragraphs =
+    paragraphsHtml(salutation(params.clientName)) + paragraphsHtml(letterBody(params.body));
 
   let quote = '';
   if (params.lines.length) {
@@ -272,8 +337,10 @@ export function renderClientEmailHtml(params: {
        <p style="margin:0;font-family:${FONT};font-size:12px;line-height:18px;color:${MUTED};">The quote is attached as a PDF as well.</p>`
     : '';
 
+  const signOff = paragraphsHtml(closing(), { topMargin: 26 });
+
   return wrapEmail(
-    `${paragraphs}${quote}${cta}`,
+    `${paragraphs}${quote}${cta}${signOff}`,
     params.lines.length ? `Your quote from ${BUSINESS.name}` : `A note from ${BUSINESS.name}`,
   );
 }

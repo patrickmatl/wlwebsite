@@ -247,7 +247,7 @@ export type QuoteDraft = AgentOutput & {
  * this file should assume. Hence the setting, and hence the studio name as the
  * default.
  */
-function signOffName(): string {
+export function signOffName(): string {
   return process.env.REPLY_SIGNOFF_NAME?.trim() || BUSINESS.name;
 }
 
@@ -343,7 +343,10 @@ How to actually do that:
   it is answering.
 - Where there is genuine judgement to offer, offer it. "Six concepts is more than most
   logo projects need — four is usually the sweet spot" is worth more than any pleasantry.
-- Sign off simply, as ${signOffName()}.
+- Do not write a greeting or a sign-off. The email is wrapped in "Dear <name>," and
+  "Kind regards, ${signOffName()}" before it is sent, so anything you add there appears
+  twice. Start with your first real sentence and stop after your last one.
+- Separate every paragraph with a blank line. Never send one unbroken block of text.
 
 # SUGGESTING MORE WORK
 Studios lose money by quoting exactly what was asked for and nothing else. The client
