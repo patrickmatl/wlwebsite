@@ -4,6 +4,7 @@ import { renderClientEmail, renderClientEmailHtml } from './render-quote';
 import { tagSubject, type ThreadRow } from './threads';
 import type { AgentAction } from '@/lib/quote-agent';
 import type { QuoteLineResolved } from '@/lib/quote-agent';
+import { BUSINESS } from '@/data/business';
 
 /**
  * One send path, and one place that decides whether a draft goes out by itself.
@@ -102,12 +103,21 @@ export async function sendDraft(params: {
     clientName: lead.name as string,
   };
 
+  // A quote becomes a real document BEFORE the email is written, not after.
+  // Otherwise there is nothing to link to and nothing to attach, which is how
+  // the automatic quotes were going out as plain email while the hand-sent ones
+  // carried a PDF and a portal link.
+  const doc = msg.action === 'quote' ? await issueQuoteDocument(params.messageId) : null;
+
   try {
     await sendEmail({
       to: lead.email as string,
       subject: tagSubject(finalSubject ?? thread.subject, thread.ref),
-      text: renderClientEmail(emailParams),
-      html: renderClientEmailHtml(emailParams),
+      text: renderClientEmail({ ...emailParams, viewUrl: doc?.viewUrl }),
+      html: renderClientEmailHtml({ ...emailParams, viewUrl: doc?.viewUrl }),
+      attachments: doc?.pdf
+        ? [{ filename: doc.filename, content: doc.pdf, contentType: 'application/pdf' }]
+        : undefined,
     });
   } catch (err) {
     console.error('[send] failed', err);
@@ -165,11 +175,8 @@ async function mirrorToCrm(params: {
 }): Promise<void> {
   const crm = await import('./crm');
 
-  if (params.action === 'quote') {
-    const quote = await crm.quoteFromAgentDraft(params.messageId, 'autopilot');
-    if (quote.status === 'draft') await crm.sendQuote(quote.id, 'autopilot');
-    return;
-  }
+  // 'quote' is handled before sending, by issueQuoteDocument().
+  if (params.action === 'quote') return;
 
   if (params.action === 'accept') {
     // Which quote did they accept? The most recent one still open on this lead.
@@ -264,4 +271,38 @@ export async function releaseDraft(params: {
   }).catch(() => {});
 
   return { sent: true, reason: decision.reason };
+}
+
+/**
+ * Turn the agent's draft into an issued quote, and render its PDF.
+ *
+ * Deliberately best-effort: if any of this fails the email still goes out with
+ * the itemised quote in the body, which is what used to happen every time. A
+ * missing attachment is a worse email; a missing email is a lost client.
+ */
+async function issueQuoteDocument(
+  messageId: string,
+): Promise<{ viewUrl: string | null; pdf: Buffer | null; filename: string } | null> {
+  try {
+    const crm = await import('./crm');
+    const { ensureShareToken, quoteDocument, documentFilename } = await import('./documents');
+    const { renderDocumentPdf } = await import('./document-pdf');
+
+    const quote = await crm.quoteFromAgentDraft(messageId, 'autopilot');
+    if (quote.status === 'draft') await crm.sendQuote(quote.id, 'autopilot');
+
+    // The share link works without a login, so a client can forward the quote to
+    // whoever signs off without that person needing an account.
+    const token = await ensureShareToken('quotes', quote.id);
+    const baseUrl = BUSINESS.url;
+    const viewUrl = token ? `${baseUrl}/q/${token}` : `${baseUrl}/portal/quotes/${quote.id}`;
+
+    const doc = await quoteDocument(quote.id, baseUrl);
+    const pdf = doc ? await renderDocumentPdf(doc) : null;
+
+    return { viewUrl, pdf, filename: doc ? documentFilename(doc) : `${quote.number}.pdf` };
+  } catch (err) {
+    console.error('[send] could not issue the quote document', err);
+    return null;
+  }
 }

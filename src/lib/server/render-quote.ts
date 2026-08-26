@@ -14,6 +14,8 @@ export function renderClientEmail(params: {
   total: number | null;
   validityDays: number;
   clientName: string;
+  /** Where the client can open the quote and accept it, if it has been issued. */
+  viewUrl?: string | null;
 }): string {
   const parts: string[] = [params.body.trim()];
 
@@ -42,6 +44,10 @@ export function renderClientEmail(params: {
     parts.push(`Valid for ${params.validityDays} days. Prices exclude VAT.`, '');
     parts.push('Included with every project:');
     for (const inc of STANDARD_INCLUSIONS) parts.push(`  • ${inc}`);
+
+    if (params.viewUrl) {
+      parts.push('', 'The quote is attached as a PDF. You can also open it and accept it here:', params.viewUrl);
+    }
   }
 
   parts.push('', signatureText());
@@ -121,6 +127,7 @@ export function renderClientEmailHtml(params: {
   total: number | null;
   validityDays: number;
   clientName: string;
+  viewUrl?: string | null;
 }): string {
   const paragraphs = params.body
     .trim()
@@ -191,8 +198,17 @@ export function renderClientEmailHtml(params: {
 </table>`;
   }
 
+  // One button, after the itemised quote: accepting should be the easy thing to do.
+  const cta = params.viewUrl
+    ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 4px 0;"><tr>
+         <td style="background-color:#111111;border-radius:6px;">
+           <a href="${esc(params.viewUrl)}" style="display:inline-block;padding:12px 22px;font-family:${FONT};font-size:14px;font-weight:bold;color:#FFD700;text-decoration:none;">View and accept the quote &rarr;</a>
+         </td></tr></table>
+       <p style="margin:0;font-family:${FONT};font-size:12px;line-height:18px;color:${MUTED};">The quote is attached as a PDF as well.</p>`
+    : '';
+
   return wrapEmail(
-    `${paragraphs}${quote}`,
+    `${paragraphs}${quote}${cta}`,
     params.lines.length ? `Your quote from ${BUSINESS.name}` : `A note from ${BUSINESS.name}`,
   );
 }

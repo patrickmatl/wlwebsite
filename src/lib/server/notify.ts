@@ -87,6 +87,8 @@ export async function sendEmail(params: {
   text: string;
   /** Optional HTML half. Clients that can render it will; the rest see `text`. */
   html?: string;
+  /** Files to attach. A quote is expected as a PDF, not just as an email body. */
+  attachments?: { filename: string; content: Buffer; contentType?: string }[];
   replyTo?: string;
   /** Set to thread outbound mail correctly in the client's inbox */
   headers?: Record<string, string>;
@@ -118,6 +120,7 @@ export async function sendEmail(params: {
       subject: params.subject,
       text: params.text,
       html: params.html,
+      attachments: params.attachments,
       // No Reply-To by default: replies must land back in the quotes@ mailbox
       // that /api/inbound/poll reads, or the conversation loop breaks.
       replyTo: params.replyTo,
@@ -144,6 +147,10 @@ export async function sendEmail(params: {
       subject: params.subject,
       text: params.text,
       html: params.html,
+      attachments: params.attachments?.map((a) => ({
+        filename: a.filename,
+        content: a.content.toString('base64'),
+      })),
       reply_to: params.replyTo ?? BUSINESS.email,
       headers: params.headers,
     }),

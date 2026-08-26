@@ -17,7 +17,9 @@ export default function robots(): MetadataRoute.Robots {
     allow: '/',
     // /studio is the CRM and /portal is the client area. Neither is for
     // crawlers, and both would be a poor first impression in a search result.
-    disallow: ['/api/', '/studio', '/portal'],
+    // /q and /i are the unguessable share links for quotes and invoices —
+    // readable by anyone holding one, but never something to index.
+    disallow: ['/api/', '/studio', '/portal', '/q/', '/i/'],
   };
 
   return {
