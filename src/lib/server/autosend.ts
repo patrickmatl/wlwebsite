@@ -217,6 +217,39 @@ export async function sendDraft(params: {
 }
 
 /**
+ * An open quote on this thread that money has already been taken against.
+ *
+ * The interlock on revising: once a client has paid a deposit, the job is
+ * running, and quietly replacing the document that describes it — voiding the
+ * invoice they paid against in the process — is not something to do without a
+ * person looking. Returns null in the ordinary case, which is most of them.
+ */
+async function paidQuoteOnThread(
+  threadId: string,
+): Promise<{ number: string; paidTotal: number } | null> {
+  const { data: msgs } = await db()
+    .from('quote_messages')
+    .select('id')
+    .eq('thread_id', threadId);
+
+  const ids = (msgs ?? []).map((m) => m.id as string);
+  if (!ids.length) return null;
+
+  const { data: quotes } = await db()
+    .from('quotes')
+    .select('id, number, status')
+    .in('message_id', ids)
+    .in('status', ['draft', 'sent', 'accepted']);
+
+  const crm = await import('./crm');
+  for (const q of quotes ?? []) {
+    const money = await crm.quoteMoneyState(q.id as string);
+    if (money.paid) return { number: q.number as string, paidTotal: money.paidTotal };
+  }
+  return null;
+}
+
+/**
  * The name the client signed their most recent message with, if any.
  *
  * Only the latest one counts: a thread can change hands part way through, and
@@ -328,6 +361,23 @@ export async function releaseDraft(params: {
       const breach = advertisedFloorBreach(lead?.details as string | null, params.draft.total);
       if (breach.breached) decision = { send: false, reason: breach.reason as string };
     }
+
+    // A new quote on a thread that already has one is a revision. That is fine
+    // and handled automatically — unless money has been taken against the quote
+    // being replaced, in which case a person decides. Note this fires only on a
+    // fresh QUOTE: ordinary replies on a paid job (brand colours, a meeting
+    // time, a thank-you) are untouched, because they are not action 'quote'.
+    if (decision.send) {
+      const paid = await paidQuoteOnThread(params.threadId);
+      if (paid) {
+        decision = {
+          send: false,
+          reason:
+            `this revises quote ${paid.number}, which has already been paid ` +
+            `${paid.paidTotal.toLocaleString('en-ZA')} — a person must decide how to handle the change`,
+        };
+      }
+    }
   }
 
   if (!decision.send) {
@@ -404,6 +454,25 @@ async function issueQuoteDocument(
 
     const quote = await crm.quoteFromAgentDraft(messageId, 'autopilot');
     if (quote.status === 'draft') await crm.sendQuote(quote.id, 'autopilot');
+
+    // A client asking for changes gets a revision, not a second live document.
+    // Done after the replacement exists and is sent, so a failure anywhere
+    // above leaves the original standing rather than retiring it with nothing
+    // to take its place. releaseDraft has already refused to reach here if the
+    // predecessor was paid; supersedePriorQuotes checks again regardless.
+    const replaced = await crm.supersedePriorQuotes(quote.id, 'autopilot').catch((err) => {
+      console.error('[send] could not supersede the previous quote', err);
+      return null;
+    });
+
+    if (replaced?.superseded.length) {
+      console.info(
+        `[send] quote ${quote.number} replaces ${replaced.superseded.join(', ')}` +
+          (replaced.voidedInvoices.length
+            ? ` (voided ${replaced.voidedInvoices.length} unpaid invoice(s))`
+            : ''),
+      );
+    }
 
     // The share link works without a login, so a client can forward the quote to
     // whoever signs off without that person needing an account.

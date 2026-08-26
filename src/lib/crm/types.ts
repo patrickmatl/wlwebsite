@@ -150,6 +150,8 @@ export type Quote = {
   decline_reason: string | null;
   accepted_by_name: string | null;
   accepted_ip: string | null;
+  /** The quote this one replaces, when a client asked for changes. */
+  supersedes_id: string | null;
 };
 
 export type ProjectMilestone = {

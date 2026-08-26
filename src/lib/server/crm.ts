@@ -1397,6 +1397,152 @@ type AgentQuoteLine = {
  * can accept. It is idempotent on message_id, because clicking twice must not
  * burn a second quote number.
  */
+/**
+ * Has any money been taken against this quote?
+ *
+ * The interlock for revising a quote, and deliberately paranoid about where
+ * money can hide. `invoices.amount_paid` is maintained by a trigger, so it is
+ * derived rather than authoritative — a payments row written while the trigger
+ * was disabled reads as zero. The payments rows themselves are the truth, so
+ * both are checked and either one counts.
+ */
+export async function quoteMoneyState(quoteId: string): Promise<{
+  paid: boolean;
+  paidTotal: number;
+  invoiceIds: string[];
+  liveInvoiceIds: string[];
+}> {
+  const { data: invoices } = await db()
+    .from('invoices')
+    .select('id, amount_paid, status')
+    .eq('quote_id', quoteId);
+
+  const rows = invoices ?? [];
+  const invoiceIds = rows.map((i) => i.id as string);
+  const liveInvoiceIds = rows.filter((i) => i.status !== 'void').map((i) => i.id as string);
+
+  if (invoiceIds.length === 0) {
+    return { paid: false, paidTotal: 0, invoiceIds, liveInvoiceIds };
+  }
+
+  const { data: payments } = await db()
+    .from('payments')
+    .select('amount')
+    .in('invoice_id', invoiceIds);
+
+  const fromPayments = (payments ?? []).reduce((sum, p) => sum + num(p.amount), 0);
+  const fromInvoices = rows.reduce((sum, i) => sum + num(i.amount_paid), 0);
+  const paidTotal = round2(Math.max(fromPayments, fromInvoices));
+
+  return { paid: paidTotal > 0, paidTotal, invoiceIds, liveInvoiceIds };
+}
+
+/**
+ * Quotes on the same conversation that this one replaces.
+ *
+ * The thread is the discriminator, not the contact: a client can have two
+ * unrelated jobs open at once, and superseding the packaging quote because
+ * they asked to change the annual report would be worse than doing nothing.
+ * Two quotes belong to the same negotiation only if their messages sit on the
+ * same thread.
+ */
+async function priorQuotesOnSameThread(quote: Quote): Promise<Quote[]> {
+  if (!quote.message_id) return [];
+
+  const { data: msg } = await db()
+    .from('quote_messages')
+    .select('thread_id')
+    .eq('id', quote.message_id)
+    .maybeSingle();
+  if (!msg?.thread_id) return [];
+
+  const { data: siblings } = await db()
+    .from('quote_messages')
+    .select('id')
+    .eq('thread_id', msg.thread_id);
+
+  const ids = (siblings ?? []).map((m) => m.id as string).filter((id) => id !== quote.message_id);
+  if (!ids.length) return [];
+
+  const { data: quotes } = await db()
+    .from('quotes')
+    .select('*')
+    .in('message_id', ids)
+    .in('status', ['draft', 'sent'])
+    .order('created_at', { ascending: false });
+
+  return (quotes ?? []) as Quote[];
+}
+
+/**
+ * Retire the quotes this one replaces.
+ *
+ * Called after the replacement exists, never before: createQuote deletes its
+ * own row if the line insert fails (see above) and PostgREST gives us no
+ * transaction, so superseding first risks leaving the client with a retired
+ * quote and no successor.
+ *
+ * Refuses outright if any money has been taken — the caller is expected to
+ * have held the draft for a human before reaching here, and this is the second
+ * lock rather than the first.
+ *
+ * Unpaid invoices already raised against the predecessor are voided. Leaving
+ * them live is how a client ends up paying a deposit against a quote that no
+ * longer describes the job, and how balanceInvoiceFromQuote on the successor
+ * later bills the full amount again because invoicedSubtotal only sees
+ * invoices carrying its own quote_id.
+ */
+export async function supersedePriorQuotes(
+  newQuoteId: string,
+  actor = 'studio',
+): Promise<{ superseded: string[]; voidedInvoices: string[]; refused: string[] }> {
+  const quote = await getQuote(newQuoteId);
+  if (!quote) return { superseded: [], voidedInvoices: [], refused: [] };
+
+  const priors = await priorQuotesOnSameThread(quote);
+  const superseded: string[] = [];
+  const voidedInvoices: string[] = [];
+  const refused: string[] = [];
+
+  for (const prior of priors) {
+    const money = await quoteMoneyState(prior.id);
+    if (money.paid) {
+      refused.push(prior.number);
+      continue;
+    }
+
+    for (const invoiceId of money.liveInvoiceIds) {
+      await voidInvoice(
+        invoiceId,
+        `Quote ${prior.number} was revised as ${quote.number} before this was paid`,
+        actor,
+      );
+      voidedInvoices.push(invoiceId);
+    }
+
+    await supersedeQuote(prior.id, actor);
+    superseded.push(prior.number);
+  }
+
+  if (superseded.length) {
+    // Point at the most recent predecessor. The chain reaches the rest.
+    await db()
+      .from('quotes')
+      .update({ supersedes_id: priors[0].id })
+      .eq('id', quote.id);
+
+    await logActivity({
+      entityType: 'quote',
+      entityId: quote.id,
+      kind: 'revised',
+      title: `Quote ${quote.number} replaces ${superseded.join(', ')}`,
+      actor,
+    });
+  }
+
+  return { superseded, voidedInvoices, refused };
+}
+
 export async function quoteFromAgentDraft(messageId: string, actor = 'studio'): Promise<Quote> {
   const already = firstRow<Quote>(
     await db()
