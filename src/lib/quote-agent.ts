@@ -5,14 +5,15 @@ import { priceListForPrompt, findPriceItem, formatPrice, CURRENCY_SYMBOL } from 
 /**
  * The quote agent — Google Gemini.
  *
- * Given a lead's enquiry (and any subsequent email replies), the model decides
- * one of two things:
- *   1. It still needs information  -> it drafts a short clarifying reply.
- *   2. It has enough to quote      -> it drafts a quote built ONLY from
- *                                     src/data/pricing.ts line items.
+ * Every email the studio receives passes through here. The model classifies the
+ * message and decides what to do with it: ask for missing detail, quote from
+ * src/data/pricing.ts, confirm an accepted job, bin it as spam, or hand it to a
+ * human. See the system prompt for the routing rules.
  *
- * Nothing it produces is sent to a client automatically. Every draft lands in
- * the approval queue for a human to approve, edit or reject.
+ * Whether a draft is actually sent is NOT decided here — see
+ * src/lib/server/autosend.ts. The model's own `confidence` is the brake: a
+ * low-confidence draft always waits for a person, whatever the autopilot
+ * setting is.
  *
  * The model is swappable via GEMINI_MODEL; everything else in the system is
  * provider-agnostic, so changing LLM means changing only this file.
@@ -57,9 +58,22 @@ const RESPONSE_SCHEMA = {
   properties: {
     action: {
       type: 'string',
-      enum: ['ask', 'quote'],
+      enum: ['ask', 'quote', 'accept', 'ignore', 'handover'],
       description:
-        "'ask' when key scoping information is still missing. 'quote' when you have enough to price the job confidently.",
+        "'ask' when key scoping information is still missing. 'quote' when you have enough to price the job confidently. 'accept' when the client has agreed to a quote and needs next steps. 'ignore' for spam, newsletters and sales pitches that need no reply at all. 'handover' when a human must deal with it personally.",
+    },
+    intent: {
+      type: 'string',
+      enum: [
+        'new_enquiry',
+        'reply_to_us',
+        'accepted_quote',
+        'general_question',
+        'job_application',
+        'sales_pitch_or_spam',
+        'complaint_or_other',
+      ],
+      description: 'What this message actually is. Drives routing, not the reply itself.',
     },
     reasoning: {
       type: 'string',
@@ -112,6 +126,7 @@ const RESPONSE_SCHEMA = {
   },
   required: [
     'action',
+    'intent',
     'reasoning',
     'missing_info',
     'email_subject',
@@ -122,6 +137,7 @@ const RESPONSE_SCHEMA = {
   ],
   propertyOrdering: [
     'action',
+    'intent',
     'reasoning',
     'missing_info',
     'email_subject',
@@ -132,8 +148,20 @@ const RESPONSE_SCHEMA = {
   ],
 } as const;
 
+export type AgentAction = 'ask' | 'quote' | 'accept' | 'ignore' | 'handover';
+
+export type AgentIntent =
+  | 'new_enquiry'
+  | 'reply_to_us'
+  | 'accepted_quote'
+  | 'general_question'
+  | 'job_application'
+  | 'sales_pitch_or_spam'
+  | 'complaint_or_other';
+
 export type AgentOutput = {
-  action: 'ask' | 'quote';
+  action: AgentAction;
+  intent: AgentIntent;
   reasoning: string;
   missing_info: string[];
   email_subject: string;
@@ -163,7 +191,18 @@ export type QuoteDraft = AgentOutput & {
 function systemPrompt(): string {
   return `You are the quoting assistant for ${BUSINESS.name}, a graphic design studio in Pretoria, South Africa, in business since ${BUSINESS.foundedYear}.
 
-Your job is to turn an incoming enquiry into either (a) a short clarifying email, or (b) a priced quote.
+Every email that reaches the studio comes to you first. You decide what kind of message it is, then either draft the reply or route it to a human.
+
+# WHAT TO DO WITH A MESSAGE
+Pick exactly one action:
+
+- "ask"      — a real enquiry, but scope, quantity or service is still unclear. Draft a short clarifying email.
+- "quote"    — you have enough to price the job. Draft a quote built only from the price list.
+- "accept"   — the client has agreed to a quote or said go ahead. Draft a warm confirmation that sets out what happens next: you will confirm the brief, then invoice a 50% deposit to start, with the balance on final handover. Do not restate prices and do not attach terms.
+- "ignore"   — newsletters, marketing blasts, cold sales pitches, SEO/lead-gen spam, automated receipts. No reply is drafted and nobody is disturbed. Use this freely; it is the correct answer for most unsolicited mail.
+- "handover" — a human must handle it personally: complaints, legal or invoice disputes, press or partnership approaches, anything about an existing project going wrong, or anything you are genuinely unsure how to answer. Draft nothing for the client; write your reasoning for the owner instead.
+
+Job applications and CVs are "handover" — note in your reasoning that they should go to careers@wlcreationx.co.za.
 
 # ABSOLUTE RULES
 1. You may ONLY quote prices that appear in the price list below, referenced by their [id]. Inventing a price, discounting, rounding, or "estimating" a number is strictly forbidden. If the client wants something not on the list, choose action "ask" and say it needs a scoping call.
@@ -171,7 +210,8 @@ Your job is to turn an incoming enquiry into either (a) a short clarifying email
 3. Never claim awards, certifications, ratings or client names. The studio has a 4.9-star Google rating from 40 reviews — that is the only performance claim you may make, and only when it is natural.
 4. If the enquiry is vague about scope, quantity, or which service, choose "ask". A wrong quote is far more expensive than one extra email.
 5. Ask at most 3 questions in one email. Prefer the fewest questions that unblock a quote.
-6. Do not attach terms, contracts, or payment instructions — the studio handles those separately.
+6. Do not attach terms, contracts, or payment instructions — beyond the deposit split described under "accept", the studio handles those separately.
+7. Your replies are sent to real clients automatically when you are confident. Set confidence to "low" whenever you would want a human to read it first — that is the brake, and using it is never a failure.
 
 # TONE
 Warm, direct, human. Short paragraphs. South African business English. Sign off as "${BUSINESS.name}". No exclamation-mark enthusiasm, no marketing fluff, no emoji.
@@ -189,7 +229,10 @@ ${priceListForPrompt()}
 - Client named a specific deliverable and quantity, and it maps cleanly to a price id -> "quote".
 - Client said something like "I need branding" or "how much for a website" with no detail -> "ask".
 - Client replied to your questions and now the scope is clear -> "quote".
-- Client is asking a general question, not requesting work -> "ask" (answer them, no prices).
+- Client says "yes", "go ahead", "we accept", "please proceed", or asks for an invoice -> "accept".
+- Client is asking a general question about the studio, not requesting work -> "ask" (answer them, no prices).
+- Someone is selling you something, or you are on a mailing list -> "ignore".
+- Something has gone wrong, or money is in dispute -> "handover".
 
 When quoting, put every relevant line item in quote_lines. The email body should present the work in prose and reference the itemised quote that will appear below it — do NOT re-type the prices in the body, they are rendered from quote_lines automatically.`;
 }
@@ -245,6 +288,10 @@ export async function draftReply(params: {
     details: string;
   };
   history?: ConversationTurn[];
+  /** Filenames attached to the email, so the agent knows a brief came with it. */
+  attachments?: string[];
+  /** True when this arrived as an email from someone with no lead on file. */
+  isColdEmail?: boolean;
 }): Promise<QuoteDraft> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
@@ -253,7 +300,9 @@ export async function draftReply(params: {
 
   const e = params.enquiry;
   const intro = [
-    `New enquiry from the website.`,
+    params.isColdEmail
+      ? `An email arrived at the studio from someone with no enquiry on file. Decide what it is before treating it as work.`
+      : `New enquiry from the website.`,
     `Name: ${e.name}`,
     `Email: ${e.email}`,
     e.phone ? `Phone: ${e.phone}` : null,
@@ -337,11 +386,15 @@ export async function draftReply(params: {
     throw new Error('Quote agent returned unparseable JSON');
   }
 
-  if (parsed.action !== 'ask' && parsed.action !== 'quote') {
+  const VALID_ACTIONS: AgentAction[] = ['ask', 'quote', 'accept', 'ignore', 'handover'];
+  if (!VALID_ACTIONS.includes(parsed.action)) {
     throw new Error(`Quote agent returned an invalid action: ${String(parsed.action)}`);
   }
 
-  const { lines, total } = resolveLines(parsed);
+  // Only a quote carries priced lines. If the model attached them to anything
+  // else, drop them rather than showing a client a total on a clarifying email.
+  const { lines, total } =
+    parsed.action === 'quote' ? resolveLines(parsed) : { lines: [], total: null };
 
   return {
     ...parsed,

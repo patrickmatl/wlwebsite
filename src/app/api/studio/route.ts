@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/server/db';
 import { isAuthedRequest, checkToken, cookieValue, ADMIN_COOKIE_NAME } from '@/lib/server/admin-auth';
-import { sendEmail } from '@/lib/server/notify';
-import { renderClientEmail, renderClientEmailHtml } from '@/lib/server/render-quote';
+import { sendDraft } from '@/lib/server/autosend';
 import { draftReply, type ConversationTurn } from '@/lib/quote-agent';
 
 export const runtime = 'nodejs';
@@ -38,75 +37,19 @@ export async function POST(request: Request) {
 
   switch (action) {
     // ── send a draft (optionally after the owner edited it) ─────────────────
+    // Goes through the same sendDraft() the autopilot uses, so an approved
+    // email and an automatic one are produced by identical code.
     case 'approve': {
-      const { data: msg } = await db()
-        .from('quote_messages')
-        .select('*, quote_threads!inner(id, lead_id, subject)')
-        .eq('id', messageId)
-        .maybeSingle();
+      const result = await sendDraft({
+        messageId,
+        editedBody: body.editedBody ? String(body.editedBody) : undefined,
+        editedSubject: body.editedSubject ? String(body.editedSubject) : undefined,
+        approvedBy: 'owner',
+      });
 
-      if (!msg) return NextResponse.json({ error: 'Draft not found' }, { status: 404 });
-      if (msg.sent_at) return NextResponse.json({ error: 'Already sent' }, { status: 409 });
-
-      const thread = msg.quote_threads as { id: string; lead_id: string; subject: string };
-      const { data: lead } = await db()
-        .from('leads')
-        .select('*')
-        .eq('id', thread.lead_id)
-        .single();
-
-      if (!lead) return NextResponse.json({ error: 'Lead not found' }, { status: 404 });
-
-      // Owner edits win over the AI draft.
-      const finalBody = body.editedBody ? String(body.editedBody) : msg.body;
-      const finalSubject = body.editedSubject ? String(body.editedSubject) : msg.subject;
-
-      const emailParams = {
-        body: finalBody,
-        lines: (msg.quote_lines ?? []) as never[],
-        total: msg.quote_total,
-        validityDays: 30,
-        clientName: lead.name,
-      };
-      const email = renderClientEmail(emailParams);
-      const emailHtml = renderClientEmailHtml(emailParams);
-
-      try {
-        await sendEmail({
-          to: lead.email,
-          subject: finalSubject ?? thread.subject,
-          text: email,
-          html: emailHtml,
-        });
-      } catch (err) {
-        console.error('[studio] send failed', err);
-        return NextResponse.json(
-          { error: err instanceof Error ? err.message : 'Send failed' },
-          { status: 502 },
-        );
-      }
-
-      await db()
-        .from('quote_messages')
-        .update({
-          role: 'studio',
-          body: finalBody,
-          subject: finalSubject,
-          sent_at: new Date().toISOString(),
-          approved_by: 'owner',
-        })
-        .eq('id', messageId);
-
-      await db()
-        .from('quote_threads')
-        .update({ state: 'awaiting_client' })
-        .eq('id', thread.id);
-
-      if (msg.action === 'quote') {
-        await db().from('leads').update({ status: 'quoted' }).eq('id', lead.id);
-      }
-
-      return NextResponse.json({ ok: true });
+      return result.ok
+        ? NextResponse.json({ ok: true })
+        : NextResponse.json({ error: result.error }, { status: result.status });
     }
 
     // ── bin a draft ─────────────────────────────────────────────────────────

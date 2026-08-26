@@ -40,12 +40,32 @@ export const CURRENCY_SYMBOL = 'R';
 
 /** Applies to every design project — the agent should state these as standard. */
 export const STANDARD_INCLUSIONS = [
-  'Two revision rounds included in the quoted price',
-  'Final artwork supplied in open, editable file formats you own',
-  'Colour palettes, codes and fonts handed over with the final files',
-  'Custom design — no templates',
-  'A named project manager for the duration of the project',
+  'Two rounds of changes built into the quoted price',
+  'You own the artwork outright, handed over in editable working files',
+  'Brand colours, codes and fonts documented with the handover',
+  'Designed from scratch for you — we never work from templates',
+  'One designer stays on your project from brief to handover',
+  'Print-ready setup checked before anything goes to press',
 ] as const;
+
+/**
+ * Printing is bought in from trade printers rather than produced in-house, so
+ * it can never be quoted from a fixed list: the price moves with quantity,
+ * size, stock and finish. The agent must ask for specs, then the trade quote
+ * is marked up by this much.
+ *
+ * 40% sits in the middle of the 30-50% range print brokers work to. Small runs
+ * carry proportionally more admin than margin, so they take the minimum
+ * handling fee instead — 40% of a R400 business-card run does not cover the
+ * time it takes to place and check it.
+ */
+export const PRINT_MARKUP = 0.4;
+export const PRINT_MIN_HANDLING = 650;
+
+/** What to charge a client for print that cost `tradeCost` from the printer. */
+export function printSellPrice(tradeCost: number): number {
+  return Math.max(tradeCost * (1 + PRINT_MARKUP), tradeCost + PRINT_MIN_HANDLING);
+}
 
 export const EXTRAS: PriceItem[] = [
   {
@@ -280,12 +300,293 @@ export const PRICING: PriceCategory[] = [
     items: [
       {
         id: 'packaging',
-        name: 'Packaging / label design',
+        name: 'Label / sleeve design (single product)',
         amount: 2500,
         unit: 'from',
         includes: ['Concept development', 'Print-ready artwork', 'Dieline setup'],
         url: '/pricing/packaging-design-pretoria',
-        notes: 'Final price depends on the number of SKUs and pack formats',
+        notes: 'Covers one SKU. Additional pack formats are quoted per format',
+      },
+      {
+        id: 'packaging-carton',
+        name: 'Folding carton / box design (single product)',
+        amount: 4850,
+        unit: 'fixed',
+        includes: [
+          'Structural dieline built to the printer specification',
+          'Full carton artwork across every panel',
+          'Barcode and regulatory panel setup',
+        ],
+        url: '/pricing/packaging-design-pretoria',
+      },
+      {
+        id: 'packaging-range',
+        name: 'Packaging range (3–5 products)',
+        amount: 9850,
+        unit: 'fixed',
+        includes: [
+          'One master design system applied across the range',
+          'Print-ready artwork for every SKU',
+          'Variant colour and naming system so the range extends cleanly later',
+        ],
+        url: '/pricing/packaging-design-pretoria',
+      },
+      {
+        id: 'packaging-full',
+        name: 'Full packaging system (6+ products)',
+        amount: null,
+        unit: 'from',
+        includes: [
+          'Complete range architecture',
+          'Packaging guidelines document',
+          'Artwork for every SKU and pack format',
+        ],
+        url: '/pricing/packaging-design-pretoria',
+        notes: 'Scoped on a call — SKU count and pack formats drive the price',
+      },
+    ],
+  },
+  {
+    id: 'reports',
+    name: 'Reports & Publications',
+    blurb:
+      'Annual reports, integrated and ESG reports, investor material and interactive publications — long documents where the figures, tables and charts have to be right as well as look right.',
+    items: [
+      {
+        id: 'annual-report',
+        name: 'Annual report design (up to 24 pages)',
+        amount: 18500,
+        unit: 'fixed',
+        includes: [
+          'Cover concept and full interior layout',
+          'Financial tables and charts typeset and styled',
+          'Print-ready artwork plus a screen-optimised PDF',
+        ],
+        url: '/pricing/annual-report-design-and-print-pretoria',
+        notes: 'Assumes the client supplies final copy and signed-off figures',
+      },
+      {
+        id: 'annual-report-large',
+        name: 'Annual report design (25–48 pages)',
+        amount: 32000,
+        unit: 'fixed',
+        includes: [
+          'Everything in the 24-page report',
+          'Extended chart and infographic set',
+          'Section dividers and a navigation system',
+        ],
+        url: '/pricing/annual-report-design-and-print-pretoria',
+      },
+      {
+        id: 'annual-report-page',
+        name: 'Additional report page',
+        amount: 650,
+        unit: 'per-page',
+        includes: ['Layout and typesetting of one further page'],
+        url: '/pricing/annual-report-design-and-print-pretoria',
+      },
+      {
+        id: 'integrated-report',
+        name: 'Integrated report design',
+        amount: null,
+        unit: 'from',
+        includes: [
+          'Integrated reporting structure across financial and non-financial content',
+          'Full chart, table and infographic system',
+          'Print and digital versions',
+        ],
+        url: '/pricing/annual-report-design-and-print-pretoria',
+        notes: 'Always scoped on a call — page count and content volume drive the price',
+      },
+      {
+        id: 'esg-report',
+        name: 'Sustainability / ESG report design (up to 24 pages)',
+        amount: 16500,
+        unit: 'fixed',
+        includes: [
+          'Cover concept and interior layout',
+          'Sustainability data visualised as charts and infographics',
+          'Print-ready artwork plus a screen-optimised PDF',
+        ],
+        url: '/pricing/sustainability-esg-report-design-services-pretoria',
+      },
+      {
+        id: 'investor-relations',
+        name: 'Investor relations pack / results presentation',
+        amount: 9850,
+        unit: 'from',
+        includes: [
+          'Results presentation or investor deck design',
+          'Financial charts and data tables styled',
+          'Editable master file you can reuse for future results',
+        ],
+        url: '/pricing/investor-relations-material-design-services-pretoria',
+      },
+      {
+        id: 'interactive-pdf',
+        name: 'Interactive digital publication (up to 24 pages)',
+        amount: 12500,
+        unit: 'fixed',
+        includes: [
+          'Interactive PDF with working navigation and internal links',
+          'Clickable contents page and cross-references',
+          'File size optimised for email and web',
+        ],
+        url: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria',
+      },
+      {
+        id: 'infographic',
+        name: 'Infographic design',
+        amount: 1450,
+        unit: 'fixed',
+        includes: ['One custom infographic', 'Print and screen versions supplied'],
+        url: '/pricing/infographic-design-pretoria',
+      },
+      {
+        id: 'data-visualisation',
+        name: 'Data visualisation set',
+        amount: 2850,
+        unit: 'fixed',
+        includes: [
+          'A set of charts built from your data',
+          'One consistent visual system across the set',
+          'Editable source files',
+        ],
+        url: '/pricing/infographic-data-visualization-design-pretoria',
+      },
+      {
+        id: 'internal-comms',
+        name: 'Internal communications pack',
+        amount: 4850,
+        unit: 'from',
+        includes: [
+          'Campaign concept aimed at an internal audience',
+          'Posters, email headers and intranet artwork',
+          'Editable templates your team can reuse',
+        ],
+        url: '/pricing/internal-communications-design-pretoria',
+      },
+    ],
+  },
+  {
+    id: 'brand-systems',
+    name: 'Brand Systems & Environments',
+    blurb: 'The pieces that carry a logo out into a working brand across every surface.',
+    items: [
+      {
+        id: 'brand-guidelines',
+        name: 'Brand guidelines document',
+        amount: 6500,
+        unit: 'fixed',
+        includes: [
+          'Logo usage rules and clear-space',
+          'Colour, typography and imagery system',
+          'Do and do-not examples any supplier can follow',
+        ],
+        url: '/pricing/graphic-design-pretoria',
+      },
+      {
+        id: 'social-templates',
+        name: 'Social media template pack',
+        amount: 2850,
+        unit: 'fixed',
+        includes: [
+          'Editable templates for post, story and cover formats',
+          'Set up in Canva or the tool your team already uses',
+          'Brand fonts and colours pre-loaded',
+        ],
+        url: '/pricing/social-media-pretoria',
+      },
+      {
+        id: 'event-branding',
+        name: 'Event branding pack',
+        amount: 5850,
+        unit: 'from',
+        includes: [
+          'Event identity and key visual',
+          'Backdrop, banner, signage and name-badge artwork',
+          'Programme or invitation design',
+        ],
+        url: '/pricing/event-branding-design-pretoria',
+      },
+      {
+        id: 'vehicle-branding',
+        name: 'Vehicle branding design',
+        amount: 2950,
+        unit: 'fixed',
+        includes: ['Artwork laid out to the wrap installer template', 'Every side visualised'],
+        url: '/pricing/print-design-pretoria',
+      },
+      {
+        id: 'pullup-banner',
+        name: 'Pull-up banner design',
+        amount: 1450,
+        unit: 'fixed',
+        includes: ['Print-ready banner artwork at full size'],
+        url: '/pricing/print-design-pretoria',
+      },
+      {
+        id: 'menu-design',
+        name: 'Menu design',
+        amount: 1850,
+        unit: 'from',
+        includes: ['Menu layout and typesetting', 'Print-ready artwork'],
+        url: '/pricing/print-design-pretoria',
+      },
+    ],
+  },
+  {
+    id: 'words',
+    name: 'Copy & Transcription',
+    blurb: 'Written work, priced separately from the design it sits inside.',
+    items: [
+      {
+        id: 'copywriting',
+        name: 'Copywriting',
+        amount: 950,
+        unit: 'per-page',
+        includes: ['Original copy written to your brief', 'One round of changes'],
+        url: '/pricing/copywriting-services-pretoria-johannesburg',
+        notes: 'A page is roughly 400–500 words',
+      },
+      {
+        id: 'copy-editing',
+        name: 'Copy editing and proofreading',
+        amount: 450,
+        unit: 'per-page',
+        includes: ['Grammar, consistency and tone edit of copy you already have'],
+        url: '/pricing/copy-editing-services-pretoria-johannesburg',
+      },
+      {
+        id: 'transcription',
+        name: 'Transcription',
+        amount: 25,
+        unit: 'fixed',
+        includes: ['Typed transcript of clear audio', 'Speaker labels where needed'],
+        url: '/pricing/transcription-services-pretoria-johannesburg',
+        notes: 'Priced per minute of audio. Poor recordings are quoted separately',
+      },
+    ],
+  },
+  {
+    id: 'print-supply',
+    name: 'Printing & Production',
+    blurb:
+      'We design it, and we can have it printed. Printing is bought in from trade printers, so it is always quoted per job rather than from a list.',
+    items: [
+      {
+        id: 'print-supply',
+        name: 'Print supply and production management',
+        amount: null,
+        unit: 'from',
+        includes: [
+          'Trade quote obtained against your specification',
+          'Artwork prepared and checked before it goes to press',
+          'The print run managed through to delivery',
+        ],
+        url: '/pricing/print-design-pretoria',
+        notes:
+          'NEVER put a print price in a quote. Ask for quantity, size, stock and finish, and say printing is quoted separately once we have the specs. Design and print always appear as separate lines',
       },
     ],
   },

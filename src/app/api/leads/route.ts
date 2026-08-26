@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 import { waitUntil } from '@vercel/functions';
 import { db, quoteSystemConfigured } from '@/lib/server/db';
 import { draftReply } from '@/lib/quote-agent';
-import { notifyOwner } from '@/lib/server/notify';
+import { notifyOwner, sendEmail } from '@/lib/server/notify';
+import { renderAck } from '@/lib/server/render-quote';
+import { releaseDraft } from '@/lib/server/autosend';
+import { createThread, tagSubject } from '@/lib/server/threads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -22,12 +25,16 @@ type LeadRow = {
 };
 
 /**
- * Website form -> lead -> (background) AI draft -> owner notification.
+ * Website form -> lead -> instant acknowledgement -> AI draft -> reply.
  *
- * The visitor gets a response as soon as the lead is safely stored — they never
- * wait on the model. Drafting and notifying happen after the response is sent,
- * via waitUntil. Nothing is emailed to the client: the draft waits in /studio
- * for a human to approve.
+ * The visitor gets a response as soon as the lead is safely stored; they never
+ * wait on the model. Everything after that happens once the response is sent,
+ * via waitUntil:
+ *
+ *   1. A fixed acknowledgement email goes out immediately, so nobody is left
+ *      wondering whether the form worked.
+ *   2. The agent drafts the real reply.
+ *   3. autosend.ts decides whether it goes out by itself or waits in /studio.
  */
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
@@ -72,6 +79,7 @@ export async function POST(request: Request) {
     timeline: payload.timeline ? String(payload.timeline).trim() : null,
     details,
     source_page: payload.source_page ? String(payload.source_page).slice(0, 200) : null,
+    origin: 'form',
   };
 
   const { data: inserted, error: insertError } = await db()
@@ -86,23 +94,45 @@ export async function POST(request: Request) {
   }
 
   // Lead is safe. Everything below runs after the response is sent.
-  waitUntil(draftInBackground(inserted as LeadRow));
+  waitUntil(handleInBackground(inserted as LeadRow));
 
   return NextResponse.json({ ok: true });
 }
 
-async function draftInBackground(lead: LeadRow): Promise<void> {
+async function handleInBackground(lead: LeadRow): Promise<void> {
+  let threadId: string | null = null;
+
   try {
     const subject = `Your enquiry with WL CreationX${lead.service ? ` — ${lead.service}` : ''}`;
+    const thread = await createThread({ leadId: lead.id, subject });
+    threadId = thread.id;
 
-    const { data: thread } = await db()
-      .from('quote_threads')
-      .insert({ lead_id: lead.id, subject })
-      .select()
-      .single();
+    // 1. Acknowledge immediately. This is a fixed template with no AI in it, so
+    //    it needs no approval and cannot say anything unintended. It is sent
+    //    before the model runs so a slow or failing model never delays it.
+    const ack = renderAck({ clientName: lead.name, service: lead.service });
+    try {
+      await sendEmail({
+        to: lead.email,
+        subject: tagSubject(ack.subject, thread.ref),
+        text: ack.text,
+        html: ack.html,
+      });
+      await db().from('quote_messages').insert({
+        thread_id: thread.id,
+        role: 'studio',
+        subject: ack.subject,
+        body: ack.text,
+        action: 'ack',
+        sent_at: new Date().toISOString(),
+        approved_by: 'automatic',
+      });
+    } catch (err) {
+      // A failed acknowledgement must not stop the real reply being drafted.
+      console.error('[leads] acknowledgement failed', err);
+    }
 
-    if (!thread) throw new Error('could not create thread');
-
+    // 2. Draft the real reply.
     const draft = await draftReply({
       enquiry: {
         name: lead.name,
@@ -115,25 +145,32 @@ async function draftInBackground(lead: LeadRow): Promise<void> {
       },
     });
 
-    await db().from('quote_messages').insert({
-      thread_id: thread.id,
-      role: 'draft',
-      subject: draft.email_subject,
-      body: draft.email_body,
-      action: draft.action,
-      reasoning: draft.reasoning,
-      confidence: draft.confidence,
-      quote_lines: draft.lines,
-      quote_total: draft.total,
-    });
+    const { data: message } = await db()
+      .from('quote_messages')
+      .insert({
+        thread_id: thread.id,
+        role: 'draft',
+        subject: draft.email_subject,
+        body: draft.email_body,
+        action: draft.action,
+        intent: draft.intent,
+        reasoning: draft.reasoning,
+        confidence: draft.confidence,
+        quote_lines: draft.lines,
+        quote_total: draft.total,
+      })
+      .select()
+      .single();
 
-    await notifyOwner({
-      title:
-        draft.action === 'quote'
-          ? `Quote ready: ${lead.name} — ${draft.totalFormatted}`
-          : `New lead: ${lead.name} (needs info)`,
-      summary: lead.details.slice(0, 160),
+    if (!message) throw new Error('could not store draft');
+
+    // 3. Send it, or queue it for approval.
+    await releaseDraft({
+      messageId: message.id,
       threadId: thread.id,
+      draft,
+      leadName: lead.name,
+      summary: lead.details.slice(0, 160),
     });
   } catch (err) {
     console.error('[leads] drafting failed (lead was saved)', err);
@@ -141,7 +178,7 @@ async function draftInBackground(lead: LeadRow): Promise<void> {
     await notifyOwner({
       title: `New lead: ${lead.name}`,
       summary: `${lead.details.slice(0, 140)} — AI draft failed, reply manually.`,
-      threadId: lead.id,
+      threadId: threadId ?? lead.id,
     }).catch(() => {});
   }
 }

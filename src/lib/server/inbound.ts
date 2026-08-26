@@ -1,17 +1,23 @@
 import { db } from './db';
-import { draftReply, type ConversationTurn } from '@/lib/quote-agent';
+import { draftReply, type ConversationTurn, type QuoteDraft } from '@/lib/quote-agent';
 import { notifyOwner } from './notify';
+import { releaseDraft } from './autosend';
+import { createThread, extractThreadRef, findThreadForReply, type ThreadRow } from './threads';
 
 /**
- * Shared handling for a client's email reply, whatever brought it in.
- *
- * Two transports reach this:
- *   - /api/inbound       — Resend's inbound webhook (push)
+ * Every inbound email ends up here, whichever way it arrived:
+ *   - /api/inbound       — Resend's webhook (push)
  *   - /api/inbound/poll  — IMAP poll of the quotes@ mailbox (pull, cPanel cron)
  *
- * Both append the client's message to the thread, ask the agent for the next
- * move, and queue that draft for approval. The client never receives an
- * automated reply without a human approving it in /studio.
+ * Three cases are handled:
+ *   1. A reply on a conversation we already know about -> continue the thread.
+ *   2. A cold email from someone with no lead -> create the lead and start one.
+ *      This is how a client who emails the studio directly, without ever
+ *      touching the website form, still gets an automated reply.
+ *   3. Spam, newsletters and sales pitches -> classified and dropped, without
+ *      creating a lead or waking anyone.
+ *
+ * Whether the drafted reply is actually sent is decided in autosend.ts.
  */
 
 /** Strip quoted history so the agent reads only what the client just wrote. */
@@ -22,7 +28,7 @@ export function stripQuotedReply(text: string): string {
     /^_{10,}$/m,
     /^From:\s.+$/m,
     /^─{20,}$/m, // our own quote divider
-    /^-{2,}\s*$/m, // signature delimiter
+    /^--\s*$/m, // signature delimiter
   ];
   let out = text;
   for (const marker of cutMarkers) {
@@ -41,59 +47,74 @@ export function parseAddress(raw: string): string {
   return (raw.match(/<([^>]+)>/)?.[1] ?? raw).trim().toLowerCase();
 }
 
+/** Pull the display name out of "Name <addr@host>", falling back to the local part. */
+export function parseDisplayName(raw: string, email: string): string {
+  const quoted = raw.match(/^\s*"?([^"<]+?)"?\s*</);
+  const name = quoted?.[1]?.trim();
+  if (name && !name.includes('@')) return name;
+
+  // "john.smith@" -> "John Smith"
+  const local = email.split('@')[0] ?? 'there';
+  return local
+    .replace(/[._-]+/g, ' ')
+    .replace(/\d+/g, '')
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+    .trim();
+}
+
 export type InboundResult =
-  | { handled: true; threadId: string; action: 'ask' | 'quote' | 'failed' }
+  | { handled: true; threadId: string; action: string; sent: boolean; newLead: boolean }
   | { handled: false; reason: string };
 
 export async function processInboundEmail(params: {
   fromRaw: string;
   subject?: string | null;
   text: string;
+  /** Filenames of anything attached — the agent is told they exist. */
+  attachments?: string[];
 }): Promise<InboundResult> {
   const fromEmail = parseAddress(params.fromRaw ?? '');
   const body = stripQuotedReply(params.text ?? '');
 
   if (!fromEmail || !body) return { handled: false, reason: 'no usable sender or body' };
 
-  // Find this sender's most recent lead, and its thread.
-  const { data: lead } = await db()
-    .from('leads')
-    .select('*')
-    .ilike('email', fromEmail)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const ref = extractThreadRef(params.subject, params.text);
+  const existing = await findThreadForReply({ ref, email: fromEmail });
 
-  if (!lead) {
-    // Unknown sender — notify rather than drop it on the floor.
-    await notifyOwner({
-      title: `Email from unknown sender: ${fromEmail}`,
-      summary: body.slice(0, 160),
-      threadId: '',
-    }).catch(() => {});
-    return { handled: false, reason: 'no matching lead' };
-  }
+  return existing
+    ? continueThread({ ...params, fromEmail, body, existing })
+    : startFromColdEmail({ ...params, fromEmail, body });
+}
 
-  const { data: thread } = await db()
-    .from('quote_threads')
-    .select('*')
-    .eq('lead_id', lead.id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (!thread) return { handled: false, reason: 'no thread' };
+/** A reply on a conversation we already have. */
+async function continueThread(params: {
+  fromEmail: string;
+  body: string;
+  subject?: string | null;
+  attachments?: string[];
+  existing: { thread: ThreadRow; lead: Record<string, unknown> };
+}): Promise<InboundResult> {
+  const { thread, lead } = params.existing;
 
   await db().from('quote_messages').insert({
     thread_id: thread.id,
     role: 'client',
     subject: params.subject ?? null,
-    body,
+    body: params.body,
   });
 
+  // A client who replies has re-engaged: any follow-up count starts over.
+  await db()
+    .from('quote_threads')
+    .update({ state: 'awaiting_approval', follow_ups_sent: 0 })
+    .eq('id', thread.id);
+
   try {
-    // Rebuild the conversation (sent messages only — drafts never happened
-    // from the client's point of view).
+    // Rebuild the conversation from sent messages only — drafts never happened
+    // as far as the client is concerned.
     const { data: msgs } = await db()
       .from('quote_messages')
       .select('role, body, sent_at')
@@ -105,49 +126,165 @@ export async function processInboundEmail(params: {
       .map((m) => ({ role: m.role === 'client' ? 'client' : 'studio', text: m.body }));
 
     const draft = await draftReply({
-      enquiry: {
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        service: lead.service,
-        budget: lead.budget,
-        timeline: lead.timeline,
-        details: lead.details,
-      },
+      enquiry: leadToEnquiry(lead),
       history,
+      attachments: params.attachments,
     });
 
-    await db().from('quote_messages').insert({
-      thread_id: thread.id,
-      role: 'draft',
-      subject: draft.email_subject,
-      body: draft.email_body,
-      action: draft.action,
-      reasoning: draft.reasoning,
-      confidence: draft.confidence,
-      quote_lines: draft.lines,
-      quote_total: draft.total,
-    });
-
-    await db().from('quote_threads').update({ state: 'awaiting_approval' }).eq('id', thread.id);
-
-    await notifyOwner({
-      title:
-        draft.action === 'quote'
-          ? `${lead.name} replied — quote ready (${draft.totalFormatted})`
-          : `${lead.name} replied — draft ready`,
-      summary: body.slice(0, 160),
+    return await storeAndRelease({
       threadId: thread.id,
+      draft,
+      leadName: String(lead.name ?? 'Client'),
+      summary: params.body.slice(0, 160),
+      newLead: false,
     });
-
-    return { handled: true, threadId: thread.id, action: draft.action };
   } catch (err) {
     console.error('[inbound] drafting failed', err);
     await notifyOwner({
       title: `${lead.name} replied (AI draft failed)`,
-      summary: body.slice(0, 160),
+      summary: params.body.slice(0, 160),
       threadId: thread.id,
     }).catch(() => {});
-    return { handled: true, threadId: thread.id, action: 'failed' };
+    return { handled: true, threadId: thread.id, action: 'failed', sent: false, newLead: false };
   }
+}
+
+/**
+ * Nobody we know. Classify it first: only genuine enquiries become leads, so
+ * the pipeline doesn't fill up with newsletters and cold sales mail.
+ */
+async function startFromColdEmail(params: {
+  fromRaw: string;
+  fromEmail: string;
+  body: string;
+  subject?: string | null;
+  attachments?: string[];
+}): Promise<InboundResult> {
+  const name = parseDisplayName(params.fromRaw, params.fromEmail);
+
+  let draft: QuoteDraft;
+  try {
+    draft = await draftReply({
+      enquiry: {
+        name,
+        email: params.fromEmail,
+        service: null,
+        details: params.subject ? `Subject: ${params.subject}\n\n${params.body}` : params.body,
+      },
+      attachments: params.attachments,
+      isColdEmail: true,
+    });
+  } catch (err) {
+    console.error('[inbound] cold-email classification failed', err);
+    await notifyOwner({
+      title: `Email from ${name} (could not be read automatically)`,
+      summary: params.body.slice(0, 160),
+      threadId: '',
+    }).catch(() => {});
+    return { handled: false, reason: 'classification failed' };
+  }
+
+  // Spam and pitches stop here — no lead, no thread, no notification.
+  if (draft.action === 'ignore') {
+    console.info('[inbound] ignored', params.fromEmail, draft.intent);
+    return { handled: false, reason: `ignored (${draft.intent})` };
+  }
+
+  const { data: lead, error } = await db()
+    .from('leads')
+    .insert({
+      name,
+      email: params.fromEmail,
+      details: params.body.slice(0, 8000),
+      source_page: 'email',
+      origin: 'email',
+      status: draft.action === 'handover' ? 'new' : 'new',
+    })
+    .select()
+    .single();
+
+  if (error || !lead) {
+    console.error('[inbound] could not create lead from email', error);
+    return { handled: false, reason: 'could not create lead' };
+  }
+
+  const thread = await createThread({
+    leadId: lead.id,
+    subject: params.subject?.trim() || `Enquiry from ${name}`,
+  });
+
+  await db().from('quote_messages').insert({
+    thread_id: thread.id,
+    role: 'client',
+    subject: params.subject ?? null,
+    body: params.body,
+  });
+
+  return await storeAndRelease({
+    threadId: thread.id,
+    draft,
+    leadName: name,
+    summary: params.body.slice(0, 160),
+    newLead: true,
+  });
+}
+
+/** Save the draft, then let the autopilot decide whether it goes out. */
+async function storeAndRelease(params: {
+  threadId: string;
+  draft: QuoteDraft;
+  leadName: string;
+  summary: string;
+  newLead: boolean;
+}): Promise<InboundResult> {
+  const { draft } = params;
+
+  const { data: message } = await db()
+    .from('quote_messages')
+    .insert({
+      thread_id: params.threadId,
+      role: 'draft',
+      subject: draft.email_subject,
+      body: draft.email_body,
+      action: draft.action,
+      intent: draft.intent,
+      reasoning: draft.reasoning,
+      confidence: draft.confidence,
+      quote_lines: draft.lines,
+      quote_total: draft.total,
+    })
+    .select()
+    .single();
+
+  if (!message) {
+    return { handled: false, reason: 'could not store draft' };
+  }
+
+  const released = await releaseDraft({
+    messageId: message.id,
+    threadId: params.threadId,
+    draft,
+    leadName: params.leadName,
+    summary: params.summary,
+  });
+
+  return {
+    handled: true,
+    threadId: params.threadId,
+    action: draft.action,
+    sent: released.sent,
+    newLead: params.newLead,
+  };
+}
+
+function leadToEnquiry(lead: Record<string, unknown>) {
+  return {
+    name: String(lead.name ?? ''),
+    email: String(lead.email ?? ''),
+    phone: (lead.phone as string | null) ?? null,
+    service: (lead.service as string | null) ?? null,
+    budget: (lead.budget as string | null) ?? null,
+    timeline: (lead.timeline as string | null) ?? null,
+    details: String(lead.details ?? ''),
+  };
 }

@@ -1,0 +1,205 @@
+import { db } from './db';
+import { sendEmail, notifyOwner } from './notify';
+import { renderClientEmail, renderClientEmailHtml } from './render-quote';
+import { tagSubject, type ThreadRow } from './threads';
+import type { AgentAction } from '@/lib/quote-agent';
+import type { QuoteLineResolved } from '@/lib/quote-agent';
+
+/**
+ * One send path, and one place that decides whether a draft goes out by itself.
+ *
+ * Both the owner clicking Approve in /studio and the autopilot end up in
+ * sendDraft(), so an automatic email and a hand-approved one are byte-identical
+ * and neither can drift from the other.
+ *
+ * Autopilot levels (QUOTE_AUTOPILOT):
+ *   off  — nothing is ever sent automatically; every draft waits in /studio.
+ *   safe — the default. Sends unless the agent flagged itself low-confidence.
+ *   all  — sends regardless of confidence.
+ *
+ * 'ignore' and 'handover' are never auto-sent at any level: one means there is
+ * nothing to say, the other means a person is needed. QUOTE_AUTOPILOT_MAX, if
+ * set, holds back any quote above that rand total whatever the level.
+ */
+
+export type AutopilotLevel = 'off' | 'safe' | 'all';
+
+export function autopilotLevel(): AutopilotLevel {
+  const raw = (process.env.QUOTE_AUTOPILOT ?? 'safe').toLowerCase();
+  return raw === 'off' || raw === 'all' ? raw : 'safe';
+}
+
+export type AutoSendDecision = { send: boolean; reason: string };
+
+export function decideAutoSend(draft: {
+  action: AgentAction;
+  confidence: 'high' | 'medium' | 'low';
+  total: number | null;
+}): AutoSendDecision {
+  if (draft.action === 'ignore') return { send: false, reason: 'nothing to reply to' };
+  if (draft.action === 'handover') return { send: false, reason: 'needs a person' };
+
+  const level = autopilotLevel();
+  if (level === 'off') return { send: false, reason: 'autopilot is off' };
+
+  if (level === 'safe' && draft.confidence === 'low') {
+    return { send: false, reason: 'agent flagged low confidence' };
+  }
+
+  const ceiling = Number(process.env.QUOTE_AUTOPILOT_MAX ?? '');
+  if (Number.isFinite(ceiling) && ceiling > 0 && draft.action === 'quote') {
+    // An unpriced quote ("on request") has no total to compare, so it is held.
+    if (draft.total === null) {
+      return { send: false, reason: 'quote has no fixed total' };
+    }
+    if (draft.total > ceiling) {
+      return { send: false, reason: `quote of R${draft.total} is over the R${ceiling} ceiling` };
+    }
+  }
+
+  return { send: true, reason: `autopilot ${level}, confidence ${draft.confidence}` };
+}
+
+export type SendResult =
+  | { ok: true }
+  | { ok: false; status: number; error: string };
+
+/**
+ * Send one drafted message to the client and record that it went.
+ *
+ * `approvedBy` is stored so the queue always shows whether a person or the
+ * autopilot released a given email.
+ */
+export async function sendDraft(params: {
+  messageId: string;
+  editedBody?: string;
+  editedSubject?: string;
+  approvedBy: 'owner' | 'autopilot';
+}): Promise<SendResult> {
+  const { data: msg } = await db()
+    .from('quote_messages')
+    .select('*, quote_threads!inner(id, lead_id, subject, ref)')
+    .eq('id', params.messageId)
+    .maybeSingle();
+
+  if (!msg) return { ok: false, status: 404, error: 'Draft not found' };
+  if (msg.sent_at) return { ok: false, status: 409, error: 'Already sent' };
+
+  const thread = msg.quote_threads as Pick<ThreadRow, 'id' | 'lead_id' | 'subject' | 'ref'>;
+
+  const { data: lead } = await db().from('leads').select('*').eq('id', thread.lead_id).single();
+  if (!lead) return { ok: false, status: 404, error: 'Lead not found' };
+
+  // Owner edits win over whatever the agent wrote.
+  const finalBody = params.editedBody ? String(params.editedBody) : msg.body;
+  const finalSubject = params.editedSubject ? String(params.editedSubject) : msg.subject;
+
+  const emailParams = {
+    body: finalBody,
+    lines: (msg.quote_lines ?? []) as QuoteLineResolved[],
+    total: msg.quote_total as number | null,
+    validityDays: 30,
+    clientName: lead.name as string,
+  };
+
+  try {
+    await sendEmail({
+      to: lead.email as string,
+      subject: tagSubject(finalSubject ?? thread.subject, thread.ref),
+      text: renderClientEmail(emailParams),
+      html: renderClientEmailHtml(emailParams),
+    });
+  } catch (err) {
+    console.error('[send] failed', err);
+    return {
+      ok: false,
+      status: 502,
+      error: err instanceof Error ? err.message : 'Send failed',
+    };
+  }
+
+  await db()
+    .from('quote_messages')
+    .update({
+      role: 'studio',
+      body: finalBody,
+      subject: finalSubject,
+      sent_at: new Date().toISOString(),
+      approved_by: params.approvedBy,
+    })
+    .eq('id', params.messageId);
+
+  await db().from('quote_threads').update({ state: 'awaiting_client' }).eq('id', thread.id);
+
+  // An accepted job is won; a quote that has gone out is quoted.
+  if (msg.action === 'accept') {
+    await db().from('leads').update({ status: 'won' }).eq('id', lead.id);
+  } else if (msg.action === 'quote') {
+    await db().from('leads').update({ status: 'quoted' }).eq('id', lead.id);
+  }
+
+  return { ok: true };
+}
+
+/**
+ * Apply the autopilot to a freshly drafted message: send it, or leave it in the
+ * queue. Either way the owner is told what happened — an automatic send is
+ * still worth knowing about, it just doesn't need acting on.
+ */
+export async function releaseDraft(params: {
+  messageId: string;
+  threadId: string;
+  draft: { action: AgentAction; confidence: 'high' | 'medium' | 'low'; total: number | null; totalFormatted: string; reasoning: string };
+  leadName: string;
+  summary: string;
+}): Promise<{ sent: boolean; reason: string }> {
+  const decision = decideAutoSend(params.draft);
+
+  if (!decision.send) {
+    if (params.draft.action === 'ignore') {
+      // Spam. Close it quietly — waking someone up defeats the point.
+      await db().from('quote_threads').update({ state: 'closed' }).eq('id', params.threadId);
+      return { sent: false, reason: decision.reason };
+    }
+
+    const title =
+      params.draft.action === 'handover'
+        ? `${params.leadName} — needs you personally`
+        : params.draft.action === 'quote'
+          ? `Approve quote: ${params.leadName} — ${params.draft.totalFormatted}`
+          : `Approve reply: ${params.leadName}`;
+
+    await notifyOwner({
+      title,
+      summary: `${params.summary}\n\n(${decision.reason})`,
+      threadId: params.threadId,
+    });
+    return { sent: false, reason: decision.reason };
+  }
+
+  const result = await sendDraft({ messageId: params.messageId, approvedBy: 'autopilot' });
+
+  if (!result.ok) {
+    await notifyOwner({
+      title: `${params.leadName} — automatic send failed`,
+      summary: `${result.error}. The draft is still waiting in the queue.`,
+      threadId: params.threadId,
+    }).catch(() => {});
+    return { sent: false, reason: result.error };
+  }
+
+  const what =
+    params.draft.action === 'quote'
+      ? `quote sent — ${params.draft.totalFormatted}`
+      : params.draft.action === 'accept'
+        ? 'job confirmed'
+        : 'reply sent';
+
+  await notifyOwner({
+    title: `${params.leadName}: ${what}`,
+    summary: params.draft.reasoning,
+    threadId: params.threadId,
+  }).catch(() => {});
+
+  return { sent: true, reason: decision.reason };
+}

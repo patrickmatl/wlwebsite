@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import crypto from 'crypto';
 import { processInboundEmail } from '@/lib/server/inbound';
+import { authoriseCron } from '@/lib/server/cron-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,25 +21,9 @@ export const maxDuration = 60;
 
 const MAX_PER_RUN = 10;
 
-function authorised(request: Request): boolean {
-  const expected = process.env.INBOUND_POLL_SECRET;
-  if (!expected) return false;
-
-  const url = new URL(request.url);
-  const provided =
-    url.searchParams.get('secret') ??
-    request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ??
-    '';
-
-  const a = Buffer.from(provided);
-  const b = Buffer.from(expected);
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
-}
-
 export async function GET(request: Request) {
-  if (!authorised(request)) {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
-  }
+  const auth = authoriseCron(request);
+  if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const host = process.env.IMAP_HOST ?? process.env.SMTP_HOST;
   const user = process.env.IMAP_USER ?? process.env.SMTP_USER;
@@ -89,6 +73,8 @@ export async function GET(request: Request) {
         const isAuto =
           Boolean(mail.headers.get('auto-submitted')) ||
           Boolean(mail.headers.get('list-unsubscribe')) ||
+          Boolean(mail.headers.get('list-id')) ||
+          /bulk|list|auto_reply/i.test(String(mail.headers.get('precedence') ?? '')) ||
           /^(mailer-daemon|postmaster|no-?reply|noreply|cpanel|root|bounces?|daemon)$/i.test(
             senderLocal.trim(),
           ) ||
@@ -103,11 +89,16 @@ export async function GET(request: Request) {
           fromRaw,
           subject: mail.subject ?? null,
           text,
+          attachments: (mail.attachments ?? [])
+            .map((a) => a.filename)
+            .filter((f): f is string => Boolean(f)),
         });
 
         processed.push({
           from: fromRaw,
-          result: outcome.handled ? `drafted (${outcome.action})` : `skipped: ${outcome.reason}`,
+          result: outcome.handled
+            ? `${outcome.action}${outcome.sent ? ' (sent)' : ' (queued)'}${outcome.newLead ? ' [new lead]' : ''}`
+            : `skipped: ${outcome.reason}`,
         });
       }
     } finally {

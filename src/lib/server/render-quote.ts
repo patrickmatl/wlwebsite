@@ -48,6 +48,46 @@ export function renderClientEmail(params: {
   return parts.join('\n');
 }
 
+/**
+ * The instant acknowledgement.
+ *
+ * Sent the moment a form is submitted, before the agent has even run. It is a
+ * fixed template with no AI in it, so it can go out with no review and cannot
+ * say anything unintended. Its whole job is that nobody who contacts the studio
+ * ever sits there wondering whether it arrived.
+ */
+export function renderAck(params: { clientName: string; service?: string | null }): {
+  subject: string;
+  text: string;
+  html: string;
+} {
+  const first = params.clientName.trim().split(/\s+/)[0] || 'there';
+  const about = params.service ? ` about ${params.service.toLowerCase()}` : '';
+
+  const body =
+    `Hi ${first}\n\n` +
+    `Thanks for getting in touch${about} — your enquiry has come through and we are looking at it now.\n\n` +
+    `You will hear back from us shortly, either with a quote or with a couple of questions if we need to pin the scope down first.\n\n` +
+    `If it is urgent, phone or WhatsApp us on ${BUSINESS.phoneDisplay} and we will pick it up straight away.`;
+
+  return {
+    subject: `We have your enquiry — ${BUSINESS.name}`,
+    text: `${body}\n\n${signatureText()}`,
+    html: wrapEmail(
+      body
+        .split(/\n\s*\n/)
+        .map(
+          (p) =>
+            `<p style="margin:0 0 14px 0;font-family:${FONT};font-size:15px;line-height:23px;color:${INK};">${esc(
+              p,
+            ).replace(/\n/g, '<br />')}</p>`,
+        )
+        .join(''),
+      'We have your enquiry',
+    ),
+  };
+}
+
 const FONT = "Arial, 'Helvetica Neue', Helvetica, sans-serif";
 const GOLD = '#B8860B';
 const INK = '#111111';
@@ -140,6 +180,18 @@ export function renderClientEmailHtml(params: {
 </table>`;
   }
 
+  return wrapEmail(
+    `${paragraphs}${quote}`,
+    params.lines.length ? `Your quote from ${BUSINESS.name}` : `A note from ${BUSINESS.name}`,
+  );
+}
+
+/**
+ * The shared HTML shell: light background, a 600px white card, the signature.
+ * `preheader` is the hidden line inboxes show next to the subject — without one
+ * they scrape the first words of the body, which reads badly.
+ */
+function wrapEmail(inner: string, preheader: string): string {
   return `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8" />
@@ -148,15 +200,11 @@ export function renderClientEmailHtml(params: {
 <title>${esc(BUSINESS.name)}</title>
 </head>
 <body style="margin:0;padding:0;background-color:#F6F6F4;">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${esc(
-    params.lines.length
-      ? `Your quote from ${BUSINESS.name}`
-      : `A note from ${BUSINESS.name}`,
-  )}</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${esc(preheader)}</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background-color:#F6F6F4;">
   <tr><td align="center" style="padding:24px 12px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="border-collapse:collapse;width:100%;max-width:600px;background-color:#FFFFFF;border:1px solid ${RULE};border-radius:8px;">
-      <tr><td style="padding:28px 28px 0 28px;">${paragraphs}${quote}</td></tr>
+      <tr><td style="padding:28px 28px 0 28px;">${inner}</td></tr>
       <tr><td style="padding:24px 28px 28px 28px;">${signatureHtml()}</td></tr>
     </table>
   </td></tr>
