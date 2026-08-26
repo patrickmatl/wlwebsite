@@ -28,6 +28,7 @@ export function renderClientEmail(params: {
           : `${CURRENCY_SYMBOL}${l.lineTotal.toLocaleString('en-ZA')}`;
       parts.push(`${l.name}${qty}`);
       if (l.note) parts.push(`  ${l.note}`);
+      for (const inc of l.includes ?? []) parts.push(`    • ${inc}`);
       parts.push(`  ${amount}`, '');
     }
 
@@ -142,6 +143,16 @@ export function renderClientEmailHtml(params: {
   <td style="padding:12px 12px 12px 0;border-bottom:1px solid ${RULE};font-family:${FONT};font-size:14px;line-height:20px;color:${INK};">
     <strong>${esc(l.name)}</strong>${qty}
     ${l.note ? `<br /><span style="font-size:12px;line-height:17px;color:${MUTED};">${esc(l.note)}</span>` : ''}
+    ${
+      (l.includes ?? []).length
+        ? `<ul style="margin:6px 0 0 0;padding:0 0 0 16px;">${(l.includes ?? [])
+            .map(
+              (inc) =>
+                `<li style="font-size:12px;line-height:18px;color:${MUTED};">${esc(inc)}</li>`,
+            )
+            .join('')}</ul>`
+        : ''
+    }
   </td>
   <td align="right" valign="top" style="padding:12px 0;border-bottom:1px solid ${RULE};font-family:${FONT};font-size:14px;line-height:20px;color:${INK};white-space:nowrap;">${esc(
     amount,

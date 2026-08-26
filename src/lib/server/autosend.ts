@@ -138,7 +138,69 @@ export async function sendDraft(params: {
     await db().from('leads').update({ status: 'quoted' }).eq('id', lead.id);
   }
 
+  // Mirror what just happened into the CRM. Deliberately after the send and
+  // deliberately swallowed: the email has already left, so a CRM hiccup must
+  // not report failure to the caller or, worse, cause a retry that sends twice.
+  await mirrorToCrm({
+    action: msg.action as string | null,
+    messageId: params.messageId,
+    leadId: lead.id as string,
+  }).catch((err) => console.error('[send] CRM mirror failed', err));
+
   return { ok: true };
+}
+
+/**
+ * Keep the CRM in step with what the agent just emailed.
+ *
+ * The agent's drafts live in quote_messages; the CRM's quotes, projects and
+ * invoices are separate records a client can actually open in the portal. This
+ * is the seam between the two, so a quote that went out by email is the same
+ * quote the client sees when they sign in.
+ */
+async function mirrorToCrm(params: {
+  action: string | null;
+  messageId: string;
+  leadId: string;
+}): Promise<void> {
+  const crm = await import('./crm');
+
+  if (params.action === 'quote') {
+    const quote = await crm.quoteFromAgentDraft(params.messageId, 'autopilot');
+    if (quote.status === 'draft') await crm.sendQuote(quote.id, 'autopilot');
+    return;
+  }
+
+  if (params.action === 'accept') {
+    // Which quote did they accept? The most recent one still open on this lead.
+    const { data: lead } = await db()
+      .from('leads')
+      .select('contact_id')
+      .eq('id', params.leadId)
+      .maybeSingle();
+
+    if (!lead?.contact_id) return;
+
+    const { data: open } = await db()
+      .from('quotes')
+      .select('id, status')
+      .eq('contact_id', lead.contact_id)
+      .in('status', ['sent', 'accepted'])
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (!open) return;
+
+    if (open.status === 'sent') {
+      await crm.acceptQuote(open.id, { name: null, ip: null }, 'client-email');
+    }
+
+    // Both of these return the existing record if one is already there, so a
+    // client who says "yes" twice does not get two projects and two invoices.
+    await crm.projectFromQuote(open.id, 'autopilot');
+    await crm.depositInvoiceFromQuote(open.id, 'autopilot');
+  }
 }
 
 /**

@@ -3,6 +3,7 @@ import { draftReply, type ConversationTurn, type QuoteDraft } from '@/lib/quote-
 import { notifyOwner } from './notify';
 import { releaseDraft } from './autosend';
 import { createThread, extractThreadRef, findThreadForReply, type ThreadRow } from './threads';
+import { syncLeadToCrm } from './lead-sync';
 
 /**
  * Every inbound email ends up here, whichever way it arrived:
@@ -63,6 +64,44 @@ export function parseDisplayName(raw: string, email: string): string {
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
     .trim();
+}
+
+/**
+ * Scams that must never reach the model at all.
+ *
+ * The agent is told to ignore these, and it does. This is the second lock: a
+ * fixed list, checked before any AI runs, so no model slip and no cleverly
+ * worded message can ever produce a reply to one. Replying is the whole point
+ * of these emails — it confirms a human reads this address.
+ *
+ * Deliberately narrow. Every pattern names a specific racket rather than a mood,
+ * because "urgent" and "final notice" appear in real client emails too, and a
+ * missed enquiry costs far more than one scam the model has to classify itself.
+ */
+const SCAM_PATTERNS: RegExp[] = [
+  // The domain-renewal racket, in its usual disguises. The gap between the noun
+  // and the verb allows dots on purpose: the domain name itself sits in there
+  // ("your domain wlcreationx.co.za is expiring"), and excluding dots made the
+  // commonest version of this scam the one pattern that missed.
+  /\bdomain\b[^\n]{0,40}\b(expir|renew|suspend|deactivat)/i,
+  /\b(renew|renewal)\b[^\n]{0,30}\b(listing|registration|subscription)\b/i,
+  /search engine (submission|registration|listing)/i,
+  /\bseo (submission|listing)\b/i,
+  // Payment and credential bait.
+  /\b(unclaimed|undelivered)\b[^\n]{0,20}\b(parcel|package|shipment)\b/i,
+  /\byour (account|mailbox|password)\b[^\n]{0,30}\b(suspend|expir|deactivat|verif)/i,
+  /\b(verify|confirm)\b[^\n]{0,25}\b(bank|banking|card|payment) details\b/i,
+  // Trademark and registry shakedowns.
+  /\btrademark\b[^\n]{0,40}\b(application|infringement|registration)\b/i,
+  /\b(business|company) (award|nomination)\b[^\n]{0,30}\b(fee|payment|invoice)\b/i,
+];
+
+/** True when a message matches a known racket outright. */
+export function looksLikeScam(subject: string | null | undefined, body: string): boolean {
+  // Only the opening of the body: these emails lead with the hook, and scanning
+  // a long forwarded thread invites false positives from quoted history.
+  const haystack = [subject ?? '', body.slice(0, 1200)].join('\n');
+  return SCAM_PATTERNS.some((pattern) => pattern.test(haystack));
 }
 
 export type InboundResult =
@@ -162,6 +201,14 @@ async function startFromColdEmail(params: {
 }): Promise<InboundResult> {
   const name = parseDisplayName(params.fromRaw, params.fromEmail);
 
+  // Checked before the model runs, and before any lead is created. Nothing is
+  // sent, nobody is notified, and no record is kept beyond this log line —
+  // exactly as if the message had never arrived.
+  if (looksLikeScam(params.subject, params.body)) {
+    console.info('[inbound] scam pattern, dropped', params.fromEmail);
+    return { handled: false, reason: 'scam pattern' };
+  }
+
   let draft: QuoteDraft;
   try {
     draft = await draftReply({
@@ -211,6 +258,16 @@ async function startFromColdEmail(params: {
   const thread = await createThread({
     leadId: lead.id,
     subject: params.subject?.trim() || `Enquiry from ${name}`,
+  });
+
+  // Someone who emailed the studio directly belongs in the CRM exactly as much
+  // as someone who used the form.
+  await syncLeadToCrm({
+    id: lead.id,
+    name,
+    email: params.fromEmail,
+    details: params.body,
+    origin: 'email',
   });
 
   await db().from('quote_messages').insert({

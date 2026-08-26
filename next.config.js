@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // @react-pdf ships ESM subpath exports that Next's bundler mangles. Left
+  // external, Node loads it directly and the PDF renderer works in the
+  // serverless function.
+  serverExternalPackages: ['@react-pdf/renderer'],
   images: {
     // Optimization re-enabled: it was disabled sitewide, serving raw files.
     // On Vercel, next/image serves resized AVIF/WebP from the edge for free

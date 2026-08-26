@@ -15,8 +15,9 @@ import { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
   const contentRules = {
     allow: '/',
-    // /studio is the private quote-approval queue — no crawler needs it.
-    disallow: ['/api/', '/studio'],
+    // /studio is the CRM and /portal is the client area. Neither is for
+    // crawlers, and both would be a poor first impression in a search result.
+    disallow: ['/api/', '/studio', '/portal'],
   };
 
   return {

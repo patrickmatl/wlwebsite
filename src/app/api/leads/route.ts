@@ -6,6 +6,7 @@ import { notifyOwner, sendEmail } from '@/lib/server/notify';
 import { renderAck } from '@/lib/server/render-quote';
 import { releaseDraft } from '@/lib/server/autosend';
 import { createThread, tagSubject } from '@/lib/server/threads';
+import { syncLeadToCrm } from '@/lib/server/lead-sync';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -107,32 +108,17 @@ async function handleInBackground(lead: LeadRow): Promise<void> {
     const thread = await createThread({ leadId: lead.id, subject });
     threadId = thread.id;
 
-    // 1. Acknowledge immediately. This is a fixed template with no AI in it, so
-    //    it needs no approval and cannot say anything unintended. It is sent
-    //    before the model runs so a slow or failing model never delays it.
-    const ack = renderAck({ clientName: lead.name, service: lead.service });
-    try {
-      await sendEmail({
-        to: lead.email,
-        subject: tagSubject(ack.subject, thread.ref),
-        text: ack.text,
-        html: ack.html,
-      });
-      await db().from('quote_messages').insert({
-        thread_id: thread.id,
-        role: 'studio',
-        subject: ack.subject,
-        body: ack.text,
-        action: 'ack',
-        sent_at: new Date().toISOString(),
-        approved_by: 'automatic',
-      });
-    } catch (err) {
-      // A failed acknowledgement must not stop the real reply being drafted.
-      console.error('[leads] acknowledgement failed', err);
-    }
+    // Put the person and the opportunity into the CRM. Best-effort by design:
+    // it must never delay or block the reply the client is waiting for.
+    await syncLeadToCrm({ ...lead, origin: 'form' });
 
-    // 2. Draft the real reply.
+    // Draft the real reply first.
+    //
+    // The acknowledgement is deliberately NOT sent yet. When the autopilot is
+    // on, a personal reply lands within about fifteen seconds — and a generic
+    // "we have your enquiry" arriving one minute before a real answer is the
+    // single most automated-feeling thing this system could do. So the receipt
+    // is only sent if the real reply is not going straight out.
     const draft = await draftReply({
       enquiry: {
         name: lead.name,
@@ -164,21 +150,50 @@ async function handleInBackground(lead: LeadRow): Promise<void> {
 
     if (!message) throw new Error('could not store draft');
 
-    // 3. Send it, or queue it for approval.
-    await releaseDraft({
+    const released = await releaseDraft({
       messageId: message.id,
       threadId: thread.id,
       draft,
       leadName: lead.name,
       summary: lead.details.slice(0, 160),
     });
+
+    // Nothing went to the client — the draft is waiting for a human, or it was
+    // classified as needing one. Send the receipt so they are not left wondering
+    // whether the form worked.
+    if (!released.sent) await sendAcknowledgement(lead, thread.ref);
   } catch (err) {
     console.error('[leads] drafting failed (lead was saved)', err);
+
+    // The model failed, so the client has heard nothing at all. The receipt is
+    // now the only thing standing between them and silence.
+    await sendAcknowledgement(lead, null).catch(() => {});
+
     // Still ping the owner so a lead is never silently missed.
     await notifyOwner({
       title: `New lead: ${lead.name}`,
       summary: `${lead.details.slice(0, 140)} — AI draft failed, reply manually.`,
       threadId: threadId ?? lead.id,
     }).catch(() => {});
+  }
+}
+
+/**
+ * The fixed receipt.
+ *
+ * No AI in it, so it needs no approval and cannot say anything unintended. Sent
+ * only when a real reply is not going out immediately — see handleInBackground.
+ */
+async function sendAcknowledgement(lead: LeadRow, ref: string | null): Promise<void> {
+  try {
+    const ack = renderAck({ clientName: lead.name, service: lead.service });
+    await sendEmail({
+      to: lead.email,
+      subject: tagSubject(ack.subject, ref),
+      text: ack.text,
+      html: ack.html,
+    });
+  } catch (err) {
+    console.error('[leads] acknowledgement failed', err);
   }
 }

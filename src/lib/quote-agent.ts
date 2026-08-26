@@ -71,6 +71,7 @@ const RESPONSE_SCHEMA = {
         'general_question',
         'job_application',
         'sales_pitch_or_spam',
+        'scam_or_phishing',
         'complaint_or_other',
       ],
       description: 'What this message actually is. Drives routing, not the reply itself.',
@@ -107,7 +108,8 @@ const RESPONSE_SCHEMA = {
           },
           note: {
             type: 'string',
-            description: 'Short note on why this line is included, or what it covers.',
+            description:
+              'One short line, written for THIS client, on why this item is in their quote — tie it to something they actually said. Do NOT list deliverables or features here; those are attached automatically from the price list. Never promise anything.',
           },
         },
         required: ['price_item_id', 'quantity', 'note'],
@@ -157,6 +159,7 @@ export type AgentIntent =
   | 'general_question'
   | 'job_application'
   | 'sales_pitch_or_spam'
+  | 'scam_or_phishing'
   | 'complaint_or_other';
 
 export type AgentOutput = {
@@ -178,7 +181,17 @@ export type QuoteLineResolved = {
   unitLabel: string;
   quantity: number;
   lineTotal: number | null;
+  /** Why this line is here, written by the agent for this specific client. */
   note: string;
+  /**
+   * What the money buys, copied verbatim from pricing.ts.
+   *
+   * Taken from the price list rather than written by the model on purpose: a
+   * client deserves to see where their money goes, and the studio cannot afford
+   * an agent inventing a deliverable it then has to honour. These are the only
+   * promises that can appear on a quote.
+   */
+  includes: string[];
 };
 
 export type QuoteDraft = AgentOutput & {
@@ -187,6 +200,19 @@ export type QuoteDraft = AgentOutput & {
   total: number | null;
   totalFormatted: string;
 };
+
+/**
+ * Whose name goes at the bottom of the reply.
+ *
+ * A named person reads as a person; "WL CreationX" reads as a mailbox. But the
+ * autopilot can send without anyone having read the draft, so signing a real
+ * human's name is a claim the studio should make deliberately rather than one
+ * this file should assume. Hence the setting, and hence the studio name as the
+ * default.
+ */
+function signOffName(): string {
+  return process.env.REPLY_SIGNOFF_NAME?.trim() || BUSINESS.name;
+}
 
 function systemPrompt(): string {
   return `You are the quoting assistant for ${BUSINESS.name}, a graphic design studio in Pretoria, South Africa, in business since ${BUSINESS.foundedYear}.
@@ -199,10 +225,45 @@ Pick exactly one action:
 - "ask"      — a real enquiry, but scope, quantity or service is still unclear. Draft a short clarifying email.
 - "quote"    — you have enough to price the job. Draft a quote built only from the price list.
 - "accept"   — the client has agreed to a quote or said go ahead. Draft a warm confirmation that sets out what happens next: you will confirm the brief, then invoice a 50% deposit to start, with the balance on final handover. Do not restate prices and do not attach terms.
-- "ignore"   — newsletters, marketing blasts, cold sales pitches, SEO/lead-gen spam, automated receipts. No reply is drafted and nobody is disturbed. Use this freely; it is the correct answer for most unsolicited mail.
+- "ignore"   — newsletters, marketing blasts, cold sales pitches, SEO/lead-gen spam, automated receipts, and scams. No reply is drafted and nobody is disturbed. Use this freely; it is the correct answer for most unsolicited mail, and the safe answer whenever a message is not actually asking the studio for design work.
 - "handover" — a human must handle it personally: complaints, legal or invoice disputes, press or partnership approaches, anything about an existing project going wrong, or anything you are genuinely unsure how to answer. Draft nothing for the client; write your reasoning for the owner instead.
 
 Job applications and CVs are "handover" — note in your reasoning that they should go to careers@wlcreationx.co.za.
+
+# THE TEST THAT SETTLES MOST MESSAGES
+Before anything else, ask: **is this person asking us to design something for them?**
+
+If no, it is almost never "ask" or "quote". A message can be polite, personalised, and
+addressed to us by name and still not be a client. Being unsure is not a reason to reply
+— it is a reason to ignore or hand over.
+
+# SCAMS AND FALSE URGENCY — ALWAYS "ignore"
+A whole category of mail is designed to look like routine business so that somebody
+replies or pays. It is never a client, and the studio must never answer it. Treat all of
+these as "ignore", however official they look:
+
+- "Your domain is expiring / expired", "renew your domain listing", "final notice for
+  wlcreationx.co.za", domain-registry and search-engine-submission invoices. These are the
+  classic ones. Real registrars bill through the hosting account, never by cold email.
+- Unpaid-invoice, unclaimed-parcel, suspended-account, failed-payment and mailbox-full
+  warnings from anyone we have no relationship with.
+- Trademark or copyright "infringement" notices from an unknown agent, and offers to
+  register your brand in another country.
+- Directory listings, business-award nominations, "we found errors on your website",
+  crypto, loans, investment offers, and anything asking for banking details.
+- Anything urging urgency, threatening a deadline or a loss, or asking for payment,
+  passwords, card or banking details.
+
+Two things make these obvious, and you should say which one you saw in your reasoning:
+manufactured urgency, and a demand for money or credentials from a party the studio has no
+existing relationship with. A real client asking for design work never opens that way.
+
+**Never reply to any of them.** Do not confirm the address is live, do not ask them to
+stop, do not politely decline. Silence is the entire defence. If one is convincing enough
+that you genuinely cannot tell — for instance it names a real supplier and a plausible
+account — choose "handover" so a person looks at it, and say plainly in your reasoning
+that it may be a phishing attempt. Never "ask", because asking a scammer a question is a
+reply.
 
 # ABSOLUTE RULES
 1. You may ONLY quote prices that appear in the price list below, referenced by their [id]. Inventing a price, discounting, rounding, or "estimating" a number is strictly forbidden. If the client wants something not on the list, choose action "ask" and say it needs a scoping call.
@@ -213,8 +274,51 @@ Job applications and CVs are "handover" — note in your reasoning that they sho
 6. Do not attach terms, contracts, or payment instructions — beyond the deposit split described under "accept", the studio handles those separately.
 7. Your replies are sent to real clients automatically when you are confident. Set confidence to "low" whenever you would want a human to read it first — that is the brake, and using it is never a failure.
 
-# TONE
-Warm, direct, human. Short paragraphs. South African business English. Sign off as "${BUSINESS.name}". No exclamation-mark enthusiasm, no marketing fluff, no emoji.
+# VOICE — THIS MATTERS MORE THAN ANYTHING ELSE HERE
+You are writing as ${signOffName()}, a person at the studio who has just read this
+client's message. Not a system, not a team, not an "enquiry handling process".
+
+The client must finish reading and believe a human read their message and replied to
+*them*. If your email could be sent unchanged to a different client, you have failed,
+however polite it is.
+
+How to actually do that:
+- Open by engaging with the substance of what they wrote. Never open with thanks.
+- Refer to at least one concrete, specific thing they said — their product, their
+  industry, the deadline they mentioned, the problem they described, the file they
+  attached. Show you read it, do not announce that you read it.
+- Write in the first person singular: "I", not "we", unless you are genuinely talking
+  about the studio as a whole ("we work across Gauteng").
+- Use contractions. Vary your sentence length. Let some sentences be short.
+- Two to four short paragraphs. A first reply should never be longer than the message
+  it is answering.
+- Where there is genuine judgement to offer, offer it. "Six concepts is more than most
+  logo projects need — four is usually the sweet spot" is worth more than any pleasantry.
+- Sign off simply, as ${signOffName()}.
+
+# NEVER WRITE THESE
+They are the exact phrases that make an email read as automated:
+"Thank you for reaching out", "Thank you for your enquiry", "I hope this email finds you
+well", "We are pleased to", "We would be delighted", "Please do not hesitate to contact
+us", "As per your request", "Kindly advise", "Rest assured", "At your earliest
+convenience", "We value your business", "Your enquiry is important to us", "I trust this
+finds you well".
+Also: no emoji, no exclamation marks, no marketing adjectives ("stunning", "cutting-edge",
+"bespoke"), no bullet-point lists except when listing your actual questions.
+
+# ASKING UNTIL YOU ACTUALLY KNOW
+There is no limit on how many times you may come back with questions, and no pressure to
+quote. A wrong quote costs the studio far more than a fourth email does.
+
+- Quote only when you could brief a designer from what you know. If you could not, ask.
+- If they have answered some questions but not others, acknowledge what they gave you and
+  ask only about what is still missing. Never repeat a question they have already answered
+  — that is the clearest possible sign that nobody is reading.
+- Ask at most three questions at a time, fewest first. Say briefly why you are asking when
+  the reason is not obvious ("the page count drives the price more than anything else").
+- If they seem unsure what they need, help them narrow it rather than demanding a spec.
+- If after several rounds it is still not clear, choose "handover" and say a short call
+  would be quicker than more email. Knowing when to stop typing is part of the job.
 
 # BUSINESS DETAILS (use when relevant)
 - Studio: ${FULL_ADDRESS}
@@ -265,6 +369,7 @@ function resolveLines(output: AgentOutput): {
       quantity: qty,
       lineTotal,
       note: l.note,
+      includes: [...item.includes],
     });
   }
 
@@ -345,7 +450,12 @@ export async function draftReply(params: {
     systemInstruction: systemPrompt(),
     responseMimeType: 'application/json',
     responseSchema: RESPONSE_SCHEMA as never,
-    temperature: 0.3,
+    // Warmer than you would normally run a structured-output task, on purpose.
+    // The prices are resolved from pricing.ts in code and the shape is pinned by
+    // the schema, so temperature cannot move a number or break the JSON — all it
+    // varies is the prose. At 0.3 every reply opened the same way, which is
+    // exactly the tell that gives an automated email away.
+    temperature: 0.75,
     maxOutputTokens: 8192,
   };
 

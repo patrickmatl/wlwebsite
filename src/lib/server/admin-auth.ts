@@ -39,9 +39,20 @@ export async function isAuthed(): Promise<boolean> {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
-/** For API routes: accepts the cookie OR an Authorization: Bearer <token>. */
+/**
+ * For API routes: a proper CRM session, or the legacy shared token.
+ *
+ * The CRM session is the real mechanism now. ADMIN_TOKEN is kept as a way back
+ * in if email delivery ever fails — the studio must not be locked out of its own
+ * approval queue because a mail server is down. It is checked second so the
+ * normal path never depends on it.
+ */
 export async function isAuthedRequest(request: Request): Promise<boolean> {
+  const { getSession } = await import('./auth');
+  if (await getSession('admin')) return true;
+
   if (await isAuthed()) return true;
+
   const auth = request.headers.get('authorization') ?? '';
   const bearer = auth.startsWith('Bearer ') ? auth.slice(7) : '';
   return bearer ? checkToken(bearer) : false;

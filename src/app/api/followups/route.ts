@@ -3,6 +3,7 @@ import { db } from '@/lib/server/db';
 import { draftReply, type ConversationTurn } from '@/lib/quote-agent';
 import { releaseDraft } from '@/lib/server/autosend';
 import { authoriseCron } from '@/lib/server/cron-auth';
+import { pruneAuth } from '@/lib/server/auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -199,5 +200,56 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, considered: threads?.length ?? 0, results });
+  const housekeeping = await dailyHousekeeping();
+
+  return NextResponse.json({
+    ok: true,
+    considered: threads?.length ?? 0,
+    results,
+    housekeeping,
+  });
+}
+
+/**
+ * The rest of the daily tidy-up, run off the same cron.
+ *
+ * These are the jobs with no natural trigger: nothing happens when a quote's
+ * validity date passes, or when a session quietly expires, so without a sweep
+ * the CRM slowly fills with records claiming to be live when they are not.
+ */
+async function dailyHousekeeping(): Promise<{
+  quotesExpired: number;
+  invoicesMarkedOverdue: number;
+  sessionsPruned: number;
+  tokensPruned: number;
+}> {
+  const today = new Date().toISOString().slice(0, 10);
+
+  // A quote past its validity date is no longer on the table. Only ones still
+  // awaiting an answer — an accepted quote stays accepted forever.
+  const { data: expired } = await db()
+    .from('quotes')
+    .update({ status: 'expired' })
+    .eq('status', 'sent')
+    .not('valid_until', 'is', null)
+    .lt('valid_until', today)
+    .select('id');
+
+  // Overdue is a fact about the date, not an event, so it needs a sweep too.
+  const { data: overdue } = await db()
+    .from('invoices')
+    .update({ status: 'overdue' })
+    .in('status', ['sent', 'part_paid'])
+    .not('due_date', 'is', null)
+    .lt('due_date', today)
+    .select('id');
+
+  const pruned = await pruneAuth();
+
+  return {
+    quotesExpired: expired?.length ?? 0,
+    invoicesMarkedOverdue: overdue?.length ?? 0,
+    sessionsPruned: pruned.sessions,
+    tokensPruned: pruned.tokens,
+  };
 }
