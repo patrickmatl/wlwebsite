@@ -16,7 +16,7 @@ const PrintDesignPage = () => {
       items: [
         {
           name: "Business Cards",
-          price: "From R450",
+          price: "From R1,040",
           description: "Make a lasting first impression with our premium business cards. Choose from various finishes including matte, gloss, or spot UV coating.",
           specifications: [
             "Size: Standard 90x50mm or Custom",
@@ -41,7 +41,7 @@ const PrintDesignPage = () => {
         },
         {
           name: "Letterheads",
-          price: "From R350",
+          price: "From R1,290",
           description: "Professional letterhead design that maintains your brand consistency across all business communications.",
           specifications: [
             "Size: A4 (210x297mm)",
@@ -72,7 +72,7 @@ const PrintDesignPage = () => {
       items: [
         {
           name: "Brochures",
-          price: "From R850",
+          price: "From R2,590",
           description: "Eye-catching brochure designs that effectively communicate your message and showcase your products or services.",
           specifications: [
             "Size: A4/A5/Custom",
@@ -97,7 +97,7 @@ const PrintDesignPage = () => {
         },
         {
           name: "Flyers",
-          price: "From R550",
+          price: "From R950",
           description: "Impactful flyer designs that grab attention and deliver your message effectively.",
           specifications: [
             "Size: A6/A5/A4",
@@ -128,7 +128,7 @@ const PrintDesignPage = () => {
       items: [
         {
           name: "Banners",
-          price: "From R750",
+          price: "From R1,450",
           description: "High-impact banner designs for indoor and outdoor advertising that command attention.",
           specifications: [
             "Size: Custom Dimensions",

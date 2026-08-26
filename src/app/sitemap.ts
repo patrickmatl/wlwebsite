@@ -23,6 +23,8 @@ const BASE_URL = 'https://wlcreationx.co.za';
 const CORE_ROUTES: Array<[string, number, MetadataRoute.Sitemap[number]['changeFrequency']]> = [
   ['/', 1.0, 'daily'],
   ['/pricing', 0.9, 'weekly'],
+  // The one commercial term within reach: position 15 with no page until now.
+  ['/logo-design-pretoria', 0.9, 'weekly'],
   ['/project-showcase-pretoria', 0.9, 'weekly'],
   ['/videography-services-pretoria', 0.9, 'weekly'],
   ['/photography-services-pretoria', 0.9, 'weekly'],

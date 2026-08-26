@@ -193,7 +193,7 @@ export default function DealForm({
 
         <div>
           <label className={LABEL} htmlFor="deal-value">
-            Value (Rand, excl. VAT)
+            Value (Rand)
           </label>
           <input
             id="deal-value"

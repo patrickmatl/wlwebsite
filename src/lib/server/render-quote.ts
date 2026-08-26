@@ -137,7 +137,7 @@ export function renderClientEmail(params: {
         : `TOTAL: ${CURRENCY_SYMBOL}${params.total.toLocaleString('en-ZA')}`,
     );
     parts.push('─'.repeat(52), '');
-    parts.push(`Valid for ${params.validityDays} days. Prices exclude VAT.`, '');
+    parts.push(`Valid for ${params.validityDays} days.`, '');
     parts.push('Included with every project:');
     for (const inc of STANDARD_INCLUSIONS) parts.push(`  • ${inc}`);
 
@@ -506,7 +506,7 @@ export function renderClientEmailHtml(params: {
   </td></tr>
   <tr><td style="padding:10px 0 18px 0;font-family:${FONT};font-size:12px;line-height:17px;color:${MUTED};">Valid for ${
     params.validityDays
-  } days. Prices exclude VAT.</td></tr>
+  } days.</td></tr>
   <tr><td style="padding:0 0 6px 0;font-family:${FONT};font-size:12px;line-height:16px;color:${INK};font-weight:bold;">Included with every project</td></tr>
   <tr><td><table role="presentation" cellpadding="0" cellspacing="0" border="0">${inclusions}</table></td></tr>
 </table>`;

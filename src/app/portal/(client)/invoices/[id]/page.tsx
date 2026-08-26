@@ -217,7 +217,7 @@ export default async function PortalInvoicePage({ params }: { params: Promise<{ 
 
           {!showVat ? (
             <p className="mt-4 text-xs text-neutral-500">
-              All amounts are in South African Rand and exclude VAT.
+              All amounts are in South African Rand.
             </p>
           ) : null}
         </section>

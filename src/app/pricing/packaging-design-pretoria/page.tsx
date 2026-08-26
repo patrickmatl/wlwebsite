@@ -19,8 +19,8 @@ const PackagingDesignPage = () => {
 
   const packages = [
     {
-      name: "Basic Packaging",
-      price: "R2,500",
+      name: "Single Product",
+      price: "R4,850",
       icon: <FaBox className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "1 Product Package Design",
@@ -32,8 +32,8 @@ const PackagingDesignPage = () => {
       ]
     },
     {
-      name: "Professional Package",
-      price: "R4,750",
+      name: "Product Range (3–5)",
+      price: "R9,850",
       icon: <FaBoxOpen className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "2 Product Package Designs",
@@ -46,8 +46,8 @@ const PackagingDesignPage = () => {
       ]
     },
     {
-      name: "Premium Collection",
-      price: "R8,950",
+      name: "Full System (6+)",
+      price: "Quoted on request",
       icon: <FaGift className="w-8 h-8 text-[#FFD700]" />,
       features: [
         "Full Product Line (Up to 5 Items)",

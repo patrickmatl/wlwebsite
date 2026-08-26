@@ -8,8 +8,8 @@ import AnimatedSection from '@/components/AnimatedSection';
 const PackagesPage = () => {
   const logoPackages = [
     {
-      name: "Basic Logo",
-      price: "R650",
+      name: "Logo — 2 Concepts",
+      price: "R2,080",
       period: "",
       features: [
         "1 Initial Concept",
@@ -21,8 +21,8 @@ const PackagesPage = () => {
       popular: false
     },
     {
-      name: "Professional Logo",
-      price: "R1,500",
+      name: "Logo — 4 Concepts",
+      price: "R3,120",
       period: "",
       features: [
         "2 Initial Concepts",
@@ -35,8 +35,8 @@ const PackagesPage = () => {
       popular: true
     },
     {
-      name: "Premium Logo",
-      price: "R3,500",
+      name: "Logo — 6 Concepts",
+      price: "R4,160",
       period: "",
       features: [
         "5 Initial Concepts",
@@ -69,8 +69,8 @@ const PackagesPage = () => {
       popular: false
     },
     {
-      name: "5 Page Custom Website",
-      price: "R12,980",
+      name: "6 Page Custom Website",
+      price: "R14,780",
       period: "",
       features: [
         "2 x Custom Designs To Choose From",
@@ -87,8 +87,8 @@ const PackagesPage = () => {
       popular: true
     },
     {
-      name: "8 Page Custom Website",
-      price: "R18,980",
+      name: "9 Page Custom Website",
+      price: "R17,420",
       period: "",
       features: [
         "3 x Custom Designs To Choose From",
@@ -679,7 +679,7 @@ const PackagesPage = () => {
 
       {/* Terms */}
       <div className="max-w-3xl mx-auto mt-16 text-center text-sm text-gray-400">
-        <p className="mb-2">* All prices are subject to change and exclude VAT</p>
+        <p className="mb-2">* All prices are subject to change</p>
         <p className="mb-2">* Custom requirements may affect final pricing</p>
         <p className="mb-2">* Delivery times may vary based on project complexity</p>
         <p>* Payment terms: 50% deposit required to commence work</p>

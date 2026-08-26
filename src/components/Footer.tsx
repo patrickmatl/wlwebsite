@@ -69,6 +69,7 @@ export default function Footer() {
             <h3 className="text-white font-syne font-bold text-lg mb-4">Services in Pretoria</h3>
             <ul className="space-y-2">
               {[
+                ['/logo-design-pretoria', 'Logo design in Pretoria'],
                 ['/pricing/website-design-pretoria', 'Website design in Pretoria'],
                 ['/pricing/graphic-design-pretoria', 'Graphic design in Pretoria'],
                 ['/pricing/packaging-design-pretoria', 'Packaging design in Pretoria'],

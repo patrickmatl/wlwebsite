@@ -334,7 +334,7 @@ export default async function PortalQuotePage({ params }: { params: Promise<{ id
 
           {!showVat ? (
             <p className="mt-2 text-xs text-neutral-500">
-              All amounts are in South African Rand and exclude VAT.
+              All amounts are in South African Rand.
             </p>
           ) : null}
         </section>

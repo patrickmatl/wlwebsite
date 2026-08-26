@@ -85,7 +85,7 @@ const GraphicDesignPage = () => {
     },
     {
       name: "Packaging Design",
-      price: "From R2,500",
+      price: "From R4,850",
       features: ["3D Mockups", "Print-Ready Files", "Technical Specifications", "Production Support"]
     }
   ];

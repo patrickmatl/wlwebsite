@@ -6,7 +6,8 @@
  * is forbidden. That is what keeps an automated quote from committing the
  * business to a number nobody approved.
  *
- * All amounts are in South African Rand (ZAR), excluding VAT unless stated.
+ * All amounts are in South African Rand (ZAR). The studio is not a registered
+ * VAT vendor, so no VAT is added and client-facing quotes do not mention it.
  * When a price changes, change it HERE and the website, the quote engine and
  * the blog guides all follow.
  */
@@ -219,7 +220,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'flyer',
         name: 'Flyer design (A6–A4)',
-        amount: 780,
+        amount: 950,
         unit: 'from',
         includes: ['2 unique options', '1 final concept', 'Print-ready files', '2 revision rounds'],
         url: '/pricing/print-design-pretoria',
@@ -285,7 +286,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'powerpoint',
         name: 'PowerPoint presentation concept pack',
-        amount: 3230,
+        amount: 3500,
         unit: 'fixed',
         includes: ['Custom PowerPoint template', '1 final concept', '5 template slides'],
         url: '/pricing/presentation-design-services-pretoria',
@@ -301,7 +302,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'packaging',
         name: 'Label / sleeve design (single product)',
-        amount: 2500,
+        amount: 4850,
         unit: 'from',
         includes: ['Concept development', 'Print-ready artwork', 'Dieline setup'],
         url: '/pricing/packaging-design-pretoria',
@@ -411,6 +412,29 @@ export const PRICING: PriceCategory[] = [
         url: '/pricing/sustainability-esg-report-design-services-pretoria',
       },
       {
+        id: 'esg-report-basic',
+        name: 'Basic ESG report design',
+        amount: 7500,
+        unit: 'fixed',
+        includes: [
+          'Up to 12 pages',
+          'Chart and data styling',
+        ],
+        url: '/pricing/sustainability-esg-report-design-services-pretoria',
+      },
+      {
+        id: 'esg-integrated',
+        name: 'Integrated annual and ESG report',
+        amount: 28000,
+        unit: 'fixed',
+        includes: [
+          'Combined annual and sustainability report',
+          'Full data visualisation',
+          'Print-ready and digital versions',
+        ],
+        url: '/pricing/sustainability-esg-report-design-services-pretoria',
+      },
+      {
         id: 'investor-relations',
         name: 'Investor relations pack / results presentation',
         amount: 9850,
@@ -419,6 +443,29 @@ export const PRICING: PriceCategory[] = [
           'Results presentation or investor deck design',
           'Financial charts and data tables styled',
           'Editable master file you can reuse for future results',
+        ],
+        url: '/pricing/investor-relations-material-design-services-pretoria',
+      },
+      {
+        id: 'ir-deck-basic',
+        name: 'Investor deck (basic)',
+        amount: 5000,
+        unit: 'fixed',
+        includes: [
+          'Investor presentation laid out',
+          'Chart and data styling',
+        ],
+        url: '/pricing/investor-relations-material-design-services-pretoria',
+      },
+      {
+        id: 'ir-shareholder-report',
+        name: 'Premium shareholder report',
+        amount: 16000,
+        unit: 'fixed',
+        includes: [
+          'Full shareholder report design',
+          'Data visualisation throughout',
+          'Print-ready and digital versions',
         ],
         url: '/pricing/investor-relations-material-design-services-pretoria',
       },
@@ -435,9 +482,32 @@ export const PRICING: PriceCategory[] = [
         url: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria',
       },
       {
+        id: 'interactive-pdf-starter',
+        name: 'Interactive PDF (starter)',
+        amount: 3900,
+        unit: 'fixed',
+        includes: [
+          'Up to 8 pages',
+          'Clickable navigation and links',
+        ],
+        url: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria',
+      },
+      {
+        id: 'interactive-pdf-enterprise',
+        name: 'Enterprise interactive publication',
+        amount: 16000,
+        unit: 'fixed',
+        includes: [
+          'Extended page count',
+          'Embedded media and forms',
+          'Full interactive navigation',
+        ],
+        url: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria',
+      },
+      {
         id: 'infographic',
         name: 'Infographic design',
-        amount: 1450,
+        amount: 2800,
         unit: 'fixed',
         includes: ['One custom infographic', 'Print and screen versions supplied'],
         url: '/pricing/infographic-design-pretoria',
@@ -445,7 +515,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'data-visualisation',
         name: 'Data visualisation set',
-        amount: 2850,
+        amount: 6000,
         unit: 'fixed',
         includes: [
           'A set of charts built from your data',
@@ -462,6 +532,40 @@ export const PRICING: PriceCategory[] = [
         includes: [
           'Campaign concept aimed at an internal audience',
           'Posters, email headers and intranet artwork',
+          'Editable templates your team can reuse',
+        ],
+        url: '/pricing/internal-communications-design-pretoria',
+      },
+      {
+        id: 'internal-memo',
+        name: 'Internal memo design',
+        amount: 1800,
+        unit: 'fixed',
+        includes: [
+          'Single memo or notice laid out',
+          'Editable template supplied',
+        ],
+        url: '/pricing/internal-communications-design-pretoria',
+      },
+      {
+        id: 'internal-newsletter',
+        name: 'Staff newsletter design',
+        amount: 4800,
+        unit: 'fixed',
+        includes: [
+          'Multi-page staff newsletter',
+          'Editable template for future issues',
+        ],
+        url: '/pricing/internal-communications-design-pretoria',
+      },
+      {
+        id: 'internal-campaign',
+        name: 'Internal campaign pack',
+        amount: 9000,
+        unit: 'fixed',
+        includes: [
+          'Full internal campaign concept',
+          'Posters, screens, email and intranet artwork',
           'Editable templates your team can reuse',
         ],
         url: '/pricing/internal-communications-design-pretoria',
@@ -498,6 +602,39 @@ export const PRICING: PriceCategory[] = [
         url: '/pricing/social-media-pretoria',
       },
       {
+        id: 'social-essential',
+        name: 'Social media package — Essential',
+        amount: 3500,
+        unit: 'per-month',
+        includes: [
+          'Monthly template set',
+          'Profile and story artwork',
+        ],
+        url: '/pricing/social-media-pretoria',
+      },
+      {
+        id: 'social-professional',
+        name: 'Social media package — Professional',
+        amount: 5500,
+        unit: 'per-month',
+        includes: [
+          'Expanded monthly template set',
+          'Campaign artwork',
+        ],
+        url: '/pricing/social-media-pretoria',
+      },
+      {
+        id: 'social-premium',
+        name: 'Social media package — Premium',
+        amount: 8500,
+        unit: 'per-month',
+        includes: [
+          'Full monthly content design',
+          'Campaign and ad artwork',
+        ],
+        url: '/pricing/social-media-pretoria',
+      },
+      {
         id: 'event-branding',
         name: 'Event branding pack',
         amount: 5850,
@@ -506,6 +643,29 @@ export const PRICING: PriceCategory[] = [
           'Event identity and key visual',
           'Backdrop, banner, signage and name-badge artwork',
           'Programme or invitation design',
+        ],
+        url: '/pricing/event-branding-design-pretoria',
+      },
+      {
+        id: 'event-branding-full',
+        name: 'Full event branding pack',
+        amount: 12000,
+        unit: 'fixed',
+        includes: [
+          'Signage, stage and wayfinding artwork',
+          'Delegate and print collateral',
+        ],
+        url: '/pricing/event-branding-design-pretoria',
+      },
+      {
+        id: 'event-branding-premium',
+        name: 'Premium event experience',
+        amount: 22000,
+        unit: 'fixed',
+        includes: [
+          'Full environmental branding',
+          'Large-format and 3D elements',
+          'Complete print-ready artwork set',
         ],
         url: '/pricing/event-branding-design-pretoria',
       },
@@ -604,6 +764,54 @@ export const PRICING: PriceCategory[] = [
         url: '/pricing/website-design-pretoria',
         notes: 'Final price depends on page count and functionality — always scope before quoting',
       },
+      // The ladder the website-design page has published all along. Without
+      // these the agent had exactly one website item — "from R8,980" — so a
+      // nine-page job and a three-page job resolved to the same figure, and
+      // the larger one was quoted at the smaller one's price. Undercharging by
+      // omission is still undercharging, and it is the kind nobody notices.
+      // Amounts are the studio's own published prices, not new numbers.
+      {
+        id: 'website-6',
+        name: 'Website design — 6 pages',
+        amount: 14780,
+        unit: 'fixed',
+        includes: [
+          '6 custom pages',
+          'Mobile responsive design',
+          'SEO setup and analytics',
+          'Content management',
+        ],
+        url: '/pricing/website-design-pretoria',
+      },
+      {
+        id: 'website-9',
+        name: 'Website design — 9 pages',
+        amount: 17420,
+        unit: 'fixed',
+        includes: [
+          '9 custom pages',
+          'Mobile responsive design',
+          'SEO setup and analytics',
+          'Content management',
+        ],
+        url: '/pricing/website-design-pretoria',
+      },
+      {
+        id: 'website-catalog',
+        name: 'Catalogue website',
+        amount: 19780,
+        unit: 'fixed',
+        includes: ['Product catalogue', 'Search and filtering', 'Mobile responsive design'],
+        url: '/pricing/website-design-pretoria',
+      },
+      {
+        id: 'popia',
+        name: 'POPIA compliance setup',
+        amount: 1350,
+        unit: 'fixed',
+        includes: ['Privacy policy', 'Cookie consent', 'Data handling notices'],
+        url: '/pricing/website-design-pretoria',
+      },
       {
         id: 'ecommerce',
         name: 'E-commerce website',
@@ -612,6 +820,33 @@ export const PRICING: PriceCategory[] = [
         includes: ['Online store', 'Payment gateway integration', 'Product catalogue'],
         url: '/pricing/ecommerce-pretoria',
         notes: 'Quoted after a scoping call — depends on product count and integrations',
+      },
+      // Maintenance was published on its own page and absent from this file
+      // entirely, so the agent could not quote the studio's only recurring
+      // product even when a client asked for it by name.
+      {
+        id: 'maintenance-essential',
+        name: 'Website maintenance — Essential',
+        amount: 850,
+        unit: 'per-month',
+        includes: ['Software and plugin updates', 'Security monitoring', 'Monthly backups'],
+        url: '/pricing/website-maintenance-pretoria',
+      },
+      {
+        id: 'maintenance-professional',
+        name: 'Website maintenance — Professional',
+        amount: 1850,
+        unit: 'per-month',
+        includes: ['Everything in Essential', 'Content updates', 'Performance monitoring'],
+        url: '/pricing/website-maintenance-pretoria',
+      },
+      {
+        id: 'maintenance-enterprise',
+        name: 'Website maintenance — Enterprise',
+        amount: 3850,
+        unit: 'per-month',
+        includes: ['Everything in Professional', 'Priority support', 'Ongoing development time'],
+        url: '/pricing/website-maintenance-pretoria',
       },
     ],
   },
