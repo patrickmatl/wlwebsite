@@ -18,7 +18,14 @@ export const maxDuration = 60;
 /** Verify the Svix-style signature Resend sends, so randoms can't inject mail. */
 function verifySignature(rawBody: string, headers: Headers): boolean {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
-  if (!secret) return true; // not configured — allow, but log below
+  // No secret means no way to tell Resend from anyone else, so refuse rather
+  // than wave everything through. An open inbound webhook lets a stranger post
+  // a fabricated client email and have the agent send a quote — signed by this
+  // domain — to any address they choose, which is the studio's sending
+  // reputation spent on someone else's spam. The studio is on SMTP, where
+  // /api/inbound/poll is the live path, so this costs nothing until Resend is
+  // deliberately configured. Same stance as cron-auth.ts.
+  if (!secret) return false;
 
   const id = headers.get('svix-id');
   const timestamp = headers.get('svix-timestamp');
@@ -48,11 +55,12 @@ function verifySignature(rawBody: string, headers: Headers): boolean {
 export async function POST(request: Request) {
   const raw = await request.text();
 
+  if (!process.env.RESEND_WEBHOOK_SECRET) {
+    console.warn('[inbound] RESEND_WEBHOOK_SECRET unset — webhook refused');
+    return NextResponse.json({ error: 'Webhook is not configured' }, { status: 503 });
+  }
   if (!verifySignature(raw, request.headers)) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
-  }
-  if (!process.env.RESEND_WEBHOOK_SECRET) {
-    console.warn('[inbound] RESEND_WEBHOOK_SECRET unset — webhook is unauthenticated');
   }
 
   let event: {
