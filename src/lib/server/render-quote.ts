@@ -68,7 +68,7 @@ export function renderAck(params: { clientName: string; service?: string | null 
   text: string;
   html: string;
 } {
-  const first = params.clientName.trim().split(/\s+/)[0] || 'there';
+  const first = greetingName(params.clientName);
   const about = params.service ? ` about ${params.service.toLowerCase()}` : '';
 
   const body =
@@ -96,6 +96,27 @@ export function renderAck(params: { clientName: string; service?: string | null 
 }
 
 /**
+ * How to open an email to someone.
+ *
+ * Naively taking the first word turns "Mrs Botha" into "Hi Mrs", which is the
+ * kind of small wrongness that tells a reader immediately that nothing human
+ * wrote this. A title on its own is never a greeting: keep the surname with it.
+ */
+const TITLES = new Set(['mr', 'mrs', 'ms', 'miss', 'dr', 'prof', 'professor', 'sir', 'madam']);
+
+export function greetingName(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'there';
+
+  const first = parts[0];
+  const isTitle = TITLES.has(first.toLowerCase().replace(/\.$/, ''));
+
+  // "Mrs Botha" -> "Mrs Botha"; "Mrs" alone -> fall back rather than greet a title.
+  if (isTitle) return parts.length > 1 ? `${first} ${parts[1]}` : 'there';
+  return first;
+}
+
+/**
  * The holding reply for anything a person has to handle.
  *
  * Complaints, disputes and anything the agent could not read confidently are
@@ -112,7 +133,7 @@ export function renderHandoverAck(params: { clientName: string }): {
   text: string;
   html: string;
 } {
-  const first = params.clientName.trim().split(/\s+/)[0] || 'there';
+  const first = greetingName(params.clientName);
 
   const body =
     `Hi ${first}\n\n` +
