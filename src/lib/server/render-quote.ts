@@ -189,6 +189,25 @@ export function renderAck(params: { clientName: string; service?: string | null 
  */
 const TITLES = new Set(['mr', 'mrs', 'ms', 'miss', 'dr', 'prof', 'professor', 'sir', 'madam']);
 
+/**
+ * Surname particles, which belong to the surname rather than sitting in front
+ * of it. Half of Pretoria is a Van der Merwe or a Du Plessis, and greeting one
+ * of them "Dear Ms Merwe" is worse than not using their name at all.
+ */
+const PARTICLES = new Set([
+  'van', 'von', 'der', 'den', 'de', 'du', 'da', 'dos', 'le', 'la', 'ter', 'ten', 'st',
+]);
+
+/** The surname, carrying any particles that precede it. */
+function surname(parts: string[]): string {
+  let start = parts.length - 1;
+  // Walk backwards over particles, but never as far as the first name.
+  while (start > 1 && PARTICLES.has(parts[start - 1].toLowerCase().replace(/\.$/, ''))) {
+    start -= 1;
+  }
+  return parts.slice(start).join(' ');
+}
+
 export function greetingName(fullName: string): string {
   const parts = fullName.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) return 'there';
@@ -196,8 +215,11 @@ export function greetingName(fullName: string): string {
   const first = parts[0];
   const isTitle = TITLES.has(first.toLowerCase().replace(/\.$/, ''));
 
-  // "Mrs Botha" -> "Mrs Botha"; "Mrs" alone -> fall back rather than greet a title.
-  if (isTitle) return parts.length > 1 ? `${first} ${parts[1]}` : 'there';
+  // A title goes with the surname, never the first name: "Mrs Lerato Khumalo"
+  // is "Mrs Khumalo", not "Mrs Lerato". Taking parts[1] happened to look right
+  // for the two-word "Mrs Botha" and was wrong for every longer name.
+  // "Mrs" on its own is a title with nobody attached, so fall back instead.
+  if (isTitle) return parts.length > 1 ? `${first} ${surname(parts)}` : 'there';
   return first;
 }
 
