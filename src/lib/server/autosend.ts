@@ -107,14 +107,20 @@ export async function sendDraft(params: {
   // Otherwise there is nothing to link to and nothing to attach, which is how
   // the automatic quotes were going out as plain email while the hand-sent ones
   // carried a PDF and a portal link.
-  const doc = msg.action === 'quote' ? await issueQuoteDocument(params.messageId) : null;
+  const docKind = msg.action === 'accept' ? ('proforma' as const) : ('quote' as const);
+  const doc =
+    msg.action === 'quote'
+      ? await issueQuoteDocument(params.messageId)
+      : msg.action === 'accept'
+        ? await issueDepositDocument(lead.id as string)
+        : null;
 
   try {
     await sendEmail({
       to: lead.email as string,
       subject: tagSubject(finalSubject ?? thread.subject, thread.ref),
-      text: renderClientEmail({ ...emailParams, viewUrl: doc?.viewUrl }),
-      html: renderClientEmailHtml({ ...emailParams, viewUrl: doc?.viewUrl }),
+      text: renderClientEmail({ ...emailParams, viewUrl: doc?.viewUrl, docKind }),
+      html: renderClientEmailHtml({ ...emailParams, viewUrl: doc?.viewUrl, docKind }),
       attachments: doc?.pdf
         ? [{ filename: doc.filename, content: doc.pdf, contentType: 'application/pdf' }]
         : undefined,
@@ -319,6 +325,69 @@ async function issueQuoteDocument(
     return { viewUrl, pdf, filename: doc ? documentFilename(doc) : `${quote.number}.pdf` };
   } catch (err) {
     console.error('[send] could not issue the quote document', err);
+    return null;
+  }
+}
+
+/**
+ * Turn an acceptance into a proforma the client actually receives.
+ *
+ * The CRM already created a deposit invoice the moment a client said yes — but
+ * it created it *after* the email had gone, and never sent it. So the agent
+ * wrote "I will invoice a 50% deposit", nothing followed, and one real reply
+ * went further and promised "a brief creative questionnaire" that exists
+ * nowhere in this system. The client then waits for a document that is never
+ * coming, and the job quietly dies.
+ *
+ * Issuing it here, before the email is composed, is what makes the promise
+ * true: the proforma is attached to the very message that mentions it. The
+ * underlying CRM calls all return an existing record rather than making a
+ * second one, so a client who says "yes" twice gets one project and one
+ * deposit invoice.
+ */
+async function issueDepositDocument(
+  leadId: string,
+): Promise<{ viewUrl: string | null; pdf: Buffer | null; filename: string } | null> {
+  try {
+    const crm = await import('./crm');
+    const { ensureShareToken, invoiceDocument, documentFilename } = await import('./documents');
+    const { renderDocumentPdf } = await import('./document-pdf');
+
+    const { data: lead } = await db()
+      .from('leads')
+      .select('contact_id')
+      .eq('id', leadId)
+      .maybeSingle();
+    if (!lead?.contact_id) return null;
+
+    const { data: open } = await db()
+      .from('quotes')
+      .select('id, status')
+      .eq('contact_id', lead.contact_id)
+      .in('status', ['sent', 'accepted'])
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (!open) return null;
+
+    if (open.status === 'sent') {
+      await crm.acceptQuote(open.id, { name: null, ip: null }, 'client-email');
+    }
+    await crm.projectFromQuote(open.id, 'autopilot');
+    const invoice = await crm.depositInvoiceFromQuote(open.id, 'autopilot');
+
+    const token = await ensureShareToken('invoices', invoice.id);
+    const baseUrl = BUSINESS.url;
+    const viewUrl = token ? `${baseUrl}/i/${token}` : `${baseUrl}/portal/invoices/${invoice.id}`;
+
+    const doc = await invoiceDocument(invoice.id, baseUrl);
+    const pdf = doc ? await renderDocumentPdf(doc) : null;
+
+    return { viewUrl, pdf, filename: doc ? documentFilename(doc) : `${invoice.number}.pdf` };
+  } catch (err) {
+    // A failure here must not stop the acceptance email: the client saying yes
+    // is the important part, and mirrorToCrm still creates the records after.
+    console.error('[send] could not issue the deposit invoice', err);
     return null;
   }
 }
