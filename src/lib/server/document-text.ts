@@ -40,11 +40,20 @@ const OFFICE = {
   pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 };
 
+/** Image types Gemini accepts inline. Anything else is re-derived from the name. */
+const SAFE_IMAGE = /^image\/(png|jpeg|jpg|webp|heic|heif)$/i;
+
 /** What Gemini can read better as the original file than as scraped text. */
 export function isNativelyReadable(mimeType: string, filename: string): boolean {
   const m = (mimeType || '').toLowerCase();
-  if (m === 'application/pdf' || m.startsWith('image/')) return true;
-  return /\.(pdf|png|jpe?g|webp|heic|heif|gif|tiff?)$/i.test(filename || '');
+  // Not any image/*: a TIFF or a BMP declares itself an image and Gemini
+  // rejects it, so accepting on the prefix sends an unusable file and 400s the
+  // whole request instead of that one attachment being reported unreadable.
+  if (m === 'application/pdf' || SAFE_IMAGE.test(m)) return true;
+  // gif and tiff are deliberately absent: Gemini does not accept them inline,
+  // and sending one 400s the whole request. Better they fall through to the
+  // unreadable branch, where the client is told we could not open the file.
+  return /\.(pdf|png|jpe?g|webp|heic|heif)$/i.test(filename || '');
 }
 
 function extOf(filename: string): string {
@@ -67,7 +76,14 @@ export function extractDocument(
   if (!content || content.length === 0 || content.length > MAX_INPUT_BYTES) return null;
 
   if (isNativelyReadable(mimeType, filename)) {
-    return { filename, kind: 'native', mimeType: mimeType || guessMime(filename) };
+    // The declared type is not trusted. Mail clients send PDFs as
+    // application/octet-stream and phones send photos with all sorts, and
+    // isNativelyReadable accepts on the extension alone — so passing the
+    // header's word for it hands Gemini a mime it rejects, 400s the entire
+    // request, and loses the lead rather than one attachment.
+    const declared = (mimeType || '').toLowerCase();
+    const trusted = declared === 'application/pdf' || SAFE_IMAGE.test(declared);
+    return { filename, kind: 'native', mimeType: trusted ? declared : guessMime(filename) };
   }
 
   const ext = extOf(filename);
@@ -121,13 +137,29 @@ function guessMime(filename: string): string {
   if (ext === 'pdf') return 'application/pdf';
   if (ext === 'png') return 'image/png';
   if (ext === 'webp') return 'image/webp';
-  if (ext === 'gif') return 'image/gif';
+  if (ext === 'heic') return 'image/heic';
+  if (ext === 'heif') return 'image/heif';
   return 'image/jpeg';
 }
 
 // ── the minimal ZIP reader ────────────────────────────────────────────────────
 
 type ZipEntry = { name: string; read: () => Buffer };
+
+/**
+ * Decompression limits, because a ZIP says how big it will be and lies.
+ *
+ * Without a ceiling, zlib.inflateRawSync will happily expand whatever it is
+ * given: 203KB of crafted deflate stream becomes 200MB in under a second,
+ * measured on this machine. Anyone can email quotes@ — so an unbounded inflate
+ * here is a remote out-of-memory kill on the process that answers every client,
+ * costing not just that message but every lead in flight.
+ *
+ * Both limits matter. Per entry stops one enormous document.xml; the running
+ * total stops a thousand small entries adding up to the same thing.
+ */
+const MAX_ENTRY_BYTES = 8 * 1024 * 1024;
+const MAX_ARCHIVE_BYTES = 24 * 1024 * 1024;
 
 /**
  * Read a ZIP's central directory and return lazily-inflatable entries.
@@ -150,6 +182,7 @@ function readZip(buf: Buffer): ZipEntry[] {
   const count = buf.readUInt16LE(eocd + 10);
   let p = buf.readUInt32LE(eocd + 16);
   const entries: ZipEntry[] = [];
+  let archiveSpent = 0;
 
   for (let i = 0; i < count && p + 46 <= buf.length; i++) {
     if (buf.readUInt32LE(p) !== 0x02014b50) break;
@@ -172,9 +205,29 @@ function readZip(buf: Buffer): ZipEntry[] {
         const lExtraLen = buf.readUInt16LE(localOffset + 28);
         const start = localOffset + 30 + lNameLen + lExtraLen;
         const raw = buf.subarray(start, start + compSize);
-        if (method === 0) return Buffer.from(raw);
-        if (method === 8) return zlib.inflateRawSync(raw);
-        return Buffer.alloc(0);
+
+        const remaining = MAX_ARCHIVE_BYTES - archiveSpent;
+        if (remaining <= 0) return Buffer.alloc(0);
+        const ceiling = Math.min(MAX_ENTRY_BYTES, remaining);
+
+        try {
+          let out: Buffer;
+          if (method === 0) {
+            if (raw.length > ceiling) return Buffer.alloc(0);
+            out = Buffer.from(raw);
+          } else if (method === 8) {
+            out = zlib.inflateRawSync(raw, { maxOutputLength: ceiling });
+          } else {
+            return Buffer.alloc(0);
+          }
+          archiveSpent += out.length;
+          return out;
+        } catch (err) {
+          // ERR_BUFFER_TOO_LARGE for a bomb, or a corrupt stream. Either way
+          // this entry yields nothing and the rest of the archive still reads.
+          console.error('[documents] refused a zip entry', name, (err as Error).message);
+          return Buffer.alloc(0);
+        }
       },
     });
 

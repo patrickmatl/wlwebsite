@@ -47,10 +47,34 @@ const MAX_BYTES = 8 * 1024 * 1024;
 const MAX_FILES = 4;
 const CALL_TIMEOUT_MS = 45_000;
 
+/**
+ * The cap has to be a total, not merely per file.
+ *
+ * Four files of 8MB each pass a per-file check and then base64 to roughly
+ * 43MB, well past Gemini's ~20MB inline-request ceiling. The request 400s,
+ * readProofOfPayment returns null, and the client's payment is held for a
+ * human instead of being credited — safe, but a real payment quietly stops
+ * being automatic because of arithmetic nobody checked.
+ */
+const MAX_TOTAL_ENCODED_BYTES = 12 * 1024 * 1024;
+
 export function readableAttachments(files: InboundAttachment[]): InboundAttachment[] {
-  return files
-    .filter((f) => READABLE.test(f.mimeType || '') && f.content && f.content.length <= MAX_BYTES)
-    .slice(0, MAX_FILES);
+  const out: InboundAttachment[] = [];
+  let encodedSpent = 0;
+
+  for (const f of files) {
+    if (out.length >= MAX_FILES) break;
+    if (!READABLE.test(f.mimeType || '') || !f.content) continue;
+    if (f.content.length > MAX_BYTES) continue;
+
+    const encoded = Math.ceil(f.content.length * 1.34);
+    if (encodedSpent + encoded > MAX_TOTAL_ENCODED_BYTES) continue;
+
+    encodedSpent += encoded;
+    out.push(f);
+  }
+
+  return out;
 }
 
 /**

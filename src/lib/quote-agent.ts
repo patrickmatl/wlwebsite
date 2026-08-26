@@ -504,7 +504,12 @@ function resolveLines(output: AgentOutput): {
       total = null;
       continue;
     }
-    const qty = Math.max(1, Math.round(l.quantity || 1));
+    // Gemini is pinned to a number by the response schema, but Groq answers in
+    // free-form JSON: a quantity of "two" or {} makes Math.round return NaN,
+    // and NaN propagates all the way to a client reading "RNaN" in a quote.
+    // Anything not a finite number is one.
+    const raw = Number(l.quantity);
+    const qty = Number.isFinite(raw) ? Math.min(999, Math.max(1, Math.round(raw))) : 1;
     const lineTotal = item.amount === null ? null : item.amount * qty;
     if (lineTotal === null) total = null;
     else if (total !== null) total += lineTotal;
@@ -671,7 +676,19 @@ export async function draftReply(params: {
 
   for (const f of params.files ?? []) {
     const doc = extractDocument(f.filename, f.mimeType, f.content);
-    if (!doc) continue;
+
+    // Older Office formats (.doc), OpenDocument, Pages, and anything oversized
+    // come back null. Skipping silently is the dangerous outcome: the agent
+    // then quotes from the covering sentence with full confidence, having been
+    // told nothing about the brief it could not open. Say so instead, and treat
+    // it like any other file the model cannot read.
+    if (!doc) {
+      extractedNotes.push(
+        `- ${f.filename} (could not be opened — tell the client you could not read it and ask for a PDF, rather than quoting without it)`,
+      );
+      hasModelOnlyFile = true;
+      continue;
+    }
 
     if (doc.kind === 'native') {
       // Base64 is ~4/3 of the raw bytes.
@@ -851,6 +868,15 @@ function unescapeNewlines(text: string): string {
   const VALID_ACTIONS: AgentAction[] = ['ask', 'quote', 'accept', 'ignore', 'handover'];
   if (!VALID_ACTIONS.includes(parsed.action)) {
     throw new Error(`Quote agent returned an invalid action: ${String(parsed.action)}`);
+  }
+
+  // Confidence is the brake that holds a doubtful draft for a person, and only
+  // Gemini is pinned to the enum by the response schema. Groq answers in
+  // free-form JSON, so "Medium", "very high" or a missing field would sail past
+  // decideAutoSend's `confidence === 'low'` test and auto-send. Anything not
+  // exactly one of the three means we do not know, and not knowing is low.
+  if (!['high', 'medium', 'low'].includes(parsed.confidence)) {
+    parsed.confidence = 'low';
   }
 
   // A PDF or a scan only reaches Gemini. If Gemini was down and Groq answered
