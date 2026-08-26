@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="bg-black w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-white font-syne font-bold text-lg mb-4">WL CreationX</h3>
@@ -46,6 +46,48 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/*
+            Services, in the footer specifically.
+
+            The main navigation is a hamburger overlay: its links exist only
+            once a visitor opens it, so they are not in the HTML a crawler
+            reads. The footer is, on every page — which makes this the site's
+            real internal link graph, and it was four links wide.
+
+            The three city pages below had ZERO inbound links from anywhere on
+            the site. A page nothing links to is a page Google is entitled to
+            treat as unimportant, which is a poor argument to make about the
+            pages meant to win "web design pretoria".
+
+            Anchors name the service and the city on purpose: anchor text is
+            the strongest on-page signal about the page at the other end.
+          */}
+          <div>
+            <h3 className="text-white font-syne font-bold text-lg mb-4">Services in Pretoria</h3>
+            <ul className="space-y-2">
+              {[
+                ['/pricing/website-design-pretoria', 'Website design in Pretoria'],
+                ['/pricing/graphic-design-pretoria', 'Graphic design in Pretoria'],
+                ['/pricing/packaging-design-pretoria', 'Packaging design in Pretoria'],
+                ['/branding-solutions-pretoria', 'Brand identity design'],
+                ['/pricing/annual-report-design-and-print-pretoria', 'Annual report design'],
+                ['/pricing/seo-pretoria', 'SEO services in Pretoria'],
+                ['/pretoria/web-design', 'Web design, Pretoria'],
+                ['/centurion/web-design', 'Web design, Centurion'],
+                ['/menlyn/graphic-design', 'Graphic design, Menlyn'],
+              ].map(([href, label]) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
