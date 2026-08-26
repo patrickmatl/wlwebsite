@@ -192,6 +192,74 @@ export function renderAck(params: { clientName: string; service?: string | null 
 }
 
 /**
+ * The reply to a proof of payment.
+ *
+ * Deliberately a fixed template with no model in it. Every number here is one
+ * the client will check against their bank, and an agent that paraphrases
+ * "R4 160" as "just over four thousand" — or worse, invents a balance — turns
+ * a routine confirmation into a dispute. The figures come from the invoice
+ * record; the prose never touches them.
+ */
+export function renderPaymentReceived(params: {
+  clientName: string;
+  amount: number;
+  invoiceNumber: string;
+  settledInFull: boolean;
+  /** What is still owed on the project as a whole, once this payment is in. */
+  outstanding: number | null;
+  viewUrl?: string | null;
+}): { subject: string; text: string; html: string } {
+  const amount = `${CURRENCY_SYMBOL}${params.amount.toLocaleString('en-ZA')}`;
+
+  const lines = [
+    `Thank you — I have received your payment of ${amount} against invoice ${params.invoiceNumber}.`,
+  ];
+
+  if (params.settledInFull) {
+    lines.push(
+      `That settles invoice ${params.invoiceNumber} in full, so your project is booked and we will make a start on it.`,
+    );
+  } else {
+    lines.push(`That is part payment against invoice ${params.invoiceNumber}.`);
+  }
+
+  if (params.outstanding !== null && params.outstanding > 0) {
+    lines.push(
+      `The balance still to come on this project is ${CURRENCY_SYMBOL}${params.outstanding.toLocaleString(
+        'en-ZA',
+      )}, which is invoiced on final handover — there is nothing for you to do about it now.`,
+    );
+  } else if (params.outstanding === 0) {
+    lines.push('That clears everything owing on this project. Nothing further is outstanding.');
+  }
+
+  lines.push(`Your updated invoice is attached.`);
+
+  const body = lines.join('\n\n');
+  const letter = `${salutation(params.clientName)}\n\n${body}\n\n${closing()}`;
+
+  const text = params.viewUrl
+    ? `${salutation(params.clientName)}\n\n${body}\n\nYou can also open it here:\n${params.viewUrl}\n\n${closing()}\n\n${signatureText()}`
+    : `${letter}\n\n${signatureText()}`;
+
+  return {
+    subject: `Payment received — invoice ${params.invoiceNumber}`,
+    text,
+    html: wrapEmail(
+      paragraphsHtml(`${salutation(params.clientName)}\n\n${body}`) +
+        (params.viewUrl
+          ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 4px 0;"><tr>
+               <td style="background-color:#111111;border-radius:6px;">
+                 <a href="${esc(params.viewUrl)}" style="display:inline-block;padding:12px 22px;font-family:${FONT};font-size:14px;font-weight:bold;color:#FFD700;text-decoration:none;">View your invoice &rarr;</a>
+               </td></tr></table>`
+          : '') +
+        paragraphsHtml(closing(), { topMargin: 26 }),
+      `Payment received — invoice ${params.invoiceNumber}`,
+    ),
+  };
+}
+
+/**
  * How to open an email to someone.
  *
  * Naively taking the first word turns "Mrs Botha" into "Hi Mrs", which is the

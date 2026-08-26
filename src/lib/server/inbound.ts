@@ -4,6 +4,8 @@ import { notifyOwner } from './notify';
 import { releaseDraft } from './autosend';
 import { createThread, extractThreadRef, findThreadForReply, type ThreadRow } from './threads';
 import { syncLeadToCrm } from './lead-sync';
+import { handleProofOfPayment } from './payments';
+import type { InboundAttachment } from './proof-of-payment';
 
 /**
  * Every inbound email ends up here, whichever way it arrived:
@@ -114,6 +116,12 @@ export async function processInboundEmail(params: {
   text: string;
   /** Filenames of anything attached — the agent is told they exist. */
   attachments?: string[];
+  /**
+   * The attachments themselves, where we have them. Only the IMAP path
+   * supplies these, and only proof-of-payment reading looks at them; the
+   * drafting agent still works from filenames alone.
+   */
+  files?: InboundAttachment[];
 }): Promise<InboundResult> {
   const fromEmail = parseAddress(params.fromRaw ?? '');
   const body = stripQuotedReply(params.text ?? '');
@@ -134,6 +142,7 @@ async function continueThread(params: {
   body: string;
   subject?: string | null;
   attachments?: string[];
+  files?: InboundAttachment[];
   existing: { thread: ThreadRow; lead: Record<string, unknown> };
 }): Promise<InboundResult> {
   const { thread, lead } = params.existing;
@@ -144,6 +153,40 @@ async function continueThread(params: {
     subject: params.subject ?? null,
     body: params.body,
   });
+
+  // Money is settled before the drafting agent ever sees the message. A proof
+  // of payment is reconciled against the invoice record by payments.ts, so no
+  // figure a client is going to check against their bank is ever produced by a
+  // model. If this is not about a payment it returns handled:false and the
+  // ordinary path continues untouched.
+  const payment = await handleProofOfPayment({
+    leadId: lead.id as string,
+    leadName: lead.name as string,
+    leadEmail: lead.email as string,
+    threadId: thread.id,
+    threadRef: thread.ref,
+    threadSubject: thread.subject,
+    subject: params.subject,
+    body: params.body,
+    files: params.files ?? [],
+  }).catch((err) => {
+    console.error('[inbound] proof-of-payment handling failed', err);
+    return { handled: false as const };
+  });
+
+  if (payment.handled) {
+    await db()
+      .from('quote_threads')
+      .update({ follow_ups_sent: 0 })
+      .eq('id', thread.id);
+    return {
+      handled: true,
+      threadId: thread.id,
+      action: payment.credited ? 'payment' : 'payment_held',
+      sent: true,
+      newLead: false,
+    };
+  }
 
   // A client who replies has re-engaged: any follow-up count starts over.
   await db()

@@ -92,6 +92,16 @@ export async function GET(request: Request) {
           attachments: (mail.attachments ?? [])
             .map((a) => a.filename)
             .filter((f): f is string => Boolean(f)),
+          // The bytes as well, not only the names: a proof of payment is
+          // usually a screenshot, and until these were carried through there
+          // was nothing for the reader to look at.
+          files: (mail.attachments ?? [])
+            .filter((a) => Buffer.isBuffer(a.content))
+            .map((a) => ({
+              filename: a.filename ?? 'attachment',
+              mimeType: a.contentType ?? 'application/octet-stream',
+              content: a.content as Buffer,
+            })),
         });
 
         processed.push({
