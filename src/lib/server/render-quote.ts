@@ -95,6 +95,50 @@ export function renderAck(params: { clientName: string; service?: string | null 
   };
 }
 
+/**
+ * The holding reply for anything a person has to handle.
+ *
+ * Complaints, disputes and anything the agent could not read confidently are
+ * held for a human — which used to mean the sender heard nothing at all until
+ * somebody opened /studio. For a client with a problem that is the worst
+ * possible response.
+ *
+ * Fixed text with no AI in it, so it cannot guess at a situation it does not
+ * understand. It promises only that a person is looking, which is true the
+ * moment it is sent.
+ */
+export function renderHandoverAck(params: { clientName: string }): {
+  subject: string;
+  text: string;
+  html: string;
+} {
+  const first = params.clientName.trim().split(/\s+/)[0] || 'there';
+
+  const body =
+    `Hi ${first}\n\n` +
+    `Thanks for your message — it has reached us and I have read it.\n\n` +
+    `This one deserves a proper answer rather than a quick one, so I am passing it to ` +
+    `someone who can deal with it directly. You will hear back from us personally.\n\n` +
+    `If it is urgent in the meantime, phone or WhatsApp ${BUSINESS.phoneDisplay}.`;
+
+  return {
+    subject: 'We have your message',
+    text: `${body}\n\n${signatureText()}`,
+    html: wrapEmail(
+      body
+        .split(/\n\s*\n/)
+        .map(
+          (p) =>
+            `<p style="margin:0 0 14px 0;font-family:${FONT};font-size:15px;line-height:23px;color:${INK};">${esc(
+              p,
+            ).replace(/\n/g, '<br />')}</p>`,
+        )
+        .join(''),
+      'We have your message',
+    ),
+  };
+}
+
 const FONT = "Arial, 'Helvetica Neue', Helvetica, sans-serif";
 const GOLD = '#B8860B';
 const INK = '#111111';

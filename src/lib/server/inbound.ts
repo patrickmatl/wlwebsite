@@ -174,6 +174,7 @@ async function continueThread(params: {
       threadId: thread.id,
       draft,
       leadName: String(lead.name ?? 'Client'),
+      leadEmail: String(lead.email ?? '') || null,
       summary: params.body.slice(0, 160),
       newLead: false,
     });
@@ -281,6 +282,7 @@ async function startFromColdEmail(params: {
     threadId: thread.id,
     draft,
     leadName: name,
+    leadEmail: params.fromEmail,
     summary: params.body.slice(0, 160),
     newLead: true,
   });
@@ -291,6 +293,7 @@ async function storeAndRelease(params: {
   threadId: string;
   draft: QuoteDraft;
   leadName: string;
+  leadEmail?: string | null;
   summary: string;
   newLead: boolean;
 }): Promise<InboundResult> {
@@ -322,6 +325,7 @@ async function storeAndRelease(params: {
     threadId: params.threadId,
     draft,
     leadName: params.leadName,
+    leadEmail: params.leadEmail,
     summary: params.summary,
   });
 

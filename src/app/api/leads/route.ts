@@ -155,6 +155,7 @@ async function handleInBackground(lead: LeadRow): Promise<void> {
       threadId: thread.id,
       draft,
       leadName: lead.name,
+      leadEmail: lead.email,
       summary: lead.details.slice(0, 160),
     });
 

@@ -175,6 +175,7 @@ export async function GET(request: Request) {
         threadId: thread.id,
         draft,
         leadName: lead.name,
+        leadEmail: lead.email,
         summary:
           sentSoFar + 1 >= MAX_FOLLOW_UPS
             ? `No reply for ${quietDays} days — final close-out message.`

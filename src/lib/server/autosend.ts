@@ -218,8 +218,16 @@ async function mirrorToCrm(params: {
 export async function releaseDraft(params: {
   messageId: string;
   threadId: string;
-  draft: { action: AgentAction; confidence: 'high' | 'medium' | 'low'; total: number | null; totalFormatted: string; reasoning: string };
+  draft: {
+    action: AgentAction;
+    intent?: string;
+    confidence: 'high' | 'medium' | 'low';
+    total: number | null;
+    totalFormatted: string;
+    reasoning: string;
+  };
   leadName: string;
+  leadEmail?: string | null;
   summary: string;
 }): Promise<{ sent: boolean; reason: string }> {
   const decision = decideAutoSend(params.draft);
@@ -229,6 +237,14 @@ export async function releaseDraft(params: {
       // Spam. Close it quietly — waking someone up defeats the point.
       await db().from('quote_threads').update({ state: 'closed' }).eq('id', params.threadId);
       return { sent: false, reason: decision.reason };
+    }
+
+    // A person is being asked to deal with this, which used to mean the sender
+    // heard nothing at all until somebody opened /studio. For a client with a
+    // complaint that is the worst possible answer, so they get a short holding
+    // reply — fixed text, no AI, promising only that a human is looking.
+    if (params.draft.action === 'handover' && params.leadEmail) {
+      await sendHoldingReply(params.leadEmail, params.leadName, params.draft.intent);
     }
 
     const title =
@@ -304,5 +320,31 @@ async function issueQuoteDocument(
   } catch (err) {
     console.error('[send] could not issue the quote document', err);
     return null;
+  }
+}
+
+/**
+ * A brief "we have this, a person is looking" reply.
+ *
+ * Deliberately withheld from anything that smells of fraud or cold sales: a
+ * reply to a phishing attempt confirms the address is read by a human, which is
+ * the entire objective of sending it. Genuine clients get the courtesy; the
+ * rest get silence.
+ */
+const NO_HOLDING_REPLY = new Set(['scam_or_phishing', 'sales_pitch_or_spam']);
+
+async function sendHoldingReply(
+  to: string,
+  name: string,
+  intent?: string,
+): Promise<void> {
+  if (intent && NO_HOLDING_REPLY.has(intent)) return;
+
+  try {
+    const { renderHandoverAck } = await import('./render-quote');
+    const ack = renderHandoverAck({ clientName: name });
+    await sendEmail({ to, subject: ack.subject, text: ack.text, html: ack.html });
+  } catch (err) {
+    console.error('[send] holding reply failed', err);
   }
 }
