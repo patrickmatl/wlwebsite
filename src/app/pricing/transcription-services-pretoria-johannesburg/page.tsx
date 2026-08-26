@@ -2,6 +2,7 @@
 "use client";
 import RelatedServices from "@/components/RelatedServices";
 import Link from 'next/link';
+import GetStartedButton from '@/components/GetStartedButton';
 
 const transcriptionPricing = [
   {
@@ -85,11 +86,13 @@ export default function TranscriptionServices() {
             </ul>
             {plan.description && <div className="text-xs text-[#FFD700]/80">{plan.description}</div>}
             {plan.quoteLink && (
-              plan.quoteLink.startsWith('http') || plan.quoteLink.startsWith('mailto:') || plan.quoteLink.startsWith('tel:') ? (
-                <a href={plan.quoteLink} className="mt-2 inline-block bg-[#FFD700] text-zinc-900 font-bold px-6 py-2 rounded-lg hover:bg-[#FFD700]/90 transition" target="_blank" rel="noopener noreferrer">Get a Quote</a>
-              ) : (
-                <Link href={plan.quoteLink} className="mt-2 inline-block bg-[#FFD700] text-zinc-900 font-bold px-6 py-2 rounded-lg hover:bg-[#FFD700]/90 transition">Get a Quote</Link>
-              )
+              <GetStartedButton
+                packageName={plan.name}
+                packagePrice={plan.price}
+                service="Transcription"
+                label="Get a Quote"
+                className="mt-2 w-auto"
+              />
             )}
           </div>
         ))}

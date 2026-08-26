@@ -143,7 +143,7 @@ const PackagesPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {logoPackages.map((pkg) => (
-              <PackageCard key={pkg.name} {...pkg} />
+              <PackageCard key={pkg.name} {...pkg} service="Service bundle" />
             ))}
           </div>
         </div>
@@ -161,7 +161,7 @@ const PackagesPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {webPackages.map((pkg) => (
-              <PackageCard key={pkg.name} {...pkg} />
+              <PackageCard key={pkg.name} {...pkg} service="Service bundle" />
             ))}
           </div>
         </div>
@@ -257,7 +257,7 @@ const PackagesPage = () => {
                 popular: false
               }
             ].map((pkg) => (
-              <PackageCard key={pkg.name} {...pkg} />
+              <PackageCard key={pkg.name} {...pkg} service="Service bundle" />
             ))}
           </div>
         </div>

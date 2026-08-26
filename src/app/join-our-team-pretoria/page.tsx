@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { FaBriefcase, FaGraduationCap, FaHandshake, FaRocket, FaUsers, FaLightbulb } from 'react-icons/fa';
+import ApplyButton from '@/components/ApplyButton';
 
 export const metadata: Metadata = {
   title: 'Design & Development Careers Pretoria',
@@ -263,7 +264,79 @@ const positions = [
       'Manage post-production workflows',
       'Ensure quality control of deliverables'
     ]
-  }
+  },
+  {
+    title: 'Mobile App Developer',
+    type: 'Full-time',
+    location: 'Pretoria / Hybrid',
+    description:
+      'We are looking for a mobile developer to build and ship client apps end to end, from first build through to the store listing and the updates that follow.',
+    requirements: [
+      'Two or more years building production mobile apps',
+      'React Native or Flutter, or strong native iOS or Android',
+      'Comfortable consuming REST APIs and handling offline state',
+      'Has taken at least one app through App Store and Play Store review',
+      'Understands mobile performance, and why an app that stutters gets deleted',
+      'Version control with Git, and a clear commit history',
+      'Able to explain a technical trade-off to a client without jargon',
+    ],
+    responsibilities: [
+      'Build client mobile applications from brief to release',
+      'Work with our designers so the build matches the design, not approximately',
+      'Handle store submissions, review feedback and release updates',
+      'Integrate payment, mapping, push notification and analytics services',
+      'Maintain and improve apps already in the field',
+      'Estimate honestly, and flag scope creep early',
+    ],
+  },
+  {
+    title: 'Website Developer',
+    type: 'Full-time',
+    location: 'Pretoria / Hybrid',
+    description:
+      'A developer who turns designs into fast, accessible websites that hold up on a slow connection and rank well without tricks.',
+    requirements: [
+      'Two or more years building and maintaining production websites',
+      'Strong HTML, CSS and JavaScript; React or Next.js an advantage',
+      'WordPress and headless CMS experience useful',
+      'Understands Core Web Vitals and can show a site you made faster',
+      'Accessible markup as a habit, not an afterthought',
+      'Comfortable with hosting, DNS, SSL and deployments',
+      'Clean, commented code that another developer can pick up',
+    ],
+    responsibilities: [
+      'Build client websites from designer handover to launch',
+      'Look after performance, accessibility and technical SEO',
+      'Maintain, update and secure existing client sites',
+      'Set up integrations, forms and e-commerce where a project needs them',
+      'Keep hosting, backups and certificates in order',
+      'Work with the design team so the build honours the design',
+    ],
+  },
+  {
+    title: '3D Artist / Animator',
+    type: 'Full-time / Freelance',
+    location: 'Pretoria / Remote',
+    description:
+      'A 3D artist to bring packaging, products and brand work to life — mockups clients can hold up in a meeting, and motion that makes a launch land.',
+    requirements: [
+      'Strong portfolio of 3D work, animation, or both',
+      'Blender, Cinema 4D, Maya or 3ds Max',
+      'Confident with modelling, texturing, lighting and rendering',
+      'Motion graphics and compositing, After Effects an advantage',
+      'Understands how a render becomes print-ready packaging artwork',
+      'Manages render time and file sizes sensibly',
+      'Takes direction well and iterates without losing the idea',
+    ],
+    responsibilities: [
+      'Produce photorealistic 3D mockups for packaging and product design',
+      'Create animation and motion graphics for brand, social and video work',
+      'Model and texture assets for client campaigns',
+      'Work with the packaging team so mockups match the real dieline',
+      'Deliver in the formats print, web and video each need',
+      'Keep project files organised and handover-ready',
+    ],
+  },
 ];
 
 export default function CareersPage() {
@@ -390,6 +463,10 @@ export default function CareersPage() {
                       <li key={respIndex}>{resp}</li>
                     ))}
                   </ul>
+                </div>
+
+                <div className="mt-8 border-t border-[#FFD700]/20 pt-6">
+                  <ApplyButton role={position.title} />
                 </div>
               </div>
             ))}

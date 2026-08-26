@@ -1,6 +1,7 @@
 "use client";
 
 import GetInTouchButton from "@/components/GetInTouchButton";
+import GetStartedButton from '@/components/GetStartedButton';
 
 const pricing = [
   {
@@ -98,7 +99,12 @@ export default function InternalCommunicationsDesignPretoria() {
                   <li key={i} className="flex items-start"><span className="text-yellow-400 mr-2">•</span>{f}</li>
                 ))}
               </ul>
-              <GetInTouchButton className="mt-auto w-full" />
+              <GetStartedButton
+                packageName={pkg.name}
+                packagePrice={pkg.price}
+                service="Internal communications"
+                className="mt-auto w-full"
+              />
             </div>
           ))}
         </div>

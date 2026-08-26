@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import GetStartedButton from './GetStartedButton';
 
 interface PackageCardProps {
   name: string;
@@ -9,9 +10,25 @@ interface PackageCardProps {
   period?: string;
   features: string[];
   popular?: boolean;
+  /**
+   * The service this card belongs to, e.g. "Corporate video".
+   *
+   * Supplying it turns the button into the package enquiry form, which carries
+   * the chosen package through to the quote. Without it the card falls back to
+   * the generic contact page — kept so an unconverted caller degrades to the
+   * old behaviour rather than to a form that cannot say what it is for.
+   */
+  service?: string;
 }
 
-const PackageCard = ({ name, price, period, features, popular = false }: PackageCardProps) => {
+const PackageCard = ({
+  name,
+  price,
+  period,
+  features,
+  popular = false,
+  service,
+}: PackageCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -47,11 +64,21 @@ const PackageCard = ({ name, price, period, features, popular = false }: Package
           </li>
         ))}
       </ul>
-      <Link href="/get-in-touch-pretoria" className="block">
-        <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFC000] transition-colors duration-300">
-          {period ? 'Subscribe Now' : 'Get Started'}
-        </button>
-      </Link>
+      {service ? (
+        <GetStartedButton
+          packageName={name}
+          packagePrice={price}
+          service={service}
+          label={period ? 'Subscribe Now' : 'Get Started'}
+          className="w-full rounded-lg hover:bg-[#FFC000]"
+        />
+      ) : (
+        <Link href="/get-in-touch-pretoria" className="block">
+          <button className="w-full py-3 px-6 bg-[#FFD700] text-black font-bold rounded-lg hover:bg-[#FFC000] transition-colors duration-300">
+            {period ? 'Subscribe Now' : 'Get Started'}
+          </button>
+        </Link>
+      )}
     </motion.div>
   );
 };

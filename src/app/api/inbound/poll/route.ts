@@ -95,10 +95,22 @@ export async function GET(request: Request) {
           // The bytes as well, not only the names: a proof of payment is
           // usually a screenshot, and until these were carried through there
           // was nothing for the reader to look at.
+          //
+          // Inline parts are excluded. Almost every business email carries its
+          // sender's logo as a `related` attachment with a Content-ID, and
+          // treating that as an enclosure has the agent thanking clients for
+          // "the image you sent" — or worse, reading a signature strip as a
+          // brief. A real attachment is one the sender deliberately attached.
           files: (mail.attachments ?? [])
-            .filter((a) => Buffer.isBuffer(a.content))
+            .filter(
+              (a) =>
+                Buffer.isBuffer(a.content) &&
+                a.contentDisposition !== 'inline' &&
+                !a.cid &&
+                Boolean(a.filename),
+            )
             .map((a) => ({
-              filename: a.filename ?? 'attachment',
+              filename: a.filename as string,
               mimeType: a.contentType ?? 'application/octet-stream',
               content: a.content as Buffer,
             })),

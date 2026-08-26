@@ -6,6 +6,7 @@ import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 import Link from 'next/link';
+import GetStartedButton from '@/components/GetStartedButton';
 
 const GoogleAdsPage = () => {
   const adPackages = [
@@ -300,6 +301,13 @@ const GoogleAdsPage = () => {
                     </li>
                   ))}
                 </ul>
+                <GetStartedButton
+                  packageName={service.name}
+                  packagePrice={service.price}
+                  service="Google Ads"
+                  label="Enquire"
+                  className="mt-4 w-full"
+                />
               </motion.div>
             ))}
           </div>

@@ -1,6 +1,8 @@
 import { GoogleGenAI } from '@google/genai';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
 import { priceListForPrompt, findPriceItem, formatPrice, CURRENCY_SYMBOL } from '@/data/pricing';
+import { extractDocument } from '@/lib/server/document-text';
+import type { InboundAttachment } from '@/lib/server/proof-of-payment';
 
 /**
  * The quote agent — Google Gemini.
@@ -186,6 +188,9 @@ const RESPONSE_SCHEMA = {
     'confidence',
   ],
 } as const;
+
+/** A prompt part: either text, or a whole file handed to the model. */
+export type AgentPart = { text: string } | { inlineData: { mimeType: string; data: string } };
 
 export type AgentAction = 'ask' | 'quote' | 'accept' | 'ignore' | 'handover';
 
@@ -537,7 +542,7 @@ const GROQ_MODELS = ['openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-
 
 async function draftWithGroq(
   system: string,
-  contents: { role: 'user' | 'model'; parts: { text: string }[] }[],
+  contents: { role: 'user' | 'model'; parts: AgentPart[] }[],
 ): Promise<string | null> {
   const key = process.env.GROQ_API_KEY;
   if (!key) return null;
@@ -548,9 +553,16 @@ async function draftWithGroq(
       role: 'system',
       content: system + '\n\nReply with a single JSON object and nothing else.',
     },
+    // Groq is text-only, so inlined files are dropped here deliberately.
+    // Mapping them blindly would put the string "undefined" into the prompt,
+    // which is worse than the model simply not seeing the attachment — and the
+    // caller downgrades confidence when a file was lost this way.
     ...contents.map((c) => ({
       role: c.role === 'model' ? 'assistant' : 'user',
-      content: c.parts.map((p) => p.text).join('\n'),
+      content: c.parts
+        .map((p) => ('text' in p ? p.text : ''))
+        .filter(Boolean)
+        .join('\n'),
     })),
   ];
 
@@ -609,6 +621,13 @@ export async function draftReply(params: {
   history?: ConversationTurn[];
   /** Filenames attached to the email, so the agent knows a brief came with it. */
   attachments?: string[];
+  /**
+   * The attachments themselves, when we have them. A brief arrives as a Word
+   * file or a scan far more often than as an email body, and until these were
+   * carried through the agent quoted from the covering sentence and ignored the
+   * actual requirements — which is exactly how a job gets underquoted.
+   */
+  files?: InboundAttachment[];
   /** True when this arrived as an email from someone with no lead on file. */
   isColdEmail?: boolean;
 }): Promise<QuoteDraft> {
@@ -635,8 +654,66 @@ export async function draftReply(params: {
     .filter(Boolean)
     .join('\n');
 
-  // Gemini uses 'user' / 'model' roles.
-  const contents: { role: 'user' | 'model'; parts: { text: string }[] }[] = [
+  // ── the client's own documents ────────────────────────────────────────────
+  // Office files are reduced to text here; PDFs and images go to the model
+  // whole, because it reads a scanned brief better than any scraper would.
+  const documentParts: AgentPart[] = [];
+  const extractedNotes: string[] = [];
+  let hasModelOnlyFile = false;
+
+  /**
+   * Gemini's inline-request ceiling is about 20MB once base64 has added its
+   * third, and a per-file cap does not bound the total: four 8MB files is
+   * ~43MB and the whole call fails. Budget across all of them, not each.
+   */
+  const INLINE_BUDGET_BYTES = 12 * 1024 * 1024;
+  let inlineSpent = 0;
+
+  for (const f of params.files ?? []) {
+    const doc = extractDocument(f.filename, f.mimeType, f.content);
+    if (!doc) continue;
+
+    if (doc.kind === 'native') {
+      // Base64 is ~4/3 of the raw bytes.
+      const encoded = Math.ceil(f.content.length * 1.34);
+      if (inlineSpent + encoded > INLINE_BUDGET_BYTES) {
+        extractedNotes.push(
+          `- ${doc.filename} (too large to read automatically — say you could not open it and ask them to resend it smaller, rather than quoting without it)`,
+        );
+        hasModelOnlyFile = true;
+        continue;
+      }
+      inlineSpent += encoded;
+      hasModelOnlyFile = true;
+      documentParts.push({
+        inlineData: { mimeType: doc.mimeType, data: f.content.toString('base64') },
+      });
+      extractedNotes.push(`- ${doc.filename} (attached in full below)`);
+    } else if (doc.text && !doc.empty) {
+      extractedNotes.push(
+        `--- contents of ${doc.filename} ---\n${doc.text}\n--- end of ${doc.filename} ---`,
+      );
+    } else {
+      extractedNotes.push(`- ${doc.filename} (attached, but no readable text in it)`);
+    }
+  }
+
+  if (extractedNotes.length) {
+    documentParts.unshift({
+      text:
+        `The client attached the following. Treat it as part of what they are asking for, ` +
+        `and quote for everything in it that they have actually requested — a requirement ` +
+        `buried in an attachment still has to be paid for. If a document is somebody ` +
+        `else's price list, a template, or plainly unrelated, ignore it and say so in your ` +
+        `reasoning rather than quoting from it.\n\n` +
+        extractedNotes.join('\n\n'),
+    });
+  }
+
+  // Gemini uses 'user' / 'model' roles. Parts may be text or an inlined file:
+  // a PDF or a scan is handed over whole, because Gemini reads those (and OCRs
+  // an image) far better than any text we could scrape out of them first.
+  const contents: { role: 'user' | 'model'; parts: AgentPart[] }[] = [
     { role: 'user', parts: [{ text: intro }] },
   ];
 
@@ -645,6 +722,19 @@ export async function draftReply(params: {
       role: turn.role === 'client' ? 'user' : 'model',
       parts: [{ text: turn.text }],
     });
+  }
+
+  // The attachments belong to the message that carried them, which is the last
+  // client turn — not the opening summary. On a long thread, hanging a file off
+  // the first turn tells the model the brief arrived with the original enquiry
+  // when it actually arrived just now, in reply to a question we asked about it.
+  if (documentParts.length) {
+    const last = contents[contents.length - 1];
+    if (last.role === 'user') {
+      last.parts.push(...documentParts);
+    } else {
+      contents.push({ role: 'user', parts: documentParts });
+    }
   }
 
   // If the last turn was ours, prompt the model to continue rather than reply
@@ -703,8 +793,10 @@ export async function draftReply(params: {
   }
 
   // Every Gemini model failed. Rather than lose the lead, try the other provider.
+  let answeredByGroq = false;
   if (!raw) {
     raw = (await draftWithGroq(config.systemInstruction, contents)) ?? undefined;
+    answeredByGroq = Boolean(raw);
   }
 
   if (!raw) {
@@ -759,6 +851,17 @@ function unescapeNewlines(text: string): string {
   const VALID_ACTIONS: AgentAction[] = ['ask', 'quote', 'accept', 'ignore', 'handover'];
   if (!VALID_ACTIONS.includes(parsed.action)) {
     throw new Error(`Quote agent returned an invalid action: ${String(parsed.action)}`);
+  }
+
+  // A PDF or a scan only reaches Gemini. If Gemini was down and Groq answered
+  // instead, the model priced this job without ever seeing the client's brief,
+  // and a quote built on the covering sentence alone is exactly how work gets
+  // underquoted. Force it to a person rather than let the autopilot send it.
+  if (answeredByGroq && hasModelOnlyFile) {
+    parsed.confidence = 'low';
+    parsed.reasoning =
+      `[Gemini was unavailable, so this was drafted by the fallback model, which cannot ` +
+      `read the attached file. Check the attachment before sending.] ${parsed.reasoning ?? ''}`.trim();
   }
 
   // Only a quote carries priced lines. If the model attached them to anything

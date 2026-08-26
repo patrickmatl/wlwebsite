@@ -61,6 +61,50 @@ export function decideAutoSend(draft: {
   return { send: true, reason: `autopilot ${level}, confidence ${draft.confidence}` };
 }
 
+/**
+ * The undercharge brake.
+ *
+ * The model cannot invent a price — resolveLines() takes every amount from
+ * pricing.ts and the response schema has no price field — so the danger is not
+ * a wrong number but the wrong *item*: quoting a R1,450 infographic against a
+ * card the client clicked at R2,800, or a single carton where a range was
+ * described. That is silent, it repeats, and nobody notices.
+ *
+ * The package the client clicked, and the price they were shown, travel with
+ * the enquiry, so when a quote comes in under the figure that brought them here
+ * there is something concrete to check against. Held, never adjusted: the
+ * number may be right and the advertised price wrong, and quietly raising a
+ * total is how a client gets a quote nobody at the studio has seen.
+ *
+ * Deliberately narrow. A guard that fires on ordinary quotes trains the owner
+ * to click past it, and then it protects nothing at all.
+ */
+export function advertisedFloorBreach(
+  enquiryDetails: string | null | undefined,
+  total: number | null,
+): { breached: boolean; advertised?: number; reason?: string } {
+  if (total === null || !enquiryDetails) return { breached: false };
+
+  // Written by the pricing-page form as: listed at R2,500 / R2 500 / R2500.00
+  const m = /listed at\s*R\s*([\d][\d\s.,]*)/i.exec(enquiryDetails);
+  if (!m) return { breached: false };
+
+  // Strip separators. A trailing ",00" or ".00" is cents, not thousands.
+  const advertised = Number(m[1].replace(/[\s,]/g, '').replace(/\.00$/, ''));
+  if (!Number.isFinite(advertised) || advertised <= 0) return { breached: false };
+
+  // A rand of slack: the advertised figure is often rounded for the card.
+  if (total >= advertised - 1) return { breached: false };
+
+  return {
+    breached: true,
+    advertised,
+    reason:
+      `quote of R${total.toLocaleString('en-ZA')} is below the R${advertised.toLocaleString('en-ZA')} ` +
+      `the client was shown on the package they clicked`,
+  };
+}
+
 export type SendResult =
   | { ok: true }
   | { ok: false; status: number; error: string };
@@ -262,7 +306,29 @@ export async function releaseDraft(params: {
   leadEmail?: string | null;
   summary: string;
 }): Promise<{ sent: boolean; reason: string }> {
-  const decision = decideAutoSend(params.draft);
+  let decision = decideAutoSend(params.draft);
+
+  // Checked here rather than inside decideAutoSend so the lead's own words are
+  // available: the package they clicked and the price they were shown live in
+  // the enquiry, not in the draft.
+  if (decision.send && params.draft.action === 'quote') {
+    const { data: thread } = await db()
+      .from('quote_threads')
+      .select('lead_id')
+      .eq('id', params.threadId)
+      .maybeSingle();
+
+    if (thread?.lead_id) {
+      const { data: lead } = await db()
+        .from('leads')
+        .select('details')
+        .eq('id', thread.lead_id)
+        .maybeSingle();
+
+      const breach = advertisedFloorBreach(lead?.details as string | null, params.draft.total);
+      if (breach.breached) decision = { send: false, reason: breach.reason as string };
+    }
+  }
 
   if (!decision.send) {
     if (params.draft.action === 'ignore') {

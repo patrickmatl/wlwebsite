@@ -251,7 +251,7 @@ export default function PhotographyServicesPretoria() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {packages.map((pkg) => (
-            <PackageCard key={pkg.name} {...pkg} />
+            <PackageCard key={pkg.name} {...pkg} service="Photography" />
           ))}
         </div>
       </section>

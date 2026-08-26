@@ -2,6 +2,7 @@
 
 import GetInTouchButton from "@/components/GetInTouchButton";
 import Link from 'next/link';
+import GetStartedButton from '@/components/GetStartedButton';
 
 const pricing = [
   {
@@ -158,7 +159,12 @@ export default function PresentationDesignServicesPretoria() {
                   <li key={i} className="flex items-start"><span className="text-yellow-400 mr-2">•</span>{f}</li>
                 ))}
               </ul>
-              <GetInTouchButton className="mt-auto w-full" />
+              <GetStartedButton
+                packageName={pkg.name}
+                packagePrice={pkg.price}
+                service="Presentation design"
+                className="mt-auto w-full"
+              />
             </div>
           ))}
         </div>

@@ -234,6 +234,13 @@ const PackagingDesignPage = () => {
               <h3 className="text-xl font-bold text-[#FFD700] mb-2">{service.name}</h3>
               <p className="text-2xl font-bold mb-4">{service.price}</p>
               <p className="text-neutral-300">{service.description}</p>
+              <GetStartedButton
+                packageName={service.name}
+                packagePrice={service.price}
+                service="Packaging design"
+                label="Enquire"
+                className="mt-4 w-full"
+              />
             </motion.div>
           ))}
         </div>

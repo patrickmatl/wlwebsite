@@ -6,6 +6,7 @@ import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
 import Link from 'next/link';
+import GetStartedButton from '@/components/GetStartedButton';
 
 const PrintDesignPage = () => {
   const categories = [
@@ -335,6 +336,13 @@ const PrintDesignPage = () => {
               </div>
               <p className="text-2xl font-bold mb-4">{service.price}</p>
               <p className="text-neutral-300">{service.description}</p>
+              <GetStartedButton
+                packageName={service.name}
+                packagePrice={service.price}
+                service="Print design"
+                label="Enquire"
+                className="mt-4 w-full"
+              />
             </motion.div>
           ))}
         </div>

@@ -4,6 +4,7 @@ import PackageCard from '@/components/PackageCard';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import Link from 'next/link';
+import GetStartedButton from '@/components/GetStartedButton';
 
 export default function SEOPage() {
   const packages = [
@@ -193,7 +194,7 @@ export default function SEOPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {packages.map((pkg) => (
-            <PackageCard key={pkg.name} {...pkg} />
+            <PackageCard key={pkg.name} {...pkg} service="SEO" />
           ))}
         </div>
 
@@ -208,6 +209,13 @@ export default function SEOPage() {
                 <h3 className="text-xl font-bold text-white mb-2">{service.name}</h3>
                 <p className="text-[#FFD700] font-bold mb-2">{service.price}</p>
                 <p className="text-white/60">{service.description}</p>
+                <GetStartedButton
+                  packageName={service.name}
+                  packagePrice={service.price}
+                  service="SEO"
+                  label="Enquire"
+                  className="mt-4 w-full"
+                />
               </div>
             ))}
           </div>

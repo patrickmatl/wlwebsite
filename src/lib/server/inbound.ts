@@ -211,6 +211,7 @@ async function continueThread(params: {
       enquiry: leadToEnquiry(lead),
       history,
       attachments: params.attachments,
+      files: params.files,
     });
 
     return await storeAndRelease({
@@ -242,6 +243,7 @@ async function startFromColdEmail(params: {
   body: string;
   subject?: string | null;
   attachments?: string[];
+  files?: InboundAttachment[];
 }): Promise<InboundResult> {
   const name = parseDisplayName(params.fromRaw, params.fromEmail);
 
@@ -263,6 +265,7 @@ async function startFromColdEmail(params: {
         details: params.subject ? `Subject: ${params.subject}\n\n${params.body}` : params.body,
       },
       attachments: params.attachments,
+      files: params.files,
       isColdEmail: true,
     });
   } catch (err) {

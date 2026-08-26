@@ -134,7 +134,7 @@ export default function DroneVideoPage() {
         <h2 className="text-2xl font-semibold mt-10 mb-8">Drone Video Packages & Pricing</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           {packages.map((pkg) => (
-            <PackageCard key={pkg.name} {...pkg} />
+            <PackageCard key={pkg.name} {...pkg} service="Drone video" />
           ))}
         </div>
         <div className="mt-10">

@@ -132,7 +132,7 @@ export default function PhotographyPage() {
         <h2 className="text-2xl font-semibold mt-10 mb-8">Photography Packages & Pricing</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           {packages.map((pkg) => (
-            <PackageCard key={pkg.name} {...pkg} />
+            <PackageCard key={pkg.name} {...pkg} service="Photography" />
           ))}
         </div>
         <div className="mt-10">
