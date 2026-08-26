@@ -1,5 +1,6 @@
 // Supporting content and FAQ for the Project Showcase page (rendered below the portfolio grid)
 import Link from 'next/link';
+import { BUSINESS } from '@/data/business';
 
 export const portfolioFaqs: { question: string; answer: string }[] = [
   {
@@ -45,7 +46,7 @@ export const portfolioFaqs: { question: string; answer: string }[] = [
   {
     question: 'How do I get started with WL CreationX?',
     answer:
-      'Contact us through the website, email info@wlcreationx.co.za, or call +27 62 369 3769 to discuss your project. We will review your needs and put together a tailored proposal.',
+      `Contact us through the website, email ${BUSINESS.email}, or call ${BUSINESS.phoneDisplay} to discuss your project. We will review your needs and put together a tailored proposal.`,
   },
 ];
 

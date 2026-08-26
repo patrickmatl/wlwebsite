@@ -1,10 +1,12 @@
 'use client';
 
+import { BUSINESS } from '@/data/business';
+
 export default function WhatsAppButton() {
-  const phoneNumberIntl = '27623693769'; // +27 62 369 3769 without symbols for wa.me
+  const phoneNumberIntl = BUSINESS.whatsappNumber; // no symbols, for wa.me
   const message = encodeURIComponent("Hi WL CreationX, I'd like to chat about a project.");
   const whatsappHref = `https://wa.me/${phoneNumberIntl}?text=${message}`;
-  const telHref = `tel:+${phoneNumberIntl}`;
+  const telHref = `tel:${BUSINESS.phoneE164}`;
 
   return (
     <div className="fixed bottom-6 left-6 z-50 hidden md:flex items-center gap-3">

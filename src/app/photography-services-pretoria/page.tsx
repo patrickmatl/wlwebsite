@@ -7,6 +7,7 @@ import FAQAccordion from '@/components/FAQ/FAQAccordion';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { generateFAQSchema } from '@/lib/schema';
+import { BUSINESS } from '@/data/business';
 
 const packages = [
   {
@@ -160,7 +161,7 @@ export default function PhotographyServicesPretoria() {
               name: 'WL CreationX',
               image: 'https://wlcreationx.co.za/images/og-image.jpg',
               url: 'https://wlcreationx.co.za',
-              telephone: '+27 62 369 3769',
+              telephone: BUSINESS.phoneDisplay,
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Park Lane West Building, 194 Bancor Ave',

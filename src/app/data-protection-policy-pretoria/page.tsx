@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { BUSINESS } from '@/data/business';
 
 export const metadata: Metadata = {
   title: 'Privacy & Data Protection Policy',
@@ -159,7 +160,7 @@ After this period, we securely delete or anonymize your information.`
 
 • Name: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3769
+• Phone: ${BUSINESS.phoneDisplay}
 • Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181
 
 You may also contact the Information Regulator (South Africa):

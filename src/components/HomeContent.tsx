@@ -5,6 +5,7 @@ import Link from "next/link";
 import FAQAccordion from "./FAQ/FAQAccordion";
 import GoogleReviews from "./GoogleReviews";
 import { homeFaqs } from "@/data/homeFaqs";
+import { BUSINESS } from '@/data/business';
 
 export default function HomeContent() {
   return (
@@ -152,7 +153,7 @@ export default function HomeContent() {
             </div>
             <div>
               <p className="text-white font-semibold">Phone</p>
-              <p>+27 62 369 3769</p>
+              <p>{BUSINESS.phoneDisplay}</p>
             </div>
             <div>
               <p className="text-white font-semibold">Hours</p>

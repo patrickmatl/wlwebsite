@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { BUSINESS } from '@/data/business';
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
@@ -154,7 +155,7 @@ Changes will be effective when posted on the website.`
 • Registration: K2016514024
 • Contact: Tebogo Mazibuko
 • Email: tebogo@wlcreationx.co.za
-• Phone: +27 62 369 3769
+• Phone: ${BUSINESS.phoneDisplay}
 • Address: Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181`
                 }
               ].map((section) => (

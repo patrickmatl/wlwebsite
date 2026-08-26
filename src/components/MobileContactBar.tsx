@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
+import { BUSINESS } from '@/data/business';
 
-const PHONE_DISPLAY = '+27 62 369 3769';
-const PHONE_E164 = '27623693769';
+const PHONE_DISPLAY = BUSINESS.phoneDisplay;
+const PHONE_E164 = BUSINESS.whatsappNumber;
 
 export default function MobileContactBar() {
   const waUrl = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent('Hi WL CreationX 👋, I’d like to chat about design services.')}`;
-  const telUrl = `tel:${PHONE_DISPLAY.replace(/\s+/g, '')}`;
+  const telUrl = `tel:${BUSINESS.phoneE164}`;
 
   return (
     <div className="fixed inset-x-0 bottom-2 z-50 md:hidden">
