@@ -1,6 +1,6 @@
 import { db } from './db';
 import { sendEmail, notifyOwner } from './notify';
-import { renderClientEmail, renderClientEmailHtml } from './render-quote';
+import { renderClientEmail, renderClientEmailHtml, signatureName } from './render-quote';
 import { tagSubject, type ThreadRow } from './threads';
 import type { AgentAction } from '@/lib/quote-agent';
 import type { QuoteLineResolved } from '@/lib/quote-agent';
@@ -95,12 +95,18 @@ export async function sendDraft(params: {
   const finalBody = params.editedBody ? String(params.editedBody) : msg.body;
   const finalSubject = params.editedSubject ? String(params.editedSubject) : msg.subject;
 
+  // Write to whoever actually sent the last message, not to whoever the
+  // account belongs to. Mail arrives from shared addresses and from people
+  // sending on a colleague's behalf, and greeting the account holder in front
+  // of the person who wrote is the kind of slip that reads as a mailmerge.
+  const replyToName = (await latestClientSignature(thread.id)) ?? (lead.name as string);
+
   const emailParams = {
     body: finalBody,
     lines: (msg.quote_lines ?? []) as QuoteLineResolved[],
     total: msg.quote_total as number | null,
     validityDays: 30,
-    clientName: lead.name as string,
+    clientName: replyToName,
   };
 
   // A quote becomes a real document BEFORE the email is written, not after.
@@ -164,6 +170,26 @@ export async function sendDraft(params: {
   }).catch((err) => console.error('[send] CRM mirror failed', err));
 
   return { ok: true };
+}
+
+/**
+ * The name the client signed their most recent message with, if any.
+ *
+ * Only the latest one counts: a thread can change hands part way through, and
+ * whoever wrote last is who we are answering. Null whenever nothing can be
+ * read confidently, in which case the caller falls back to the account name.
+ */
+async function latestClientSignature(threadId: string): Promise<string | null> {
+  const { data } = await db()
+    .from('quote_messages')
+    .select('body')
+    .eq('thread_id', threadId)
+    .eq('role', 'client')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  return data?.body ? signatureName(data.body as string) : null;
 }
 
 /**

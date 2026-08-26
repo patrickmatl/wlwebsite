@@ -260,6 +260,87 @@ export function renderPaymentReceived(params: {
 }
 
 /**
+ * Who actually wrote the message we are replying to.
+ *
+ * The lead record holds whoever the account belongs to, which is not reliably
+ * the person typing. Mail arrives from a shared info@ address, from an
+ * assistant sending on someone's behalf, or from a colleague using the
+ * company account — and a real message came from Tebogo Mazibuko's address
+ * signed by Lerato Mokoena. The reply opened "Dear Tebogo," to a person who
+ * had not written to us, in front of the person who had.
+ *
+ * The sign-off is the honest answer to who is writing, so it wins over the
+ * account name when we can read one confidently.
+ *
+ * Returns null unless it is genuinely sure. Greeting the account holder is a
+ * small wrongness; greeting someone by a fragment of a job title or a company
+ * name is a larger one, so everything doubtful is refused.
+ */
+const SIGN_OFF_OPENER =
+  /^(kind regards|warm regards|best regards|best wishes|regards|sincerely|yours sincerely|yours faithfully|many thanks|thank you|thanks|cheers|all the best|best|groete)[.,!]?$/i;
+
+/** Words that mean the line is a company or a role, not a person. */
+const NOT_A_PERSON =
+  /\b(pty|ltd|inc|cc|llc|team|department|dept|group|holdings|studio|agency|solutions|services|support|admin|marketing|sales|accounts|manager|director|officer|assistant|consultant|coordinator|www|http)\b/i;
+
+export function signatureName(body: string): string | null {
+  const lines = body.split('\n').map((l) => l.trim());
+
+  // Search from the end: the sign-off that matters is the last one, not a
+  // sign-off quoted from earlier in the thread.
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (!SIGN_OFF_OPENER.test(lines[i])) continue;
+
+    // The first non-empty line after it is the name, if anything is.
+    for (let j = i + 1; j < Math.min(i + 4, lines.length); j++) {
+      const candidate = lines[j];
+      if (!candidate) continue;
+      return plausiblePersonName(candidate) ? tidyCase(candidate) : null;
+    }
+    return null;
+  }
+  return null;
+}
+
+function plausiblePersonName(line: string): boolean {
+  if (line.length > 40 || line.includes('@') || /\d/.test(line)) return false;
+  if (NOT_A_PERSON.test(line)) return false;
+
+  const words = line.split(/\s+/);
+  if (words.length < 1) return false;
+
+  // Three name words, plus any particles: "Jane van der Merwe" is four words
+  // and an entirely ordinary South African name, so counting words alone
+  // rejected real people.
+  const substantive = words.filter((w) => !PARTICLES.has(w.toLowerCase().replace(/\.$/, '')));
+  if (substantive.length > 3) return false;
+
+  // Every word must read like a name: letters, possibly hyphenated or
+  // apostrophed. "sent from my iPhone" does not.
+  return words.every((w) => /^[A-Za-zÀ-ÿ]+(['’-][A-Za-zÀ-ÿ]+)*$/.test(w));
+}
+
+/**
+ * People sign off in whatever case their keyboard was in. "Dear lerato," and
+ * "Dear LERATO MOKOENA," both look careless, so a name written entirely in one
+ * case is title-cased. Mixed case is left exactly as the person wrote it —
+ * "McDonald" and "van der Merwe" know their own shape better than we do.
+ */
+function tidyCase(name: string): string {
+  const isUniform = name === name.toLowerCase() || name === name.toUpperCase();
+  if (!isUniform) return name;
+
+  return name
+    .split(/\s+/)
+    .map((w) =>
+      PARTICLES.has(w.toLowerCase())
+        ? w.toLowerCase()
+        : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(),
+    )
+    .join(' ');
+}
+
+/**
  * How to open an email to someone.
  *
  * Naively taking the first word turns "Mrs Botha" into "Hi Mrs", which is the

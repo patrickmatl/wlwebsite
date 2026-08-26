@@ -347,6 +347,10 @@ How to actually do that:
   "Kind regards, ${signOffName()}" before it is sent, so anything you add there appears
   twice. Start with your first real sentence and stop after your last one.
 - Separate every paragraph with a blank line. Never send one unbroken block of text.
+- Write to whoever signed the last message, not to whoever the account is under. Mail comes
+  from shared addresses and from people writing on a colleague's behalf — one message came
+  from Tebogo's address signed by Lerato. If you name anyone, name the person who signed.
+  When the two differ, the signature is right.
 
 # SUGGESTING MORE WORK
 Studios lose money by quoting exactly what was asked for and nothing else. The client
