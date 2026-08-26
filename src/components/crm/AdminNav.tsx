@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 type NavItem = { href: string; label: string; hint: string };
 
 const NAV: NavItem[] = [
-  { href: '/studio', label: 'Dashboard', hint: 'Where the studio stands' },
+  { href: '/studio/dashboard', label: 'Dashboard', hint: 'Where the studio stands' },
   { href: '/studio/inbox', label: 'Approvals', hint: 'Replies waiting to send' },
   { href: '/studio/deals', label: 'Deals', hint: 'The pipeline' },
   { href: '/studio/contacts', label: 'Contacts', hint: 'People' },
@@ -34,7 +34,8 @@ const NAV: NavItem[] = [
  * match would light it up on every page in the CRM.
  */
 function isActive(pathname: string, href: string): boolean {
-  if (href === '/studio') return pathname === '/studio';
+  // /studio redirects here, so treat both as the dashboard being active.
+  if (href === '/studio/dashboard') return pathname === '/studio' || pathname === '/studio/dashboard';
   return pathname === href || pathname.startsWith(href + '/');
 }
 
@@ -111,7 +112,7 @@ export default function AdminNav({
         className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-60 lg:flex-col lg:border-r lg:border-white/10 lg:bg-black"
       >
         <div className="border-b border-white/10 px-5 py-5">
-          <Link href="/studio" className="block">
+          <Link href="/studio/dashboard" className="block">
             <span className="font-syne text-lg font-bold text-[#FFD700]">WL CreationX</span>
             <span className="mt-0.5 block text-xs uppercase tracking-widest text-neutral-500">
               Studio
@@ -147,7 +148,7 @@ export default function AdminNav({
       {/* Phones: a sticky bar, with every section behind one tap. */}
       <div className="sticky top-0 z-40 border-b border-white/10 bg-black/95 backdrop-blur lg:hidden">
         <div className="flex items-center gap-3 px-4 py-3">
-          <Link href="/studio" className="font-syne text-base font-bold text-[#FFD700]">
+          <Link href="/studio/dashboard" className="font-syne text-base font-bold text-[#FFD700]">
             WL
           </Link>
           <span className="min-w-0 flex-1 truncate text-sm font-medium text-white">
