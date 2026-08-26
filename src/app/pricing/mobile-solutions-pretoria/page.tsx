@@ -268,19 +268,19 @@ const MobileSolutionsPage = () => {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Mobile Solutions Development in Pretoria | WL CreationX</h2>
+        <h2>Mobile Solutions Development in Pretoria</h2>
         <p>WL CreationX delivers innovative mobile solutions in Pretoria, including mobile-first websites, progressive web apps, and custom mobile applications for businesses and startups. Our team is dedicated to creating digital experiences that drive engagement, increase conversions, and provide seamless user journeys on any device.</p>
         <p>We understand the Pretoria market and tailor our mobile solutions to meet the specific needs of local companies, ensuring your business stays competitive in a rapidly evolving digital landscape. Our expertise covers strategy, design, development, and ongoing support for all types of mobile projects.</p>
-        <h3>Pretoria’s Leading Mobile App & Web Development Agency</h3>
+        <h3>Mobile app and web development for Pretoria businesses</h3>
         <p>As Pretoria’s top mobile app and web development agency, WL CreationX combines technical excellence with creative problem-solving. We help businesses transform their ideas into high-performing mobile applications that delight users and deliver measurable results.</p>
         <p>Our Pretoria-based team stays ahead of industry trends, utilizing the latest frameworks and tools to build scalable, secure, and user-friendly mobile solutions. We offer end-to-end service, from initial consultation to post-launch optimization.</p>
         <h4>Mobile-First Websites & PWAs for Pretoria Businesses</h4>
         <p>We specialize in designing and developing mobile-first websites and progressive web apps (PWAs) that are fast, reliable, and engaging. Our Pretoria clients benefit from solutions that perform flawlessly across all devices, boosting brand visibility and customer satisfaction.</p>
         <p>By focusing on responsive design, intuitive navigation, and advanced features, we ensure your Pretoria business stands out online and provides users with a superior experience, whether they access your site on a smartphone, tablet, or desktop.</p>
-        <h5>Affordable Mobile Solutions Packages in Pretoria</h5>
+        <h3>Affordable Mobile Solutions Packages in Pretoria</h3>
         <p>Our mobile solutions packages are competitively priced and designed to suit Pretoria businesses of all sizes. From startups seeking a simple mobile site to enterprises requiring complex custom apps, we provide transparent pricing, flexible options, and exceptional value.</p>
         <p>Each package includes consultation, design, development, testing, and support, ensuring your Pretoria business receives a comprehensive solution tailored to its goals and budget.</p>
-        <h6>Why Choose WL CreationX for Mobile Solutions in Pretoria?</h6>
+        <h3>Why Choose WL CreationX for Mobile Solutions in Pretoria?</h3>
         <p>WL CreationX is trusted by Pretoria businesses for our expertise in mobile UX, local support, and a proven track record of successful projects. We are committed to delivering solutions that not only meet but exceed client expectations.</p>
         <p>Our collaborative approach, attention to detail, and dedication to ongoing support make us the preferred partner for mobile solutions in Pretoria. We help you navigate the digital landscape with confidence and achieve sustainable growth.</p>
       </section>

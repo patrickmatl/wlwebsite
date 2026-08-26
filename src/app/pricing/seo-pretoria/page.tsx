@@ -314,7 +314,7 @@ export default function SEOPage() {
         <h4>Affordable SEO Packages in Pretoria</h4>
         <p>Choose from essential, professional, or enterprise SEO packages, all with transparent pricing and no hidden fees. Our Pretoria clients benefit from flexible options, monthly reporting, and ongoing support.</p>
         <p>We believe in making high-quality SEO accessible to businesses of all sizes throughout Pretoria and beyond.</p>
-        <h5>Why Choose WL CreationX for SEO in Pretoria?</h5>
+        <h3>Why Choose WL CreationX for SEO in Pretoria?</h3>
         <p>Pretoria businesses choose WL CreationX for our results-driven approach, technical expertise, and commitment to client success. We focus on sustainable, ethical SEO aimed at improving rankings and generating more leads over time.</p>
         <p>We prioritize long-term growth, ethical SEO practices, and transparent communication with all our Pretoria clients.</p>
       </section>

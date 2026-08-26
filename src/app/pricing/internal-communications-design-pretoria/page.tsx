@@ -150,7 +150,7 @@ export default function InternalCommunicationsDesignPretoria() {
         <h4>Custom Newsletters, Campaigns, and Onboarding Packs</h4>
         <p>Every internal communications project is unique. We offer custom newsletter design, employee campaign materials, and onboarding documentation for Pretoria clients. Our team ensures your content is visually appealing and easy to understand.</p>
         <p>From HR campaigns to executive communications, our Pretoria internal comms designers deliver materials that inform, motivate, and inspire action.</p>
-        <h5>Serving Pretoria’s Business Community</h5>
+        <h3>Serving Pretoria’s Business Community</h3>
         <p>We serve a diverse range of Pretoria clients, from corporates to educational institutions and non-profits. Our internal communications design portfolio includes work for finance, health, education, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off internal campaign or ongoing communications support, our Pretoria team is ready to help you connect with your workforce.</p>
         <h2>Internal Comms Standards and Best Practices</h2>
@@ -162,7 +162,7 @@ export default function InternalCommunicationsDesignPretoria() {
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver internal communications design excellence nationwide.</p>
         <p>We understand Pretoria’s business culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>Get Started with Pretoria’s Internal Communications Design Experts</h5>
+        <h3>Get Started with Pretoria’s Internal Communications Design Experts</h3>
         <p>Ready to improve your internal communications? Our Pretoria team is here to support your next campaign, onboarding, or newsletter with world-class design.</p>
         <p>Contact Pretoria’s leading internal communications design specialists for a free consultation and see how we can help you engage your employees.</p>
       </section>

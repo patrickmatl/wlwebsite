@@ -321,19 +321,19 @@ const PackagingDesignPage = () => {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Pretoria Packaging Design Services | WL CreationX</h2>
+        <h2>Pretoria Packaging Design Services</h2>
         <p>WL CreationX delivers expert packaging design services in Pretoria, helping brands stand out on the shelf and build customer loyalty. Our team specializes in creative, functional, and market-ready packaging for a wide range of products.</p>
         <p>From food and beverage to cosmetics and retail, our Pretoria packaging designers use the latest trends and technology to create packaging that attracts attention and communicates your brand story effectively.</p>
-        <h3>Leading Packaging Design Agency in Pretoria</h3>
+        <h3>Packaging design in Pretoria</h3>
         <p>As a Pretoria packaging design agency in business since 2013, we combine strategic thinking with artistic flair to deliver packaging that drives sales. Our process includes research, concept development, and custom design tailored to your target audience.</p>
         <p>We work closely with Pretoria businesses to ensure every packaging project meets industry standards, regulatory requirements, and your unique brand vision.</p>
         <h4>Custom Product Packaging for Pretoria Businesses</h4>
         <p>Our custom packaging solutions in Pretoria are designed to suit products of all shapes and sizes. Whether you need boxes, labels, pouches, or inserts, our designers craft packaging that protects your product and enhances its appeal.</p>
         <p>We offer print-ready files, 3D mockups, and support throughout the production process, ensuring your Pretoria packaging stands out in a competitive market.</p>
-        <h5>Affordable Packaging Design Packages in Pretoria</h5>
+        <h3>Affordable Packaging Design Packages in Pretoria</h3>
         <p>Choose from basic to premium packaging design packages, all with transparent pricing and fast turnaround. Our Pretoria clients benefit from flexible options that fit startups, SMEs, and established brands alike.</p>
         <p>Each package includes multiple design concepts, revision rounds, and professional guidance to ensure your packaging is both beautiful and functional.</p>
-        <h6>Why Choose WL CreationX for Packaging Design in Pretoria?</h6>
+        <h3>Why Choose WL CreationX for Packaging Design in Pretoria?</h3>
         <p>WL CreationX is trusted by Pretoria businesses for our creativity, reliability, and commitment to quality. Our designers have deep experience in packaging for diverse industries, ensuring every project is handled with care.</p>
         <p>We prioritize client satisfaction, delivering packaging that not only meets expectations but exceeds them—helping Pretoria brands grow and succeed.</p>
       </section>

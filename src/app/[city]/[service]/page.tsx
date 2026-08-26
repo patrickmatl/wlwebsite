@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { regions } from '@/data/regions';
 import { services } from '@/data/services';
+import { isIndexableServiceArea } from '@/data/service-areas';
 import LocationPage from '@/components/LocationPage';
 
 type Props = {
@@ -26,9 +27,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // the URL actually being served.
   const canonicalUrl = `https://wlcreationx.co.za/${resolvedParams.city}/${service.slug}`;
 
+  // Every one of these pages is the same template with the city name swapped,
+  // so only the areas the studio actually works from are offered to search.
+  // The rest still render for anyone who follows a link; they are simply not
+  // put forward as something worth indexing. See src/data/service-areas.ts.
+  const indexable = isIndexableServiceArea(resolvedParams.city);
+
   return {
     title: { absolute: `${service.title} in ${location.city} | WL CreationX` },
-    description: `Professional ${service.title} services in ${location.city}, delivered from our Pretoria studio. ${service.description}`,
+    description: indexable
+      ? `${service.title} in ${location.city} from WL CreationX, a design studio based in Pretoria. ${service.description}`
+      : `${service.title} in ${location.city}. ${service.description}`,
+    robots: indexable ? undefined : { index: false, follow: true },
     alternates: {
       canonical: canonicalUrl,
     },

@@ -228,7 +228,10 @@ const PricingPage = () => {
               href={category.link}
               className="block w-full py-2 px-4 bg-[#FFD700] text-black font-semibold rounded text-center hover:bg-[#FFE44D] transition-colors"
             >
-              View Full Pricing
+              {/* The anchor text is the strongest on-page signal about the page
+                  it points at. Twenty-six identical "View Full Pricing" links
+                  described none of their twenty-six different destinations. */}
+              {category.title} prices in Pretoria
             </Link>
           </div>
         ))}

@@ -151,7 +151,7 @@ export default function InfographicDataVisualizationDesignPretoria() {
         <h4>Custom Infographics, Dashboards, and Reports</h4>
         <p>Every data visualization project is unique. We offer custom infographic design, dashboard creation, and report graphics for Pretoria clients. Our team ensures your data is presented accurately and attractively for maximum impact.</p>
         <p>From annual reports to marketing campaigns, our Pretoria infographic designers deliver visuals that engage, inform, and inspire action.</p>
-        <h5>Serving Pretoria’s Business and Research Community</h5>
+        <h3>Serving Pretoria’s Business and Research Community</h3>
         <p>We serve a diverse range of Pretoria clients, from corporates to universities and non-profits. Our infographic design portfolio includes work for finance, health, education, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off infographic or ongoing data visualization support, our Pretoria team is ready to help you communicate your message.</p>
         <h2>Data Visualization Standards and Best Practices</h2>
@@ -163,7 +163,7 @@ export default function InfographicDataVisualizationDesignPretoria() {
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver infographic design excellence nationwide.</p>
         <p>We understand Pretoria’s business and research culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>Get Started with Pretoria’s Infographic Design Experts</h5>
+        <h3>Get Started with Pretoria’s Infographic Design Experts</h3>
         <p>Ready to visualize your data? Our Pretoria team is here to support your next report, campaign, or presentation with world-class infographic design.</p>
         <p>Contact Pretoria’s leading infographic design specialists for a free consultation and see how we can help you communicate visually.</p>
       </section>

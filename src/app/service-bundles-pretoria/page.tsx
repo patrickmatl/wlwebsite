@@ -531,7 +531,7 @@ const PackagesPage = () => {
       <div className="max-w-7xl mx-auto mb-20">
         <div className="bg-gradient-to-r from-zinc-900 to-black p-8 rounded-lg border border-[#FFD700]/20">
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#FFD700] text-center">
-            Pretoria's Premier Graphic Design Studio
+            A Graphic Design Studio in Waterkloof Glen, Pretoria
           </h2>
           <p className="text-gray-300 mb-6 text-center">
             Based in Waterkloof Glen, Pretoria, we serve local businesses with professional

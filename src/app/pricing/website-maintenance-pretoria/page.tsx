@@ -279,19 +279,19 @@ const WebsiteMaintenancePage = () => {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-          <h2>Pretoria Website Maintenance Services | WL CreationX</h2>
+          <h2>Pretoria Website Maintenance Services</h2>
           <p>WL CreationX provides professional website maintenance services in Pretoria, ensuring your site remains secure, up-to-date, and fully optimized. Our Pretoria maintenance team handles everything from software updates to performance checks, so you can focus on your business.</p>
           <p>With proactive monitoring and fast support, we help Pretoria businesses prevent downtime, improve user experience, and safeguard their online presence.</p>
-          <h3>Leading Website Maintenance Agency in Pretoria</h3>
+          <h3>Website maintenance in Pretoria</h3>
           <p>As a trusted website maintenance agency in Pretoria, we combine technical expertise with responsive service to deliver reliable results. Our maintenance packages are designed to suit businesses of all sizes, from startups to enterprises.</p>
           <p>We keep your Pretoria website running smoothly with regular backups, security monitoring, and ongoing performance optimization.</p>
           <h4>Custom Website Maintenance Solutions for Pretoria Businesses</h4>
           <p>Our Pretoria website maintenance solutions are tailored to your platform, traffic, and business needs. We offer essential, professional, and enterprise packages, each with a range of features and flexible support options.</p>
           <p>From content updates to advanced security, our Pretoria team ensures your website remains competitive and compliant with industry standards.</p>
-          <h5>Affordable Website Maintenance Packages in Pretoria</h5>
+          <h3>Affordable Website Maintenance Packages in Pretoria</h3>
           <p>Choose from transparent, competitively priced maintenance packages for Pretoria businesses. We provide monthly reports, priority support, and no hidden fees, making quality website care accessible to all.</p>
           <p>Our Pretoria clients benefit from peace of mind, knowing their website is in expert hands every day of the year.</p>
-          <h6>Why Choose WL CreationX for Website Maintenance in Pretoria?</h6>
+          <h3>Why Choose WL CreationX for Website Maintenance in Pretoria?</h3>
           <p>WL CreationX is renowned for reliability, technical skill, and customer service in Pretoria website maintenance. Our team has a proven record of preventing issues before they arise and delivering fast, effective solutions when needed.</p>
           <p>We prioritize long-term partnerships, transparent communication, and measurable results for all our Pretoria website maintenance clients.</p>
         </section>

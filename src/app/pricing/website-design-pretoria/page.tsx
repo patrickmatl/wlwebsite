@@ -244,7 +244,7 @@ const WebsiteDesignPage = () => {
       {/* Header Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
-          Website Design Packages
+          Website Design in Pretoria
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
           Professional web design solutions tailored to your business needs.
@@ -358,15 +358,15 @@ const WebsiteDesignPage = () => {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Professional Website Design in Pretoria | WL CreationX</h2>
+        <h2>Professional Website Design in Pretoria</h2>
         <p>WL CreationX delivers modern, mobile-friendly website design for Pretoria businesses. Our expert team builds high-performance websites tailored to your brand, industry, and Pretoria audience.</p>
-        <h3>Pretoria’s Top Web Design Agency</h3>
+        <h3>Web design for Pretoria businesses</h3>
         <p>We specialize in custom web design, WordPress development, and business websites for Pretoria companies of all sizes. From startups to established brands, we create websites that convert visitors into customers.</p>
         <h4>Affordable Website Packages for Pretoria Businesses</h4>
         <p>Choose from our range of website packages, including 3-page, 6-page, and 9-page sites, as well as catalog and ecommerce options. All packages include SEO, analytics, and ongoing support for Pretoria clients.</p>
-        <h5>Why Invest in a Pretoria Website?</h5>
+        <h3>Why Invest in a Pretoria Website?</h3>
         <p>Stand out in the Pretoria market with a fast, secure, and visually stunning website. Our Pretoria web design services help you attract local customers and grow your business online.</p>
-        <h6>Why Choose WL CreationX for Website Design in Pretoria?</h6>
+        <h3>Why Choose WL CreationX for Website Design in Pretoria?</h3>
         <p>We combine Pretoria market knowledge, creative design, and technical expertise to deliver websites that drive results. Get personal service and fast support from our local team.</p>
       </section>
       {/* Previously hidden off-screen; now visible to every visitor */}

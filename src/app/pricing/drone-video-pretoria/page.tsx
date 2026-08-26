@@ -236,10 +236,10 @@ export default function DroneVideoPage() {
         <h4>Applications of Drone Video in Pretoria</h4>
         <p>Drone video is widely used in Pretoria for real estate listings, construction site monitoring, tourism promotion, event coverage, and agricultural surveys. Aerial footage helps Pretoria clients stand out in competitive markets by providing dynamic visuals that capture attention and drive engagement.</p>
         <p>Our services are customized for each Pretoria client, whether you need regular progress updates for a building project or a one-time promotional video for your business. We also offer live drone streaming for events and inspections across Pretoria.</p>
-        <h5>Compliance and Safety for Pretoria Drone Operations</h5>
+        <h3>Compliance and Safety for Pretoria Drone Operations</h3>
         <p>Safety and legal compliance are top priorities for our Pretoria drone video services. We adhere to all South African Civil Aviation Authority (SACAA) regulations and secure the necessary permits for each Pretoria drone shoot. Our pilots are fully licensed and insured, giving you peace of mind for every project.</p>
         <p>We conduct thorough risk assessments and follow strict safety protocols to protect people, property, and airspace in Pretoria. This commitment to safety ensures that your drone video project is completed efficiently and without incident.</p>
-        <h6>Get Started with Drone Video in Pretoria</h6>
+        <h3>Get Started with Drone Video in Pretoria</h3>
         <p>Ready to elevate your visual content with expert drone video production in Pretoria? Contact our team today to discuss your project requirements, receive a custom quote, and schedule your Pretoria drone shoot. Experience the difference that professional aerial videography can make for your business or event.</p>
         <p>Our Pretoria drone video experts are here to guide you through every step, from concept development to final delivery. Let us help you capture Pretoria from a whole new perspective.</p>
       </section>

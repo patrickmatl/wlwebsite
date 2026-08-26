@@ -78,7 +78,7 @@ export default function Portfolio() {
             className="relative z-10 max-w-7xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
-              Pretoria's Premier Graphic Design Portfolio
+              Logo and Packaging Design Work from Our Pretoria Studio
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Discover our creative graphic design solutions crafted in Pretoria. From logo design to complete brand identity systems, we help businesses stand out in the South African market.

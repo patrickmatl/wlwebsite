@@ -205,10 +205,10 @@ export default function ProductPhotographyPage() {
         <h4>Types of Product Photography Offered in Pretoria</h4>
         <p>We provide a range of product photography services in Pretoria, including white background shots, lifestyle images, group product arrangements, and macro photography for small items. Our Pretoria photographers are skilled in working with various product types, from electronics to fashion and food.</p>
         <p>Our portfolio features successful projects for Pretoria e-commerce stores, catalogs, and promotional materials, demonstrating our versatility and attention to detail. We tailor each shoot to your specific needs and brand identity.</p>
-        <h5>Quality Assurance and Editing in Pretoria Product Photography</h5>
+        <h3>Quality Assurance and Editing in Pretoria Product Photography</h3>
         <p>Quality control is central to our Pretoria product photography services. We meticulously edit each image for color accuracy, sharpness, and consistency, ensuring your products look their best across all platforms.</p>
         <p>Our Pretoria team uses the latest software and techniques to remove imperfections and enhance visual appeal, helping your products stand out in crowded marketplaces. We also provide image resizing and formatting for web and print use.</p>
-        <h6>Book Your Pretoria Product Photography Session</h6>
+        <h3>Book Your Pretoria Product Photography Session</h3>
         <p>Ready to elevate your product images in Pretoria? Contact us today to discuss your requirements, get a tailored quote, and schedule your Pretoria product photography session. We are committed to delivering results that drive growth for your business.</p>
         <p>Our Pretoria product photography experts are here to answer your questions and guide you through the process from start to finish. Let us help you create compelling visuals that convert browsers into buyers.</p>
       </section>

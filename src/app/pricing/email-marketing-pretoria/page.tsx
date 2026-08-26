@@ -264,15 +264,15 @@ export default function EmailMarketingPage() {
     
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Email Marketing Services in Pretoria | WL CreationX</h2>
+        <h2>Email Marketing Services in Pretoria</h2>
         <p>WL CreationX helps Pretoria businesses grow with targeted, high-converting email marketing campaigns, automation, and analytics. Build lasting relationships and boost ROI with our expert team.</p>
-        <h3>Pretoria’s Leading Email Marketing Agency</h3>
+        <h3>Email marketing for Pretoria businesses</h3>
         <p>Our Pretoria specialists design, write, and manage email campaigns that engage your audience and drive results. From newsletters to automation, we handle it all.</p>
         <h4>Email Campaigns & Automation for Pretoria Businesses</h4>
         <p>Reach your Pretoria customers with personalized, mobile-friendly emails, advanced segmentation, and data-driven strategies for maximum impact.</p>
-        <h5>Affordable Email Marketing Packages in Pretoria</h5>
+        <h3>Affordable Email Marketing Packages in Pretoria</h3>
         <p>Choose from flexible monthly packages or once-off campaigns. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
-        <h6>Why Choose WL CreationX for Email Marketing in Pretoria?</h6>
+        <h3>Why Choose WL CreationX for Email Marketing in Pretoria?</h3>
         <p>Local expertise, creative content, and proven strategies. WL CreationX is Pretoria’s trusted partner for email marketing that delivers real business growth.</p>
       </section>
       {/* Previously hidden off-screen; now visible to every visitor */}

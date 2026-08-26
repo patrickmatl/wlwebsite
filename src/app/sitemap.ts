@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { regions } from '@/data/regions';
 import { services } from '@/data/services';
+import { isIndexableServiceArea } from '@/data/service-areas';
 
 /**
  * Single source of truth for the sitemap.
@@ -138,6 +139,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const location of region.locations) {
       const citySlugs = [location.slug, ...(location.subLocations?.map((s) => s.slug) ?? [])];
       for (const city of citySlugs) {
+        // A sitemap is a list of pages worth indexing, and the templated city
+        // pages outside the studio's real service area are not. They carry a
+        // noindex for the same reason; listing them here would only contradict
+        // it and spend crawl budget on thirty-five near-duplicates.
+        if (!isIndexableServiceArea(city)) continue;
         for (const service of services) {
           routes.push({
             url: `${BASE_URL}/${city}/${service.slug}`,

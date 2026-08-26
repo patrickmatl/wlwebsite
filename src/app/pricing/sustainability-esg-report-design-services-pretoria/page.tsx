@@ -150,7 +150,7 @@ export default function SustainabilityESGReportDesignServicesPretoria() {
         <h4>Custom ESG, Sustainability, and Integrated Reports</h4>
         <p>Every organization’s ESG journey is unique. We offer custom sustainability report design, integrated reporting, and impact report layouts for Pretoria clients. Our team ensures your data, KPIs, and stories are presented with clarity and impact.</p>
         <p>From listed companies to non-profits, our Pretoria ESG designers deliver professional, standards-aligned reports that engage stakeholders and support your sustainability strategy.</p>
-        <h5>Serving Pretoria’s Sustainability Community</h5>
+        <h3>Serving Pretoria’s Sustainability Community</h3>
         <p>We serve a diverse range of Pretoria clients, from large corporates to community organizations. Our ESG report design portfolio includes work for mining, finance, education, and healthcare sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off sustainability report or ongoing ESG communications, our Pretoria team is ready to help you achieve your goals.</p>
         <h2>ESG Reporting Standards and Best Practices</h2>
@@ -162,7 +162,7 @@ export default function SustainabilityESGReportDesignServicesPretoria() {
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver sustainability report design excellence nationwide.</p>
         <p>We understand Pretoria’s sustainability culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>Get Started with Pretoria’s ESG Report Design Experts</h5>
+        <h3>Get Started with Pretoria’s ESG Report Design Experts</h3>
         <p>Ready to enhance your sustainability reporting? Our Pretoria team is here to support your next integrated, annual, or ESG report with world-class design.</p>
         <p>Contact Pretoria’s leading ESG report design specialists for a free consultation and see how we can help you communicate your impact.</p>
       </section>

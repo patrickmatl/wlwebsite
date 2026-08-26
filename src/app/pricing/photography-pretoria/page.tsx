@@ -232,10 +232,10 @@ export default function PhotographyPage() {
         <h4>Photography Solutions for Every Pretoria Need</h4>
         <p>We provide a wide range of photography services in Pretoria, including family portraits, headshots, product photography, event coverage, and branding imagery. Our Pretoria clients benefit from fast turnaround times, professional editing, and a commitment to customer satisfaction.</p>
         <p>Our portfolio includes work for Pretoria businesses, schools, and private clients, showcasing our versatility and attention to detail. Whatever your photography needs, we have a Pretoria solution for you.</p>
-        <h5>Quality, Creativity, and Service in Pretoria Photography</h5>
+        <h3>Quality, Creativity, and Service in Pretoria Photography</h3>
         <p>Quality is at the heart of our Pretoria photography services. We invest in top-tier cameras, lenses, and lighting to capture every detail. Our creative team collaborates with Pretoria clients to design shoots that reflect their unique style and goals.</p>
         <p>From concept to delivery, we provide guidance and support throughout the photography process. Our Pretoria photographers are dedicated to making your experience seamless and enjoyable, with results you'll love.</p>
-        <h6>Book Your Pretoria Photography Session</h6>
+        <h3>Book Your Pretoria Photography Session</h3>
         <p>Ready to capture beautiful images in Pretoria? Contact us today to discuss your photography needs, explore our packages, and schedule your session. We look forward to helping you create lasting memories and effective marketing visuals in Pretoria.</p>
         <p>Our Pretoria photography experts are here to answer your questions and provide a customized quote. Let us help you showcase your best self, products, or events with professional photography services in Pretoria.</p>
       </section>

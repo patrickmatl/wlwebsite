@@ -206,10 +206,10 @@ export default function CorporateVideoPage() {
         <h4>Types of Corporate Videos Offered in Pretoria</h4>
         <p>We produce a wide range of corporate videos in Pretoria, including company profiles, product demos, client testimonials, training videos, event coverage, and explainer animations. Our Pretoria video production services are customized to suit your specific needs and budget.</p>
         <p>Our portfolio includes successful projects for Pretoria corporates, SMEs, and NGOs, demonstrating our versatility and commitment to quality. We use the latest equipment and techniques to ensure every video stands out in a crowded market.</p>
-        <h5>Quality, Compliance, and Editing in Pretoria Corporate Video</h5>
+        <h3>Quality, Compliance, and Editing in Pretoria Corporate Video</h3>
         <p>Quality assurance is at the core of our Pretoria corporate video services. We follow best practices for filming, sound, and lighting, and our editors meticulously refine each video for clarity, pacing, and visual appeal. We also ensure compliance with relevant regulations and company guidelines in Pretoria.</p>
         <p>Our Pretoria team offers fast turnaround times and responsive communication, making the production process smooth and efficient. We provide multiple rounds of feedback to ensure your Pretoria corporate video meets your expectations.</p>
-        <h6>Get Started with Corporate Video Production in Pretoria</h6>
+        <h3>Get Started with Corporate Video Production in Pretoria</h3>
         <p>Ready to enhance your business communications with expert corporate video production in Pretoria? Contact us today to discuss your project, receive a personalized quote, and schedule your Pretoria video shoot. We are dedicated to helping Pretoria businesses succeed through the power of video.</p>
         <p>Our Pretoria corporate video specialists are here to guide you from concept to completion. Let us help you tell your story and achieve your business objectives with professional video content.</p>
       </section>

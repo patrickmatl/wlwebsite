@@ -150,7 +150,7 @@ export default function InteractiveDigitalPublicationInteractivePdfDesignPretori
         <h4>Custom Interactive Reports, Brochures, and Magazines</h4>
         <p>Every digital publication project is unique. We offer custom interactive report design, digital brochure layouts, and multimedia eBooks for Pretoria clients. Our team ensures your content is presented in an engaging, user-friendly format.</p>
         <p>From annual reports to marketing materials, our Pretoria interactive publication designers deliver digital documents that inform, persuade, and inspire action.</p>
-        <h5>Serving Pretoria’s Digital Community</h5>
+        <h3>Serving Pretoria’s Digital Community</h3>
         <p>We serve a diverse range of Pretoria clients, from corporates to educational institutions and NGOs. Our interactive publication design portfolio includes work for finance, education, health, and tech sectors in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off digital publication or ongoing interactive design support, our Pretoria team is ready to help you communicate your message.</p>
         <h2>Digital Publication Standards and Best Practices</h2>
@@ -162,7 +162,7 @@ export default function InteractiveDigitalPublicationInteractivePdfDesignPretori
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver digital publication design excellence nationwide.</p>
         <p>We understand Pretoria’s digital culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>Get Started with Pretoria’s Interactive Publication Design Experts</h5>
+        <h3>Get Started with Pretoria’s Interactive Publication Design Experts</h3>
         <p>Ready to make your publications interactive? Our Pretoria team is here to support your next report, brochure, or magazine with world-class digital design.</p>
         <p>Contact Pretoria’s leading interactive publication design specialists for a free consultation and see how we can help you engage your audience.</p>
       </section>

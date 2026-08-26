@@ -396,13 +396,13 @@ export default function AnnualReportDesignPrintPretoria() {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Annual Report Design Pretoria | Annual Report Printing Pretoria | WL CreationX</h2>
+        <h2>Annual report design and printing in Pretoria</h2>
         <p>WL CreationX is the leading agency for annual report design and print in Pretoria, Gauteng. We create professional, visually striking annual reports that help Pretoria businesses and organizations communicate achievements, financial results, and vision with clarity and impact.</p>
-        <h3>Best Annual Report Designers in Pretoria</h3>
+        <h3>Annual report design in Pretoria</h3>
         <p>Our Pretoria-based team specializes in custom annual report design, corporate report design, and financial report design for companies, NGOs, and government entities. We combine creative layouts, infographics, and premium printing to deliver outstanding results.</p>
         <h4>Comprehensive Annual Report Printing Services in Pretoria</h4>
         <p>From concept to print, we offer end-to-end solutions: research, copywriting, design, typesetting, proofing, and high-quality printing. Our annual report printing services in Pretoria ensure your reports are delivered on time and on budget, with a flawless finish.</p>
-        <h5>Why Choose WL CreationX for Annual Report Design in Pretoria?</h5>
+        <h3>Why Choose WL CreationX for Annual Report Design in Pretoria?</h3>
         <ul>
           <li>Expert annual report designers in Pretoria with years of experience</li>
           <li>Cutting-edge design, clear data presentation, and brand consistency</li>
@@ -410,7 +410,7 @@ export default function AnnualReportDesignPrintPretoria() {
           <li>Trusted by corporates, SMEs, non-profits, and public sector clients</li>
           <li>Affordable packages for all business sizes</li>
         </ul>
-        <h6>Pretoria’s Trusted Annual Report Agency – WL CreationX</h6>
+        <h3>Annual report design from our Pretoria studio</h3>
         <p>Looking for the best annual report design and print company in Pretoria? WL CreationX delivers professionally designed annual reports that impress stakeholders and support your brand’s reputation.</p>
       </section>
       {/* Previously hidden off-screen; now visible to every visitor */}

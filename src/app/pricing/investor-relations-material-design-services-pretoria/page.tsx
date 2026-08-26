@@ -150,7 +150,7 @@ export default function InvestorRelationsMaterialDesignServicesPretoria() {
         <h4>Custom IR Decks, Reports, and Presentations</h4>
         <p>Every investor relations project is unique. We offer custom IR deck design, annual and integrated report layouts, and tailored financial presentations for Pretoria clients. Our team integrates your branding, data, and messaging for maximum impact.</p>
         <p>From IPO roadshows to quarterly results, our Pretoria IR designers deliver professional, compliant, and engaging materials that support your investor relations strategy.</p>
-        <h5>Serving Pretoria’s Corporate Community</h5>
+        <h3>Serving Pretoria’s Corporate Community</h3>
         <p>We serve a diverse range of Pretoria clients, from blue-chip corporates to innovative startups. Our IR design portfolio includes work for major financial institutions, mining companies, and technology firms in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off investor presentation or ongoing IR support, our Pretoria team is ready to help you achieve your communication goals.</p>
         <h2>IR Design Compliance and Best Practices</h2>
@@ -162,7 +162,7 @@ export default function InvestorRelationsMaterialDesignServicesPretoria() {
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver IR design excellence to companies nationwide.</p>
         <p>We understand Pretoria’s corporate culture and can adapt our services for local, national, or cross-border investor audiences.</p>
-        <h5>Get Started with Pretoria’s IR Design Experts</h5>
+        <h3>Get Started with Pretoria’s IR Design Experts</h3>
         <p>Ready to improve your investor relations materials? Our Pretoria team is here to support your next AGM, results announcement, or investor roadshow with world-class design.</p>
         <p>Contact Pretoria’s leading IR design specialists for a free consultation and see how we can help you communicate with confidence.</p>
       </section>

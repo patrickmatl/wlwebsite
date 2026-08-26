@@ -102,9 +102,40 @@ const BrandIdentityPackages = () => {
     proofreading, copywriting, content generation, printing, photography, and custom illustration work.
   </div>
 
+  {/*
+    This page ranks first for "branding companies in pretoria" and, until now,
+    linked out exactly once — to the home page. A page with authority and no
+    outbound internal links passes none of it on, so the terms that actually
+    pay saw nothing from it. Each link below is descriptive on purpose: the
+    anchor text is what tells a crawler what sits at the other end.
+  */}
   <div className="max-w-7xl mx-auto mt-10 text-center">
     <p className="text-neutral-400 text-sm">
-      Not sure which package fits? See everything <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link> offers, from design to web, video, and photography.
+      Not sure which package fits? Compare our{' '}
+      <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">
+        graphic design prices in Pretoria
+      </Link>
+      ,{' '}
+      <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">
+        website design prices in Pretoria
+      </Link>{' '}
+      and{' '}
+      <Link href="/pricing/packaging-design-pretoria" className="text-[#FFD700] hover:underline">
+        packaging design prices
+      </Link>
+      , or see{' '}
+      <Link href="/project-showcase-pretoria" className="text-[#FFD700] hover:underline">
+        recent branding work from our Pretoria studio
+      </Link>
+      .
+    </p>
+    <p className="text-neutral-400 text-sm mt-3">
+      Everything <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link> offers,
+      from design to web, video and photography, is listed on our{' '}
+      <Link href="/pricing" className="text-[#FFD700] hover:underline">
+        pricing page
+      </Link>
+      .
     </p>
   </div>
     </div>

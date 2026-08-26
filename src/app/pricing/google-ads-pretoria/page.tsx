@@ -353,15 +353,15 @@ const GoogleAdsPage = () => {
 
       {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Google Ads Management in Pretoria | WL CreationX</h2>
+        <h2>Google Ads Management in Pretoria</h2>
         <p>WL CreationX is Pretoria’s trusted Google Ads agency, driving targeted traffic and conversions with expertly managed PPC campaigns for local businesses.</p>
         <h3>Google Ads Agency in Pretoria</h3>
         <p>Our Pretoria-based team creates, manages, and optimizes Google Ads campaigns for maximum ROI. We help Pretoria companies grow with data-driven SEM strategies.</p>
         <h4>PPC & SEM Services for Pretoria Businesses</h4>
         <p>From search to display and shopping ads, we deliver measurable results for Pretoria clients using advanced targeting, creative ad copy, and conversion tracking.</p>
-        <h5>Affordable Google Ads Packages in Pretoria</h5>
+        <h3>Affordable Google Ads Packages in Pretoria</h3>
         <p>Choose from starter to enterprise packages with transparent pricing and expert support for Pretoria SMEs and corporates.</p>
-        <h6>Why Choose WL CreationX for Google Ads in Pretoria?</h6>
+        <h3>Why Choose WL CreationX for Google Ads in Pretoria?</h3>
         <p>Local expertise, hands-on campaign management, and transparent monthly reporting. WL CreationX partners with Pretoria businesses to get the most from their Google Ads budgets.</p>
       </section>
       {/* Previously hidden off-screen; now visible to every visitor */}

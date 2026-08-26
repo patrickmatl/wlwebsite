@@ -124,7 +124,7 @@ export default function EventBrandingDesignPretoria() {
         <h4>Custom Logos, Signage, and Digital Assets</h4>
         <p>Every event is unique. We offer custom logo design, signage, and digital asset creation for Pretoria events. Our team ensures your event branding is consistent, impactful, and aligned with your objectives.</p>
         <p>From conferences to product launches, our Pretoria event branding designers deliver materials that engage, inform, and inspire attendees.</p>
-        <h5>Serving Pretoria’s Event Community</h5>
+        <h3>Serving Pretoria’s Event Community</h3>
         <p>We serve a diverse range of Pretoria clients, from corporates to non-profits and government agencies. Our event branding portfolio includes work for finance, tech, education, and public sector events in Pretoria and Gauteng.</p>
         <p>Whether you need a one-off event branding solution or ongoing support, our Pretoria team is ready to help you create unforgettable experiences.</p>
         <h2>Event Branding Standards and Best Practices</h2>
@@ -136,7 +136,7 @@ export default function EventBrandingDesignPretoria() {
         <h4>Pretoria, Gauteng, and South Africa Coverage</h4>
         <p>Based in Pretoria, we work with clients across Gauteng and South Africa. Our remote collaboration tools allow us to deliver event branding excellence nationwide.</p>
         <p>We understand Pretoria’s event culture and can adapt our services for local, national, or global audiences.</p>
-        <h5>Get Started with Pretoria’s Event Branding Experts</h5>
+        <h3>Get Started with Pretoria’s Event Branding Experts</h3>
         <p>Ready to brand your next event? Our Pretoria team is here to support your next conference, exhibition, or launch with world-class event branding.</p>
         <p>Contact Pretoria’s leading event branding specialists for a free consultation and see how we can help you create impact.</p>
       </section>

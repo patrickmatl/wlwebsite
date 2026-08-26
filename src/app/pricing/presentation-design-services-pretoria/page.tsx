@@ -210,7 +210,7 @@ export default function PresentationDesignServicesPretoria() {
         <h4>Custom Business Presentation Solutions</h4>
         <p>Every business has unique goals, which is why we offer custom presentation design solutions tailored to your brand and objectives. From pitch decks for Pretoria startups to corporate reports for established enterprises, our team delivers results that drive engagement and action.</p>
         <p>We integrate your branding, data, and messaging to create cohesive, persuasive presentations that help you win clients, secure funding, or inform stakeholders.</p>
-        <h5>Pretoria Presentation Design for All Industries</h5>
+        <h3>Pretoria Presentation Design for All Industries</h3>
         <p>Our Pretoria presentation design services cater to a wide range of industries, including finance, healthcare, education, and technology. We understand sector-specific requirements and adapt our approach to meet your unique needs.</p>
         <p>Whether you’re presenting to investors, employees, or customers, our designs help you communicate with clarity and confidence across Pretoria and beyond.</p>
         <h2>PowerPoint and Google Slides Specialists in Pretoria</h2>
@@ -222,7 +222,7 @@ export default function PresentationDesignServicesPretoria() {
         <h4>Serving Pretoria, Gauteng, and South Africa</h4>
         <p>Based in Pretoria, we proudly serve clients across Gauteng and South Africa. Our remote collaboration tools allow us to work with businesses nationwide, delivering presentation design excellence wherever you are located.</p>
         <p>We understand the Pretoria market and can adapt our services to local trends, languages, and business cultures for maximum relevance and effectiveness.</p>
-        <h5>Get Started with Pretoria’s Leading Presentation Designers</h5>
+        <h3>Get started with presentation design</h3>
         <p>Ready to elevate your presentations? Our Pretoria team is here to help you make a lasting impression. Reach out today for a free consultation and discover how our presentation design services can transform your next pitch, report, or event.</p>
         <p>Experience the difference of working with Pretoria presentation design specialists—your success is our priority.</p>
       </section>
