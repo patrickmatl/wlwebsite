@@ -40,7 +40,7 @@ export const PROJECT_STATUSES: { id: ProjectStatus; label: string; done: boolean
 
 export type MilestoneStatus = 'pending' | 'in_progress' | 'done' | 'skipped';
 
-export type InvoiceKind = 'deposit' | 'balance' | 'full' | 'additional';
+export type InvoiceKind = 'deposit' | 'balance' | 'full' | 'additional' | 'proforma';
 export type InvoiceStatus = 'draft' | 'sent' | 'part_paid' | 'paid' | 'overdue' | 'void';
 export type PaymentMethod = 'eft' | 'card' | 'cash' | 'other';
 

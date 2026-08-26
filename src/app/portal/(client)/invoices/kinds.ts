@@ -11,6 +11,7 @@ export const KIND_LABELS: Record<InvoiceKind, string> = {
   balance: 'Balance',
   full: 'Full amount',
   additional: 'Additional work',
+  proforma: 'Pro forma',
 };
 
 /** The same idea, as a document heading. */
@@ -19,4 +20,7 @@ export const KIND_HEADINGS: Record<InvoiceKind, string> = {
   balance: 'Balance invoice',
   full: 'Invoice',
   additional: 'Invoice for additional work',
+  // Never just "invoice" — a pro forma is not one, and the heading is the first
+  // thing that tells a client's bookkeeper which it is.
+  proforma: 'Pro forma invoice',
 };
