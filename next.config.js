@@ -21,7 +21,11 @@ const nextConfig = {
     return config;
   },
   // Handle static file paths
-  output: 'standalone',
+  // NOT 'standalone'. Next's standalone tracer cannot copy the client-reference
+  // manifest for a page that sits directly inside a route group — the brackets
+  // in `app/studio/(admin)/page.tsx` break the copy and the whole build fails.
+  // Vercel packages its own output, and Railway/Node run fine on `next start`,
+  // so standalone buys nothing here and costs a broken deploy.
   poweredByHeader: false,
   reactStrictMode: true,
 
