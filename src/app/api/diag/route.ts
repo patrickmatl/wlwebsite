@@ -16,6 +16,11 @@ export const maxDuration = 60;
  * Reports whether each secret is *present and plausibly shaped* — never its
  * value — and actually exercises the two outbound dependencies rather than
  * assuming they work. Guarded by the same secret as the cron endpoints.
+ *
+ * NOT named `_diag`: a leading underscore marks a folder private in the App
+ * Router, so Next never registers a route for it. The request then falls
+ * through to the [city]/[service] catch-all, which answers 200 with an HTML
+ * "Service Not Found" page — a missing route that looks like a working one.
  */
 export async function GET(request: Request) {
   const auth = authoriseCron(request);
