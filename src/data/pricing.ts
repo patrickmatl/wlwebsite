@@ -827,7 +827,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'maintenance-essential',
         name: 'Website maintenance — Essential',
-        amount: 850,
+        amount: 1500,
         unit: 'per-month',
         includes: ['Software and plugin updates', 'Security monitoring', 'Monthly backups'],
         url: '/pricing/website-maintenance-pretoria',
@@ -835,7 +835,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'maintenance-professional',
         name: 'Website maintenance — Professional',
-        amount: 1850,
+        amount: 3500,
         unit: 'per-month',
         includes: ['Everything in Essential', 'Content updates', 'Performance monitoring'],
         url: '/pricing/website-maintenance-pretoria',
@@ -843,7 +843,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'maintenance-enterprise',
         name: 'Website maintenance — Enterprise',
-        amount: 3850,
+        amount: 7500,
         unit: 'per-month',
         includes: ['Everything in Professional', 'Priority support', 'Ongoing development time'],
         url: '/pricing/website-maintenance-pretoria',

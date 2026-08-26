@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Corporate Video Pretoria | Pricing',
-  description: 'Corporate video production in Pretoria from R6,500. Scripting, filming, editing, motion graphics and HD/4K delivery, with drone footage on premium shoots.',
+  description: 'Corporate video production in Pretoria from R9,850. Scripting, filming, editing, motion graphics and HD/4K delivery, with drone footage on premium shoots.',
   alternates: { canonical: 'https://wlcreationx.co.za/pricing/corporate-video-pretoria' },
   openGraph: {
     title: 'Corporate Video Pretoria | Pricing',
-    description: 'Corporate video production in Pretoria from R6,500. Scripting, filming, editing, motion graphics and HD/4K delivery, with drone footage on premium shoots.',
+    description: 'Corporate video production in Pretoria from R9,850. Scripting, filming, editing, motion graphics and HD/4K delivery, with drone footage on premium shoots.',
     url: 'https://wlcreationx.co.za/pricing/corporate-video-pretoria',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

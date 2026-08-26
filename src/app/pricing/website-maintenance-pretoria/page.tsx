@@ -11,7 +11,7 @@ const WebsiteMaintenancePage = () => {
   const maintenancePackages = [
     {
       name: "Essential Maintenance",
-      price: "R850/month",
+      price: "R1,500/month",
       description: "Basic maintenance for small websites",
       features: [
         "Monthly Software Updates",
@@ -27,7 +27,7 @@ const WebsiteMaintenancePage = () => {
     },
     {
       name: "Professional Maintenance",
-      price: "R1,850/month",
+      price: "R3,500/month",
       description: "Comprehensive care for business websites",
       features: [
         "Weekly Software Updates",
@@ -47,7 +47,7 @@ const WebsiteMaintenancePage = () => {
     },
     {
       name: "Enterprise Maintenance",
-      price: "R3,850/month",
+      price: "R7,500/month",
       description: "Premium support for high-traffic websites",
       features: [
         "Real-time Software Updates",

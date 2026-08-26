@@ -5,7 +5,7 @@ import RelatedServices from '@/components/RelatedServices';
 const packages = [
   {
     name: 'Starter',
-    price: 'R1,800',
+    price: 'R3,850',
     features: [
       'Up to 10 products',
       'White background shots',
@@ -17,7 +17,7 @@ const packages = [
   },
   {
     name: 'Business',
-    price: 'R3,200',
+    price: 'R4,950',
     features: [
       'Up to 25 products',
       'Creative backgrounds & props',

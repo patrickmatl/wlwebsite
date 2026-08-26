@@ -5,7 +5,7 @@ import RelatedServices from '@/components/RelatedServices';
 const packages = [
   {
     name: 'Starter',
-    price: 'R6,500',
+    price: 'R9,850',
     features: [
       '1-min professionally filmed video',
       '1 Pretoria location',

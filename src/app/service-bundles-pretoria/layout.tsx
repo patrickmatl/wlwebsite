@@ -6,13 +6,13 @@ export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
   title: 'Service Bundles & Packages Pretoria',
-  description: 'Bundled design packages from WL CreationX in Pretoria: logo design from R650 and custom websites from R8,980, with clear deliverables and delivery times.',
+  description: 'Bundled design packages from WL CreationX in Pretoria: logo design from R2,080 and custom websites from R8,980, with clear deliverables and delivery times.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/service-bundles-pretoria',
   },
   openGraph: {
     title: 'Service Bundles & Packages Pretoria',
-    description: 'Bundled design packages from WL CreationX in Pretoria: logo design from R650 and custom websites from R8,980, with clear deliverables and delivery times.',
+    description: 'Bundled design packages from WL CreationX in Pretoria: logo design from R2,080 and custom websites from R8,980, with clear deliverables and delivery times.',
     url: 'https://wlcreationx.co.za/service-bundles-pretoria',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

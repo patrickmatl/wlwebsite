@@ -605,7 +605,7 @@ const PackagesPage = () => {
                   "name": "How much do your graphic design packages cost in Pretoria?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Our bundle deals start from R650 for a basic logo; standalone logo design starts at R2,080. Bundles go up to R29,999 for our Enterprise Brand Package, monthly digital marketing and maintenance plans range from R1,500 to R25,000 per month, and every project gets a fixed quote before work begins."
+                    "text": "Logo design starts at R2,080 for two concepts, R3,120 for four and R4,160 for six. Bundles run up to R29,999 for the Enterprise Brand Package, website maintenance is R850 to R3,850 a month, and every project gets a fixed quote before work begins."
                   }
                 },
                 {
@@ -646,10 +646,10 @@ const PackagesPage = () => {
               How much do your graphic design packages cost in Pretoria?
             </h3>
             <p className="text-gray-300">
-              Our bundle deals start from R650 for a basic logo; standalone logo design
-              starts at R2,080. Bundles go up to R29,999 for our Enterprise Brand Package,
-              monthly digital marketing and maintenance plans range from R1,500 to R25,000
-              per month, and every project gets a fixed quote before work begins.
+              Logo design starts at R2,080 for two concepts, R3,120 for four and
+              R4,160 for six. Bundles run up to R29,999 for the Enterprise Brand
+              Package, website maintenance is R850 to R3,850 a month, and every
+              project gets a fixed quote before work begins.
             </p>
           </div>
 

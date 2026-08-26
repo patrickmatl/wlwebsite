@@ -5,7 +5,7 @@ import RelatedServices from '@/components/RelatedServices';
 const packages = [
   {
     name: 'Basic',
-    price: 'R2,500',
+    price: 'R3,850',
     features: [
       '1-hour shoot',
       '1 Pretoria location',

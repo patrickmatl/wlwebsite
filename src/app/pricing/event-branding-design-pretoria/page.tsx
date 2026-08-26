@@ -6,7 +6,7 @@ import GetStartedButton from '@/components/GetStartedButton';
 const pricing = [
   {
     name: "Event Branding Essentials",
-    price: "R5,000",
+    price: "R5,850",
     features: [
       "Logo & event identity",
       "Basic signage design",
