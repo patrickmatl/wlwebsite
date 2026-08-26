@@ -171,7 +171,6 @@ export default function PhotographyPage() {
         </p>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Photography Pretoria</h3>
         <div><h4>What types of photography do you offer in Pretoria?</h4><p>We offer portrait, event, commercial, product, and lifestyle photography in Pretoria.</p></div>
@@ -198,46 +197,6 @@ export default function PhotographyPage() {
         <div><h4>Do you offer family photography in Pretoria?</h4><p>Yes, family and children’s photography is available in Pretoria.</p></div>
         <div><h4>Can you shoot at Pretoria landmarks?</h4><p>We can arrange shoots at popular Pretoria landmarks, parks, and venues.</p></div>
         <div><h4>Do you provide digital and print images in Pretoria?</h4><p>Both digital and print images are available for all Pretoria clients.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <div><h4>Do you offer wedding photography in Pretoria?</h4><p>Yes, our Pretoria team specializes in wedding and engagement photography.</p></div>
-        <div><h4>Can you shoot at multiple Pretoria locations?</h4><p>Yes, we can photograph you at several Pretoria locations in one session.</p></div>
-        <div><h4>Do you offer photography for Pretoria schools and sports?</h4><p>Yes, we cover school events, sports, and graduations in Pretoria.</p></div>
-        <div><h4>Are Pretoria photo sessions suitable for children?</h4><p>Yes, we have experience photographing children and families in Pretoria.</p></div>
-        <div><h4>Can you provide Pretoria photography for marketing?</h4><p>We create marketing images for Pretoria brands, products, and services.</p></div>
-        <div><h4>Do you offer drone photography in Pretoria?</h4><p>Yes, aerial and drone photography is available in Pretoria.</p></div>
-        <div><h4>How are Pretoria photos delivered?</h4><p>All Pretoria clients receive digital downloads and optional prints.</p></div>
-        <div><h4>Do you offer group or team photography in Pretoria?</h4><p>Yes, group and team photos are available for Pretoria organizations.</p></div>
-        <div><h4>Can you photograph Pretoria real estate?</h4><p>We offer real estate and property photography throughout Pretoria.</p></div>
-        <div><h4>Do you offer Pretoria photography gift vouchers?</h4><p>Yes, gift vouchers are available for all Pretoria photography services.</p></div>
-        <div><h4>Is same-day delivery available for Pretoria photos?</h4><p>Same-day delivery can be arranged for urgent Pretoria shoots.</p></div>
-        <div><h4>Can you help with Pretoria photography permits?</h4><p>We assist with permits for Pretoria public and private locations.</p></div>
-        <div><h4>Do you offer Pretoria graduation photography?</h4><p>Yes, graduation and matric dance photography is available in Pretoria.</p></div>
-        <div><h4>Can you shoot Pretoria corporate events?</h4><p>Yes, we cover Pretoria conferences, launches, and business events.</p></div>
-        <div><h4>Do you offer Pretoria maternity and newborn photography?</h4><p>Yes, we offer maternity and newborn sessions in Pretoria.</p></div>
-        <div><h4>Can you provide Pretoria photography for social media?</h4><p>Yes, we create content for Pretoria influencers and brands.</p></div>
-        <div><h4>Do you offer Pretoria pet photography?</h4><p>Yes, pet and animal photography is available in Pretoria.</p></div>
-        <div><h4>Are Pretoria photographers available on weekends?</h4><p>Yes, weekend and after-hours shoots are available in Pretoria.</p></div>
-        <div><h4>Can you help with Pretoria photo styling and props?</h4><p>We can arrange props and styling for Pretoria photo shoots.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Photography Services in Pretoria</h2>
-        <p>Our Pretoria photography services cater to individuals, families, and businesses seeking professional images for every occasion. From portraits and events to commercial and product shoots, we deliver high-quality photography tailored to your needs in Pretoria and the surrounding areas.</p>
-        <p>With a focus on creativity and technical excellence, our Pretoria photographers capture moments and stories that resonate. We use advanced equipment and editing techniques to ensure every image meets the highest standards for clarity, color, and impact.</p>
-        <h3>Why Choose a Pretoria Photographer?</h3>
-        <p>Choosing a local Pretoria photographer means working with someone who understands the best locations, lighting, and trends in the area. Our team brings years of experience and a passion for photography, ensuring your Pretoria session is comfortable, enjoyable, and results in stunning images.</p>
-        <p>We offer flexible packages for Pretoria clients, including on-location, studio, and event photography. Our personalized approach means we listen to your vision and deliver photos that exceed expectations, whether for personal use or business marketing.</p>
-        <h4>Photography Solutions for Every Pretoria Need</h4>
-        <p>We provide a wide range of photography services in Pretoria, including family portraits, headshots, product photography, event coverage, and branding imagery. Our Pretoria clients benefit from fast turnaround times, professional editing, and a commitment to customer satisfaction.</p>
-        <p>Our portfolio includes work for Pretoria businesses, schools, and private clients, showcasing our versatility and attention to detail. Whatever your photography needs, we have a Pretoria solution for you.</p>
-        <h3>Quality, Creativity, and Service in Pretoria Photography</h3>
-        <p>Quality is at the heart of our Pretoria photography services. We invest in top-tier cameras, lenses, and lighting to capture every detail. Our creative team collaborates with Pretoria clients to design shoots that reflect their unique style and goals.</p>
-        <p>From concept to delivery, we provide guidance and support throughout the photography process. Our Pretoria photographers are dedicated to making your experience seamless and enjoyable, with results you'll love.</p>
-        <h3>Book Your Pretoria Photography Session</h3>
-        <p>Ready to capture beautiful images in Pretoria? Contact us today to discuss your photography needs, explore our packages, and schedule your session. We look forward to helping you create lasting memories and effective marketing visuals in Pretoria.</p>
-        <p>Our Pretoria photography experts are here to answer your questions and provide a customized quote. Let us help you showcase your best self, products, or events with professional photography services in Pretoria.</p>
       </section>
     </main>  );
 }

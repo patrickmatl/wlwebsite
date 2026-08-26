@@ -50,17 +50,10 @@ export default function LocationPage({ location, service }: LocationPageProps) {
               '@type': 'City',
               name: location.city,
             },
-            hasOfferCatalog: {
-              '@type': 'OfferCatalog',
-              name: `${service.title} Services`,
-              itemListElement: service.features.map((feature) => ({
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: feature,
-                },
-              })),
-            },
+            // No hasOfferCatalog. It emitted six Offer nodes on a 220-word
+            // page that publishes no price at all, and structured data
+            // claiming more than the visible page contains is the exact
+            // complaint this domain already took a manual action for.
           }),
         }}
       />

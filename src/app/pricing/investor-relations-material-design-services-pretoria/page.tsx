@@ -164,7 +164,7 @@ export default function InvestorRelationsMaterialDesignServicesPretoria() {
         <p>We understand Pretoria’s corporate culture and can adapt our services for local, national, or cross-border investor audiences.</p>
         <h3>Get Started with Pretoria’s IR Design Experts</h3>
         <p>Ready to improve your investor relations materials? Our Pretoria team is here to support your next AGM, results announcement, or investor roadshow with world-class design.</p>
-        <p>Contact Pretoria’s leading IR design specialists for a free consultation and see how we can help you communicate with confidence.</p>
+        <p>Talk to us about your investor relations material for a free consultation and see how we can help you communicate with confidence.</p>
       </section>
     </div>
   );

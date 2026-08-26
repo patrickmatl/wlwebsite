@@ -159,7 +159,6 @@ export default function ProductPhotographyPage() {
         </p>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Product Photography Pretoria</h3>
         <div><h4>What is product photography in Pretoria?</h4><p>Product photography in Pretoria involves capturing high-quality images of products for e-commerce, catalogs, and marketing.</p></div>
@@ -177,40 +176,6 @@ export default function ProductPhotographyPage() {
         <div><h4>Can you shoot Pretoria product videos as well?</h4><p>Yes, we offer product video production alongside product photography in Pretoria.</p></div>
         <div><h4>Do you provide Pretoria product photography props and styling?</h4><p>Props and styling can be arranged for Pretoria product shoots.</p></div>
         <div><h4>How long does a Pretoria product shoot take?</h4><p>Sessions range from 1–4 hours, depending on the number of products in Pretoria.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <div><h4>Do you offer Pretoria product photography for cosmetics?</h4><p>Yes, we have experience shooting cosmetics and beauty products in Pretoria.</p></div>
-        <div><h4>Can you photograph Pretoria products for social media?</h4><p>We create product images optimized for Pretoria social media campaigns.</p></div>
-        <div><h4>Do you offer Pretoria product photography for electronics?</h4><p>Yes, electronics and tech product photography is available in Pretoria.</p></div>
-        <div><h4>Are Pretoria product photographers available on weekends?</h4><p>Yes, weekend and after-hours product shoots are available in Pretoria.</p></div>
-        <div><h4>Can you shoot Pretoria product images for catalogs and brochures?</h4><p>Yes, we create catalog and brochure images for Pretoria products.</p></div>
-        <div><h4>Do you offer Pretoria product photography for furniture?</h4><p>Yes, we photograph large items and furniture in Pretoria studios or on-site.</p></div>
-        <div><h4>Can you help with Pretoria product photo styling and concepts?</h4><p>We assist with creative styling and concept planning for Pretoria product shoots.</p></div>
-        <div><h4>Do you provide Pretoria product photography for marketing campaigns?</h4><p>We create product images for Pretoria marketing, advertising, and branding.</p></div>
-        <div><h4>Is fast turnaround available for Pretoria product photos?</h4><p>Yes, we offer priority editing and fast delivery for Pretoria product shoots.</p></div>
-        <div><h4>Do you offer monthly product photography packages in Pretoria?</h4><p>Yes, ongoing product photography packages are available for Pretoria businesses.</p></div>
-        <div><h4>Can you shoot Pretoria product images for small businesses?</h4><p>Yes, we work with Pretoria startups and SMEs for affordable product photography.</p></div>
-        <div><h4>Are commercial rights included for Pretoria product images?</h4><p>Yes, commercial use rights are included in Pretoria business packages.</p></div>
-        <div><h4>What makes your Pretoria product photography unique?</h4><p>Our Pretoria team blends creativity, skill, and local knowledge for standout product images.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Product Photography Services in Pretoria</h2>
-        <p>Our Pretoria product photography services help businesses showcase their products with clarity, style, and professionalism. We understand the importance of high-quality images in driving sales and building brand credibility for Pretoria companies of all sizes.</p>
-        <p>From e-commerce listings to marketing campaigns, our Pretoria product photographers deliver crisp, detailed images that highlight your products’ best features. We use advanced lighting, backgrounds, and editing techniques to ensure every product stands out.</p>
-        <h3>Why Invest in Professional Product Photography in Pretoria?</h3>
-        <p>Professional product photography in Pretoria gives your business a competitive edge by creating a strong first impression and increasing conversion rates. Our Pretoria team works closely with you to understand your brand and target audience, producing images that align with your marketing goals.</p>
-        <p>We offer flexible product photography packages for Pretoria clients, including studio shoots, on-location sessions, and bulk discounts for large inventories. Our streamlined process ensures fast turnaround and consistent quality for every project.</p>
-        <h4>Types of Product Photography Offered in Pretoria</h4>
-        <p>We provide a range of product photography services in Pretoria, including white background shots, lifestyle images, group product arrangements, and macro photography for small items. Our Pretoria photographers are skilled in working with various product types, from electronics to fashion and food.</p>
-        <p>Our portfolio features successful projects for Pretoria e-commerce stores, catalogs, and promotional materials, demonstrating our versatility and attention to detail. We tailor each shoot to your specific needs and brand identity.</p>
-        <h3>Quality Assurance and Editing in Pretoria Product Photography</h3>
-        <p>Quality control is central to our Pretoria product photography services. We meticulously edit each image for color accuracy, sharpness, and consistency, ensuring your products look their best across all platforms.</p>
-        <p>Our Pretoria team uses the latest software and techniques to remove imperfections and enhance visual appeal, helping your products stand out in crowded marketplaces. We also provide image resizing and formatting for web and print use.</p>
-        <h3>Book Your Pretoria Product Photography Session</h3>
-        <p>Ready to elevate your product images in Pretoria? Contact us today to discuss your requirements, get a tailored quote, and schedule your Pretoria product photography session. We are committed to delivering results that drive growth for your business.</p>
-        <p>Our Pretoria product photography experts are here to answer your questions and guide you through the process from start to finish. Let us help you create compelling visuals that convert browsers into buyers.</p>
       </section>
     </main>  );
 }

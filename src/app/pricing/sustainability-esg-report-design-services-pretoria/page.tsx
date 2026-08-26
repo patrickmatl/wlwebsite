@@ -164,7 +164,7 @@ export default function SustainabilityESGReportDesignServicesPretoria() {
         <p>We understand Pretoria’s sustainability culture and can adapt our services for local, national, or global audiences.</p>
         <h3>Get Started with Pretoria’s ESG Report Design Experts</h3>
         <p>Ready to enhance your sustainability reporting? Our Pretoria team is here to support your next integrated, annual, or ESG report with world-class design.</p>
-        <p>Contact Pretoria’s leading ESG report design specialists for a free consultation and see how we can help you communicate your impact.</p>
+        <p>Talk to us about your ESG report for a free consultation and see how we can help you communicate your impact.</p>
       </section>
     </div>
   );

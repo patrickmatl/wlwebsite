@@ -164,7 +164,7 @@ export default function InternalCommunicationsDesignPretoria() {
         <p>We understand Pretoria’s business culture and can adapt our services for local, national, or global audiences.</p>
         <h3>Get Started with Pretoria’s Internal Communications Design Experts</h3>
         <p>Ready to improve your internal communications? Our Pretoria team is here to support your next campaign, onboarding, or newsletter with world-class design.</p>
-        <p>Contact Pretoria’s leading internal communications design specialists for a free consultation and see how we can help you engage your employees.</p>
+        <p>Talk to us about your internal communications for a free consultation and see how we can help you engage your employees.</p>
       </section>
     </div>
   );

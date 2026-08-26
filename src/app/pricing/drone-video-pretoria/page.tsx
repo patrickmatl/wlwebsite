@@ -176,7 +176,6 @@ export default function DroneVideoPage() {
         </p>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Drone Video Pretoria</h3>
         <div><h4>What is drone video production in Pretoria?</h4><p>Drone video production in Pretoria involves capturing aerial footage for marketing, real estate, events, and more.</p></div>
@@ -203,45 +202,6 @@ export default function DroneVideoPage() {
         <div><h4>Do you offer monthly drone video packages in Pretoria?</h4><p>Yes, ongoing drone content packages are available for Pretoria businesses.</p></div>
         <div><h4>Can you shoot time-lapse drone videos in Pretoria?</h4><p>We offer time-lapse and hyperlapse drone video production in Pretoria.</p></div>
         <div><h4>What equipment do you use for Pretoria drone video?</h4><p>We use professional drones with HD/4K/RAW capabilities for Pretoria shoots.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <div><h4>Do you offer drone video for Pretoria schools and sports?</h4><p>Yes, we film school events, sports, and more with drones in Pretoria.</p></div>
-        <div><h4>How do I book a Pretoria drone video shoot?</h4><p>Contact us via our website or phone to book your Pretoria drone shoot.</p></div>
-        <div><h4>Can you film live property tours with drones in Pretoria?</h4><p>Yes, live or pre-recorded property tours are available for Pretoria real estate.</p></div>
-        <div><h4>Do you offer drone mapping in Pretoria?</h4><p>We provide aerial mapping and surveys for Pretoria construction and agriculture.</p></div>
-        <div><h4>Is drone video suitable for Pretoria marketing campaigns?</h4><p>Drone video makes Pretoria marketing more engaging and memorable.</p></div>
-        <div><h4>Can you add voiceover to Pretoria drone videos?</h4><p>Yes, voiceover and narration can be included for Pretoria drone video projects.</p></div>
-        <div><h4>Do you offer drone inspections in Pretoria?</h4><p>We provide drone inspections for Pretoria infrastructure, roofs, and more.</p></div>
-        <div><h4>Can you film at sunrise or sunset in Pretoria?</h4><p>Yes, golden hour drone shoots are available in Pretoria for dramatic visuals.</p></div>
-        <div><h4>Are Pretoria drone videos delivered online?</h4><p>All Pretoria drone videos are delivered via online gallery or download link.</p></div>
-        <div><h4>Do you offer drone video for Pretoria hotels and lodges?</h4><p>Yes, we create promotional drone videos for Pretoria hospitality venues.</p></div>
-        <div><h4>Can you film drone videos in Pretoria nature reserves?</h4><p>We can film in Pretoria reserves with the necessary permissions and safety measures.</p></div>
-        <div><h4>Do you offer bilingual drone video services in Pretoria?</h4><p>Yes, we can produce Pretoria drone videos in multiple languages.</p></div>
-        <div><h4>How do you ensure safety during Pretoria drone shoots?</h4><p>We follow all CAA regulations and safety protocols for Pretoria drone operations.</p></div>
-        <div><h4>Can you help with drone video marketing in Pretoria?</h4><p>We assist Pretoria businesses with drone video marketing strategy and distribution.</p></div>
-        <div><h4>Do you provide drone video analytics for Pretoria clients?</h4><p>Yes, we offer video analytics and performance tracking for Pretoria drone campaigns.</p></div>
-        <div><h4>Are your Pretoria drone video services available for small businesses?</h4><p>Yes, we work with Pretoria businesses of all sizes for drone video production.</p></div>
-        <div><h4>Can you help with YouTube drone videos for Pretoria?</h4><p>We produce and optimize YouTube drone videos for Pretoria companies.</p></div>
-        <div><h4>What makes your Pretoria drone video services unique?</h4><p>Our Pretoria team combines creativity, technology, and local expertise for standout aerial videos.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Drone Video Services in Pretoria</h2>
-        <p>Our Pretoria drone video services provide stunning aerial footage for a variety of industries, including real estate, construction, tourism, and events. Using the latest drone technology, we capture breathtaking perspectives that showcase properties, projects, and experiences in Pretoria like never before.</p>
-        <p>Whether you need promotional videos, progress documentation, or creative content for social media, our Pretoria drone video team delivers professional results tailored to your needs. We understand the local landscape and regulatory requirements, ensuring safe and legal operations throughout Pretoria and Gauteng.</p>
-        <h3>Why Choose Professional Drone Videography in Pretoria?</h3>
-        <p>Professional drone videography in Pretoria elevates your marketing and storytelling by offering unique aerial views that traditional cameras cannot achieve. Our licensed drone pilots combine technical skill with creative vision to produce cinematic footage for Pretoria businesses and individuals.</p>
-        <p>With years of experience in the Pretoria market, we know how to highlight the best features of your property or event. Our team manages all aspects of the shoot, from planning and permits to editing and delivery, ensuring a seamless experience from start to finish.</p>
-        <h4>Applications of Drone Video in Pretoria</h4>
-        <p>Drone video is widely used in Pretoria for real estate listings, construction site monitoring, tourism promotion, event coverage, and agricultural surveys. Aerial footage helps Pretoria clients stand out in competitive markets by providing dynamic visuals that capture attention and drive engagement.</p>
-        <p>Our services are customized for each Pretoria client, whether you need regular progress updates for a building project or a one-time promotional video for your business. We also offer live drone streaming for events and inspections across Pretoria.</p>
-        <h3>Compliance and Safety for Pretoria Drone Operations</h3>
-        <p>Safety and legal compliance are top priorities for our Pretoria drone video services. We adhere to all South African Civil Aviation Authority (SACAA) regulations and secure the necessary permits for each Pretoria drone shoot. Our pilots are fully licensed and insured, giving you peace of mind for every project.</p>
-        <p>We conduct thorough risk assessments and follow strict safety protocols to protect people, property, and airspace in Pretoria. This commitment to safety ensures that your drone video project is completed efficiently and without incident.</p>
-        <h3>Get Started with Drone Video in Pretoria</h3>
-        <p>Ready to elevate your visual content with expert drone video production in Pretoria? Contact our team today to discuss your project requirements, receive a custom quote, and schedule your Pretoria drone shoot. Experience the difference that professional aerial videography can make for your business or event.</p>
-        <p>Our Pretoria drone video experts are here to guide you through every step, from concept development to final delivery. Let us help you capture Pretoria from a whole new perspective.</p>
       </section>
     </main>  );
 }

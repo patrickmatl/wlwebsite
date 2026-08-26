@@ -26,7 +26,7 @@ export default function HomeContent() {
             Graphic Design Company in Pretoria
           </h1>
           <p className="mb-4 text-neutral-300 text-base leading-relaxed">
-            Welcome to <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link>, the leading graphic design company and agency in Pretoria, South Africa. We specialize in creating visually stunning and impactful designs that help businesses stand out in today's competitive market. Explore our
+            Welcome to <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link>, a graphic design studio in Pretoria, South Africa. We have designed logos, brand identities, packaging and websites here since 2013. Explore our
             <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline"> branding solutions</Link> and
             <Link href="/visual-communication-services-pretoria" className="text-[#FFD700] hover:underline"> visual communication services</Link> tailored for Pretoria.
           </p>
@@ -184,7 +184,7 @@ export default function HomeContent() {
             Ready to Elevate Your Brand?
           </h2>
           <p className="mb-8 text-neutral-300 text-lg">
-            Partner with Pretoria's leading graphic design company and take your business to the next level. Whether you need a new logo, a website redesign, or a complete branding strategy, we're here to help.
+            Work with a Pretoria design studio that has been doing this since 2013. Whether you need a new logo, a website redesign, or a complete branding strategy, we're here to help.
           </p>
           <Link
             href="/get-in-touch-pretoria"

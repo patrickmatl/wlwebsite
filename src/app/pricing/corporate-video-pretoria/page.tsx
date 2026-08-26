@@ -161,7 +161,6 @@ export default function CorporateVideoPage() {
         </p>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Corporate Video Pretoria</h3>
         <div><h4>What is corporate video production in Pretoria?</h4><p>Corporate video production in Pretoria involves creating professional videos to promote businesses, brands, or organizations in the Pretoria area.</p></div>
@@ -194,24 +193,6 @@ export default function CorporateVideoPage() {
         <div><h4>Can you help with social media video ads in Pretoria?</h4><p>We create effective social media video ads for Pretoria businesses.</p></div>
         <div><h4>Do you provide corporate video packages for Pretoria startups?</h4><p>Yes, affordable video packages are available for Pretoria startups and entrepreneurs.</p></div>
         <div><h4>Do you offer customer testimonial videos in Pretoria?</h4><p>We film and edit customer testimonial videos for Pretoria businesses.</p></div>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Corporate Video Production in Pretoria</h2>
-        <p>Our Pretoria corporate video production services empower businesses to communicate their brand stories, values, and offerings through compelling visual content. We work with Pretoria companies of all sizes to create professional videos for marketing, training, events, and internal communications.</p>
-        <p>With a team of experienced videographers and editors, we ensure every Pretoria corporate video is tailored to your objectives, audience, and brand identity. Our end-to-end service covers concept development, scripting, filming, and post-production, delivering polished results every time.</p>
-        <h3>Why Invest in Corporate Video for Your Pretoria Business?</h3>
-        <p>Corporate videos are a powerful tool for Pretoria businesses looking to boost engagement, build trust, and drive conversions. Our Pretoria video experts help you leverage video content for websites, social media, presentations, and recruitment, making your message memorable and impactful.</p>
-        <p>We understand the Pretoria business landscape and create videos that resonate with local audiences. Our approach combines creativity, technical skill, and strategic planning to deliver videos that achieve your goals and reflect your company’s professionalism.</p>
-        <h4>Types of Corporate Videos Offered in Pretoria</h4>
-        <p>We produce a wide range of corporate videos in Pretoria, including company profiles, product demos, client testimonials, training videos, event coverage, and explainer animations. Our Pretoria video production services are customized to suit your specific needs and budget.</p>
-        <p>Our portfolio includes successful projects for Pretoria corporates, SMEs, and NGOs, demonstrating our versatility and commitment to quality. We use the latest equipment and techniques to ensure every video stands out in a crowded market.</p>
-        <h3>Quality, Compliance, and Editing in Pretoria Corporate Video</h3>
-        <p>Quality assurance is at the core of our Pretoria corporate video services. We follow best practices for filming, sound, and lighting, and our editors meticulously refine each video for clarity, pacing, and visual appeal. We also ensure compliance with relevant regulations and company guidelines in Pretoria.</p>
-        <p>Our Pretoria team offers fast turnaround times and responsive communication, making the production process smooth and efficient. We provide multiple rounds of feedback to ensure your Pretoria corporate video meets your expectations.</p>
-        <h3>Get Started with Corporate Video Production in Pretoria</h3>
-        <p>Ready to enhance your business communications with expert corporate video production in Pretoria? Contact us today to discuss your project, receive a personalized quote, and schedule your Pretoria video shoot. We are dedicated to helping Pretoria businesses succeed through the power of video.</p>
-        <p>Our Pretoria corporate video specialists are here to guide you from concept to completion. Let us help you tell your story and achieve your business objectives with professional video content.</p>
       </section>
     </main>  );
 }

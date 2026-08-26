@@ -53,42 +53,6 @@ export const portfolioFaqs: { question: string; answer: string }[] = [
 export default function PortfolioSeoContent() {
   return (
     <>
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>About Our Pretoria Design Portfolio</h2>
-        <p>
-          WL CreationX is a graphic design agency based in Waterkloof Glen, Pretoria, creating branding, logo, and
-          packaging design for businesses across South Africa since 2013. The work in this showcase reflects how we
-          translate business goals into clear, memorable visual identities.
-        </p>
-        <p>
-          Our portfolio ranges from minimalist logo marks for new ventures to packaging for established product brands.
-          Every project starts with understanding the client&rsquo;s market and ends with artwork that is practical to
-          use — across print, packaging, and digital channels.
-        </p>
-
-        <h3>Logo, Branding &amp; Packaging Design Expertise</h3>
-        <p>
-          Our logo design process involves research, concept development, and refinement to ensure every mark is unique
-          and meaningful. For packaging, we focus on both aesthetics and functionality — designs that look great and
-          work on the shelf. Our broader branding work covers typography, colour palettes, brand guidelines, and
-          collateral.
-        </p>
-        <p>
-          Working from Pretoria, we combine local market knowledge with current design practice. Whether you are
-          launching a new product or refreshing an existing brand, we deliver design that builds recognition. We serve
-          clients on-site across Gauteng and remotely throughout South Africa.
-        </p>
-
-        <h3>Why Work with WL CreationX?</h3>
-        <p>
-          We take the time to understand your vision and offer solutions that fit your objectives and budget. Clients
-          are involved at every stage of the design process, so the final result reflects their brand — not a template.
-        </p>
-        <p>
-          If you like what you see in this showcase, <Link href="/get-in-touch-pretoria" className="text-[#FFD700] hover:underline">get in touch</Link> to discuss your
-          next design project, or explore our <Link href="/pricing" className="text-[#FFD700] hover:underline">pricing and services</Link>.
-        </p>
-      </section>
 
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h2>Frequently Asked Questions</h2>

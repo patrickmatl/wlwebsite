@@ -266,25 +266,6 @@ export default function MarketingMaterialsPage() {
         </div>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Marketing Materials Design in Pretoria</h2>
-        <p>WL CreationX specializes in designing high-quality marketing materials for businesses in Pretoria, ranging from business cards and brochures to banners, stationery, and digital assets. Our expert design team ensures that every piece of marketing collateral is aligned with your brand identity, helping you make a memorable impression in a competitive marketplace.</p>
-        <p>By leveraging the latest design trends and print technologies, we provide Pretoria companies with marketing materials that not only look stunning but also drive engagement and conversions. Our solutions are tailored to suit the unique needs of startups, SMEs, and large enterprises across Pretoria and surrounding areas.</p>
-        <h3>Marketing materials for Pretoria businesses</h3>
-        <p>As Pretoria’s top marketing materials agency, WL CreationX delivers creative excellence and reliable service on every project. Our team works closely with clients to understand their goals, ensuring that each design not only captures attention but also communicates your brand’s message effectively.</p>
-        <p>We offer end-to-end solutions, from concept development to print management, making us the preferred partner for Pretoria businesses seeking impactful marketing materials. Our commitment to quality and client satisfaction sets us apart in the Pretoria design industry.</p>
-        <h4>Business Collateral & Print Design for Pretoria Companies</h4>
-        <p>Our comprehensive business collateral services include the design of business cards, letterheads, flyers, presentations, signage, and more—each crafted to enhance your brand’s visibility and credibility in Pretoria. We understand the importance of cohesive branding across all touchpoints and ensure your materials reflect professionalism and consistency.</p>
-        <p>Whether you need a single item or a full suite of print and digital collateral, our Pretoria-based team delivers results that help your business stand out. We also offer guidance on material selection, finishes, and print specifications to maximize the impact of your marketing investment.</p>
-        <h3>Affordable Marketing Materials Packages in Pretoria</h3>
-        <p>Our marketing materials packages are designed to be both affordable and comprehensive, catering to Pretoria SMEs, corporates, and entrepreneurs. Clients can choose from essential to enterprise packages, each offering transparent pricing, fast turnaround, and a wide range of design options.</p>
-        <p>We believe that every Pretoria business deserves access to professional marketing materials, regardless of size or budget. With WL CreationX, you get value-driven solutions that boost your brand without breaking the bank.</p>
-        <h3>Why Choose WL CreationX for Marketing Materials in Pretoria?</h3>
-        <p>WL CreationX is recognized for local expertise, creative innovation, and dependable service. Our Pretoria team combines years of experience with a passion for design, ensuring every project exceeds expectations and delivers measurable results.</p>
-        <p>From initial consultation to final delivery, we prioritize clear communication, timely execution, and ongoing support. Join the many Pretoria businesses that trust WL CreationX as their go-to partner for marketing materials and brand growth.</p>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Marketing Materials in Pretoria</h3>
         <div><h4>What marketing materials do you design?</h4><p>We design a comprehensive range of marketing materials for Pretoria businesses, including business cards, letterheads, brochures, banners, signage, presentations, and digital assets. Our team ensures each item is custom-crafted to match your brand and marketing objectives.</p><p>Whether you need a single piece or a full suite of collateral, we have the expertise to deliver high-impact designs that resonate with your target audience and enhance your brand’s visibility in Pretoria.</p></div>

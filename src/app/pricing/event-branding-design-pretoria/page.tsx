@@ -138,7 +138,7 @@ export default function EventBrandingDesignPretoria() {
         <p>We understand Pretoria’s event culture and can adapt our services for local, national, or global audiences.</p>
         <h3>Get Started with Pretoria’s Event Branding Experts</h3>
         <p>Ready to brand your next event? Our Pretoria team is here to support your next conference, exhibition, or launch with world-class event branding.</p>
-        <p>Contact Pretoria’s leading event branding specialists for a free consultation and see how we can help you create impact.</p>
+        <p>Talk to us about your event branding for a free consultation and see how we can help you create impact.</p>
       </section>
     </div>
   );

@@ -164,7 +164,7 @@ export default function InteractiveDigitalPublicationInteractivePdfDesignPretori
         <p>We understand Pretoria’s digital culture and can adapt our services for local, national, or global audiences.</p>
         <h3>Get Started with Pretoria’s Interactive Publication Design Experts</h3>
         <p>Ready to make your publications interactive? Our Pretoria team is here to support your next report, brochure, or magazine with world-class digital design.</p>
-        <p>Contact Pretoria’s leading interactive publication design specialists for a free consultation and see how we can help you engage your audience.</p>
+        <p>Talk to us about your interactive publication for a free consultation and see how we can help you engage your audience.</p>
       </section>
     </div>
   );

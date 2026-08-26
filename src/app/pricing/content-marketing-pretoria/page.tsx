@@ -261,20 +261,6 @@ export default function ContentMarketingPage() {
         </div>
       </div>
     
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Content Marketing Services in Pretoria</h2>
-        <p>WL CreationX delivers strategic content marketing for Pretoria businesses, helping you attract, engage, and convert your ideal customers with SEO-optimized content.</p>
-        <h3>Content marketing for Pretoria businesses</h3>
-        <p>Our Pretoria team specializes in blog writing, content strategy, social media content, and lead generation. We help Pretoria companies build authority and drive results online.</p>
-        <h4>SEO Content & Blogging for Pretoria Businesses</h4>
-        <p>Boost your Pretoria website’s rankings with keyword-rich blog posts, landing pages, and content campaigns tailored to your audience and goals.</p>
-        <h3>Affordable Content Packages & Pricing in Pretoria</h3>
-        <p>Choose from monthly content packages or once-off services. Transparent pricing and measurable results for Pretoria startups, SMEs, and corporates.</p>
-        <h3>Why Choose WL CreationX for Content Marketing in Pretoria?</h3>
-        <p>Local expertise, creative writers, and proven strategies. WL CreationX is Pretoria’s trusted partner for content that converts and grows your business.</p>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Content Marketing in Pretoria</h3>
         <div><h4>What is content marketing?</h4><p>Content marketing is a strategy focused on creating and distributing valuable, relevant content to attract and engage your target Pretoria audience, ultimately driving profitable customer action.</p></div>

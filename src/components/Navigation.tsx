@@ -70,22 +70,16 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   // Fix hydration issue
   useEffect(() => {
-    setMounted(true);
     
     // Close menu when route changes
     setIsOpen(false);
     setOpenSubmenu(null);
     setOpenCategory(null);
   }, [pathname]);
-
-  if (!mounted) {
-    return null;
-  }
 
   const handleSubmenuClick = (label: string) => {
     setOpenSubmenu(openSubmenu === label ? null : label);

@@ -165,7 +165,7 @@ export default function InfographicDataVisualizationDesignPretoria() {
         <p>We understand Pretoria’s business and research culture and can adapt our services for local, national, or global audiences.</p>
         <h3>Get Started with Pretoria’s Infographic Design Experts</h3>
         <p>Ready to visualize your data? Our Pretoria team is here to support your next report, campaign, or presentation with world-class infographic design.</p>
-        <p>Contact Pretoria’s leading infographic design specialists for a free consultation and see how we can help you communicate visually.</p>
+        <p>Talk to us about your infographic for a free consultation and see how we can help you communicate visually.</p>
       </section>
     </div>
   );

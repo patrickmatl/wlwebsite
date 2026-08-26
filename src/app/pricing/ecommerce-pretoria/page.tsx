@@ -303,25 +303,6 @@ const EcommercePage = () => {
         </p>
       </div>
 
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Professional E-Commerce Website Design in Pretoria</h2>
-        <p>WL CreationX builds high-converting ecommerce websites for Pretoria businesses, using modern platforms and best practices for SEO, security, and sales. Our team specializes in designing custom online stores that are tailored to your brand and target audience in Pretoria, ensuring your business stands out in a competitive digital marketplace.</p>
-        <p>With a deep understanding of the Pretoria business landscape, we create ecommerce solutions that drive sales, streamline operations, and provide a seamless user experience across all devices. From initial strategy to launch and beyond, we support Pretoria businesses every step of the way.</p>
-        <h3>E-commerce development for Pretoria businesses</h3>
-        <p>Our Pretoria team specializes in ecommerce solutions, including WooCommerce, Shopify, and custom platforms. We help Pretoria retailers, wholesalers, and entrepreneurs launch and grow successful online stores by leveraging the latest technologies and proven digital marketing strategies.</p>
-        <p>As a leading ecommerce agency in Pretoria, we offer comprehensive services—from UX/UI design and payment integration to inventory management and analytics—ensuring your ecommerce business is equipped for long-term success and scalability.</p>
-        <h4>Custom Online Store Features for Pretoria Businesses</h4>
-        <p>Enjoy advanced features such as secure payment gateways, real-time inventory tracking, detailed analytics, mobile optimization, and local delivery options tailored for Pretoria customers. Our Pretoria ecommerce experts deliver scalable, future-proof solutions that adapt as your business grows.</p>
-        <p>We also provide custom functionality, including loyalty programs, automated marketing, and integration with third-party tools, giving Pretoria businesses the flexibility to innovate and expand their online presence.</p>
-        <h3>Affordable E-Commerce Packages & Pricing in Pretoria</h3>
-        <p>Choose from affordable ecommerce packages for Pretoria startups, SMEs, and established brands. Our transparent pricing structure and flexible options make it easy for businesses of any size to launch or upgrade their online store without breaking the bank.</p>
-        <p>Every package includes consultation, design, development, testing, and support, so Pretoria businesses receive a comprehensive solution that fits their goals and budget. We are committed to delivering exceptional value and measurable results.</p>
-        <h3>Why Choose WL CreationX for E-Commerce in Pretoria?</h3>
-        <p>Local expertise, fast support, and proven results. WL CreationX is Pretoria’s trusted ecommerce partner for businesses that want to sell more online. Our track record of successful projects and satisfied clients speaks for itself.</p>
-        <p>We prioritize open communication, ongoing support, and continuous improvement, helping Pretoria businesses achieve lasting growth and a strong digital presence in the ecommerce space.</p>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about E-Commerce Website Design in Pretoria</h3>
         <div><h4>How much does an ecommerce website cost in Pretoria?</h4><p>Ecommerce website packages at WL CreationX start from R19,780 for a basic store and go up to R27,980+ for advanced features. Pricing depends on the number of products, integrations, and customizations. All packages include mobile optimization and SEO best practices.</p><p>We provide detailed, transparent quotes for Pretoria businesses, ensuring you understand exactly what’s included. Our team works with you to select the right package for your needs and budget, with no hidden fees or surprises.</p></div>

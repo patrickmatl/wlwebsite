@@ -535,25 +535,6 @@ const SocialMediaPage = () => {
         </p>
       </div>
 
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Pretoria Social Media Services</h2>
-        <p>WL CreationX delivers expert social media services in Pretoria, empowering businesses to build strong online communities and drive engagement across all major platforms. Our Pretoria social media team crafts tailored strategies that amplify your brand voice and increase your digital reach.</p>
-        <p>From profile setup to ongoing content creation, we help Pretoria businesses stand out with creative, consistent, and impactful social media campaigns.</p>
-        <h3>Social media design in Pretoria</h3>
-        <p>As a top social media agency in Pretoria, we combine data-driven insights with creative storytelling to grow your audience and foster brand loyalty. Our Pretoria specialists stay ahead of trends, ensuring your social presence is fresh, relevant, and effective.</p>
-        <p>We provide end-to-end social media management, from strategy and design to analytics and optimization, for businesses of all sizes in Pretoria.</p>
-        <h4>Custom Social Media Solutions for Pretoria Businesses</h4>
-        <p>Our Pretoria social media packages are designed for startups, SMEs, and large enterprises, offering everything from post and story templates to full monthly management. We tailor every campaign to your goals and target audience.</p>
-        <p>Whether you need brand awareness, lead generation, or community engagement, our Pretoria team delivers measurable results on platforms like Facebook, Instagram, LinkedIn, and more.</p>
-        <h3>Affordable Social Media Packages in Pretoria</h3>
-        <p>Choose from a range of social media packages with transparent pricing and no hidden costs. Our Pretoria clients benefit from flexible options, monthly reports, and ongoing support for continuous growth.</p>
-        <p>We make professional social media management accessible to all Pretoria businesses, regardless of size or industry.</p>
-        <h3>Why Choose WL CreationX for Social Media in Pretoria?</h3>
-        <p>WL CreationX is trusted by Pretoria businesses for our creative approach, technical expertise, and dedication to client success. Our social media team has a proven record of increasing engagement, followers, and brand awareness.</p>
-        <p>We focus on authentic storytelling, ethical growth, and transparent communication with all our Pretoria clients.</p>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Social Media in Pretoria</h3>
         <div><h4>Which social media platforms do you manage?</h4><p>We manage Facebook, Instagram, LinkedIn, Twitter, and more for Pretoria businesses, ensuring consistent branding and engagement across all channels.</p><p>Our team stays updated on the latest platform features and trends to maximize your results.</p></div>

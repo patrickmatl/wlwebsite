@@ -314,20 +314,6 @@ const CustomDevelopmentPage = () => {
         </p>
       </div>
 
-      {/* Previously hidden off-screen; now visible to every visitor */}
-      <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h2>Custom Software Development in Pretoria</h2>
-        <p>WL CreationX offers bespoke software and web application development for Pretoria businesses. We turn your ideas into secure, scalable, and high-performance digital solutions.</p>
-        <h3>Custom development for Pretoria businesses</h3>
-        <p>Our Pretoria-based team specializes in web apps, enterprise systems, APIs, and integrations. We help Pretoria companies innovate and grow with tailored technology.</p>
-        <h4>Web & Mobile App Development for Pretoria Businesses</h4>
-        <p>From MVPs to complex platforms, we deliver custom solutions using React, Node.js, AWS, and more. Pretoria clients trust us for quality, speed, and support.</p>
-        <h3>Affordable Custom Development Packages in Pretoria</h3>
-        <p>Choose from flexible packages for startups, SMEs, and enterprises. Transparent pricing and expert guidance for Pretoria businesses of all sizes.</p>
-        <h3>Why Choose WL CreationX for Custom Development in Pretoria?</h3>
-        <p>Local expertise, agile process, and proven results. WL CreationX is Pretoria’s trusted partner for custom software and app development.</p>
-      </section>
-      {/* Previously hidden off-screen; now visible to every visitor */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Custom Development in Pretoria</h3>
         <div><h4>What is custom software development?</h4><p>Custom software development is the process of designing, building, and deploying solutions tailored to your Pretoria business’s unique needs, workflows, and goals.</p></div>

@@ -10,10 +10,12 @@ const CustomCursor = dynamic(() => import('./CustomCursor'), {
   loading: () => null,
 });
 
-const Navigation = dynamic(() => import('./Navigation'), {
-  ssr: false,
-  loading: () => null,
-});
+// Server-rendered on purpose. With ssr:false the site navigation existed only
+// after hydration, so Googlebot's HTML pass — and every AI crawler that does
+// not run JavaScript — saw no site structure at all on any of the 69 indexed
+// pages. The component reads no browser API during render; its only effect is
+// a route-change menu close.
+const Navigation = dynamic(() => import('./Navigation'));
 
 interface ClientRootWrapperProps {
   children: React.ReactNode;
@@ -70,7 +72,7 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
   return (
     <AudioPlaybackProvider>
       {hasFinePointer && !prefersReducedMotion && mounted && <CustomCursor />}
-      {mounted && <Navigation />}
+      <Navigation />
       {children}
       {/* Visible on every page, homepage included. Previously the homepage got
           only the `hidden` copy in layout.tsx, i.e. links for crawlers only. */}
