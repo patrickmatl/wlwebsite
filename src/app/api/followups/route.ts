@@ -9,27 +9,72 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 /**
- * Chase quotes that have gone quiet.
+ * Chase quotes that have gone quiet — without becoming the studio that pesters.
  *
  * A quote sent and never answered is the most common way a lead dies, so a
- * daily cPanel cron calls this. It finds conversations where we spoke last,
- * nothing has come back for a few days, and we haven't already nudged twice,
- * then drafts a short follow-up and hands it to the autopilot like any other
- * reply.
- *
- * Two nudges is the cap. Past that it is pestering, and the thread is closed
- * as lost so it stops appearing in the queue.
+ * daily cPanel cron calls this. Anything the client says resets the sequence
+ * completely, and a won or lost lead is never chased at all.
  */
 
-const QUIET_DAYS = Number(process.env.FOLLOWUP_AFTER_DAYS ?? 3);
-const MAX_FOLLOW_UPS = Number(process.env.FOLLOWUP_MAX ?? 2);
+/**
+ * Two touches, widening, then stop.
+ *
+ * SCHEDULE[n] is how many quiet days must pass before follow-up n+1 goes out,
+ * counted from the last thing either side said. So '3,7' means the first nudge
+ * three days after the quote, and the second a further seven days after that —
+ * about a fortnight end to end. The gap widens deliberately: two nudges three
+ * days apart reads as chasing, the same two spread over two weeks reads as
+ * diligent.
+ *
+ * Each touch does a different job, which is the difference between a sequence
+ * that converts and one that annoys:
+ *   1. Helpful  — assume the quote raised a question, and offer to answer it.
+ *   2. Close-out — say we are closing the file. It is the highest-responding
+ *      message in the sequence precisely because it asks for nothing and gives
+ *      the client an easy, face-saving exit.
+ *
+ * There is no third. No discounts, no deadlines, no "just bumping this".
+ */
+const SCHEDULE = (process.env.FOLLOWUP_DAYS ?? '3,7')
+  .split(',')
+  .map((d) => Number(d.trim()))
+  .filter((d) => Number.isFinite(d) && d > 0);
+
+const MAX_FOLLOW_UPS = SCHEDULE.length;
 const MAX_PER_RUN = 10;
+
+/** What this particular touch should try to do. */
+function briefFor(touch: number, quietDays: number): string {
+  const isFinal = touch >= MAX_FOLLOW_UPS;
+
+  if (isFinal) {
+    return (
+      `[Instruction, not part of the conversation] The client has not replied for ${quietDays} days, ` +
+      `and this is the last message we will send. Write a short, gracious close-out: say we are closing ` +
+      `the file for now so it stops sitting in their inbox, that there is no obligation either way, and ` +
+      `that they are welcome to reply whenever the timing is better and we will pick it straight up. ` +
+      `Warm and completely pressure-free. Do not ask a question, do not offer a discount, do not mention ` +
+      `prices, and do not suggest they have done anything wrong by not replying. Use action "ask".`
+    );
+  }
+
+  return (
+    `[Instruction, not part of the conversation] The client has not replied for ${quietDays} days. ` +
+    `This is follow-up ${touch} of ${MAX_FOLLOW_UPS}. Write two or three sentences that assume the quote ` +
+    `raised a question rather than that they are ignoring us: offer to walk through it, adjust the scope, ` +
+    `or split the work into phases if the budget is the sticking point. No pressure, no deadline, no ` +
+    `discount, no new prices, and never the words "just checking in" or "touching base". Use action "ask".`
+  );
+}
 
 export async function GET(request: Request) {
   const auth = authoriseCron(request);
   if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
-  const cutoff = new Date(Date.now() - QUIET_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  // Widest possible net: anything quiet for the shortest gap in the schedule.
+  // Each thread is then checked against the gap its own next touch requires.
+  const soonest = Math.min(...SCHEDULE);
+  const cutoff = new Date(Date.now() - soonest * 24 * 60 * 60 * 1000).toISOString();
 
   const { data: threads, error } = await db()
     .from('quote_threads')
@@ -48,6 +93,9 @@ export async function GET(request: Request) {
 
   for (const thread of threads ?? []) {
     const sentSoFar = thread.follow_ups_sent ?? 0;
+    const quietDays = Math.floor(
+      (Date.now() - Date.parse(thread.updated_at)) / (24 * 60 * 60 * 1000),
+    );
 
     const { data: lead } = await db()
       .from('leads')
@@ -59,6 +107,13 @@ export async function GET(request: Request) {
     if (!lead || lead.status === 'won' || lead.status === 'lost' || lead.status === 'spam') {
       await db().from('quote_threads').update({ state: 'closed' }).eq('id', thread.id);
       results.push({ thread: thread.id, outcome: 'closed: not an open lead' });
+      continue;
+    }
+
+    // Not yet due for its next touch — the gap widens as the sequence goes on.
+    const required = SCHEDULE[sentSoFar];
+    if (required !== undefined && quietDays < required) {
+      results.push({ thread: thread.id, outcome: `not due (${quietDays}/${required} days)` });
       continue;
     }
 
@@ -80,14 +135,7 @@ export async function GET(request: Request) {
         .filter((m) => m.role === 'client' || (m.role === 'studio' && m.sent_at))
         .map((m) => ({ role: m.role === 'client' ? 'client' : 'studio', text: m.body }));
 
-      history.push({
-        role: 'studio',
-        text:
-          `[Instruction, not part of the conversation] The client has not replied for ${QUIET_DAYS} days. ` +
-          `This is follow-up ${sentSoFar + 1} of ${MAX_FOLLOW_UPS}. Write a short, warm nudge — two or three ` +
-          `sentences, no pressure, no discount, no new prices. Offer to adjust the scope or talk it through. ` +
-          `Use action "ask".`,
-      });
+      history.push({ role: 'studio', text: briefFor(sentSoFar + 1, quietDays) });
 
       const draft = await draftReply({
         enquiry: {
@@ -126,7 +174,10 @@ export async function GET(request: Request) {
         threadId: thread.id,
         draft,
         leadName: lead.name,
-        summary: `No reply for ${QUIET_DAYS} days — follow-up ${sentSoFar + 1}.`,
+        summary:
+          sentSoFar + 1 >= MAX_FOLLOW_UPS
+            ? `No reply for ${quietDays} days — final close-out message.`
+            : `No reply for ${quietDays} days — follow-up ${sentSoFar + 1} of ${MAX_FOLLOW_UPS}.`,
       });
 
       // Count it only once it has actually gone; a draft still sitting in the
