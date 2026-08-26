@@ -13,7 +13,9 @@ When they reply, the loop repeats until the scope is clear enough to quote.
 | Piece | Where | What it does |
 |---|---|---|
 | `POST /api/leads` | server | Website form → saves lead → asks Gemini for a draft → notifies you |
-| `GET /api/inbound/poll` | server | Cron reads the `quotes@` mailbox over IMAP → new draft → notifies you |
+| `GET /api/inbound/poll` | server | Cron reads the `quotes@` mailbox over IMAP → new draft → sends or queues it |
+| `GET /api/followups` | server | Daily cron: chases quotes that have gone quiet, twice, then stops |
+| `src/lib/server/autosend.ts` | — | **The only place that decides whether an email sends itself.** |
 | `POST /api/inbound` | server | Same, but pushed by Resend's webhook (only if you use Resend) |
 | `/studio` | browser | Your approval queue: read, edit, approve, redraft, discard |
 | `POST /api/studio` | server | Login, approve/send, reject, redraft, close, push subscribe |
@@ -103,6 +105,9 @@ Keep both values for the next step.
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **service_role** (secret!) |
 | `GEMINI_API_KEY` | from step 2 |
 | `GEMINI_MODEL` | optional — defaults to `gemini-3.7-flash` |
+| `QUOTE_AUTOPILOT` | `off` / `safe` (default) / `all` — see **Autopilot** below |
+| `QUOTE_AUTOPILOT_MAX` | optional rand ceiling; quotes above it always wait for you |
+| `FOLLOWUP_DAYS` | `3,7` — quiet days before each follow-up |
 | `SMTP_HOST` | `c5.my-control-panel.com` |
 | `SMTP_PORT` | `465` |
 | `SMTP_USER` | `quotes@wlcreationx.co.za` |
@@ -189,3 +194,50 @@ emails all read from that one file, so they can never disagree.
 - **No push** — re-run **Enable notifications**; on iPhone it must be the
   home-screen app, not Safari.
 - Vercel → your project → **Logs** shows every API error.
+
+---
+
+## Every way an enquiry can arrive
+
+| What happens | What the system does |
+|---|---|
+| Someone fills in the website form | Lead saved, acknowledgement emailed within seconds, agent drafts the real reply |
+| Someone emails the studio directly | `info@` is copied to `quotes@`, the poll reads it, and a lead is created as if they had used the form |
+| The enquiry is vague | Agent asks up to three clarifying questions instead of guessing |
+| The enquiry is clear | Agent quotes from `pricing.ts` — the totals are computed in code, never by the model |
+| The client replies | Matched by the `[WLX-XXXXX]` reference in the subject, agent answers in context |
+| The client says "go ahead" | Confirmation sent setting out the 50% deposit, lead marked **won** |
+| The client goes quiet | Nudged on day 3, closed out 7 days later, then left alone and marked lost |
+| A newsletter or sales pitch arrives | Classified as spam, dropped silently — no lead, no notification |
+| A CV, complaint or invoice dispute arrives | Held for you, never auto-answered |
+| The agent isn't sure | Flags itself low-confidence, which holds the draft in `/studio` regardless of the autopilot setting |
+
+## Autopilot
+
+`QUOTE_AUTOPILOT` decides how much goes out without you.
+
+- **`safe`** (default) — everything sends except drafts the agent flagged low-confidence.
+- **`off`** — nothing sends itself. Every draft waits in `/studio`.
+- **`all`** — sends regardless of confidence.
+
+Two things are never auto-sent at any setting: spam (nothing to say) and
+handovers (a person is needed). `QUOTE_AUTOPILOT_MAX` adds a rand ceiling, so
+you can let small jobs run themselves while big quotes still get your eyes.
+
+The prices themselves are computed in code from `pricing.ts`, so an automatic
+quote can never contain a number nobody approved. What the agent chooses is
+*which* line items apply — that is what confidence is measuring.
+
+## Follow-ups
+
+Two touches, and they widen: a nudge three days after the quote, then a
+close-out a week after that. The first assumes the quote raised a question and
+offers to walk through it or phase the work. The second says we are closing the
+file — which responds best precisely because it asks for nothing.
+
+There is no third. The agent is barred from discounts, deadlines and the phrase
+"just checking in". Anything the client says resets the sequence to zero, and
+won or lost leads are never chased.
+
+Change the rhythm with `FOLLOWUP_DAYS`. Setting it to a single number gives you
+one touch; adding a third would give three, but two is the deliberate choice.
