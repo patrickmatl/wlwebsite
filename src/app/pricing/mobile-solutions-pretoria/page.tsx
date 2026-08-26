@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import RelatedServices from '@/components/RelatedServices';
 import GetInTouchButton from '@/components/GetInTouchButton';
 import { serviceFAQs } from '@/data/serviceFAQs';
+import GetStartedButton from '@/components/GetStartedButton';
 
 const MobileSolutionsPage = () => {
   const packages = [
@@ -198,9 +199,11 @@ const MobileSolutionsPage = () => {
                   ))}
                 </ul>
               </div>
-              <button className="w-full py-3 px-4 bg-[#FFD700] text-black font-semibold rounded hover:bg-[#FFE44D] transition-colors">
-                Get Started
-              </button>
+              <GetStartedButton
+                packageName={pkg.name}
+                packagePrice={pkg.price}
+                service="Mobile solutions"
+              />
             </motion.div>
           ))}
         </div>
