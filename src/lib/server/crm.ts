@@ -1,4 +1,5 @@
 import { findPriceItem } from '@/data/pricing';
+import { QUOTE_TERMS } from '@/data/terms';
 import { db } from './db';
 import {
   computeTotals,
@@ -1171,7 +1172,10 @@ export async function createQuote(input: CreateQuoteInput, actor = 'studio'): Pr
         vat_amount: totals.vatAmount,
         total: totals.total,
         intro: input.intro?.trim() || null,
-        terms: input.terms?.trim() || null,
+        // Every quote carries the standard terms unless the caller supplies
+        // its own. They must stay visible on the PDF to be enforceable —
+        // see the comment in src/data/terms.ts before changing this.
+        terms: input.terms?.trim() || QUOTE_TERMS,
         valid_until:
           input.validUntil ?? addDaysISO(todayISO(), num(settings.quote_validity_days, 30)),
       })

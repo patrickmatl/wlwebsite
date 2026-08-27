@@ -17,6 +17,7 @@ export const BUSINESS = {
   logo: 'https://wlcreationx.co.za/images/brand/logo-512.png',
   ogImage: 'https://wlcreationx.co.za/images/og-image.jpg',
   email: 'info@wlcreationx.co.za',
+  careersEmail: 'careers@wlcreationx.co.za',
 
   // Phone — matches the verified Google Business Profile, Facebook and
   // Bizcommunity listings. Confirmed 2026-08-25 against GBP.
@@ -78,6 +79,15 @@ export const BUSINESS = {
     'Gauteng',
   ],
 } as const;
+
+/** "Mon–Fri 08:00–17:00, Sat 08:00–15:00" — derived so the hours live once. */
+export const OPENING_HOURS_TEXT = BUSINESS.openingHours
+  .map((h) => {
+    const first = h.days[0].slice(0, 3);
+    const last = h.days[h.days.length - 1]!.slice(0, 3);
+    return `${h.days.length > 1 ? `${first}–${last}` : first} ${h.opens}–${h.closes}`;
+  })
+  .join(', ');
 
 /** "Park Lane West Building, 194 Bancor Ave, Waterkloof Glen, Pretoria, 0181" */
 export const FULL_ADDRESS = `${BUSINESS.address.building}, ${BUSINESS.address.street}, ${BUSINESS.address.suburb}, ${BUSINESS.address.city}, ${BUSINESS.address.postalCode}`;

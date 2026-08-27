@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { db } from './db';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
 import { STANDARD_INCLUSIONS } from '@/data/pricing';
+import { PROFORMA_TERMS } from '@/data/terms';
 import { formatRand } from '@/lib/crm/types';
 import type { Settings } from '@/lib/crm/types';
 
@@ -286,7 +287,10 @@ export async function invoiceDocument(
     currency: invoice.currency ?? 'ZAR',
     hasOnRequest: lines.some((l) => l.unitPrice === null),
     inclusions: [],
-    terms: null,
+    // The proforma is the payment moment, so the money terms (deposit,
+    // cancellation fee, ownership on final payment) are repeated here where
+    // the client acts on them. Plain invoices stay terms-free.
+    terms: kind === 'proforma' ? PROFORMA_TERMS : null,
     banking: bankingFor(settings, invoice.number),
     notes: invoice.notes ?? settings.invoice_notes,
     shareUrl: invoice.public_token ? `${baseUrl}/i/${invoice.public_token}` : null,

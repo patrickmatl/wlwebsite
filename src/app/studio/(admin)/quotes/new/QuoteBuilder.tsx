@@ -59,6 +59,8 @@ function unitHint(unit: PriceUnit | null): string {
       return 'images';
     case 'per-word':
       return 'words';
+    case 'per-hour':
+      return 'hours';
     default:
       return 'qty';
   }
