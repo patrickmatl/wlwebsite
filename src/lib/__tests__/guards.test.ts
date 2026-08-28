@@ -237,6 +237,37 @@ describe('price catalogue', () => {
   });
 });
 
+// The agent may only quote from this catalogue, so any /pricing page that sells
+// a service the catalogue does not carry is a service it cannot quote — the
+// client reads a price on the site and gets "that needs a scoping call". These
+// pages are the ones that advertise packages; each must be reachable from at
+// least one price item.
+describe('the catalogue covers what the site advertises', () => {
+  const SELLING_PAGES = [
+    'annual-report-design-and-print-pretoria', 'content-marketing-pretoria',
+    'copy-editing-services-pretoria-johannesburg', 'copywriting-services-pretoria-johannesburg',
+    'corporate-video-pretoria', 'custom-development-pretoria', 'drone-video-pretoria',
+    'ecommerce-pretoria', 'email-marketing-pretoria', 'google-ads-pretoria',
+    'graphic-design-pretoria', 'marketing-materials-pretoria', 'mobile-solutions-pretoria',
+    'packaging-design-pretoria', 'photography-pretoria', 'print-design-pretoria',
+    'product-photography-pretoria', 'seo-pretoria', 'social-media-pretoria',
+    'transcription-services-pretoria-johannesburg', 'website-design-pretoria',
+    'website-maintenance-pretoria',
+  ];
+
+  for (const page of SELLING_PAGES) {
+    test(`/pricing/${page} has at least one price item`, () => {
+      const url = `/pricing/${page}`;
+      const hits = ALL_ITEMS.filter((i) => i.url === url);
+      assert.ok(
+        hits.length > 0,
+        `nothing in the catalogue points at ${url}, so the agent cannot quote a service ` +
+          'the site sells. Add the published tiers as price items.',
+      );
+    });
+  }
+});
+
 describe('annual report tiers', () => {
   // Additional pages are R250 while the packages work out far higher per page,
   // so the cheap per-page line can rebuild a job the packages already cover.
