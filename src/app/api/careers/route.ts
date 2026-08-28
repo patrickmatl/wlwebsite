@@ -18,7 +18,7 @@ export const maxDuration = 30;
  * CV attached — and touches neither the CRM nor the agent.
  */
 
-const CAREERS_EMAIL = process.env.CAREERS_EMAIL || 'careers@wlcreationx.co.za';
+const CAREERS_EMAIL = process.env.CAREERS_EMAIL || BUSINESS.careersEmail;
 
 /** Matches the limit stated in the form. Anything larger is refused politely. */
 const MAX_CV_BYTES = 5 * 1024 * 1024;

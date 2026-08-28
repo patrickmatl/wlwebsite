@@ -1,3 +1,5 @@
+import { BUSINESS } from '@/data/business';
+
 // Define base types for Schema.org structures
 type WithContext = {
   '@context': 'https://schema.org';
@@ -46,16 +48,22 @@ export type RelatedService = {
   description: string;
 };
 
+/**
+ * Derived from business.ts, never retyped.
+ *
+ * This block used to carry its own copy of the name, url, logo and socials,
+ * and it had already drifted: the socials were missing their `www.` and — more
+ * costly — the Google Business Profile CID was absent altogether, so the
+ * homepage published a weaker set of entity signals than the rest of the site.
+ * Two sameAs lists for one business is exactly the inconsistency business.ts
+ * exists to prevent.
+ */
 const organization: Omit<SchemaOrganization, '@context'> = {
   '@type': 'Organization',
-  name: "WL CreationX",
-  url: "https://wlcreationx.co.za",
-  logo: "https://wlcreationx.co.za/images/brand/logo-512.png",
-  sameAs: [
-    "https://facebook.com/wlcreationx",
-    "https://instagram.com/wlcreationx",
-    "https://linkedin.com/company/wlcreationx"
-  ]
+  name: BUSINESS.name,
+  url: BUSINESS.url,
+  logo: BUSINESS.logo,
+  sameAs: [...BUSINESS.sameAs],
 };
 
 export const generateServiceSchema = (

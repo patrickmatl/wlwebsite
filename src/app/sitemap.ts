@@ -95,6 +95,29 @@ function blogSlugs(): string[] {
   }
 }
 
+/**
+ * A post's real publish date, for its sitemap `lastmod`.
+ *
+ * Every other URL here is stamped with the build time, which means each deploy
+ * tells Google that all seventy pages changed at once. Google discounts a
+ * `lastmod` that never varies per URL, so a post whose date it can verify
+ * against the visible byline is worth more than a fresh timestamp.
+ *
+ * Falls back to the build time on a missing or unparseable date: a slightly
+ * over-eager `lastmod` is a much smaller problem than a broken sitemap.
+ */
+function blogDate(slug: string, fallback: string): string {
+  try {
+    const file = path.join(process.cwd(), 'src/content/blog', `${slug}.mdx`);
+    const raw = fs.readFileSync(file, 'utf8').match(/^date:\s*['"]?([\d-]+)['"]?\s*$/m);
+    if (!raw) return fallback;
+    const parsed = new Date(raw[1]);
+    return Number.isNaN(parsed.getTime()) ? fallback : parsed.toISOString();
+  } catch {
+    return fallback;
+  }
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date().toISOString();
   const routes: MetadataRoute.Sitemap = [];
@@ -116,7 +139,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const slug of blogSlugs()) {
     routes.push({
       url: `${BASE_URL}/creative-industry-blog-pretoria/${slug}`,
-      lastModified,
+      lastModified: blogDate(slug, lastModified),
       changeFrequency: 'monthly',
       priority: 0.6,
     });

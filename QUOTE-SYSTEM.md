@@ -104,7 +104,7 @@ Keep both values for the next step.
 | `SUPABASE_URL` | `https://lknoyvycrbfcbvumozew.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **service_role** (secret!) |
 | `GEMINI_API_KEY` | from step 2 |
-| `GEMINI_MODEL` | optional — defaults to `gemini-3.7-flash` |
+| `GEMINI_MODEL` | optional — defaults to `gemini-3.5-flash` (not `3.7`, which 429s on this key) |
 | `QUOTE_AUTOPILOT` | `off` / `safe` (default) / `all` — see **Autopilot** below |
 | `QUOTE_AUTOPILOT_MAX` | optional rand ceiling; quotes above it always wait for you |
 | `FOLLOWUP_DAYS` | `3,7` — quiet days before each follow-up |

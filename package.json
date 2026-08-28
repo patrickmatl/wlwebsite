@@ -14,7 +14,8 @@
     "clean": "rimraf .next && rimraf node_modules/.cache",
     "signature": "tsx scripts/build-signature.ts",
     "test:quote-email": "tsx scripts/send-test-quote.ts",
-    "preview:docs": "tsx scripts/preview-document.tsx"
+    "preview:docs": "tsx scripts/preview-document.tsx",
+    "test": "tsx --test src/lib/__tests__/*.test.ts"
   },
   "dependencies": {
     "@google/genai": "^2.18.0",

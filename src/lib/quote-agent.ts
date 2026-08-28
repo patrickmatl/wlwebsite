@@ -189,6 +189,61 @@ const RESPONSE_SCHEMA = {
   ],
 } as const;
 
+/**
+ * A CV is the one attachment this system must NOT open.
+ *
+ * The studio's answer to a job application is a fixed three-sentence redirect to
+ * the careers address — the agent is told not to evaluate the person and not to
+ * comment on their work. Uploading their CV to a third-party model to produce
+ * that reply buys nothing and costs something real: a CV carries a named
+ * person's ID number, address and employment history, and the applicant never
+ * agreed to it being processed that way. Under POPIA that is personal
+ * information handled with no purpose behind it.
+ *
+ * So the gate is deliberately asymmetric. A missed CV wastes tokens and reads
+ * someone's private data; a false positive on a real brief only costs one email,
+ * because the note handed to the model tells it to ask for a resend — the same
+ * recovery path an unreadable file already uses. That makes over-matching the
+ * cheaper mistake, but only just, so the patterns below stay strict: filenames
+ * that plainly say CV, and phrases that essentially only occur in job
+ * applications. Bare words like "position" or "apply" are excluded on purpose —
+ * a client writes "apply our branding" and "the logo position" all the time.
+ */
+const CV_FILENAME = /(?:^|[\s_-])(cv|resumes?|resum(?:é|e)s?|curriculum[\s_-]*vitae)(?:[\s_.-]|$)/i;
+
+const JOB_APPLICATION_PHRASE = new RegExp(
+  [
+    'my (?:cv|resume|curriculum vitae)',
+    'curriculum vitae',
+    'job application',
+    'applying for (?:a|the|your|this)',
+    'apply for (?:a|the|your|this) (?:job|position|role|vacancy|post)',
+    // Context-bound on purpose: "vacancy signage" and "our internship
+    // programme branding" are both real design jobs.
+    '(?:any|your|available) vacanc(?:y|ies)',
+    '(?:seeking|applying for|apply for|about an?|for an?|any) internship',
+    'seeking employment',
+    'employment opportunit',
+    'looking for (?:a )?(?:job|work|employment)',
+    'attach(?:ed|ing) (?:my|is my) (?:cv|resume)',
+  ].join('|'),
+  'i',
+);
+
+/**
+ * True when a message reads as somebody applying for work rather than asking for
+ * design work. Attachments are then left unopened — see CV_FILENAME above.
+ */
+export function looksLikeJobApplication(
+  text: string,
+  filenames: readonly string[] = [],
+): boolean {
+  return (
+    filenames.some((n) => CV_FILENAME.test(n || '')) ||
+    JOB_APPLICATION_PHRASE.test(text || '')
+  );
+}
+
 /** A prompt part: either text, or a whole file handed to the model. */
 export type AgentPart = { text: string } | { inlineData: { mimeType: string; data: string } };
 
@@ -700,7 +755,17 @@ export async function draftReply(params: {
   const INLINE_BUDGET_BYTES = 12 * 1024 * 1024;
   let inlineSpent = 0;
 
-  for (const f of params.files ?? []) {
+  const incomingFiles = params.files ?? [];
+
+  // Job applications: read the covering note, never the attachment.
+  const jobApplication =
+    incomingFiles.length > 0 &&
+    looksLikeJobApplication(
+      `${params.enquiry.details ?? ''}\n${(params.attachments ?? []).join(' ')}`,
+      incomingFiles.map((f) => f.filename),
+    );
+
+  for (const f of jobApplication ? [] : incomingFiles) {
     const doc = extractDocument(f.filename, f.mimeType, f.content);
 
     // Older Office formats (.doc), OpenDocument, Pages, and anything oversized
@@ -741,7 +806,19 @@ export async function draftReply(params: {
     }
   }
 
-  if (extractedNotes.length) {
+  if (jobApplication) {
+    documentParts.unshift({
+      text:
+        `${incomingFiles.length} file(s) came with this message and were deliberately NOT ` +
+        `opened, because it reads as a job application: ` +
+        `${incomingFiles.map((f) => f.filename).join(', ')}.\n\n` +
+        `Do not pretend to have read them and do not comment on their contents. Follow the ` +
+        `job-application rule: thank them briefly and redirect them to the careers address.\n\n` +
+        `If this is in fact a client asking for design work and not someone looking for a ` +
+        `job, say plainly that you could not open the attachment and ask them to resend it — ` +
+        `never quote from the covering message alone.`,
+    });
+  } else if (extractedNotes.length) {
     documentParts.unshift({
       text:
         `The client attached the following. Treat it as part of what they are asking for, ` +

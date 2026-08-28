@@ -12,7 +12,15 @@
  * the blog guides all follow.
  */
 
-export type PriceUnit = 'fixed' | 'from' | 'per-month' | 'per-page' | 'per-image' | 'per-word' | 'per-hour';
+export type PriceUnit =
+  | 'fixed'
+  | 'from'
+  | 'per-month'
+  | 'per-page'
+  | 'per-image'
+  | 'per-word'
+  | 'per-hour'
+  | 'per-minute';
 
 export type PriceItem = {
   /** Stable id — used by quotes so line items survive copy edits */
@@ -996,7 +1004,11 @@ export const PRICING: PriceCategory[] = [
         id: 'transcription',
         name: 'Transcription',
         amount: 25,
-        unit: 'fixed',
+        // Per minute of audio, as the note has always said. It was 'fixed',
+        // which rendered as a flat "R25" — so a sixty-minute interview quoted
+        // at R25 instead of R1,500. Silent underquoting, exactly the kind the
+        // agent is told to avoid.
+        unit: 'per-minute',
         includes: ['Typed transcript of clear audio', 'Speaker labels where needed'],
         url: '/pricing/transcription-services-pretoria-johannesburg',
         notes: 'Priced per minute of audio. Poor recordings are quoted separately',
@@ -1377,6 +1389,8 @@ export function formatPrice(item: Pick<PriceItem, 'amount' | 'unit'>): string {
       return `${CURRENCY_SYMBOL}${n} per word`;
     case 'per-hour':
       return `${CURRENCY_SYMBOL}${n} per hour`;
+    case 'per-minute':
+      return `${CURRENCY_SYMBOL}${n} per minute`;
     default:
       return `${CURRENCY_SYMBOL}${n}`;
   }

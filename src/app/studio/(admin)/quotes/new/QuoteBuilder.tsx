@@ -61,6 +61,8 @@ function unitHint(unit: PriceUnit | null): string {
       return 'words';
     case 'per-hour':
       return 'hours';
+    case 'per-minute':
+      return 'minutes';
     default:
       return 'qty';
   }
