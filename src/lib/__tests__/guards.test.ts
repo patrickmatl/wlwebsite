@@ -237,6 +237,38 @@ describe('price catalogue', () => {
   });
 });
 
+describe('annual report tiers', () => {
+  // Additional pages are R250 while the packages work out far higher per page,
+  // so the cheap per-page line can rebuild a job the packages already cover.
+  // The guard is the note on annual-report-page telling the agent not to; this
+  // test makes sure the note stays there if anyone edits the prices again.
+  test('the additional-page line warns against rebuilding a package', () => {
+    const page = findPriceItem('annual-report-page');
+    assert.ok(page, 'annual-report-page is missing');
+    assert.match(
+      page!.notes ?? '',
+      /ONLY for pages beyond the largest package/i,
+      'annual-report-page must keep its steering note — without it the agent can quote ' +
+        '24 pages plus extras instead of the larger package and undercut it',
+    );
+  });
+
+  test('rebuilding the 25-48 package from extras is cheaper — so the note is load-bearing', () => {
+    const base = findPriceItem('annual-report')!.amount!;
+    const large = findPriceItem('annual-report-large')!.amount!;
+    const perPage = findPriceItem('annual-report-page')!.amount!;
+    const rebuilt = base + perPage * 24; // 24pp package + 24 more pages = 48pp
+    // Documenting the hazard rather than asserting it away: if a future price
+    // change makes the rebuild MORE expensive, the note stops being critical
+    // and this test should be revisited rather than deleted.
+    assert.ok(
+      rebuilt < large,
+      `rebuild (R${rebuilt}) is no longer cheaper than the package (R${large}) — ` +
+        'the arbitrage is gone, revisit the note on annual-report-page',
+    );
+  });
+});
+
 describe('printSellPrice', () => {
   test('small runs take the minimum handling fee, not the percentage', () => {
     assert.equal(printSellPrice(400), 400 + PRINT_MIN_HANDLING);

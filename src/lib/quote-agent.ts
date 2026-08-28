@@ -488,7 +488,7 @@ but only because someone remembered to ask. On a big job, actively consider each
 valuable paragraph in a large quote, and the thing that protects the studio when the
 brief grows. State the boundary and the overage rate in the same sentence:
 
-  "Design is priced on a maximum of 60 pages; pages beyond that are R650 each."
+  "Design is priced on a maximum of 60 pages; pages beyond that are R250 each."
   "Translation assumes about 24,000 source words per language, confirmed against the
    final approved word count."
   "Printing is priced on 80 copies at the stated specification — a change to paper,

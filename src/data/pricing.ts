@@ -583,10 +583,16 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'annual-report-page',
         name: 'Additional report page',
-        amount: 650,
+        amount: 250,
         unit: 'per-page',
         includes: ['Layout and typesetting of one further page'],
         url: '/pricing/annual-report-design-and-print-pretoria',
+        // At R250 a page this is cheaper per page than either package, so it
+        // must never be used to rebuild a report the packages already cover:
+        // 24 pages + 24 of these is R24,500 against R32,000 for the 25-48
+        // package, and quoting the first would undercut the second by R7,500.
+        notes:
+          'ONLY for pages beyond the largest package. A report of 25-48 pages is annual-report-large, NOT annual-report plus these. Use this for pages above 48, or above 24 when the client has declined the larger package',
       },
       {
         id: 'integrated-report',
@@ -784,7 +790,7 @@ export const PRICING: PriceCategory[] = [
           'Editable working files',
         ],
         url: '/pricing/content-marketing-pretoria',
-        notes: 'Additional pages at R650 per page',
+        notes: 'Additional pages at R250 per page',
       },
     ],
   },
@@ -996,7 +1002,7 @@ export const PRICING: PriceCategory[] = [
       {
         id: 'copy-editing',
         name: 'Copy editing and proofreading',
-        amount: 450,
+        amount: 250,
         unit: 'per-page',
         includes: ['Grammar, consistency and tone edit of copy you already have'],
         url: '/pricing/copy-editing-services-pretoria-johannesburg',
