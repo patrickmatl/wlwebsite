@@ -20,7 +20,8 @@ export type PriceUnit =
   | 'per-image'
   | 'per-word'
   | 'per-hour'
-  | 'per-minute';
+  | 'per-minute'
+  | 'per-unit';
 
 export type PriceItem = {
   /** Stable id — used by quotes so line items survive copy edits */
@@ -1108,6 +1109,103 @@ export const PRICING: PriceCategory[] = [
         url: '/pricing/ecommerce-pretoria',
         notes: 'Quoted after a scoping call — depends on product count and integrations',
       },
+      {
+        id: 'mobile-first-site',
+        name: 'Mobile-first website',
+        amount: 16780,
+        unit: 'fixed',
+        includes: [
+          'Designed for phone screens first, then scaled up',
+          'Up to 5 pages',
+          'Fast-loading, touch-friendly layouts',
+          'Contact form and click-to-call',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+      },
+      {
+        id: 'pwa',
+        name: 'Progressive web app (PWA)',
+        amount: 23890,
+        unit: 'fixed',
+        includes: [
+          'Installs to the home screen like an app',
+          'Works offline for content already loaded',
+          'Push notification support',
+          'No app-store submission needed',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+      },
+      {
+        id: 'mobile-custom',
+        name: 'Custom mobile solution',
+        amount: 32980,
+        unit: 'fixed',
+        includes: [
+          'Custom mobile-web build around your workflow',
+          'Integration with your existing systems',
+          'Admin area to manage content',
+          'Training on handover',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+      },
+      {
+        id: 'app-discovery',
+        name: 'App discovery and specification',
+        amount: 25000,
+        unit: 'fixed',
+        includes: [
+          'Structured sessions to pin down what the app must actually do',
+          'Feature list and user flows documented',
+          'Screen-by-screen wireframes',
+          'A written specification a developer can build and quote from',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+        notes: 'The paid first step on any native app. Quote this BEFORE any build price - a build number given without it is a guess',
+      },
+      {
+        id: 'app-native-mvp',
+        name: 'Native mobile app - MVP build (iOS and Android)',
+        amount: 185000,
+        unit: 'from',
+        includes: [
+          'Cross-platform build running on iOS and Android',
+          'The core feature set agreed at discovery',
+          'App interface designed and built',
+          'Submitted to the Apple and Google stores',
+          'Source code handed over',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+        notes: 'FROM price only, and only after discovery. Scope drives this number more than anything else - never quote an app from an email alone',
+      },
+      {
+        id: 'app-native-full',
+        name: 'Native mobile app with backend and user accounts',
+        amount: 320000,
+        unit: 'from',
+        includes: [
+          'Everything in the MVP build',
+          'User registration, login and profiles',
+          'Server, database and an admin dashboard',
+          'Third-party integrations such as payments, maps or messaging',
+          'Store submission and source code handed over',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+        notes: 'FROM price only, and only after discovery',
+      },
+      {
+        id: 'app-enterprise',
+        name: 'Enterprise mobile application',
+        amount: null,
+        unit: 'from',
+        includes: [
+          'Scoped against your existing systems and security requirements',
+          'Integration with enterprise software already in place',
+          'Role-based access and audit trails',
+          'Support arrangement agreed separately',
+        ],
+        url: '/pricing/mobile-solutions-pretoria',
+        notes: 'Always scoped on a call. Never put a number on this',
+      },
       // Maintenance was published on its own page and absent from this file
       // entirely, so the agent could not quote the studio's only recurring
       // product even when a client asked for it by name.
@@ -1345,6 +1443,153 @@ export const PRICING: PriceCategory[] = [
     ],
   },
   {
+    id: 'translation',
+    name: 'Translation & Localisation',
+    blurb:
+      'Professional translation and the layout work that has to follow it, for publications that ship in more than one language.',
+    items: [
+      {
+        id: 'translation-word',
+        name: 'Professional translation',
+        amount: 2.5,
+        unit: 'per-word',
+        includes: [
+          'Translated by a professional translator working into their own language',
+          'Suited to corporate, governance and technical publication content',
+          'Terminology kept consistent across the whole document',
+          'Delivered as editable text, ready for layout',
+        ],
+        url: '/pricing/copywriting-services-pretoria-johannesburg',
+        notes: 'Per SOURCE word - ask for the English word count before quoting. Laying the translation out is quoted separately under typesetting-translated',
+      },
+      {
+        id: 'typesetting-translated',
+        name: 'Translated edition typesetting',
+        amount: 175,
+        unit: 'per-page',
+        includes: [
+          'Approved translation flowed into the existing design',
+          'Text reflow, spacing and hyphenation corrected for the language',
+          'Tables, captions and charts adjusted to fit',
+          'Page balancing and a final layout check',
+        ],
+        url: '/pricing/print-design-pretoria',
+        notes: 'Per page, per language. Translated text usually runs longer than the English, so allow more pages than the source',
+      },
+    ],
+  },
+  {
+    id: 'production',
+    name: 'Production, Print Management & Delivery',
+    blurb:
+      'The lines a large job needs and a small one does not: concept routes, coordination, prepress, branded media and getting the finished work to the door.',
+    items: [
+      {
+        id: 'concept-development',
+        name: 'Creative concept development',
+        amount: 10000,
+        unit: 'from',
+        includes: [
+          'Several genuinely different design routes, not variations of one',
+          'Cover direction, typography and colour system for each route',
+          'Page architecture shown in context',
+          'Presented for selection before production starts',
+        ],
+        url: '/pricing/graphic-design-pretoria',
+        notes: 'For publications and campaigns where the client picks between directions. From price covers five routes',
+      },
+      {
+        id: 'project-management',
+        name: 'Project management and consultation',
+        amount: 10000,
+        unit: 'from',
+        includes: [
+          'One point of contact for the whole project',
+          'Review rounds scheduled and feedback consolidated',
+          'Translators, printers and suppliers coordinated',
+          'Approvals tracked and production overseen through to delivery',
+        ],
+        url: '/pricing/graphic-design-pretoria',
+        notes: 'Quote this on any job with outside suppliers or more than two review rounds. The time is real and is otherwise absorbed unpaid',
+      },
+      {
+        id: 'prepress',
+        name: 'Prepress and print preparation',
+        amount: 4000,
+        unit: 'from',
+        includes: [
+          'Print-ready PDFs with bleed and crop marks',
+          'Image resolution, colour space and font checks',
+          'Final artwork check before release to the printer',
+          'Printer proof prepared and reviewed',
+        ],
+        url: '/pricing/print-design-pretoria',
+      },
+      {
+        id: 'digital-editions',
+        name: 'Digital publication versions',
+        amount: 2500,
+        unit: 'fixed',
+        includes: [
+          'High-resolution master PDF',
+          'Compressed version sized for a website',
+          'Further compressed version sized for email',
+          'Supplied for each language edition',
+        ],
+        url: '/pricing/print-design-pretoria',
+      },
+      {
+        id: 'usb-8gb',
+        name: 'USB flash drive supply (8GB)',
+        amount: 110,
+        unit: 'per-unit',
+        includes: [
+          '8GB USB flash drives sourced and supplied',
+        ],
+        url: '/pricing/marketing-materials-pretoria',
+        notes: 'Per drive. Price moves with capacity and quantity - confirm both before quoting',
+      },
+      {
+        id: 'usb-branding',
+        name: 'USB UV branding',
+        amount: 25,
+        unit: 'per-unit',
+        includes: [
+          'Your logo UV-printed onto each drive',
+          'Artwork set up to the supplier template',
+        ],
+        url: '/pricing/marketing-materials-pretoria',
+        notes: 'Per drive, on drives we supply',
+      },
+      {
+        id: 'usb-loading',
+        name: 'USB file loading and verification',
+        amount: 25,
+        unit: 'per-unit',
+        includes: [
+          'Final files copied onto every drive',
+          'Organised into clearly named folders',
+          'Each drive opened and checked after copying',
+        ],
+        url: '/pricing/marketing-materials-pretoria',
+        notes: 'Per drive',
+      },
+      {
+        id: 'packaging-delivery',
+        name: 'Packaging, handling and local delivery',
+        amount: 2500,
+        unit: 'from',
+        includes: [
+          'Finished work packed for transport',
+          'Collection from the printer or supplier',
+          'Delivery to one local address',
+        ],
+        url: '/pricing/print-design-pretoria',
+        notes: 'From price covers one local delivery. Outlying areas and multiple drops are quoted on the job',
+      },
+    ],
+  },
+  {
     id: 'studio',
     name: 'Studio Time',
     blurb: 'Hourly senior studio time for small jobs and once-off requests that do not fit any fixed price item.',
@@ -1391,6 +1636,8 @@ export function formatPrice(item: Pick<PriceItem, 'amount' | 'unit'>): string {
       return `${CURRENCY_SYMBOL}${n} per hour`;
     case 'per-minute':
       return `${CURRENCY_SYMBOL}${n} per minute`;
+    case 'per-unit':
+      return `${CURRENCY_SYMBOL}${n} each`;
     default:
       return `${CURRENCY_SYMBOL}${n}`;
   }

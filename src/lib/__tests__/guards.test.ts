@@ -218,7 +218,7 @@ describe('price catalogue', () => {
 
   test('every unit is one the renderer knows how to format', () => {
     const known = new Set([
-      'fixed', 'from', 'per-month', 'per-page', 'per-image', 'per-word', 'per-hour', 'per-minute',
+      'fixed', 'from', 'per-month', 'per-page', 'per-image', 'per-word', 'per-hour', 'per-minute', 'per-unit',
     ]);
     for (const item of ALL_ITEMS) {
       assert.ok(known.has(item.unit), `${item.id} has an unknown unit: ${item.unit}`);
@@ -229,7 +229,7 @@ describe('price catalogue', () => {
     // R520 buys one more round of changes. Anything cheaper than that for a
     // whole deliverable is a pricing error, except per-unit rates which are
     // multiplied by a quantity.
-    const perUnit = new Set(['per-page', 'per-image', 'per-word', 'per-hour', 'per-minute']);
+    const perUnit = new Set(['per-page', 'per-image', 'per-word', 'per-hour', 'per-minute', 'per-unit']);
     for (const item of ALL_ITEMS) {
       if (item.id === 'extra-revision' || item.amount === null || perUnit.has(item.unit)) continue;
       assert.ok(item.amount >= 520, `${item.id} is R${item.amount}, below the revision floor`);
