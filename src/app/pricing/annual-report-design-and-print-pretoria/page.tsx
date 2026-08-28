@@ -17,7 +17,7 @@ const relatedServices = [
   {
     title: "Brand Identity",
     description: "Build a memorable and cohesive brand identity.",
-    href: "/pricing/brand-identity",
+    href: "/branding-solutions-pretoria",
     anchor: "View Service"
   },
   {

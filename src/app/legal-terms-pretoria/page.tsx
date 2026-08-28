@@ -82,8 +82,8 @@ The specific details, deliverables, and timelines for each service will be outli
                 },
                 {
                   title: '5. Payment Terms',
-                  content: `• Payment terms will be specified in the service agreement or proposal
-• A non-refundable deposit may be required before work commences
+                  content: `• A 50% deposit books the work into our schedule; the balance is due on handover
+• If you cancel after paying, we keep the value of work already done plus a 20% cancellation fee — together never more than you have paid — and refund the rest
 • Late payments may incur additional charges
 • All prices are quoted in South African Rand (ZAR)
 • Bank charges for international payments are the client's responsibility`

@@ -45,7 +45,7 @@ const PricingPage = () => {
       icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Professional video production for businesses and brands in Pretoria.",
       link: "/pricing/corporate-video-pretoria",
-      packages: ["Starter from R6,500", "Business from R12,000", "Premium from R22,000"]
+      packages: ["Starter from R9,850", "Business from R12,000", "Premium from R22,000"]
     },
     {
       title: "Drone Video",
@@ -59,14 +59,14 @@ const PricingPage = () => {
       icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Professional photography for events, brands, and businesses in Pretoria.",
       link: "/pricing/photography-pretoria",
-      packages: ["Basic from R2,500", "Standard from R4,500", "Premium from R7,800"]
+      packages: ["Basic from R3,850", "Standard from R4,500", "Premium from R7,800"]
     },
     {
       title: "Product Photography",
       icon: <FaPalette className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "High-quality product images to boost your e-commerce and marketing.",
       link: "/pricing/product-photography-pretoria",
-      packages: ["Starter from R1,800", "Business from R3,200", "Premium from R5,900"]
+      packages: ["Starter from R3,850", "Business from R4,950", "Premium from R5,900"]
     },
     {
       title: "SEO",
