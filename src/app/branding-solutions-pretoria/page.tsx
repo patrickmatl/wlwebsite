@@ -103,6 +103,78 @@ const BrandIdentityPackages = () => {
   </div>
 
   {/*
+    The page ranked for "branding companies in pretoria" on six price cards and
+    barely three hundred words — a grid with nothing on it a buyer could use to
+    choose. The prose below is not padding: it answers the two questions every
+    enquiry about these packages actually asks, which is standard versus
+    illustrative, and which of the three tiers. Content that answers the
+    decision is what earns the ranking; a longer price list is not.
+  */}
+  <div className="max-w-4xl mx-auto mt-16 space-y-8 text-gray-300 text-left">
+    <section>
+      <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+        Standard or illustrative — which one do you need?
+      </h2>
+      <p className="text-sm leading-relaxed mb-3">
+        The difference is roughly R5,000 a tier, so it is worth understanding
+        rather than guessing. A standard logo is built from letterforms and
+        geometry: a lettermark, a wordmark, an abstract shape or a simple
+        pictorial mark. It reproduces cleanly at any size, survives being
+        embroidered onto a golf shirt or etched into signage, and it is what
+        most professional services, consultancies and B2B businesses should be
+        buying.
+      </p>
+      <p className="text-sm leading-relaxed">
+        An illustrative identity adds custom drawn artwork — a character, a
+        detailed scene, a hand-built emblem. It is the right answer when the
+        drawing is doing commercial work: on packaging that has to be picked up
+        off a shelf, for a food or beverage brand, a school or club with a
+        crest, or anywhere the mark itself is the story. If you are choosing it
+        because it looks nicer on the pitch document, buy the standard package
+        instead and put the difference into printing.
+      </p>
+    </section>
+
+    <section>
+      <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+        Essentials, Basic or Extended
+      </h2>
+      <p className="text-sm leading-relaxed mb-3">
+        All three tiers include the same core: three creative concepts, four
+        rounds of changes, the final logo package, a colour palette, a
+        typography guide, logo-based patterns, letterhead and email signatures.
+        That is a complete identity — Essentials is not a starter kit, it is the
+        whole brand, and plenty of businesses never need more than it.
+      </p>
+      <p className="text-sm leading-relaxed">
+        Basic adds business cards and social media templates, which matters if
+        you meet clients in person or post regularly. Extended adds a folder
+        design, a PowerPoint template and a cover page, and it earns its price
+        for businesses that pitch — if your team sends proposals or presents to
+        boards, a branded deck template stops six people building six different
+        looking documents. If none of that describes how you actually trade, the
+        cheaper tier is the right one and we will say so.
+      </p>
+    </section>
+
+    <section>
+      <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+        What happens after you choose
+      </h2>
+      <p className="text-sm leading-relaxed">
+        A 50% deposit books the work into the schedule and the balance is
+        invoiced on handover. Concepts are presented as a set for you to choose
+        from, not one option to approve, and the four revision rounds are for
+        refining the direction you pick. Everything is designed from scratch —
+        we do not work from template marketplaces — and one designer stays on
+        your project from the brief through to handover. On final payment the
+        artwork is yours, and note the asterisk above: native working files sit
+        outside these package prices and are quoted separately if you want them.
+      </p>
+    </section>
+  </div>
+
+  {/*
     This page ranks first for "branding companies in pretoria" and, until now,
     linked out exactly once — to the home page. A page with authority and no
     outbound internal links passes none of it on, so the terms that actually

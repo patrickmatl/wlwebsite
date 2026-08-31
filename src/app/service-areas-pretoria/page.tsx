@@ -104,6 +104,64 @@ export default function ServiceAreasPage() {
             to discuss how we can work with your team.
           </p>
         </div>
+
+        <div className="mt-12 max-w-3xl space-y-8 text-gray-300">
+          <section>
+            <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+              Working with us on-site in Gauteng
+            </h2>
+            <p className="text-sm leading-relaxed mb-3">
+              Gauteng is close enough to drive, so anything that genuinely benefits from being
+              in the room happens in the room. That usually means the first briefing on a
+              brand or a report, a photography or video shoot at your premises, and the
+              sign-off meeting where a printed proof gets looked at under proper light rather
+              than on a screen. Everything between those points runs over email and shared
+              files, because a studio visit to review a second draft wastes an afternoon for
+              both of us.
+            </p>
+            <p className="text-sm leading-relaxed">
+              Clients we see in person are usually in Pretoria and the eastern suburbs —
+              Waterkloof, Lynnwood, Menlyn, Brooklyn, Hatfield, Silver Lakes and Arcadia — as
+              well as Centurion, Midrand, Sandton and the rest of Johannesburg. Travel inside
+              Gauteng is built into the quote; we do not bill it as an extra line.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+              How remote projects actually run
+            </h2>
+            <p className="text-sm leading-relaxed mb-3">
+              For clients outside Gauteng, nothing about the work changes — only the meetings
+              do. The brief is taken on a video call, concepts arrive as PDFs you can comment
+              on directly, and the two rounds of changes included in every project happen the
+              same way they would across a table. One designer stays on your project from the
+              brief through to handover, so you are never re-explaining it to someone new.
+            </p>
+            <p className="text-sm leading-relaxed">
+              Print is the one part worth planning for. We buy printing in from trade printers
+              rather than running presses ourselves, which means a job printed for a Cape Town
+              or Durban client can either be produced in Gauteng and couriered, or the
+              print-ready files can go to a printer local to you. The second is usually faster
+              and cheaper on a large run, and we will say so rather than quietly adding freight
+              to the quote. On final payment the artwork is yours, in editable working files,
+              so a local printer can be handed exactly what they need.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold font-syne text-[#FFD700] mb-3">
+              What we will not claim
+            </h2>
+            <p className="text-sm leading-relaxed">
+              Plenty of studios list a dozen cities and imply an office in each one. We have
+              one studio, in Waterkloof Glen, and it is the address on every quote and invoice
+              we issue. If a project genuinely needs someone standing in a room in another
+              province on a given morning, we will tell you that up front rather than take the
+              work and manage it badly from four hundred kilometres away.
+            </p>
+          </section>
+        </div>
       </div>
     </div>
   );
