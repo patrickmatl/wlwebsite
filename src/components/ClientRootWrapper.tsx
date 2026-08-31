@@ -57,12 +57,26 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
   }, []);
 
   // During SSR and initial mount, return a minimal layout.
+  //
   // The Footer is included here as well as below: it has no browser-only
   // dependencies, and leaving it out meant the site's internal links were
   // absent from the server-rendered HTML entirely.
+  //
+  // Navigation is here for the same reason, and it is the bigger half of that
+  // bug. This branch is what a crawler receives, and until now it contained no
+  // navigation at all — so the site's entire internal link graph was whatever
+  // the footer happened to list. That is why an audit found the digital
+  // marketing page linked from 0 of 65 pages while sitting in the sitemap at
+  // priority 0.85.
+  //
+  // Navigation only needs the browser for its overlay, which is state-driven
+  // and starts closed, so rendering it on the server costs nothing and emits
+  // the visible desktop nav into the HTML where it can actually be followed.
+  // CustomCursor stays out: it genuinely requires pointer APIs.
   if (!mounted) {
     return (
       <AudioPlaybackProvider>
+        <Navigation />
         {children}
         <Footer />
       </AudioPlaybackProvider>

@@ -57,12 +57,25 @@ export default function Footer() {
             reads. The footer is, on every page — which makes this the site's
             real internal link graph, and it was four links wide.
 
-            The three city pages below had ZERO inbound links from anywhere on
-            the site. A page nothing links to is a page Google is entitled to
-            treat as unimportant, which is a poor argument to make about the
-            pages meant to win "web design pretoria".
+            A link-graph audit on 2026-08-28 counted, across all sixty-five
+            built pages, how many actually contain a link to each money page:
 
-            Anchors name the service and the city on purpose: anchor text is
+              /digital-marketing-services-pretoria      0 of 65
+              /visual-communication-services-pretoria   1 of 65
+              /service-bundles-pretoria                 2 of 65
+              /photography-services-pretoria            6 of 65
+              /videography-services-pretoria            6 of 65
+
+            Every one of those sits in the sitemap at priority 0.85 or higher.
+            Declaring a page important in the sitemap and then linking to it
+            nowhere is a contradiction Google resolves against the page, and
+            "Discovered - currently not indexed" is exactly what it returned for
+            the one with zero links.
+
+            So this list is not decoration. It is the only internal link graph
+            the crawler sees, and every money page has to be in it.
+
+            Anchors name the service and the place on purpose: anchor text is
             the strongest on-page signal about the page at the other end.
           */}
           <div>
@@ -76,9 +89,21 @@ export default function Footer() {
                 ['/branding-solutions-pretoria', 'Brand identity design'],
                 ['/pricing/annual-report-design-and-print-pretoria', 'Annual report design'],
                 ['/pricing/seo-pretoria', 'SEO services in Pretoria'],
-                ['/pretoria/web-design', 'Web design, Pretoria'],
-                ['/centurion/web-design', 'Web design, Centurion'],
-                ['/menlyn/graphic-design', 'Graphic design, Menlyn'],
+                // These three replaced /pretoria/web-design, /centurion/web-design
+                // and /menlyn/graphic-design. Those city pages now carry noindex
+                // (see src/data/service-areas.ts), so three of this footer's ten
+                // links were being spent on pages Google is told to ignore.
+                //
+                // They now go to the money pages that had almost nothing pointing
+                // at them: digital marketing had ZERO inbound links from anywhere
+                // on the site while sitting in the sitemap at priority 0.85, which
+                // is the site telling Google it matters and then declining to link
+                // to it. Visual communication had one link and service bundles two.
+                ['/digital-marketing-services-pretoria', 'Digital marketing in Pretoria'],
+                ['/visual-communication-services-pretoria', 'Visual communication design'],
+                ['/service-bundles-pretoria', 'Design and web service bundles'],
+                ['/photography-services-pretoria', 'Photography in Pretoria'],
+                ['/videography-services-pretoria', 'Videography in Pretoria'],
               ].map(([href, label]) => (
                 <li key={href}>
                   <Link

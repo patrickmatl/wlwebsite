@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
@@ -68,6 +68,44 @@ const menuItems = [
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  /**
+   * Hover menus need a grace period, not a bare onMouseLeave.
+   *
+   * The button and the drawer are separate elements, so a pointer travelling
+   * from one to the other leaves the first before it enters the second. Closing
+   * on that gap makes the menu impossible to reach; closing only when the
+   * drawer is left means a pointer that opened the menu and then went straight
+   * back to the page leaves it stuck open, which is what testing showed.
+   *
+   * So both elements start a short timer on leave and cancel it on enter.
+   * Crossing the gap cancels the timer before it fires; genuinely walking away
+   * lets it run.
+   */
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const openNow = () => {
+    cancelClose();
+    setIsOpen(true);
+  };
+
+  const closeSoon = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
+      setIsOpen(false);
+      setOpenSubmenu(null);
+      setOpenCategory(null);
+    }, 220);
+  };
+
+  useEffect(() => cancelClose, []);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const pathname = usePathname();
@@ -92,8 +130,68 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Menu Button */}
-      <div className="fixed top-8 right-8 z-50 flex items-center gap-3">
+      {/*
+        Primary navigation, rendered in the HTML on every page.
+
+        The overlay menu below is mounted only while `isOpen` is true, so until
+        a visitor clicks, none of its links exist in the document at all. A
+        crawler never clicks. The result was a site whose entire internal link
+        graph was the footer: an audit on 2026-08-28 found the digital marketing
+        page linked from 0 of 65 pages, visual communication from 1, and service
+        bundles from 2 — every one of them declared important in the sitemap.
+
+        These links are genuinely visible on desktop rather than hidden and
+        exposed only to crawlers. That distinction is not pedantry on this
+        domain: it took a Google penalty for hidden text, and off-screen links
+        that only a robot can see are the same trick wearing a different hat.
+        Below the lg breakpoint they are hidden by CSS and the hamburger takes
+        over, which is an ordinary responsive pattern rather than cloaking —
+        the small screen genuinely cannot show them.
+      */}
+      <nav
+        aria-label="Primary"
+        className="hidden lg:flex fixed top-8 left-1/2 -translate-x-1/2 z-40 items-center gap-6 rounded-full border border-[#FFD700]/20 bg-black/70 px-7 py-3 backdrop-blur-md"
+      >
+        {[
+          ['/pricing/graphic-design-pretoria', 'Graphic Design'],
+          ['/branding-solutions-pretoria', 'Branding'],
+          ['/pricing/website-design-pretoria', 'Web Design'],
+          ['/digital-marketing-services-pretoria', 'Digital Marketing'],
+          ['/photography-services-pretoria', 'Photography'],
+          ['/videography-services-pretoria', 'Videography'],
+          ['/project-showcase-pretoria', 'Portfolio'],
+          ['/pricing', 'Pricing'],
+          ['/get-in-touch-pretoria', 'Contact'],
+        ].map(([href, label]) => (
+          <Link
+            key={href}
+            href={href}
+            className="whitespace-nowrap text-sm text-neutral-300 transition-colors hover:text-[#FFD700]"
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+
+      {/*
+        Hover opens the drawer on pointer devices; click still works everywhere.
+
+        Worth being clear about what this does and does not buy: it is a
+        convenience for visitors and nothing more. A crawler never hovers, so
+        opening on hover contributes exactly nothing to discovery — what fixed
+        that was rendering the nav on the server at all (see ClientRootWrapper)
+        and the visible desktop bar above, both of which put real links in the
+        HTML.
+
+        onMouseLeave closes it, so the drawer behaves like a menu rather than a
+        trap. Touch devices report no hover, the handlers never fire, and the
+        button keeps its original click behaviour.
+      */}
+      <div
+        className="fixed top-8 right-8 z-50 flex items-center gap-3"
+        onMouseEnter={openNow}
+        onMouseLeave={closeSoon}
+      >
         <span className="text-[#FFD700]/80 text-sm uppercase tracking-wider font-medium">
           {isOpen ? 'Close' : 'Menu'}
         </span>
@@ -116,7 +214,15 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg overflow-y-auto"
+            onMouseEnter={cancelClose}
+            onMouseLeave={closeSoon}
+            aria-label="Full menu"
+            // A side drawer rather than the full-screen takeover it used to be.
+            // Opening on hover only works if leaving the panel closes it again,
+            // and a panel covering the entire viewport would mean the pointer
+            // has nowhere to leave to. Full width below sm, where it is opened
+            // by tapping and closed by the button.
+            className="fixed top-0 right-0 z-40 h-full w-full sm:w-[26rem] border-l border-[#FFD700]/20 bg-black/95 backdrop-blur-lg overflow-y-auto"
           >
             <div className="flex flex-col items-center justify-center min-h-full py-20">
               {/* Menu Items */}
