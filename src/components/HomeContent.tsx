@@ -31,7 +31,14 @@ export default function HomeContent() {
             <Link href="/visual-communication-services-pretoria" className="text-[#FFD700] hover:underline"> visual communication services</Link> tailored for Pretoria.
           </p>
           <p className="text-neutral-300 text-base leading-relaxed mb-6">
-            As one of the top <Link href="/pricing" className="text-[#FFD700] hover:underline">graphic design companies in Pretoria</Link>, we pride ourselves on delivering innovative and creative solutions tailored to your unique needs. From <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">branding</Link> and <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">logo design</Link> to <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">web design</Link> and marketing materials, we've got you covered.
+            {/* "As one of the top graphic design companies in Pretoria" was an
+                unverifiable ranking claim of exactly the kind this domain was
+                penalised for. Replaced with what can be evidenced: how long the
+                studio has traded, and what it has actually delivered. */}
+            We are a working studio rather than a network of freelancers — thirteen years of{' '}
+            <Link href="/pricing" className="text-[#FFD700] hover:underline">graphic design in Pretoria</Link>,
+            and the work goes out under one roof. From <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">branding</Link> and <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">logo design</Link> to <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">web design</Link>, packaging and marketing material, you can see the finished results in our{' '}
+            <Link href="/project-showcase-pretoria" className="text-[#FFD700] hover:underline">project showcase</Link> before you commit to anything.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
             <Link href="/branding-solutions-pretoria" className="group">
@@ -125,6 +132,71 @@ export default function HomeContent() {
           </p>
           <p className="mb-6 text-neutral-300 text-base leading-relaxed">
             Start with <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">graphic design</Link> or a full <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">brand identity</Link>, then add <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">website design</Link>, <Link href="/videography-services-pretoria" className="text-[#FFD700] hover:underline">video production</Link>, or <Link href="/photography-services-pretoria" className="text-[#FFD700] hover:underline">photography</Link> as your project grows — everything stays consistent because one studio holds the whole picture.
+          </p>
+        </div>
+      </section>
+
+      {/*
+        Two questions every enquiry opens with — what it costs, and what is
+        actually included — answered on the page instead of behind a form. The
+        figures are the real published ones from src/data/pricing.ts, so this
+        section and the quoting agent cannot drift apart.
+      */}
+      <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-syne font-semibold mb-4 text-[#FFD700] opacity-90">
+            What Design Costs in Pretoria
+          </h2>
+          <p className="mb-4 text-neutral-300 text-base leading-relaxed">
+            Most studios make you ask. We publish every price. A logo starts at
+            R2,080 for two original concepts and runs to R4,160 for six, so the
+            number moves with how many directions you want to choose between
+            rather than with how big your company looks. A{' '}
+            <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">
+              full brand identity
+            </Link>{' '}
+            — logo, colour system, typography, stationery — starts at R6,683, and a{' '}
+            <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">
+              business website
+            </Link>{' '}
+            at R8,980. Packaging for a single product is R4,850. Every one of
+            those is on our{' '}
+            <Link href="/pricing" className="text-[#FFD700] hover:underline">
+              pricing page
+            </Link>{' '}
+            with what it includes, and the quote you get back will use the same
+            figures.
+          </p>
+          <p className="mb-6 text-neutral-300 text-base leading-relaxed">
+            Where a job genuinely cannot be priced from a list — a multi-language
+            annual report, an e-commerce build, a native app — we say so and scope
+            it properly rather than guessing at a number we would later have to
+            revise.
+          </p>
+
+          <h3 className="text-xl font-syne font-semibold mb-3 text-white">
+            What every project includes
+          </h3>
+          <ul className="mb-4 space-y-2 list-disc pl-5 marker:text-[#FFD700] text-neutral-300 text-base leading-relaxed">
+            <li>Two rounds of changes built into the quoted price, not billed after.</li>
+            <li>
+              The artwork is yours on final payment, handed over in editable working
+              files — you are never locked into us to make a change later.
+            </li>
+            <li>Brand colours, codes and fonts documented with the handover.</li>
+            <li>
+              Designed from scratch. We do not work from template marketplaces, which
+              is why a logo here takes days rather than an afternoon.
+            </li>
+            <li>One designer stays on your project from brief to handover.</li>
+            <li>Print-ready setup checked before anything goes to press.</li>
+          </ul>
+          <p className="text-neutral-300 text-base leading-relaxed">
+            A 50% deposit books the work into the schedule and the balance is
+            invoiced on handover. Printing is bought in from trade printers rather
+            than produced here, so it is quoted against real specifications —
+            quantity, size, stock and finish — instead of a round number that has to
+            move later.
           </p>
         </div>
       </section>

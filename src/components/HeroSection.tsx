@@ -73,18 +73,12 @@ export default function HeroSection({
       {/* Main content */}
       <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center">
         <div className="text-center w-full space-y-6 sm:space-y-8">
-          {/* Location badge — decorative, safe to animate with JS */}
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center"
-          >
-            <div className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-              <span className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse" />
-              <span className="text-white/70 text-sm tracking-wide">Pretoria · South Africa</span>
-            </div>
-          </motion.div>
+          {/* The "Pretoria · South Africa" badge that sat here was removed: on
+              narrow viewports it collided with the headline, and it was purely
+              decorative. Nothing is lost by taking it out — the location is
+              already stated in the hero description below, in the page title,
+              and in the LocalBusiness schema, so it was the one place saying it
+              that also pushed the LCP element down the screen. */}
 
           {/* Headline — the page's LCP element. Deliberately NOT wrapped in a
               framer-motion opacity gate: it must be visible in the server HTML
