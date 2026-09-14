@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 export default async function StudioLoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; detail?: string }>;
 }) {
-  const { next, error } = await searchParams;
+  const { next, error, detail } = await searchParams;
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-black px-4 py-16 text-white">
@@ -49,6 +49,23 @@ export default async function StudioLoginPage({
           <p className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
             That link has already been used. Each one works once; request another below.
           </p>
+        )}
+        {/*
+          A sign-in that fails on our side, rather than because the link was
+          bad. Previously this rendered Next's bare "a server-side exception has
+          occurred" page with only a digest, on a token that had already been
+          spent — so the person could neither read what went wrong nor reuse the
+          link. `detail` is only ever reached by someone who just clicked a
+          genuine link, so it cannot be probed, and it says what actually broke.
+        */}
+        {error === 'server' && (
+          <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+            <p>Something went wrong signing you in — this one is on us, not the link.</p>
+            {detail && (
+              <p className="mt-2 break-words font-mono text-xs text-red-200/80">{detail}</p>
+            )}
+            <p className="mt-2 text-red-300/80">Request a fresh link below and try again.</p>
+          </div>
         )}
 
         <LoginForm next={next ?? null} />

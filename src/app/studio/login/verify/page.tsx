@@ -38,7 +38,29 @@ async function completeSignIn(formData: FormData) {
   const token = String(formData.get('token') ?? '').trim();
   if (!token) redirect('/studio/login?error=invalid');
 
-  const result = await consumeLoginToken(token);
+  /**
+   * Only consumeLoginToken is guarded, and deliberately so.
+   *
+   * redirect() works by throwing NEXT_REDIRECT, so wrapping the redirects below
+   * in this try would swallow them and turn every successful sign-in into an
+   * error. The catch is therefore as tight as it can be.
+   *
+   * It exists because an unhandled throw here renders "a server-side exception
+   * has occurred" with nothing but a digest, which tells the person signing in
+   * nothing and tells us almost as little. consumeLoginToken spends the token
+   * and then creates the session, and createSession throws outright if the
+   * sessions insert is rejected — so a schema or constraint problem surfaces as
+   * an opaque 500 on a spent token, which is the worst of both.
+   */
+  let result: Awaited<ReturnType<typeof consumeLoginToken>>;
+  try {
+    result = await consumeLoginToken(token);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    console.error('[studio-login] sign-in failed', err);
+    redirect(`/studio/login?error=server&detail=${encodeURIComponent(detail.slice(0, 180))}`);
+  }
+
   if (!result.ok) redirect(`/studio/login?error=${result.reason}`);
 
   // A client link must not open the studio just because it was pasted here.
