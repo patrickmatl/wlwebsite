@@ -71,7 +71,18 @@ export default function HeroSection({
       />
 
       {/* Main content */}
-      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center">
+      {/*
+        lg:pt-24 keeps the headline clear of the fixed primary nav.
+
+        The nav sits at top-8 and runs to roughly 78px down. This block is
+        vertically centred in a full-height section, so with nothing pushing it
+        down the title landed at y=59 — underneath the nav pill. It only became
+        visible once the location badge was removed from above the headline,
+        which had been doing this job by accident. The padding is lg-only
+        because the nav is `hidden lg:flex`; below that breakpoint the hamburger
+        sits in the corner and the hero has the space to itself.
+      */}
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-24 flex flex-col justify-center items-center">
         <div className="text-center w-full space-y-6 sm:space-y-8">
           {/* The "Pretoria · South Africa" badge that sat here was removed: on
               narrow viewports it collided with the headline, and it was purely

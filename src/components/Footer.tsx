@@ -134,12 +134,33 @@ export default function Footer() {
             <p className="text-neutral-400 text-sm">
               &copy; {new Date().getFullYear()} WL CreationX. All rights reserved.
             </p>
-            <div className="flex space-x-4">
+            {/*
+              Client portal and studio sign-in.
+
+              Neither had a link anywhere on the public site — the only
+              reference to /studio/login in the whole codebase was a redirect
+              inside AdminNav that fires *after* signing out. So a client told
+              they have a portal had no way to reach it short of being sent the
+              URL, and the studio could only be opened by typing the address.
+
+              The portal link comes first and is named for the client, because
+              they are the ones who will look for it. "Studio" is deliberately
+              understated: it is a staff door, and it does not need to invite
+              attention from visitors.
+            */}
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+              <Link href="/portal/login" className="text-neutral-300 hover:text-[#FFD700] transition-colors text-sm font-medium">
+                Client portal
+              </Link>
+              <span aria-hidden="true" className="text-neutral-700">|</span>
               <Link href="/data-protection-policy-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                 Privacy Policy
               </Link>
               <Link href="/legal-terms-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                 Terms of Service
+              </Link>
+              <Link href="/studio/login" className="text-neutral-500 hover:text-neutral-300 transition-colors text-sm">
+                Studio
               </Link>
             </div>
           </div>
