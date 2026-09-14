@@ -35,40 +35,41 @@ export const metadata: Metadata = {
 async function completeSignIn(formData: FormData) {
   'use server';
 
-  const token = String(formData.get('token') ?? '').trim();
-  if (!token) redirect('/studio/login?error=invalid');
-
   /**
-   * Only consumeLoginToken is guarded, and deliberately so.
+   * The whole body is guarded, not just the token call.
    *
-   * redirect() works by throwing NEXT_REDIRECT, so wrapping the redirects below
-   * in this try would swallow them and turn every successful sign-in into an
-   * error. The catch is therefore as tight as it can be.
+   * A tighter try around consumeLoginToken did not catch this: sign-in still
+   * died with the same opaque digest and never reached the error page, which
+   * proves the throw is somewhere else in the action. So the net is widened
+   * until it is visible.
    *
-   * It exists because an unhandled throw here renders "a server-side exception
-   * has occurred" with nothing but a digest, which tells the person signing in
-   * nothing and tells us almost as little. consumeLoginToken spends the token
-   * and then creates the session, and createSession throws outright if the
-   * sessions insert is rejected — so a schema or constraint problem surfaces as
-   * an opaque 500 on a spent token, which is the worst of both.
+   * redirect() signals by throwing, and that throw carries a digest beginning
+   * "NEXT_REDIRECT". Re-throwing those is what keeps a successful sign-in
+   * working; anything else is a real failure and is shown on the login page
+   * rather than rendered as Next's bare "a server-side exception has occurred".
    */
-  let result: Awaited<ReturnType<typeof consumeLoginToken>>;
   try {
-    result = await consumeLoginToken(token);
+    const token = String(formData.get('token') ?? '').trim();
+    if (!token) redirect('/studio/login?error=invalid');
+
+    const result = await consumeLoginToken(token);
+
+    if (!result.ok) redirect(`/studio/login?error=${result.reason}`);
+
+    // A client link must not open the studio just because it was pasted here.
+    // The session it created is the portal one, so send them where it works.
+    if (result.kind !== 'admin') redirect('/portal');
+
+    const next = String(formData.get('next') ?? '').trim();
+    redirect(safeNext(next || null, 'admin') ?? '/studio');
   } catch (err) {
-    const detail = err instanceof Error ? err.message : String(err);
+    const digest = (err as { digest?: unknown })?.digest;
+    if (typeof digest === 'string' && digest.startsWith('NEXT_REDIRECT')) throw err;
+
+    const detail = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
     console.error('[studio-login] sign-in failed', err);
-    redirect(`/studio/login?error=server&detail=${encodeURIComponent(detail.slice(0, 180))}`);
+    redirect(`/studio/login?error=server&detail=${encodeURIComponent(detail.slice(0, 240))}`);
   }
-
-  if (!result.ok) redirect(`/studio/login?error=${result.reason}`);
-
-  // A client link must not open the studio just because it was pasted here.
-  // The session it created is the portal one, so send them where it works.
-  if (result.kind !== 'admin') redirect('/portal');
-
-  const next = String(formData.get('next') ?? '').trim();
-  redirect(safeNext(next || null, 'admin') ?? '/studio');
 }
 
 export default async function StudioVerifyPage({
