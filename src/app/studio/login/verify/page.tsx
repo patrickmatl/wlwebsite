@@ -73,8 +73,25 @@ async function completeSignIn(formData: FormData) {
      * is one fewer place for that to happen, and the dashboard is where
      * /studio was always going to put them anyway.
      */
+    /**
+     * DIAGNOSTIC LANDING — land on the login page, not the dashboard.
+     *
+     * Sign-in kept failing with one unchanging digest (854132305) whether the
+     * action redirected to /studio or straight to /studio/dashboard, and a
+     * try/catch around the whole action never fired. So the action is fine
+     * and the crash is in the render of whichever authenticated page it
+     * redirects to — and because that render 500s, the session cookie the
+     * action just set is thrown away with the response, which is why every
+     * attempt ends signed out.
+     *
+     * /studio/login reads no session and renders the same signed in or out,
+     * so it cannot fail for this reason. Landing there proves the cookie
+     * sticks, and leaves a real signed-in browser session that can open each
+     * studio route on its own and show exactly which one throws. The page
+     * recognises the session and offers the dashboard rather than the form.
+     */
     const next = String(formData.get('next') ?? '').trim();
-    redirect(safeNext(next || null, 'admin') ?? '/studio/dashboard');
+    redirect(safeNext(next || null, 'admin') ?? '/studio/login?signed=1');
   } catch (err) {
     const digest = (err as { digest?: unknown })?.digest;
     if (typeof digest === 'string' && digest.startsWith('NEXT_REDIRECT')) throw err;

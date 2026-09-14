@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import LoginForm from './LoginForm';
+import { getSession } from '@/lib/server/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,9 +19,18 @@ export const metadata: Metadata = {
 export default async function StudioLoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; error?: string; detail?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; detail?: string; signed?: string }>;
 }) {
-  const { next, error, detail } = await searchParams;
+  const { next, error, detail, signed } = await searchParams;
+
+  /**
+   * A just-completed sign-in lands here instead of on the dashboard while the
+   * dashboard render is being diagnosed (see verify/page.tsx). Only when that
+   * is the case is the session looked up — an ordinary visit to this page
+   * reads no cookie and renders exactly as it always has, so this adds no new
+   * way for the login page itself to fail.
+   */
+  const session = signed === '1' ? await getSession('admin') : null;
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-black px-4 py-16 text-white">
@@ -35,6 +46,23 @@ export default async function StudioLoginPage({
           </p>
         </div>
 
+        {session && (
+          <div className="mb-4 rounded-lg border border-[#FFD700]/40 bg-[#FFD700]/10 px-4 py-3 text-sm">
+            <p className="font-semibold text-[#FFD700]">You are signed in as {session.name}.</p>
+            <p className="mt-1 text-neutral-300">The session was created and the cookie is set.</p>
+            <Link
+              href="/studio/dashboard"
+              className="mt-3 inline-block rounded-lg bg-[#FFD700] px-4 py-2 font-semibold text-black transition hover:bg-[#FFE44D]"
+            >
+              Open the dashboard
+            </Link>
+          </div>
+        )}
+        {signed === '1' && !session && (
+          <p className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+            The sign-in completed but no session cookie reached the browser. Request a fresh link below.
+          </p>
+        )}
         {error === 'invalid' && (
           <p className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
             That sign-in link is not valid. Request a new one below.
