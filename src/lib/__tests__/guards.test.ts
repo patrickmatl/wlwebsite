@@ -16,6 +16,8 @@
  */
 import { test, describe, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { decideAutoSend, advertisedFloorBreach } from '@/lib/server/autosend';
 import { looksLikeJobApplication } from '@/lib/quote-agent';
@@ -266,6 +268,47 @@ describe('the catalogue covers what the site advertises', () => {
       );
     });
   }
+});
+
+// A share link is only useful if the record it points at is reachable. The
+// acceptance flow mints the token and emails it, so anything between creating
+// the invoice and building the URL that leaves it in 'draft' produces a 404 for
+// a paying client — which is exactly what happened in production.
+describe('the deposit invoice is issued before its link is emailed', () => {
+  const autosend = fs.readFileSync(
+    path.join(process.cwd(), 'src/lib/server/autosend.ts'),
+    'utf8',
+  );
+  const documents = fs.readFileSync(
+    path.join(process.cwd(), 'src/lib/server/documents.ts'),
+    'utf8',
+  );
+
+  test('issueDepositDocument calls sendInvoice', () => {
+    const fn = autosend.slice(autosend.indexOf('async function issueDepositDocument'));
+    const body = fn.slice(0, fn.indexOf('\n}\n'));
+    assert.match(
+      body,
+      /sendInvoice\(/,
+      'the deposit invoice must be moved out of draft before its share link is sent, ' +
+        'or documentByShareToken refuses it and the client gets a 404',
+    );
+  });
+
+  test('sendInvoice runs before the share token is minted', () => {
+    const fn = autosend.slice(autosend.indexOf('async function issueDepositDocument'));
+    const body = fn.slice(0, fn.indexOf('\n}\n'));
+    assert.ok(
+      body.indexOf('sendInvoice(') < body.indexOf('ensureShareToken('),
+      'order matters: issue the invoice, then build the link',
+    );
+  });
+
+  test('draft and void documents are still unreachable by share token', () => {
+    // The guard this bug exposed is correct and must stay.
+    assert.match(documents, /status === 'draft'/);
+    assert.match(documents, /status === 'void'/);
+  });
 });
 
 describe('annual report tiers', () => {

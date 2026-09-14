@@ -535,7 +535,28 @@ async function issueDepositDocument(
       await crm.acceptQuote(open.id, { name: null, ip: null }, 'client-email');
     }
     await crm.projectFromQuote(open.id, 'autopilot');
-    const invoice = await crm.depositInvoiceFromQuote(open.id, 'autopilot');
+    const created = await crm.depositInvoiceFromQuote(open.id, 'autopilot');
+
+    /**
+     * Issue it before the link goes out, or the link is dead on arrival.
+     *
+     * createInvoice inserts every invoice as 'draft', and documentByShareToken
+     * deliberately refuses a draft — a draft has not been sent, so no
+     * legitimate link to it should exist. But this flow was minting the share
+     * token and emailing it while the invoice was still draft, so the client
+     * clicked "View the proforma invoice" and Next rendered its 404 page. The
+     * reasoning in documentByShareToken is right; it was this side of the
+     * handshake that never told the record it had been sent.
+     *
+     * sendInvoice is the existing transition and is safe to call here: it only
+     * moves a draft to 'sent', leaves part_paid/overdue/paid alone, and fills
+     * in sent_at and the due date. Re-accepting a quote therefore cannot walk a
+     * part-paid deposit backwards.
+     */
+    const invoice = await crm.sendInvoice(created.id, 'autopilot').catch((err) => {
+      console.error('[send] could not mark the deposit invoice as sent', err);
+      return created;
+    });
 
     const token = await ensureShareToken('invoices', invoice.id);
     const baseUrl = BUSINESS.url;
