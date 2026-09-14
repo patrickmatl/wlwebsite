@@ -71,6 +71,64 @@ export async function sendOwnerPush(payload: {
 }
 
 /**
+ * Put a copy of an outgoing message in the Sent folder.
+ *
+ * SMTP only hands a message to the server for delivery; it does not file a copy
+ * anywhere. The studio therefore had no record of what the agent had actually
+ * sent anyone — the Sent folder held a single message while the system had sent
+ * hundreds, so when a client asked "what did you send me?", nobody could answer,
+ * and a quote the agent had written could not be read back after the fact.
+ *
+ * The copy is written over IMAP, to the same mailbox the inbound poll already
+ * authenticates against. It is strictly best effort: a failure here is logged
+ * and swallowed, because a message that was delivered but not filed is a
+ * bookkeeping problem, while an exception thrown after delivery would look to
+ * the caller like the send itself had failed and could have it sent twice.
+ */
+async function saveToSentFolder(raw: Buffer): Promise<void> {
+  const host = process.env.IMAP_HOST ?? process.env.SMTP_HOST;
+  const user = process.env.IMAP_USER ?? process.env.SMTP_USER;
+  const pass = process.env.IMAP_PASSWORD ?? process.env.SMTP_PASSWORD;
+  if (!host || !user || !pass) return;
+
+  const { ImapFlow } = await import('imapflow');
+  const client = new ImapFlow({
+    host,
+    port: Number(process.env.IMAP_PORT ?? 993),
+    secure: true,
+    auth: { user, pass },
+    logger: false,
+  });
+
+  try {
+    await client.connect();
+
+    /**
+     * The Sent folder is not called the same thing everywhere: cPanel/Dovecot
+     * uses INBOX.Sent, others use Sent or Sent Items. IMAP servers advertise it
+     * with the \Sent special-use flag, so ask rather than guess, and keep the
+     * common names as a fallback for servers that do not.
+     */
+    let mailbox = process.env.IMAP_SENT_MAILBOX ?? '';
+    if (!mailbox) {
+      const boxes = await client.list();
+      mailbox =
+        boxes.find((b) => b.specialUse === '\\Sent')?.path ??
+        boxes.find((b) => /^(INBOX\.)?Sent( Items)?$/i.test(b.path))?.path ??
+        'INBOX.Sent';
+    }
+
+    // \Seen because the studio sent it — it has no business showing up as
+    // unread mail addressed to nobody.
+    await client.append(mailbox, raw, ['\\Seen']);
+  } catch (err) {
+    console.warn('[notify] could not file a copy in Sent', err);
+  } finally {
+    await client.logout().catch(() => client.close());
+  }
+}
+
+/**
  * Send an email.
  *
  * Two transports, picked automatically:
@@ -114,7 +172,7 @@ export async function sendEmail(params: {
       },
     });
 
-    const info = await transport.sendMail({
+    const mail = {
       from,
       to: params.to,
       subject: params.subject,
@@ -125,7 +183,40 @@ export async function sendEmail(params: {
       // that /api/inbound/poll reads, or the conversation loop breaks.
       replyTo: params.replyTo,
       headers: params.headers,
-    });
+    };
+
+    const info = await transport.sendMail(mail);
+
+    /**
+     * File a copy in Sent, unless this was one of our own alerts.
+     *
+     * Owner notifications already arrive in the same mailbox's inbox, so
+     * copying them to Sent as well would bury the client correspondence this
+     * exists to preserve.
+     *
+     * The message is recomposed rather than captured from the transport, which
+     * does not expose the raw source for an SMTP send. Passing the messageId
+     * back in is what makes the filed copy the same message rather than a
+     * lookalike — without it MailComposer mints a new one and the copy no
+     * longer matches the thread the client is replying to.
+     */
+    const isOwnerAlert = ownerRecipients().some(
+      (addr: string) => addr.toLowerCase() === params.to.toLowerCase(),
+    );
+
+    if (!isOwnerAlert) {
+      try {
+        const MailComposer = (await import('nodemailer/lib/mail-composer')).default;
+        const raw = await new MailComposer({
+          ...mail,
+          messageId: info.messageId,
+        }).compile().build();
+        await saveToSentFolder(raw);
+      } catch (err) {
+        console.warn('[notify] could not compose the Sent copy', err);
+      }
+    }
+
     return info.messageId ?? null;
   }
 
