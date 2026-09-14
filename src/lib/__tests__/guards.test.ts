@@ -311,6 +311,32 @@ describe('the deposit invoice is issued before its link is emailed', () => {
   });
 });
 
+// consumeLoginToken writes the session cookie, and Next only permits that from
+// a Server Action or Route Handler. Calling it in a page body throws on every
+// VALID link while an invalid one still redirects cleanly — so this breaks sign
+// in completely and looks fine to any test that does not hold a real token.
+describe('sign-in links redeem inside a server action', () => {
+  for (const side of ['studio', 'portal']) {
+    const file = path.join(process.cwd(), `src/app/${side}/login/verify/page.tsx`);
+    const src = fs.readFileSync(file, 'utf8');
+
+    test(`${side}: consumeLoginToken is not called in the page body`, () => {
+      const component = src.slice(src.search(/export default async function/));
+      assert.ok(
+        !component.includes('consumeLoginToken('),
+        `${side} verify redeems the token while rendering — createSession writes a cookie ` +
+          'and Next throws "a server-side exception has occurred" on every valid link',
+      );
+    });
+
+    test(`${side}: redemption happens in a 'use server' action`, () => {
+      const action = src.slice(0, src.search(/export default async function/));
+      assert.match(action, /'use server'/, `${side} verify needs a server action`);
+      assert.match(action, /consumeLoginToken\(/, `${side} verify must redeem inside that action`);
+    });
+  }
+});
+
 describe('annual report tiers', () => {
   // Additional pages are R250 while the packages work out far higher per page,
   // so the cheap per-page line can rebuild a job the packages already cover.
