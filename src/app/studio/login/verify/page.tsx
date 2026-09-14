@@ -60,8 +60,21 @@ async function completeSignIn(formData: FormData) {
     // The session it created is the portal one, so send them where it works.
     if (result.kind !== 'admin') redirect('/portal');
 
+    /**
+     * Land on the dashboard directly, not on /studio.
+     *
+     * /studio exists only to redirect() to /studio/dashboard. Sending a
+     * just-signed-in person there meant the action's own redirect resolved
+     * to a page whose entire render is another redirect — a redirect chained
+     * off a redirect inside the same server-action response. Every sign-in
+     * then died in "Server Components render" with an identical digest while
+     * the action itself never threw, and because the response was a 500 the
+     * session cookie set a moment earlier never reached the browser. One hop
+     * is one fewer place for that to happen, and the dashboard is where
+     * /studio was always going to put them anyway.
+     */
     const next = String(formData.get('next') ?? '').trim();
-    redirect(safeNext(next || null, 'admin') ?? '/studio');
+    redirect(safeNext(next || null, 'admin') ?? '/studio/dashboard');
   } catch (err) {
     const digest = (err as { digest?: unknown })?.digest;
     if (typeof digest === 'string' && digest.startsWith('NEXT_REDIRECT')) throw err;
