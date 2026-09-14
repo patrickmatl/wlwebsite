@@ -14,6 +14,13 @@
  * error page, which is exactly the person who needs it, and it requires no
  * shared secret. Entries expire after thirty minutes and the buffer is small.
  *
+ * Storage lives on globalThis, not in a module-level variable. Next bundles
+ * instrumentation.ts and route handlers into separate server chunks, so a
+ * plain `const errors = new Map()` here would be instantiated once per chunk:
+ * the hook would write to one Map and the route would read an empty other one.
+ * That is precisely what happened on the first attempt — the readout was empty
+ * seconds after a reproduced failure. globalThis is one object per process.
+ *
  * This relies on one long-lived Node process, which is what Railway runs. On a
  * per-request serverless platform the hook and the route would land in
  * different instances and the map would always be empty — it would fail
@@ -35,22 +42,38 @@ export type CapturedError = {
 const TTL_MS = 30 * 60 * 1000;
 const MAX = 20;
 
-const errors = new Map<string, CapturedError>();
+type Store = { list: CapturedError[] };
 
-export function recordError(entry: CapturedError): void {
-  errors.set(entry.digest, entry);
-  if (errors.size > MAX) {
-    const oldest = errors.keys().next().value;
-    if (oldest !== undefined) errors.delete(oldest);
-  }
+function store(): Store {
+  const g = globalThis as typeof globalThis & { __wlLastErrors?: Store };
+  if (!g.__wlLastErrors) g.__wlLastErrors = { list: [] };
+  return g.__wlLastErrors;
 }
 
+function fresh(e: CapturedError): boolean {
+  return Date.now() - Date.parse(e.at) <= TTL_MS;
+}
+
+export function recordError(entry: CapturedError): void {
+  const s = store();
+  s.list = [entry, ...s.list.filter(fresh)].slice(0, MAX);
+}
+
+/** Exact match on digest. */
 export function lookupError(digest: string): CapturedError | null {
-  const hit = errors.get(digest);
-  if (!hit) return null;
-  if (Date.now() - Date.parse(hit.at) > TTL_MS) {
-    errors.delete(digest);
-    return null;
-  }
-  return hit;
+  return store().list.find((e) => fresh(e) && e.digest === digest) ?? null;
+}
+
+/**
+ * The most recent error within `withinMs`, regardless of digest.
+ *
+ * Next does not always attach `digest` to the error object by the time
+ * onRequestError sees it — the digest on the page is computed afterwards — so
+ * an exact lookup can miss the very error the person is holding. Someone who
+ * has just triggered an error and is asking within a couple of minutes is
+ * that person.
+ */
+export function recentError(withinMs: number): CapturedError | null {
+  const cutoff = Date.now() - withinMs;
+  return store().list.find((e) => Date.parse(e.at) >= cutoff) ?? null;
 }
