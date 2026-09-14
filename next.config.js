@@ -4,6 +4,40 @@ const nextConfig = {
   // external, Node loads it directly and the PDF renderer works in the
   // serverless function.
   serverExternalPackages: ['@react-pdf/renderer'],
+
+  /**
+   * Server Actions must be told the public hostname, because the site is
+   * served through a Cloudflare Worker that rewrites the Host header.
+   *
+   * Next guards every Server Action POST against CSRF by comparing the
+   * browser's Origin header with the Host (or x-forwarded-host) it received.
+   * The browser sends Origin: https://wlcreationx.co.za; the Worker forwards
+   * the request to wlwebsite-production.up.railway.app with Host rewritten to
+   * that hostname (see DNS.md and the hosting notes). Origin and Host no
+   * longer match, and Next throws "Invalid Server Actions request." before the
+   * action function is ever entered.
+   *
+   * That single mismatch was the whole studio sign-in failure: the sign-in
+   * form is a Server Action, so every valid link died with an unchanging
+   * digest, no try/catch around the action could fire because the action was
+   * never called, and the same digest survived every redirect-target change
+   * because the failure sat upstream of all of them. Ordinary fetches to
+   * /api/* routes are not subject to this check, which is why the "email me a
+   * link" form and the lead form kept working and only the button on the
+   * confirm page broke. The portal sign-in is the same shape and was broken the
+   * same way. It was found by capturing the real production error via
+   * onRequestError (src/instrumentation.ts) after the message proved
+   * unreachable any other way.
+   *
+   * Listing the public hostnames here tells Next those Origins are ours. The
+   * Railway hostname is deliberately absent: no browser ever sends it as an
+   * Origin, and allowing it would only widen the check for no benefit.
+   */
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['wlcreationx.co.za', 'www.wlcreationx.co.za'],
+    },
+  },
   images: {
     // Optimization re-enabled: it was disabled sitewide, serving raw files.
     // On Vercel, next/image serves resized AVIF/WebP from the edge for free
