@@ -284,12 +284,12 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
 
             {/* ── Lines ───────────────────────────────────────────────────── */}
             <div className="mt-6">
-              <TableWrap>
+              <TableWrap fit>
                 <thead>
                   <tr>
                     <Th>Description</Th>
-                    <Th right>Qty</Th>
-                    <Th right>Unit price</Th>
+                    <Th hide right>Qty</Th>
+                    <Th hide right>Unit price</Th>
                     <Th right>Line total</Th>
                   </tr>
                 </thead>
@@ -303,9 +303,16 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
                             {item.description}
                           </span>
                         )}
+                        {/* The qty and unit columns are gone below sm, so the arithmetic
+                            moves under the name rather than disappearing with them. */}
+                        <span className="mt-1 block text-xs tabular-nums text-neutral-500 sm:hidden">
+                          {item.unit_price === null
+                            ? 'Quoted on request'
+                            : `${Number(item.quantity)} × ${formatRand(Number(item.unit_price))}`}
+                        </span>
                       </Td>
-                      <Td right>{Number(item.quantity)}</Td>
-                      <Td right>
+                      <Td hide right>{Number(item.quantity)}</Td>
+                      <Td hide right>
                         <Money amount={item.unit_price === null ? null : Number(item.unit_price)} />
                       </Td>
                       <Td right>

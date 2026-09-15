@@ -280,12 +280,12 @@ export default async function PortalQuotePage({ params }: { params: Promise<{ id
               This quote has no line items — please contact the studio.
             </p>
           ) : (
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Item</Th>
-                  <Th right>Qty</Th>
-                  <Th right>Unit</Th>
+                  <Th hide right>Qty</Th>
+                  <Th hide right>Unit</Th>
                   <Th right>Amount</Th>
                 </tr>
               </thead>
@@ -299,11 +299,18 @@ export default async function PortalQuotePage({ params }: { params: Promise<{ id
                           {item.description}
                         </span>
                       ) : null}
+                      {/* The qty and unit columns are gone below sm, so the arithmetic
+                          moves under the name rather than disappearing with them. */}
+                      <span className="mt-1 block text-xs tabular-nums text-neutral-500 sm:hidden">
+                        {item.unit_price === null
+                          ? 'Quoted on request'
+                          : `${Number(item.quantity)} × ${formatRand(Number(item.unit_price))}`}
+                      </span>
                     </Td>
-                    <Td right>
+                    <Td hide right>
                       <span className="tabular-nums text-neutral-300">{item.quantity}</span>
                     </Td>
-                    <Td right>
+                    <Td hide right>
                       {item.unit_price === null ? (
                         <span className="text-xs text-neutral-500">On request</span>
                       ) : (

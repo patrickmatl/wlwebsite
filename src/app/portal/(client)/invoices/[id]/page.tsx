@@ -169,12 +169,12 @@ export default async function PortalInvoicePage({ params }: { params: Promise<{ 
               This invoice has no line items — please contact the studio before paying it.
             </p>
           ) : (
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Description</Th>
-                  <Th right>Qty</Th>
-                  <Th right>Unit</Th>
+                  <Th hide right>Qty</Th>
+                  <Th hide right>Unit</Th>
                   <Th right>Amount</Th>
                 </tr>
               </thead>
@@ -188,11 +188,18 @@ export default async function PortalInvoicePage({ params }: { params: Promise<{ 
                           {item.description}
                         </span>
                       ) : null}
+                      {/* The qty and unit columns are gone below sm, so the arithmetic
+                          moves under the name rather than disappearing with them. */}
+                      <span className="mt-1 block text-xs tabular-nums text-neutral-500 sm:hidden">
+                        {item.unit_price === null
+                          ? 'Quoted on request'
+                          : `${Number(item.quantity)} × ${formatRand(Number(item.unit_price))}`}
+                      </span>
                     </Td>
-                    <Td right>
+                    <Td hide right>
                       <span className="tabular-nums text-neutral-300">{item.quantity}</span>
                     </Td>
-                    <Td right>
+                    <Td hide right>
                       <Money amount={item.unit_price} className="text-neutral-300" />
                     </Td>
                     <Td right>

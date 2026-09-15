@@ -92,16 +92,16 @@ export default function DocumentView({ doc }: { doc: DocumentModel }) {
       )}
 
       <div className="mt-7 overflow-x-auto">
-        <table className="w-full min-w-[520px] border-collapse text-sm">
+        <table className="w-full border-collapse text-sm sm:min-w-[520px]">
           <thead>
             <tr>
               <th className="border-b border-neutral-900 pb-2 text-left text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500">
                 Description
               </th>
-              <th className="w-14 border-b border-neutral-900 pb-2 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500">
+              <th className="hidden w-14 border-b border-neutral-900 pb-2 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500 sm:table-cell">
                 Qty
               </th>
-              <th className="w-24 border-b border-neutral-900 pb-2 text-right text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500">
+              <th className="hidden w-24 border-b border-neutral-900 pb-2 text-right text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500 sm:table-cell">
                 Unit
               </th>
               <th className="w-28 border-b border-neutral-900 pb-2 text-right text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500">
@@ -129,9 +129,18 @@ export default function DocumentView({ doc }: { doc: DocumentModel }) {
                       ))}
                     </ul>
                   )}
+                  {/* Qty and unit are gone below sm, so the arithmetic moves
+                      under the name instead of disappearing with them. */}
+                  <div className="mt-1 text-xs tabular-nums text-neutral-500 sm:hidden">
+                    {line.unitPrice === null
+                      ? 'On request'
+                      : `${line.quantity} × ${formatRand(line.unitPrice)}`}
+                  </div>
                 </td>
-                <td className="py-3 text-center tabular-nums">{line.quantity}</td>
-                <td className="py-3 text-right tabular-nums">
+                <td className="hidden py-3 text-center tabular-nums sm:table-cell">
+                  {line.quantity}
+                </td>
+                <td className="hidden py-3 text-right tabular-nums sm:table-cell">
                   {line.unitPrice === null ? 'On request' : formatRand(line.unitPrice)}
                 </td>
                 <td className="py-3 text-right font-medium tabular-nums">

@@ -180,12 +180,12 @@ export default async function QuotePage({ params }: { params: Promise<{ id: stri
               <p className="mb-5 whitespace-pre-wrap text-sm text-neutral-300">{quote.intro}</p>
             )}
 
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Item</Th>
-                  <Th right>Qty</Th>
-                  <Th right>Unit price</Th>
+                  <Th hide right>Qty</Th>
+                  <Th hide right>Unit price</Th>
                   <Th right>Line total</Th>
                 </tr>
               </thead>
@@ -199,9 +199,16 @@ export default async function QuotePage({ params }: { params: Promise<{ id: stri
                           {item.description}
                         </span>
                       )}
+                      {/* The qty and unit columns are gone below sm, so the arithmetic
+                          moves under the name rather than disappearing with them. */}
+                      <span className="mt-1 block text-xs tabular-nums text-neutral-500 sm:hidden">
+                        {item.unit_price === null
+                          ? 'Quoted on request'
+                          : `${Number(item.quantity)} × ${formatRand(Number(item.unit_price))}`}
+                      </span>
                     </Td>
-                    <Td right>{Number(item.quantity)}</Td>
-                    <Td right>
+                    <Td hide right>{Number(item.quantity)}</Td>
+                    <Td hide right>
                       {item.unit_price === null ? (
                         <span className="text-xs text-neutral-500">Quoted on request</span>
                       ) : (
