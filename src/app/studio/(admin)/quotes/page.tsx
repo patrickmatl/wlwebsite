@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import {
   BTN,
+  BTN_GHOST,
   Card,
   EmptyState,
+  INPUT,
   Money,
   PageHeader,
   StatusPill,
@@ -55,11 +57,14 @@ export default async function QuotesPage({
   const session = await getSession('admin');
   if (!session) redirect('/studio/login');
 
-  const [params, quotes, contacts, companies] = await Promise.all([
-    searchParams,
-    // One unfiltered read rather than one per filter: it keeps the chip counts
-    // honest and the page to a single query.
-    listQuotes({ limit: 300 }),
+  const params = await searchParams;
+  const q = one(params.q).trim();
+
+  const [quotes, contacts, companies] = await Promise.all([
+    // Still one read rather than one per filter, so the chip counts stay
+    // honest. They now count within the search, which is what someone who
+    // has just typed a client's name expects them to mean.
+    listQuotes({ limit: 300, search: q || undefined }),
     listContacts({ includeArchived: true, limit: 500 }),
     listCompanies({ limit: 500 }),
   ]);
@@ -80,6 +85,10 @@ export default async function QuotesPage({
 
   const today = todayISO();
 
+  // Every chip link keeps the search term; losing it on a filter click is
+  // the quickest way to make a search box feel broken.
+  const base = q ? `/studio/quotes?q=${encodeURIComponent(q)}` : '/studio/quotes';
+
   return (
     <>
       <PageHeader
@@ -92,14 +101,36 @@ export default async function QuotesPage({
         }
       />
 
+      {/* A plain GET form: the query lives in the URL, so a search is
+          bookmarkable, shareable and survives a reload. */}
+      <form method="get" className="mb-4 flex flex-wrap items-center gap-2">
+        <input
+          type="search"
+          name="q"
+          defaultValue={q}
+          placeholder="Search by quote number or client"
+          aria-label="Search quotes"
+          className={`${INPUT} sm:w-80`}
+        />
+        {status && <input type="hidden" name="status" value={status} />}
+        <button type="submit" className={BTN_GHOST}>
+          Search
+        </button>
+        {q && (
+          <Link href={status ? `/studio/quotes?status=${status}` : '/studio/quotes'} className={BTN_GHOST}>
+            Clear
+          </Link>
+        )}
+      </form>
+
       <div className="mb-5 flex flex-wrap gap-2">
-        <Link href="/studio/quotes" className={`${CHIP} ${status === null ? CHIP_ON : CHIP_OFF}`}>
+        <Link href={base} className={`${CHIP} ${status === null ? CHIP_ON : CHIP_OFF}`}>
           All <span className="text-xs opacity-70">{quotes.length}</span>
         </Link>
         {STATUS_FILTERS.map((filter) => (
           <Link
             key={filter.id}
-            href={`/studio/quotes?status=${filter.id}`}
+            href={`${base}${base.includes("?") ? "&" : "?"}status=${filter.id}`}
             className={`${CHIP} ${status === filter.id ? CHIP_ON : CHIP_OFF}`}
           >
             {filter.label} <span className="text-xs opacity-70">{counts.get(filter.id) ?? 0}</span>

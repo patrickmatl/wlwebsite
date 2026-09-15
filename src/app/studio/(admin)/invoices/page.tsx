@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import {
+  BTN_GHOST,
   Card,
   EmptyState,
+  INPUT,
   Money,
   PageHeader,
   Stat,
@@ -68,11 +70,14 @@ export default async function InvoicesPage({
   const session = await getSession('admin');
   if (!session) redirect('/studio/login');
 
-  const [params, invoices, contacts, companies] = await Promise.all([
-    searchParams,
-    // One unfiltered read rather than one per filter: it keeps the chip counts
-    // honest and the outstanding total computed over the same set.
-    listInvoices({ limit: 300 }),
+  const params = await searchParams;
+  const q = one(params.q).trim();
+
+  const [invoices, contacts, companies] = await Promise.all([
+    // Still one read rather than one per filter, so the chip counts stay
+    // honest. They now count within the search, which is what someone who
+    // has just typed a client's name expects them to mean.
+    listInvoices({ limit: 300, search: q || undefined }),
     listContacts({ includeArchived: true, limit: 500 }),
     listCompanies({ limit: 500 }),
   ]);
@@ -106,6 +111,10 @@ export default async function InvoicesPage({
   const visible = status ? invoices.filter((i) => i.status === status) : invoices;
   const visibleOutstanding = visible.reduce((sum, invoice) => sum + outstandingOn(invoice), 0);
 
+  // Every chip link keeps the search term; losing it on a filter click is
+  // the quickest way to make a search box feel broken.
+  const base = q ? `/studio/invoices?q=${encodeURIComponent(q)}` : '/studio/invoices';
+
   return (
     <>
       <PageHeader
@@ -135,14 +144,36 @@ export default async function InvoicesPage({
         />
       </div>
 
+      {/* A plain GET form: the query lives in the URL, so a search is
+          bookmarkable, shareable and survives a reload. */}
+      <form method="get" className="mb-4 flex flex-wrap items-center gap-2">
+        <input
+          type="search"
+          name="q"
+          defaultValue={q}
+          placeholder="Search by invoice number or client"
+          aria-label="Search invoices"
+          className={`${INPUT} sm:w-80`}
+        />
+        {status && <input type="hidden" name="status" value={status} />}
+        <button type="submit" className={BTN_GHOST}>
+          Search
+        </button>
+        {q && (
+          <Link href={status ? `/studio/invoices?status=${status}` : '/studio/invoices'} className={BTN_GHOST}>
+            Clear
+          </Link>
+        )}
+      </form>
+
       <div className="mb-5 flex flex-wrap gap-2">
-        <Link href="/studio/invoices" className={CHIP + ' ' + (status === null ? CHIP_ON : CHIP_OFF)}>
+        <Link href={base} className={CHIP + ' ' + (status === null ? CHIP_ON : CHIP_OFF)}>
           All <span className="text-xs opacity-70">{invoices.length}</span>
         </Link>
         {STATUS_FILTERS.map((filter) => (
           <Link
             key={filter.id}
-            href={'/studio/invoices?status=' + filter.id}
+            href={`${base}${base.includes("?") ? "&" : "?"}status=${filter.id}`}
             className={CHIP + ' ' + (status === filter.id ? CHIP_ON : CHIP_OFF)}
           >
             {filter.label} <span className="text-xs opacity-70">{counts.get(filter.id) ?? 0}</span>

@@ -1090,16 +1090,62 @@ export type QuoteFull = {
   company: Company | null;
 };
 
+/**
+ * Turn a search box into a filter for quotes, invoices and projects.
+ *
+ * People search these lists by two quite different things: the reference on the
+ * document — Q-2026-0016, INV-2026-0002, WLX-0002 — or the name of the client
+ * it belongs to. The reference lives on the row, the name does not, so the
+ * names are resolved to ids first and folded into the same OR. Two cheap
+ * queries beats making somebody remember which box does which.
+ *
+ * Returns null when the term matches no client at all, which is a real answer:
+ * the caller can still match on the row's own columns.
+ */
+async function partyIdsMatching(term: string): Promise<{ contacts: string[]; companies: string[] }> {
+  const like = likeTerm(term);
+
+  const [contacts, companies] = await Promise.all([
+    db()
+      .from('contacts')
+      .select('id')
+      .or(`first_name.ilike.${like},last_name.ilike.${like},email.ilike.${like}`)
+      .limit(200),
+    db().from('companies').select('id').or(`name.ilike.${like},trading_name.ilike.${like}`).limit(200),
+  ]);
+
+  return {
+    contacts: (contacts.data ?? []).map((r: { id: string }) => r.id),
+    companies: (companies.data ?? []).map((r: { id: string }) => r.id),
+  };
+}
+
+/** The OR clause for a document list: its own reference columns, plus its client. */
+async function documentSearchClause(term: string, columns: string[]): Promise<string> {
+  const like = likeTerm(term);
+  const parts = columns.map((c) => `${c}.ilike.${like}`);
+
+  const { contacts, companies } = await partyIdsMatching(term);
+  if (contacts.length) parts.push(`contact_id.in.(${contacts.join(',')})`);
+  if (companies.length) parts.push(`company_id.in.(${companies.join(',')})`);
+
+  return parts.join(',');
+}
+
 export async function listQuotes(
   options: {
     status?: QuoteStatus;
     contactId?: string;
     companyId?: string;
     dealId?: string;
+    search?: string;
     limit?: number;
   } = {},
 ): Promise<Quote[]> {
   let query = db().from('quotes').select('*');
+
+  const term = options.search?.trim();
+  if (term) query = query.or(await documentSearchClause(term, ['number']));
 
   if (options.status) query = query.eq('status', options.status);
   if (options.contactId) query = query.eq('contact_id', options.contactId);
@@ -1698,10 +1744,14 @@ export async function listProjects(
     companyId?: string;
     dealId?: string;
     quoteId?: string;
+    search?: string;
     limit?: number;
   } = {},
 ): Promise<Project[]> {
   let query = db().from('projects').select('*');
+
+  const term = options.search?.trim();
+  if (term) query = query.or(await documentSearchClause(term, ['code', 'name']));
 
   if (options.status) query = query.eq('status', options.status);
   else if (options.active) query = query.not('status', 'in', `(${CLOSED_PROJECT_STATUSES.join(',')})`);
@@ -2166,10 +2216,14 @@ export async function listInvoices(
     dealId?: string;
     projectId?: string;
     quoteId?: string;
+    search?: string;
     limit?: number;
   } = {},
 ): Promise<Invoice[]> {
   let query = db().from('invoices').select('*');
+
+  const term = options.search?.trim();
+  if (term) query = query.or(await documentSearchClause(term, ['number']));
 
   if (options.status) query = query.eq('status', options.status);
   else if (options.unpaid || options.overdue) query = query.not('status', 'in', '(draft,void,paid)');
