@@ -84,7 +84,7 @@ export default async function PortalInvoicesPage() {
                   <Th hide>For</Th>
                   <Th hide>Issued</Th>
                   <Th hide>Due</Th>
-                  <Th>Status</Th>
+                  <Th hide>Status</Th>
                   <Th hide right>Total</Th>
                   <Th right>Balance</Th>
                 </tr>
@@ -103,6 +103,13 @@ export default async function PortalInvoicesPage() {
                         >
                           {invoice.number}
                         </Link>
+                        {/* A status pill cannot shrink, so a fourth column of them pushed
+                            the table past the edge of a phone and cut every pill in
+                            half. Below sm it rides under the reference instead, the way
+                            the dashboard rows already show it. */}
+                        <span className="mt-1 block sm:hidden">
+                          <StatusPill status={invoice.status} />
+                        </span>
                       </Td>
                       <Td hide>
                         <span className="text-neutral-300">{KIND_LABELS[invoice.kind]}</span>
@@ -116,7 +123,7 @@ export default async function PortalInvoicesPage() {
                           {late ? ` · ${dueLanguage(invoice.due_date)}` : ''}
                         </span>
                       </Td>
-                      <Td>
+                      <Td hide>
                         <StatusPill status={invoice.status} />
                       </Td>
                       <Td hide right>

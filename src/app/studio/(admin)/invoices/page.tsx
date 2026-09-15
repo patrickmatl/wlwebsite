@@ -210,7 +210,7 @@ export default async function InvoicesPage({
                   <Th hide right>Total</Th>
                   <Th hide right>Paid</Th>
                   <Th right>Balance</Th>
-                  <Th>Status</Th>
+                  <Th hide>Status</Th>
                   <Th hide>Due</Th>
                 </tr>
               </thead>
@@ -233,6 +233,13 @@ export default async function InvoicesPage({
                         >
                           {invoice.number}
                         </Link>
+                        {/* A status pill cannot shrink, so a fourth column of them pushed
+                            the table past the edge of a phone and cut every pill in
+                            half. Below sm it rides under the reference instead, the way
+                            the dashboard rows already show it. */}
+                        <span className="mt-1 block sm:hidden">
+                          <StatusPill status={late && invoice.status !== 'overdue' ? 'overdue' : invoice.status} />
+                        </span>
                       </Td>
                       <Td>{client ?? <span className="text-neutral-600">—</span>}</Td>
                       <Td hide>
@@ -249,7 +256,7 @@ export default async function InvoicesPage({
                       <Td right className={late ? 'font-medium text-red-300' : ''}>
                         {balance > 0 ? <Money amount={balance} /> : <span className="text-neutral-600">—</span>}
                       </Td>
-                      <Td>
+                      <Td hide>
                         <StatusPill status={late && invoice.status !== 'overdue' ? 'overdue' : invoice.status} />
                       </Td>
                       <Td hide className={late ? 'text-red-300' : ''}>

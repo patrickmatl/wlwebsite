@@ -185,7 +185,7 @@ export default async function ProjectsPage({
                   <Th>Code</Th>
                   <Th>Project</Th>
                   <Th hide>Client</Th>
-                  <Th>Status</Th>
+                  <Th hide>Status</Th>
                   <Th hide>Due</Th>
                   <Th hide>Revisions</Th>
                 </tr>
@@ -212,12 +212,19 @@ export default async function ProjectsPage({
                         >
                           {project.code}
                         </Link>
+                        {/* A status pill cannot shrink, so a fourth column of them pushed
+                            the table past the edge of a phone and cut every pill in
+                            half. Below sm it rides under the reference instead, the way
+                            the dashboard rows already show it. */}
+                        <span className="mt-1 block sm:hidden">
+                          <StatusPill status={project.status} />
+                        </span>
                       </Td>
                       <Td>
                         <span className="font-medium text-white">{project.name}</span>
                       </Td>
                       <Td hide>{client ?? <span className="text-neutral-600">—</span>}</Td>
-                      <Td>
+                      <Td hide>
                         <StatusPill status={project.status} />
                       </Td>
                       <Td hide className={late ? 'text-red-300' : ''}>

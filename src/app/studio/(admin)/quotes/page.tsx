@@ -161,7 +161,7 @@ export default async function QuotesPage({
                   <Th>Number</Th>
                   <Th>Client</Th>
                   <Th right>Total</Th>
-                  <Th>Status</Th>
+                  <Th hide>Status</Th>
                   <Th hide>Sent</Th>
                   <Th hide>Valid until</Th>
                 </tr>
@@ -190,12 +190,19 @@ export default async function QuotesPage({
                         >
                           {quote.number}
                         </Link>
+                        {/* A status pill cannot shrink, so a fourth column of them pushed
+                            the table past the edge of a phone and cut every pill in
+                            half. Below sm it rides under the reference instead, the way
+                            the dashboard rows already show it. */}
+                        <span className="mt-1 block sm:hidden">
+                          <StatusPill status={quote.status} />
+                        </span>
                       </Td>
                       <Td>{client ?? <span className="text-neutral-600">—</span>}</Td>
                       <Td right>
                         <Money amount={Number(quote.total)} />
                       </Td>
-                      <Td>
+                      <Td hide>
                         <StatusPill status={quote.status} />
                       </Td>
                       <Td hide>{formatDate(quote.sent_at)}</Td>

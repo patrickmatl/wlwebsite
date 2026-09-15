@@ -54,7 +54,7 @@ export default async function PortalQuotesPage() {
                 <Th>Quote</Th>
                 <Th hide>Sent</Th>
                 <Th hide>Valid until</Th>
-                <Th>Status</Th>
+                <Th hide>Status</Th>
                 <Th right>Total</Th>
               </tr>
             </thead>
@@ -74,6 +74,13 @@ export default async function PortalQuotesPage() {
                       >
                         {quote.number}
                       </Link>
+                      {/* A status pill cannot shrink, so a fourth column of them pushed
+                          the table past the edge of a phone and cut every pill in
+                          half. Below sm it rides under the reference instead, the way
+                          the dashboard rows already show it. */}
+                      <span className="mt-1 block sm:hidden">
+                        <StatusPill status={quote.status} />
+                      </span>
                     </Td>
                     <Td hide>
                       <span className="text-neutral-400">
@@ -86,7 +93,7 @@ export default async function PortalQuotesPage() {
                         {lapsed ? ' · lapsed' : ''}
                       </span>
                     </Td>
-                    <Td>
+                    <Td hide>
                       <StatusPill status={quote.status} />
                     </Td>
                     <Td right>
