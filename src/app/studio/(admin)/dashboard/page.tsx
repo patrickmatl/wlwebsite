@@ -270,27 +270,24 @@ export default async function DashboardPage() {
                                 doneLabel: 'Chased',
                                 payload: { action: 'chase-quote', quoteId: quote.id },
                               },
-                              {
-                                label: 'Mark accepted',
-                                busyLabel: 'Saving…',
-                                confirm:
-                                  `Record quote ${quote.number} as accepted by ${quote.clientName}? ` +
-                                  'Do this only for a yes that came by phone or email.',
-                                payload: {
-                                  action: 'accept-quote',
-                                  quoteId: quote.id,
-                                  name: quote.clientName,
-                                },
-                              },
-                              {
-                                label: 'Mark declined',
-                                busyLabel: 'Saving…',
-                                danger: true,
-                                confirm:
-                                  `Record quote ${quote.number} as declined? ` +
-                                  'The deal stays open, so you can always quote again.',
-                                payload: { action: 'decline-quote', quoteId: quote.id },
-                              },
+                              /*
+                               * Mark accepted and Mark declined used to sit
+                               * here too. On 15 September 2026 five quotes —
+                               * Q-2026-0004, 0005, 0007, 0008 and 0011 — were
+                               * recorded as declined at 08:32 in one moment,
+                               * attributed to the signed-in owner, with nobody
+                               * having pressed anything. The trigger was never
+                               * reproduced.
+                               *
+                               * A one-click, irreversible change to a client
+                               * record does not belong on a list view when its
+                               * behaviour is not fully understood. Accepting or
+                               * declining now happens where it always did, on
+                               * the quote itself, where the page names the
+                               * quote and asks who said yes. Chasing stays: it
+                               * sends an email and writes a timeline entry, and
+                               * neither rewrites the record.
+                               */
                             ]}
                           />
                         }
