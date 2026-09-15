@@ -25,6 +25,7 @@ type NavItem = { href: string; label: string; hint: string };
 const NAV: NavItem[] = [
   { href: '/studio/dashboard', label: 'Dashboard', hint: 'Where the studio stands' },
   { href: '/studio/inbox', label: 'Approvals', hint: 'Replies waiting to send' },
+  { href: '/studio/messages', label: 'Messages', hint: 'Talk to a client' },
   { href: '/studio/deals', label: 'Deals', hint: 'The pipeline' },
   { href: '/studio/contacts', label: 'Contacts', hint: 'People' },
   { href: '/studio/companies', label: 'Companies', hint: 'Businesses' },

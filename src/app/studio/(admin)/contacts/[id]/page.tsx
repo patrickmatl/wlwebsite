@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 import {
+  BTN_GHOST,
   Badge,
   Card,
   EmptyState,
@@ -19,8 +20,10 @@ import {
 import { contactName, round2 } from '@/lib/crm/types';
 import { getSession } from '@/lib/server/auth';
 import { getContact, getContactDetail, listCompanies } from '@/lib/server/crm';
+import { threadIdForContact } from '@/lib/server/messages';
 import ContactForm from '../ContactForm';
 import { NoteComposer, PortalControls } from './ContactActions';
+import OpenConversation from './OpenConversation';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,9 +84,10 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
   if (!session) redirect('/studio/login');
 
   const { id } = await params;
-  const [detail, companies] = await Promise.all([
+  const [detail, companies, threadId] = await Promise.all([
     getContactDetail(id),
     listCompanies({ limit: 500 }),
+    threadIdForContact(id),
   ]);
   if (!detail) notFound();
 
@@ -111,6 +115,16 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
         }
         action={
           <div className="flex flex-wrap items-center gap-2">
+            {/* The way in to their email thread. Before this the only place a
+                conversation was visible was the approval queue, and only while
+                a draft happened to be sitting on it. */}
+            {threadId ? (
+              <Link href={`/studio/messages/${threadId}`} className={BTN_GHOST}>
+                Open the conversation
+              </Link>
+            ) : (
+              <OpenConversation contactId={contact.id} />
+            )}
             {archived && <Badge tone="neutral">Archived</Badge>}
             <Badge tone={contact.portal_enabled ? 'green' : 'neutral'}>
               {contact.portal_enabled ? 'Portal on' : 'Portal off'}

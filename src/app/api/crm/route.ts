@@ -3,6 +3,7 @@ import { getSession, requestLogin } from '@/lib/server/auth';
 import { sendEmail } from '@/lib/server/notify';
 import { signatureHtml, signatureText } from '@/lib/server/email-signature';
 import * as crm from '@/lib/server/crm';
+import { sendStudioMessage, startConversationWithContact } from '@/lib/server/messages';
 import { BUSINESS } from '@/data/business';
 
 export const runtime = 'nodejs';
@@ -193,6 +194,29 @@ export async function POST(request: Request) {
           actor,
         );
         return NextResponse.json({ ok: true, quote, id: quote.id });
+      }
+
+      // ── Talking to a client ───────────────────────────────────────────────
+      case 'send-message': {
+        const fileIds = Array.isArray(body.fileIds)
+          ? body.fileIds.map((f) => str(f)).filter(Boolean)
+          : [];
+        const result = await sendStudioMessage({
+          threadId: requireId(body, 'threadId'),
+          body: str(body.body),
+          subject: optStr(body.subject),
+          fileIds,
+          actor,
+        });
+        return NextResponse.json({ ok: true, ...result });
+      }
+
+      case 'start-conversation': {
+        const threadId = await startConversationWithContact(
+          requireId(body, 'contactId'),
+          optStr(body.subject) ?? undefined,
+        );
+        return NextResponse.json({ ok: true, threadId, id: threadId });
       }
 
       case 'send-quote':

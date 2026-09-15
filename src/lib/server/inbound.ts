@@ -6,6 +6,7 @@ import { createThread, extractThreadRef, findThreadForReply, type ThreadRow } fr
 import { syncLeadToCrm } from './lead-sync';
 import { handleProofOfPayment } from './payments';
 import type { InboundAttachment } from './proof-of-payment';
+import { saveInboundAttachments } from './files';
 
 /**
  * Every inbound email ends up here, whichever way it arrived:
@@ -153,6 +154,14 @@ async function continueThread(params: {
     subject: params.subject ?? null,
     body: params.body,
   });
+
+  // Whatever they attached is kept before anything else happens to the
+  // message, so a drafting failure further down cannot take the file with it.
+  await saveInboundAttachments({
+    contactId: (lead.contact_id as string | null) ?? null,
+    from: params.fromEmail,
+    files: params.files ?? [],
+  }).catch(() => []);
 
   // Money is settled before the drafting agent ever sees the message. A proof
   // of payment is reconciled against the invoice record by payments.ts, so no
@@ -309,7 +318,7 @@ async function startFromColdEmail(params: {
 
   // Someone who emailed the studio directly belongs in the CRM exactly as much
   // as someone who used the form.
-  await syncLeadToCrm({
+  const synced = await syncLeadToCrm({
     id: lead.id,
     name,
     email: params.fromEmail,
@@ -323,6 +332,12 @@ async function startFromColdEmail(params: {
     subject: params.subject ?? null,
     body: params.body,
   });
+
+  await saveInboundAttachments({
+    contactId: synced.contactId,
+    from: params.fromEmail,
+    files: params.files ?? [],
+  }).catch(() => []);
 
   return await storeAndRelease({
     threadId: thread.id,

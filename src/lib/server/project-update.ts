@@ -1,6 +1,9 @@
 import { BUSINESS } from '@/data/business';
 import { contactName } from '@/lib/crm/types';
+import { db } from './db';
 import { sendEmail } from './notify';
+import { tagSubject } from './threads';
+import { threadIdForContact } from './messages';
 import { signatureHtml, signatureText } from './email-signature';
 import { greetingName } from './render-quote';
 import * as crm from './crm';
@@ -84,6 +87,27 @@ export async function sendProjectUpdate(
     milestoneCompleted = done.title;
   }
 
+  /**
+   * An update is an email to the client like any other, so it belongs in their
+   * conversation. Without this the studio's Messages page would show a thread
+   * that is missing the most recent thing anybody said in it — which is worse
+   * than no thread at all, because it reads as complete.
+   *
+   * Tagging the subject with the thread reference also means their reply comes
+   * back to that conversation instead of opening a second one about the same
+   * job.
+   */
+  const threadId = contact ? await threadIdForContact(contact.id).catch(() => null) : null;
+  let threadRef: string | null = null;
+  if (threadId) {
+    const { data } = await db()
+      .from('quote_threads')
+      .select('ref')
+      .eq('id', threadId)
+      .maybeSingle();
+    threadRef = (data as { ref: string | null } | null)?.ref ?? null;
+  }
+
   const to = contact?.email?.trim() || null;
   const name = contact ? greetingName(contactName(contact)) : 'there';
   const projectLabel = project.name || project.code || 'your project';
@@ -117,8 +141,30 @@ export async function sendProjectUpdate(
       signatureHtml() +
       `</div>`;
 
-    await sendEmail({ to, subject: `Update on ${projectLabel}`, text, html });
+    const subject = tagSubject(`Update on ${projectLabel}`, threadRef);
+    await sendEmail({ to, subject, text, html });
     emailed = true;
+
+    if (threadId) {
+      // Recorded as a sent studio message, the same shape an approved draft
+      // leaves behind, so the conversation cannot tell them apart.
+      await db()
+        .from('quote_messages')
+        .insert({
+          thread_id: threadId,
+          role: 'studio',
+          subject,
+          body: message,
+          sent_at: new Date().toISOString(),
+          approved_by: actor,
+        })
+        .then(undefined, (err) => console.error('[project-update] not threaded', err));
+
+      await db()
+        .from('quote_threads')
+        .update({ state: 'awaiting_client', follow_ups_sent: 0 })
+        .eq('id', threadId);
+    }
   }
 
   await crm.logActivity({
