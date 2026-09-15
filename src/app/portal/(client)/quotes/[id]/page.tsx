@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import DocumentPdfLinks from '@/components/crm/DocumentPdfLinks';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -138,7 +139,15 @@ export default async function PortalQuotePage({ params }: { params: Promise<{ id
             {quote.valid_until ? ` · valid until ${formatDate(quote.valid_until)}` : ''}
           </p>
         </div>
-        <PrintButton label="Print or save as PDF" />
+        {/*
+          The real PDF, not the browser's print dialog. Printing this page
+          produces a screenshot of a web page; the endpoint renders the same
+          document the studio issued and the same one attached to the email.
+        */}
+        <div className="flex flex-wrap items-center gap-3">
+          <DocumentPdfLinks type="quote" id={quote.id} label="quote" />
+          <PrintButton label="Print this page" />
+        </div>
       </div>
 
       {quote.status === 'accepted' ? (

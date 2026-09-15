@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import DocumentPdfLinks from '@/components/crm/DocumentPdfLinks';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -129,9 +130,12 @@ export default async function QuotePage({ params }: { params: Promise<{ id: stri
           `issued ${formatDate(quote.created_at)}`
         }
         action={
-          <Link href="/studio/quotes" className={BTN_GHOST}>
-            All quotes
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <DocumentPdfLinks type="quote" id={quote.id} label="quote" />
+            <Link href="/studio/quotes" className={BTN_GHOST}>
+              All quotes
+            </Link>
+          </div>
         }
       />
 

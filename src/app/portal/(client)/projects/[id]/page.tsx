@@ -121,7 +121,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
   const found = await getProject(session, id);
   if (!found) notFound();
 
-  const { project, milestones, files } = found;
+  const { project, milestones, files, updates } = found;
 
   const closed = isProjectClosed(project.status);
   const countable = milestones.filter((milestone) => milestone.status !== 'skipped');
@@ -168,6 +168,32 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
                   </p>
                 ))}
               </div>
+            </Card>
+          ) : null}
+
+          {/*
+            What the studio has actually told them, newest first.
+            The stepper above says which stage the work is at; this says what
+            was said about it, in the studio's own words, so the client is not
+            left reading a progress bar and guessing at the rest.
+          */}
+          {updates.length > 0 ? (
+            <Card>
+              <h2 className="mb-5 font-syne text-base font-bold text-white">Updates from us</h2>
+              <ul className="space-y-5">
+                {updates.map((update) => (
+                  <li key={update.id} className="border-l-2 border-[#FFD700]/40 pl-4">
+                    <p className="text-xs text-neutral-500">{formatDate(update.created_at)}</p>
+                    <div className="mt-1.5 space-y-2">
+                      {paragraphs(update.body ?? '').map((para, i) => (
+                        <p key={i} className="text-sm leading-relaxed text-neutral-200">
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ) : null}
 

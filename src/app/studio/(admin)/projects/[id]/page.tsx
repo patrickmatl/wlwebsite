@@ -30,6 +30,7 @@ import {
 import MilestoneList from './MilestoneList';
 import ProjectActions from './ProjectActions';
 import ProjectNotes from './ProjectNotes';
+import ClientUpdate from './ClientUpdate';
 
 export const dynamic = 'force-dynamic';
 
@@ -304,8 +305,25 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
           </Card>
         </div>
 
-        {/* ── Notes and timeline ──────────────────────────────────────────── */}
+        {/* ── Client updates, notes and timeline ──────────────────────────── */}
         <div className="space-y-6">
+          {/*
+            Above the notes card on purpose. The update a client receives is the
+            thing most often forgotten, and burying it under the internal notes
+            is how a project goes quiet for a fortnight while the studio is busy
+            writing notes to itself.
+          */}
+          <Card>
+            <SectionHeading>Update the client</SectionHeading>
+            <ClientUpdate
+              projectId={project.id}
+              clientName={contact ? contactName(contact) : null}
+              clientEmail={contact?.email ?? null}
+              milestones={milestones}
+              updates={activity.filter((entry) => entry.kind === 'client_update')}
+            />
+          </Card>
+
           <Card>
             <SectionHeading>Notes</SectionHeading>
             <ProjectNotes projectId={project.id} notes={notes} />

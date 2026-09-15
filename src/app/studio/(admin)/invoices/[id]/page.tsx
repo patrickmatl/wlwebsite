@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import DocumentPdfLinks from '@/components/crm/DocumentPdfLinks';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -188,9 +189,16 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
               .join(' · ')
           }
           action={
-            <Link href="/studio/invoices" className={BTN_GHOST}>
-              All invoices
-            </Link>
+            <div className="flex flex-wrap items-center gap-3">
+              <DocumentPdfLinks
+                type="invoice"
+                id={invoice.id}
+                label={invoice.kind === 'proforma' ? 'proforma' : 'invoice'}
+              />
+              <Link href="/studio/invoices" className={BTN_GHOST}>
+                All invoices
+              </Link>
+            </div>
           }
         />
       </div>

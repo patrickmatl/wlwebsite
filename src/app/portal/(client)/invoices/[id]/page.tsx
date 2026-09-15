@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import DocumentPdfLinks from '@/components/crm/DocumentPdfLinks';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { Money, StatusPill, TableWrap, Td, Th, formatDate } from '@/components/crm/ui';
@@ -97,7 +98,14 @@ export default async function PortalInvoicePage({ params }: { params: Promise<{ 
             {invoice.due_date ? ` · due ${formatDate(invoice.due_date)}` : ''}
           </p>
         </div>
-        <PrintButton label="Print or save as PDF" />
+        <div className="flex flex-wrap items-center gap-3">
+          <DocumentPdfLinks
+            type="invoice"
+            id={invoice.id}
+            label={invoice.kind === 'proforma' ? 'proforma' : 'invoice'}
+          />
+          <PrintButton label="Print this page" />
+        </div>
       </div>
 
       {settled ? (
