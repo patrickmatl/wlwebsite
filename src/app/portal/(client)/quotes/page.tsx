@@ -70,7 +70,7 @@ export default async function PortalQuotesPage() {
                     <Td>
                       <Link
                         href={`/portal/quotes/${quote.id}`}
-                        className="font-medium text-[#FFD700] underline-offset-4 hover:underline"
+                        className="whitespace-nowrap font-medium text-[#FFD700] underline-offset-4 hover:underline"
                       >
                         {quote.number}
                       </Link>

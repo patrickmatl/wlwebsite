@@ -229,7 +229,7 @@ export default async function InvoicesPage({
                       <Td>
                         <Link
                           href={'/studio/invoices/' + invoice.id}
-                          className="font-medium text-[#FFD700] hover:underline"
+                          className="whitespace-nowrap font-medium text-[#FFD700] hover:underline"
                         >
                           {invoice.number}
                         </Link>

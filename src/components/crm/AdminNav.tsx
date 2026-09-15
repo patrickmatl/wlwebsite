@@ -45,6 +45,20 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(href + '/');
 }
 
+/**
+ * What the phone bar calls the page when it is not one of the sections.
+ *
+ * Search has no entry in NAV — it is the box, not a destination — so the
+ * lookup below used to fall through to NAV[0] and label the search results
+ * "Dashboard". Naming the segment is right for anything else that lands
+ * outside the list too.
+ */
+function sectionLabel(pathname: string): string {
+  const segment = pathname.split('/')[2] ?? '';
+  if (!segment) return NAV[0].label;
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
+}
+
 const RAIL_LINK =
   'block rounded-lg border border-transparent px-3 py-2 text-sm font-medium transition';
 const RAIL_ON = 'border-[#FFD700]/30 bg-[#FFD700]/10 text-[#FFD700]';
@@ -62,7 +76,8 @@ export default function AdminNav({
   const [term, setTerm] = useState('');
   const railSearch = useRef<HTMLInputElement | null>(null);
 
-  const current = NAV.find((item) => isActive(pathname, item.href)) ?? NAV[0];
+  const current = NAV.find((item) => isActive(pathname, item.href));
+  const currentLabel = current?.label ?? sectionLabel(pathname);
 
   // Following a link inside the sheet navigates without unmounting this
   // component, so the route change itself has to close the sheet.
@@ -242,7 +257,7 @@ export default function AdminNav({
             WL
           </Link>
           <span className="min-w-0 flex-1 truncate text-sm font-medium text-white">
-            {current.label}
+            {currentLabel}
           </span>
           <button
             type="button"

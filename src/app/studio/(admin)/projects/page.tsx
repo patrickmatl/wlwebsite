@@ -208,7 +208,7 @@ export default async function ProjectsPage({
                       <Td>
                         <Link
                           href={`/studio/projects/${project.id}`}
-                          className="font-medium text-[#FFD700] hover:underline"
+                          className="whitespace-nowrap font-medium text-[#FFD700] hover:underline"
                         >
                           {project.code}
                         </Link>

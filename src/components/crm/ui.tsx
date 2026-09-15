@@ -144,7 +144,9 @@ export function StatusPill({ status }: { status: string }) {
 }
 
 export function Money({ amount, className = '' }: { amount: number | null; className?: string }) {
-  return <span className={`tabular-nums ${className}`}>{formatRand(amount)}</span>;
+  return (
+    <span className={`whitespace-nowrap tabular-nums ${className}`}>{formatRand(amount)}</span>
+  );
 }
 
 export function EmptyState({ title, hint }: { title: string; hint?: string }) {
@@ -174,7 +176,12 @@ export function TableWrap({ children, fit = false }: { children: ReactNode; fit?
   return (
     <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
       <table
-        className={`w-full border-collapse text-sm ${fit ? 'sm:min-w-[640px]' : 'min-w-[640px]'}`}
+        className={`w-full border-collapse ${
+          // A phone gets one size down. Four columns at text-sm still spill a
+          // status pill off the edge of a 375px screen; at text-xs they fit
+          // with room to spare, and it is a list being scanned, not read.
+          fit ? 'text-xs sm:min-w-[640px] sm:text-sm' : 'min-w-[640px] text-sm'
+        }`}
       >
         {children}
       </table>

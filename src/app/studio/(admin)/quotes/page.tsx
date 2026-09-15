@@ -186,7 +186,7 @@ export default async function QuotesPage({
                       <Td>
                         <Link
                           href={`/studio/quotes/${quote.id}`}
-                          className="font-medium text-[#FFD700] hover:underline"
+                          className="whitespace-nowrap font-medium text-[#FFD700] hover:underline"
                         >
                           {quote.number}
                         </Link>

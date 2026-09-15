@@ -99,7 +99,7 @@ export default async function PortalInvoicesPage() {
                       <Td>
                         <Link
                           href={`/portal/invoices/${invoice.id}`}
-                          className="font-medium text-[#FFD700] underline-offset-4 hover:underline"
+                          className="whitespace-nowrap font-medium text-[#FFD700] underline-offset-4 hover:underline"
                         >
                           {invoice.number}
                         </Link>
