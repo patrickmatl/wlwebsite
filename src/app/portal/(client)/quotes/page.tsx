@@ -48,12 +48,12 @@ export default async function PortalQuotesPage() {
         />
       ) : (
         <Card>
-          <TableWrap>
+          <TableWrap fit>
             <thead>
               <tr>
                 <Th>Quote</Th>
-                <Th>Sent</Th>
-                <Th>Valid until</Th>
+                <Th hide>Sent</Th>
+                <Th hide>Valid until</Th>
                 <Th>Status</Th>
                 <Th right>Total</Th>
               </tr>
@@ -75,12 +75,12 @@ export default async function PortalQuotesPage() {
                         {quote.number}
                       </Link>
                     </Td>
-                    <Td>
+                    <Td hide>
                       <span className="text-neutral-400">
                         {formatDate(quote.sent_at ?? quote.created_at)}
                       </span>
                     </Td>
-                    <Td>
+                    <Td hide>
                       <span className={lapsed ? 'text-neutral-500' : 'text-neutral-400'}>
                         {formatDate(quote.valid_until)}
                         {lapsed ? ' · lapsed' : ''}

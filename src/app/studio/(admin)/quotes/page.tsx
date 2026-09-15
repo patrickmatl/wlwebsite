@@ -155,15 +155,15 @@ export default async function QuotesPage({
               <span className="tabular-nums text-neutral-200">{formatRand(visibleValue)}</span>
             </p>
 
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Number</Th>
                   <Th>Client</Th>
                   <Th right>Total</Th>
                   <Th>Status</Th>
-                  <Th>Sent</Th>
-                  <Th>Valid until</Th>
+                  <Th hide>Sent</Th>
+                  <Th hide>Valid until</Th>
                 </tr>
               </thead>
               <tbody>
@@ -198,8 +198,8 @@ export default async function QuotesPage({
                       <Td>
                         <StatusPill status={quote.status} />
                       </Td>
-                      <Td>{formatDate(quote.sent_at)}</Td>
-                      <Td className={lapsed ? 'text-red-300' : ''}>
+                      <Td hide>{formatDate(quote.sent_at)}</Td>
+                      <Td hide className={lapsed ? 'text-red-300' : ''}>
                         {formatDate(quote.valid_until)}
                         {lapsed && <span className="block text-xs">lapsed</span>}
                       </Td>

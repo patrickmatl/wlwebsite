@@ -201,17 +201,17 @@ export default async function InvoicesPage({
               outstanding
             </p>
 
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Number</Th>
                   <Th>Client</Th>
-                  <Th>Kind</Th>
-                  <Th right>Total</Th>
-                  <Th right>Paid</Th>
+                  <Th hide>Kind</Th>
+                  <Th hide right>Total</Th>
+                  <Th hide right>Paid</Th>
                   <Th right>Balance</Th>
                   <Th>Status</Th>
-                  <Th>Due</Th>
+                  <Th hide>Due</Th>
                 </tr>
               </thead>
               <tbody>
@@ -235,15 +235,15 @@ export default async function InvoicesPage({
                         </Link>
                       </Td>
                       <Td>{client ?? <span className="text-neutral-600">—</span>}</Td>
-                      <Td>
+                      <Td hide>
                         <span className="text-xs uppercase tracking-wide text-neutral-400">
                           {invoice.kind}
                         </span>
                       </Td>
-                      <Td right>
+                      <Td hide right>
                         <Money amount={Number(invoice.total)} />
                       </Td>
-                      <Td right>
+                      <Td hide right>
                         <Money amount={Number(invoice.amount_paid)} />
                       </Td>
                       <Td right className={late ? 'font-medium text-red-300' : ''}>
@@ -252,7 +252,7 @@ export default async function InvoicesPage({
                       <Td>
                         <StatusPill status={late && invoice.status !== 'overdue' ? 'overdue' : invoice.status} />
                       </Td>
-                      <Td className={late ? 'text-red-300' : ''}>
+                      <Td hide className={late ? 'text-red-300' : ''}>
                         {formatDate(invoice.due_date)}
                         {late && <span className="block text-xs">past due</span>}
                       </Td>

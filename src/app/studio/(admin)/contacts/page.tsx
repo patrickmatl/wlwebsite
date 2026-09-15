@@ -119,15 +119,15 @@ export default async function ContactsPage({
             }
           />
         ) : (
-          <TableWrap>
+          <TableWrap fit>
             <thead>
               <tr>
                 <Th>Name</Th>
                 <Th>Company</Th>
-                <Th>Email</Th>
-                <Th>Phone</Th>
+                <Th hide>Email</Th>
+                <Th hide>Phone</Th>
                 <Th>Portal</Th>
-                <Th>Last login</Th>
+                <Th hide>Last login</Th>
                 <Th right>
                   <span className="sr-only">Actions</span>
                 </Th>
@@ -168,7 +168,7 @@ export default async function ContactsPage({
                         <span className="text-neutral-500">—</span>
                       )}
                     </Td>
-                    <Td>
+                    <Td hide>
                       <a
                         href={`mailto:${contact.email}`}
                         className="break-all text-neutral-300 hover:text-[#FFD700]"
@@ -176,7 +176,7 @@ export default async function ContactsPage({
                         {contact.email}
                       </a>
                     </Td>
-                    <Td>
+                    <Td hide>
                       {contact.phone ? (
                         <a
                           href={`tel:${contact.phone.replace(/\s+/g, '')}`}
@@ -193,7 +193,7 @@ export default async function ContactsPage({
                         {contact.portal_enabled ? 'Enabled' : 'Off'}
                       </Badge>
                     </Td>
-                    <Td>
+                    <Td hide>
                       <span className="whitespace-nowrap text-neutral-400">
                         {contact.last_login_at ? relativeTime(contact.last_login_at) : 'Never'}
                       </span>

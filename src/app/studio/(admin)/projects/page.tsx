@@ -179,15 +179,15 @@ export default async function ProjectsPage({
               {visible.length} project{visible.length === 1 ? '' : 's'}
             </p>
 
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Code</Th>
                   <Th>Project</Th>
-                  <Th>Client</Th>
+                  <Th hide>Client</Th>
                   <Th>Status</Th>
-                  <Th>Due</Th>
-                  <Th>Revisions</Th>
+                  <Th hide>Due</Th>
+                  <Th hide>Revisions</Th>
                 </tr>
               </thead>
               <tbody>
@@ -216,15 +216,15 @@ export default async function ProjectsPage({
                       <Td>
                         <span className="font-medium text-white">{project.name}</span>
                       </Td>
-                      <Td>{client ?? <span className="text-neutral-600">—</span>}</Td>
+                      <Td hide>{client ?? <span className="text-neutral-600">—</span>}</Td>
                       <Td>
                         <StatusPill status={project.status} />
                       </Td>
-                      <Td className={late ? 'text-red-300' : ''}>
+                      <Td hide className={late ? 'text-red-300' : ''}>
                         {formatDate(project.due_at)}
                         {late && <span className="block text-xs">overdue</span>}
                       </Td>
-                      <Td>
+                      <Td hide>
                         <RevisionsUsed
                           used={Number(project.revisions_used)}
                           included={Number(project.revisions_included)}

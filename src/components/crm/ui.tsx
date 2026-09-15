@@ -156,21 +156,47 @@ export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   );
 }
 
-/** Wide tables must scroll inside their own box, never the page. */
-export function TableWrap({ children }: { children: ReactNode }) {
+/**
+ * Wide tables must scroll inside their own box, never the page.
+ *
+ * A table with a 640px floor side-scrolls on a phone, and nothing on screen
+ * says so: the studio's quote list ended mid-amount at "R14 78" with the
+ * status, the date and the validity all off the right edge. That is right for
+ * a document whose columns have to be read together, and wrong for a list you
+ * are scanning.
+ *
+ * So `fit` goes with columns marked `hide`. With the least useful ones gone
+ * below `sm` there is nothing left to scroll to, the floor comes off, and the
+ * three or four that are left simply fill the screen. Everything the phone
+ * hides is still one tap away on the record itself.
+ */
+export function TableWrap({ children, fit = false }: { children: ReactNode; fit?: boolean }) {
   return (
     <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-      <table className="w-full min-w-[640px] border-collapse text-sm">{children}</table>
+      <table
+        className={`w-full border-collapse text-sm ${fit ? 'sm:min-w-[640px]' : 'min-w-[640px]'}`}
+      >
+        {children}
+      </table>
     </div>
   );
 }
 
-export function Th({ children, right = false }: { children: ReactNode; right?: boolean }) {
+export function Th({
+  children,
+  right = false,
+  hide = false,
+}: {
+  children: ReactNode;
+  right?: boolean;
+  /** Drop this column below `sm`. The matching Td must say so too. */
+  hide?: boolean;
+}) {
   return (
     <th
-      className={`border-b border-white/10 pb-2 text-xs font-medium uppercase tracking-wide text-neutral-400 ${
+      className={`border-b border-white/10 pb-2 pr-3 text-xs font-medium uppercase tracking-wide text-neutral-400 last:pr-0 ${
         right ? 'text-right' : 'text-left'
-      }`}
+      } ${hide ? 'hidden sm:table-cell' : ''}`}
     >
       {children}
     </th>
@@ -180,15 +206,20 @@ export function Th({ children, right = false }: { children: ReactNode; right?: b
 export function Td({
   children,
   right = false,
+  hide = false,
   className = '',
 }: {
   children: ReactNode;
   right?: boolean;
+  /** Drop this cell below `sm`, matching its Th. */
+  hide?: boolean;
   className?: string;
 }) {
   return (
     <td
-      className={`border-b border-white/5 py-3 text-neutral-200 ${right ? 'text-right' : ''} ${className}`}
+      className={`border-b border-white/5 py-3 pr-3 text-neutral-200 last:pr-0 ${
+        right ? 'text-right' : ''
+      } ${hide ? 'hidden sm:table-cell' : ''} ${className}`}
     >
       {children}
     </td>

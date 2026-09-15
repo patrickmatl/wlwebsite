@@ -78,7 +78,10 @@ export default function PortalNav({ name, email }: { name: string; email: string
           </div>
         </div>
 
-        <nav aria-label="Portal sections" className="-mx-1 flex gap-1 overflow-x-auto pb-2">
+        {/* Wraps rather than scrolls. At 390px the strip ran five tabs past
+            the right edge and "Details" simply was not there — no scrollbar,
+            no fade, nothing to say it existed. Two short rows show all five. */}
+        <nav aria-label="Portal sections" className="-mx-1 flex flex-wrap gap-1 pb-2">
           {LINKS.map((link) => {
             const active = isActive(pathname, link.href, link.exact);
             return (

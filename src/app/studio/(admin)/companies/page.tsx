@@ -103,14 +103,14 @@ export default async function CompaniesPage({
             }
           />
         ) : (
-          <TableWrap>
+          <TableWrap fit>
             <thead>
               <tr>
                 <Th>Company</Th>
-                <Th>Industry</Th>
+                <Th hide>Industry</Th>
                 <Th>Location</Th>
-                <Th>Email</Th>
-                <Th>Phone</Th>
+                <Th hide>Email</Th>
+                <Th hide>Phone</Th>
                 <Th right>People</Th>
                 <Th right>
                   <span className="sr-only">Actions</span>
@@ -136,11 +136,11 @@ export default async function CompaniesPage({
                         </span>
                       )}
                     </Td>
-                    <Td>
+                    <Td hide>
                       {company.industry ?? <span className="text-neutral-500">—</span>}
                     </Td>
                     <Td>{where || <span className="text-neutral-500">—</span>}</Td>
-                    <Td>
+                    <Td hide>
                       {company.email ? (
                         <a
                           href={`mailto:${company.email}`}
@@ -152,7 +152,7 @@ export default async function CompaniesPage({
                         <span className="text-neutral-500">—</span>
                       )}
                     </Td>
-                    <Td>
+                    <Td hide>
                       {company.phone ? (
                         <a
                           href={`tel:${company.phone.replace(/\s+/g, '')}`}

@@ -77,15 +77,15 @@ export default async function PortalInvoicesPage() {
           )}
 
           <Card>
-            <TableWrap>
+            <TableWrap fit>
               <thead>
                 <tr>
                   <Th>Invoice</Th>
-                  <Th>For</Th>
-                  <Th>Issued</Th>
-                  <Th>Due</Th>
+                  <Th hide>For</Th>
+                  <Th hide>Issued</Th>
+                  <Th hide>Due</Th>
                   <Th>Status</Th>
-                  <Th right>Total</Th>
+                  <Th hide right>Total</Th>
                   <Th right>Balance</Th>
                 </tr>
               </thead>
@@ -104,13 +104,13 @@ export default async function PortalInvoicesPage() {
                           {invoice.number}
                         </Link>
                       </Td>
-                      <Td>
+                      <Td hide>
                         <span className="text-neutral-300">{KIND_LABELS[invoice.kind]}</span>
                       </Td>
-                      <Td>
+                      <Td hide>
                         <span className="text-neutral-400">{formatDate(invoice.issue_date)}</span>
                       </Td>
-                      <Td>
+                      <Td hide>
                         <span className={late ? 'text-red-300' : 'text-neutral-400'}>
                           {formatDate(invoice.due_date)}
                           {late ? ` · ${dueLanguage(invoice.due_date)}` : ''}
@@ -119,7 +119,7 @@ export default async function PortalInvoicesPage() {
                       <Td>
                         <StatusPill status={invoice.status} />
                       </Td>
-                      <Td right>
+                      <Td hide right>
                         <Money amount={invoice.total} className="text-neutral-300" />
                       </Td>
                       <Td right>
