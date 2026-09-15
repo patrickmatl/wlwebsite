@@ -233,12 +233,29 @@ export function Td({
   );
 }
 
-/** Dates the way South Africans read them. */
+/**
+ * Dates the way South Africans read them, in the hour they happened.
+ *
+ * The timezone is not decoration. These render on the server, the server runs
+ * in UTC, and South Africa is two hours ahead — so a quote declined at half
+ * past ten in the morning was being shown as 08:32, and anything recorded
+ * after ten at night was being dated to the day before. The dashboard greeting
+ * already asked for Africa/Johannesburg by name because it got the same thing
+ * wrong and wished Patrick good morning at eight in the evening; every other
+ * date on every page was still reading the server's clock.
+ */
+const ZONE = 'Africa/Johannesburg';
+
 export function formatDate(value: string | null | undefined): string {
   if (!value) return '—';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '—';
-  return d.toLocaleDateString('en-ZA', { day: '2-digit', month: 'short', year: 'numeric' });
+  return d.toLocaleDateString('en-ZA', {
+    timeZone: ZONE,
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 }
 
 export function formatDateTime(value: string | null | undefined): string {
@@ -246,6 +263,7 @@ export function formatDateTime(value: string | null | undefined): string {
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '—';
   return d.toLocaleString('en-ZA', {
+    timeZone: ZONE,
     day: '2-digit',
     month: 'short',
     year: 'numeric',

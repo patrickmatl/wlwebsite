@@ -162,11 +162,24 @@ function money(n: number | null): string {
   return n === null ? 'On request' : formatRand(n);
 }
 
+/**
+ * The date on the document, in the studio's timezone.
+ *
+ * This renders on the server, which runs in UTC, and South Africa is two hours
+ * ahead. Without the zone a quote issued at eleven at night carries yesterday's
+ * date on the PDF the client keeps — and that date is what a validity period
+ * and a payment term are both counted from.
+ */
 function dateZA(value: string | null): string {
   if (!value) return '—';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '—';
-  return d.toLocaleDateString('en-ZA', { day: '2-digit', month: 'short', year: 'numeric' });
+  return d.toLocaleDateString('en-ZA', {
+    timeZone: 'Africa/Johannesburg',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 }
 
 function Party({
