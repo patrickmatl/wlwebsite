@@ -1,6 +1,15 @@
 import { db } from './db';
 import type { ClientSession } from './auth';
-import type { Invoice, InvoiceItem, Project, ProjectMilestone, Quote, QuoteItem, StoredFile } from '@/lib/crm/types';
+import type {
+  Activity,
+  Invoice,
+  InvoiceItem,
+  Project,
+  ProjectMilestone,
+  Quote,
+  QuoteItem,
+  StoredFile,
+} from '@/lib/crm/types';
 
 /**
  * Every read the client portal performs.
@@ -111,7 +120,12 @@ export async function listProjects(session: ClientSession): Promise<Project[]> {
 export async function getProject(
   session: ClientSession,
   projectId: string,
-): Promise<{ project: Project; milestones: ProjectMilestone[]; files: StoredFile[] } | null> {
+): Promise<{
+  project: Project;
+  milestones: ProjectMilestone[];
+  files: StoredFile[];
+  updates: Activity[];
+} | null> {
   const { data: project } = await db()
     .from('projects')
     .select('*')
@@ -135,10 +149,27 @@ export async function getProject(
     .eq('visibility', 'client')
     .order('created_at', { ascending: false });
 
+  /**
+   * The updates the studio has sent about this project.
+   *
+   * Only 'client_update' rows, and only ever these: the activities table also
+   * holds the studio's own running commentary — notes, stage changes, who
+   * edited what — and none of that is the client's business. Filtering by kind
+   * is the whole boundary, so nothing else can leak in by being logged.
+   */
+  const { data: updates } = await db()
+    .from('activities')
+    .select('*')
+    .eq('entity_type', 'project')
+    .eq('entity_id', projectId)
+    .eq('kind', 'client_update')
+    .order('created_at', { ascending: false });
+
   return {
     project: project as Project,
     milestones: (milestones ?? []) as ProjectMilestone[],
     files: (files ?? []) as StoredFile[],
+    updates: (updates ?? []) as Activity[],
   };
 }
 

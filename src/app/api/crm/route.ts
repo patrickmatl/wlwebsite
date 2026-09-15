@@ -276,6 +276,27 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: true, project });
       }
 
+      /**
+       * Tell the client where the project has got to.
+       *
+       * Emails them, records what they were told on the project timeline, and
+       * optionally ticks the milestone the update is about — so the stepper
+       * they see moves at the same moment the message lands, rather than
+       * creeping forward with nobody told.
+       */
+      case 'send-project-update': {
+        const { sendProjectUpdate } = await import('@/lib/server/project-update');
+        const result = await sendProjectUpdate(
+          {
+            projectId: requireId(body, 'projectId'),
+            message: requireId(body, 'message'),
+            completeMilestoneId: optStr(body.completeMilestoneId),
+          },
+          actor,
+        );
+        return NextResponse.json({ ok: true, ...result });
+      }
+
       case 'add-milestone': {
         const milestone = await crm.addMilestone(
           {
