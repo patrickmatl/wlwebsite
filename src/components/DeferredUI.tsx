@@ -2,12 +2,14 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const AudioPlayer = dynamic(() => import('@/components/AudioPlayer'), { ssr: false });
 const WhatsAppButton = dynamic(() => import('@/components/WhatsAppButton'), { ssr: false });
 const MobileContactBar = dynamic(() => import('@/components/MobileContactBar'), { ssr: false });
 
 export default function DeferredUI() {
+  const pathname = usePathname();
   const [idle, setIdle] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,14 @@ export default function DeferredUI() {
   }, [idle]);
 
   if (!idle) return null;
+
+  /**
+   * Not in the studio or the client portal. The WhatsApp bubble, the mobile
+   * call bar and the audio player are marketing furniture: a signed-in client
+   * reading their invoice does not need a "chat to us on WhatsApp" bubble over
+   * it, and in the studio it sits on top of the record you are editing.
+   */
+  if (pathname?.startsWith('/studio') || pathname?.startsWith('/portal')) return null;
 
   return (
     <>

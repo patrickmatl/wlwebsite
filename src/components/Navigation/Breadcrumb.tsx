@@ -10,6 +10,12 @@ const Breadcrumb = () => {
   // Don't show breadcrumb on homepage
   if (pathname === '/') return null;
 
+  // The studio and the client portal are applications with their own
+  // navigation. A trail reading "Home / Studio / Contacts / f0e4a7d5-…" under
+  // every record is noise, and it is marketing-site furniture in a place no
+  // crawler goes — both areas are noindex.
+  if (pathname.startsWith('/studio') || pathname.startsWith('/portal')) return null;
+
   const segments = pathname.split('/').filter((segment) => segment !== '');
 
   // Only these intermediate paths are real routes. Anything else (e.g. the

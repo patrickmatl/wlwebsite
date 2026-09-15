@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Footer from './Footer';
 import { AudioPlaybackProvider } from './AudioContext';
@@ -22,6 +23,24 @@ interface ClientRootWrapperProps {
 }
 
 export default function ClientRootWrapper({ children }: ClientRootWrapperProps) {
+  const pathname = usePathname();
+
+  /**
+   * The studio and the client portal are applications, not pages of the
+   * marketing site, and they carry their own navigation.
+   *
+   * Rendering the site chrome over them put the marketing nav pill on top of
+   * the portal's own tabs and the studio's header — two navigations fighting
+   * for the same strip of screen, offering a signed-in client links to
+   * "Pricing" and "Portfolio" while covering the tabs they came for. It also
+   * dropped the marketing footer, the WhatsApp bubble and a breadcrumb reading
+   * "Home Studio Contacts f0e4a7d5-…" underneath every record.
+   *
+   * The SEO reason the nav is server-rendered at all does not apply here:
+   * every route below is noindex, so there is nothing for a crawler to follow.
+   */
+  const isApp = pathname?.startsWith('/studio') || pathname?.startsWith('/portal');
+
   const [mounted, setMounted] = useState(false);
   const [hasFinePointer, setHasFinePointer] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -73,6 +92,10 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
   // and starts closed, so rendering it on the server costs nothing and emits
   // the visible desktop nav into the HTML where it can actually be followed.
   // CustomCursor stays out: it genuinely requires pointer APIs.
+  if (isApp) {
+    return <AudioPlaybackProvider>{children}</AudioPlaybackProvider>;
+  }
+
   if (!mounted) {
     return (
       <AudioPlaybackProvider>
