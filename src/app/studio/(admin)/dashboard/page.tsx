@@ -15,6 +15,7 @@ import {
 import { formatRand, round2, type EntityType } from '@/lib/crm/types';
 import { getDashboardView } from '@/lib/server/crm';
 import { getSession } from '@/lib/server/auth';
+import RowActions from './RowActions';
 
 export const dynamic = 'force-dynamic';
 
@@ -87,19 +88,24 @@ function AttentionRow({
   meta,
   amount,
   flag,
+  actions,
 }: {
   href: string;
   title: string;
   meta: string;
   amount?: number | null;
   flag?: ReactNode;
+  /**
+   * Buttons sit outside the link, never inside it. A button nested in an
+   * anchor is invalid HTML, and browsers resolve the ambiguity by following
+   * the link as well — every "Mark declined" would also navigate away from
+   * the answer.
+   */
+  actions?: ReactNode;
 }) {
   return (
-    <li>
-      <Link
-        href={href}
-        className="-mx-2 flex items-start justify-between gap-3 rounded-lg px-2 py-2.5 transition hover:bg-white/5"
-      >
+    <li className="-mx-2 rounded-lg px-2 py-2.5 transition hover:bg-white/5">
+      <Link href={href} className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span className="min-w-0 break-words text-sm font-medium text-white">{title}</span>
@@ -111,6 +117,7 @@ function AttentionRow({
           <Money amount={amount} className="shrink-0 text-sm font-medium text-neutral-200" />
         )}
       </Link>
+      {actions}
     </li>
   );
 }
@@ -206,6 +213,22 @@ export default async function DashboardPage() {
                             {late !== null && late > 0 ? `${plural(late, 'day')} late` : 'Overdue'}
                           </Badge>
                         }
+                        actions={
+                          /* sendInvoice() is written to be called again — it
+                             keeps sent_at and due_date and refuses to walk a
+                             part_paid invoice backwards — so this is a
+                             reminder rather than a reissue. */
+                          <RowActions
+                            actions={[
+                              {
+                                label: 'Send reminder',
+                                busyLabel: 'Sending…',
+                                doneLabel: 'Reminder sent',
+                                payload: { action: 'send-invoice', invoiceId: invoice.id },
+                              },
+                            ]}
+                          />
+                        }
                       />
                     );
                   })}
@@ -225,6 +248,10 @@ export default async function DashboardPage() {
                           quote.clientName,
                           `sent ${formatDate(quote.sent_at)}`,
                           quote.viewed_at ? `opened ${relativeTime(quote.viewed_at)}` : 'never opened',
+                          // Only ever set once an earlier nudge has aged past
+                          // the quiet period, so it always means "and still
+                          // nothing back".
+                          quote.chasedAt ? `chased ${relativeTime(quote.chasedAt)}` : null,
                         ]
                           .filter(Boolean)
                           .join(' · ')}
@@ -233,6 +260,39 @@ export default async function DashboardPage() {
                           <Badge tone="gold">
                             {quiet === null ? 'No answer' : `${plural(quiet, 'day')} quiet`}
                           </Badge>
+                        }
+                        actions={
+                          <RowActions
+                            actions={[
+                              {
+                                label: 'Chase',
+                                busyLabel: 'Sending…',
+                                doneLabel: 'Chased',
+                                payload: { action: 'chase-quote', quoteId: quote.id },
+                              },
+                              {
+                                label: 'Mark accepted',
+                                busyLabel: 'Saving…',
+                                confirm:
+                                  `Record quote ${quote.number} as accepted by ${quote.clientName}? ` +
+                                  'Do this only for a yes that came by phone or email.',
+                                payload: {
+                                  action: 'accept-quote',
+                                  quoteId: quote.id,
+                                  name: quote.clientName,
+                                },
+                              },
+                              {
+                                label: 'Mark declined',
+                                busyLabel: 'Saving…',
+                                danger: true,
+                                confirm:
+                                  `Record quote ${quote.number} as declined? ` +
+                                  'The deal stays open, so you can always quote again.',
+                                payload: { action: 'decline-quote', quoteId: quote.id },
+                              },
+                            ]}
+                          />
                         }
                       />
                     );
@@ -265,6 +325,17 @@ export default async function DashboardPage() {
                           ) : (
                             <Badge tone="gold">Today</Badge>
                           )
+                        }
+                        actions={
+                          <RowActions
+                            actions={[
+                              {
+                                label: 'Mark done',
+                                busyLabel: 'Saving…',
+                                payload: { action: 'complete-task', taskId: task.id },
+                              },
+                            ]}
+                          />
                         }
                       />
                     );

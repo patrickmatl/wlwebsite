@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState, type FormEvent, type RefObject } from 'react';
 
 /**
  * Studio navigation — one list of destinations, two presentations.
@@ -12,6 +12,12 @@ import { useEffect, useState } from 'react';
  * phone as much as from a desk, and ten destinations in a horizontally
  * scrolling strip means hunting by swipe: the sheet puts every section two taps
  * away and keeps the current one named in the bar the whole time.
+ *
+ * Above the sections, in both presentations, sits one search box. Before it,
+ * finding a record meant knowing which list it lived in — was that R4,800 a
+ * quote or already an invoice? — and getting it wrong cost two more page loads.
+ * The box asks nothing: type a name, a number, part of either, and the answer
+ * comes back grouped.
  */
 
 type NavItem = { href: string; label: string; hint: string };
@@ -50,8 +56,11 @@ export default function AdminNav({
   user: { name: string; email: string; role: 'owner' | 'staff' };
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+  const [term, setTerm] = useState('');
+  const railSearch = useRef<HTMLInputElement | null>(null);
 
   const current = NAV.find((item) => isActive(pathname, item.href)) ?? NAV[0];
 
@@ -59,7 +68,28 @@ export default function AdminNav({
   // component, so the route change itself has to close the sheet.
   useEffect(() => {
     setMenuOpen(false);
+    // A term left sitting in the box after you have moved on reads like a
+    // filter that is still applied. On the results page it is exactly right,
+    // so it stays there and nowhere else.
+    if (pathname !== '/studio/search') setTerm('');
   }, [pathname]);
+
+  // "/" jumps to the box from anywhere, as it does in most tools with a search.
+  // Ignored while a field already has focus, or it would eat every slash typed
+  // into a URL or a date.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
+      const el = event.target as HTMLElement | null;
+      const tag = el?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el?.isContentEditable) return;
+      if (!railSearch.current) return;
+      event.preventDefault();
+      railSearch.current.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -88,6 +118,62 @@ export default function AdminNav({
     // rendered payloads belonging to the signed-out user and must not survive.
     window.location.href = '/studio/login';
   }
+
+  function submitSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const q = term.trim();
+    if (!q) return;
+    setMenuOpen(false);
+    router.push(`/studio/search?q=${encodeURIComponent(q)}`);
+  }
+
+  /**
+   * The same box twice, once in the rail and once in the sheet.
+   *
+   * It keeps `action` and `method` so that it still works as an ordinary GET
+   * form if the JavaScript has not loaded yet — the studio is used on hotel
+   * wifi and on a phone with one bar, and a search box that does nothing for
+   * the first second is worse than a slower one that always works.
+   */
+  const searchForm = (opts: {
+    id: string;
+    ref?: RefObject<HTMLInputElement | null>;
+    className?: string;
+  }) => (
+    <form
+      role="search"
+      action="/studio/search"
+      method="get"
+      onSubmit={submitSearch}
+      className={opts.className}
+    >
+      <label className="sr-only" htmlFor={opts.id}>
+        Search the studio
+      </label>
+      <div className="relative">
+        <input
+          id={opts.id}
+          ref={opts.ref}
+          type="search"
+          name="q"
+          value={term}
+          onChange={(event) => setTerm(event.target.value)}
+          placeholder="Search clients, quotes, invoices"
+          className="w-full rounded-lg border border-white/15 bg-white/[0.03] py-2 pl-3 pr-9 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFD700]/40 focus:outline-none"
+        />
+        <button
+          type="submit"
+          aria-label="Search"
+          className="absolute inset-y-0 right-0 flex w-9 items-center justify-center text-neutral-500 transition hover:text-[#FFD700]"
+        >
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4">
+            <circle cx="9" cy="9" r="5.25" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+    </form>
+  );
 
   const signOutButton = (className: string) => (
     <button type="button" onClick={signOut} disabled={signingOut} className={className}>
@@ -118,6 +204,10 @@ export default function AdminNav({
               Studio
             </span>
           </Link>
+        </div>
+
+        <div className="border-b border-white/10 px-3 py-3">
+          {searchForm({ id: 'studio-search-rail', ref: railSearch })}
         </div>
 
         <ul className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
@@ -171,6 +261,8 @@ export default function AdminNav({
             aria-label="Studio sections"
             className="max-h-[70vh] overflow-y-auto border-t border-white/10 px-4 py-4"
           >
+            {searchForm({ id: 'studio-search-sheet', className: 'mb-4' })}
+
             <ul className="grid grid-cols-2 gap-2">
               {NAV.map((item) => {
                 const on = isActive(pathname, item.href);

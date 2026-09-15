@@ -198,6 +198,9 @@ export async function POST(request: Request) {
       case 'send-quote':
         return sendQuoteToClient(requireId(body, 'quoteId'), origin, actor);
 
+      case 'chase-quote':
+        return chaseQuote(requireId(body, 'quoteId'), origin, actor);
+
       case 'accept-quote': {
         const quote = await crm.acceptQuote(
           requireId(body, 'quoteId'),
@@ -641,6 +644,83 @@ async function sendQuoteToClient(quoteId: string, origin: string, actor: string)
         ),
       `Quote ${quote.number} from ${BUSINESS.name}`,
     ),
+  });
+
+  return NextResponse.json({ ok: true, quote });
+}
+
+/**
+ * A nudge on a quote that has gone quiet.
+ *
+ * Deliberately not a resend. `send-quote` re-issues the document and stamps
+ * sent_at again, which would erase how long the client has actually been
+ * sitting on it and restart the validity period — the studio would lose the one
+ * number that says whether this deal is still alive.
+ *
+ * So this changes nothing about the quote at all. It follows the same rules the
+ * automatic follow-up sequence does, because they are the rules that work:
+ * assume the silence is a question rather than a no, offer to reshape the work,
+ * and never mention a deadline or a discount. The quote link goes in again so
+ * they do not have to go digging for the first email.
+ */
+async function chaseQuote(quoteId: string, origin: string, actor: string) {
+  const full = await crm.getQuoteFull(quoteId);
+  if (!full) return bad('Quote not found', 404);
+  if (!full.contact?.email) return bad('That quote has no contact with an email address');
+
+  const { quote } = full;
+  if (quote.status !== 'sent' && quote.status !== 'expired') {
+    return bad(`Quote ${quote.number} is ${quote.status}, so it is not waiting on an answer`);
+  }
+
+  const first = full.contact.first_name || 'there';
+  const link = `${origin}/portal/quotes/${quote.id}`;
+
+  const asking =
+    'If anything in it needs explaining, or the scope or the budget needs adjusting, ' +
+    'reply and tell me what you had in mind — I would far rather reshape it than leave it sitting there.';
+  const easy = 'No rush, and no obligation either way.';
+
+  await sendEmail({
+    to: full.contact.email,
+    subject: `Following up on quote ${quote.number}`,
+    text: [
+      `Hi ${first}`,
+      '',
+      `I am following up on quote ${quote.number}, which I sent over a little while ago.`,
+      '',
+      asking,
+      '',
+      `You can open it again here: ${link}`,
+      '',
+      easy,
+      '',
+      signatureText(),
+    ].join('\n'),
+    html: shell(
+      para(`Hi ${first}`) +
+        para(
+          `I am following up on quote <strong>${quote.number}</strong>, which I sent over a little while ago.`,
+        ) +
+        para(asking) +
+        button(link, 'Open the quote again') +
+        para(`<span style="font-size:13px;color:#5A5A5A;">${easy}</span>`),
+      `Following up on quote ${quote.number}`,
+    ),
+  });
+
+  /**
+   * Logged as `reminder`, which is the kind getDashboardView() looks for when
+   * it decides whether a quiet quote still needs attention. Calling it `sent`
+   * would be a lie the timeline could never recover from.
+   */
+  await crm.logActivity({
+    entityType: 'quote',
+    entityId: quote.id,
+    kind: 'reminder',
+    title: `Followed up on quote ${quote.number}`,
+    body: `Nudge sent to ${full.contact.email}`,
+    actor,
   });
 
   return NextResponse.json({ ok: true, quote });

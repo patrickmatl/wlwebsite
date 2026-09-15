@@ -2206,6 +2206,57 @@ export type InvoiceFull = {
   company: Company | null;
 };
 
+
+/**
+ * One search box for the whole studio.
+ *
+ * The per-list search boxes each answer "which of these matches?", which is
+ * only useful once you already know whether the thing you are looking for is a
+ * quote or an invoice or a project. Most of the time you know a name and a
+ * rough shape — "that logo job for Bianca" — and picking the right list first
+ * is a guess you should not have to make.
+ *
+ * Everything runs in parallel and each list is deliberately short. This is a
+ * way to reach a record, not a report: ten quotes is plenty to recognise the
+ * one you meant, and anyone who genuinely wants all of them has a filtered
+ * list a click away.
+ */
+export type SearchResults = {
+  term: string;
+  contacts: Contact[];
+  companies: Company[];
+  quotes: Quote[];
+  invoices: Invoice[];
+  projects: Project[];
+  total: number;
+};
+
+export async function searchEverything(term: string, perList = 10): Promise<SearchResults> {
+  const q = term.trim();
+  if (!q) {
+    return { term: '', contacts: [], companies: [], quotes: [], invoices: [], projects: [], total: 0 };
+  }
+
+  const [contacts, companies, quotes, invoices, projects] = await Promise.all([
+    listContacts({ search: q, includeArchived: true, limit: perList }),
+    listCompanies({ search: q, limit: perList }),
+    listQuotes({ search: q, limit: perList }),
+    listInvoices({ search: q, limit: perList }),
+    listProjects({ search: q, limit: perList }),
+  ]);
+
+  return {
+    term: q,
+    contacts,
+    companies,
+    quotes,
+    invoices,
+    projects,
+    total:
+      contacts.length + companies.length + quotes.length + invoices.length + projects.length,
+  };
+}
+
 export async function listInvoices(
   options: {
     status?: InvoiceStatus;
@@ -2917,7 +2968,11 @@ export type DashboardMetrics = {
 };
 
 export type NamedInvoice = Invoice & { clientName: string };
-export type NamedQuote = Quote & { clientName: string };
+export type NamedQuote = Quote & {
+  clientName: string;
+  /** When the studio last nudged this one, if it ever has. */
+  chasedAt: string | null;
+};
 
 export type DashboardView = {
   metrics: DashboardMetrics;
@@ -2930,6 +2985,42 @@ export type DashboardView = {
 
 /** How long a sent quote may sit unanswered before it needs chasing. */
 const STALE_QUOTE_DAYS = 7;
+
+/**
+ * How long a chase buys before the quote asks to be chased again.
+ *
+ * Without this, a quote never leaves "Needs attention" until the client
+ * answers, so the list only ever grows and stops being something you work
+ * through. A week after a nudge the ball is genuinely back with the studio.
+ */
+const CHASE_QUIET_DAYS = 7;
+
+/**
+ * When each of these quotes was last chased.
+ *
+ * There is no column for it, on purpose. A chase is a thing that happened to a
+ * quote, which is what the activity timeline is; a `last_chased_at` alongside
+ * it would be the same fact recorded twice, free to disagree with itself. One
+ * query across the handful of ids on the dashboard costs nothing.
+ */
+async function lastChasedAt(quoteIds: string[]): Promise<Map<string, string>> {
+  const seen = new Map<string, string>();
+  if (quoteIds.length === 0) return seen;
+
+  const { data } = await db()
+    .from('activities')
+    .select('entity_id, created_at')
+    .eq('entity_type', 'quote')
+    .eq('kind', 'reminder')
+    .in('entity_id', quoteIds)
+    .order('created_at', { ascending: false });
+
+  // Newest first, so the first time an id appears is its most recent chase.
+  for (const a of (data ?? []) as { entity_id: string; created_at: string }[]) {
+    if (!seen.has(a.entity_id)) seen.set(a.entity_id, a.created_at);
+  }
+  return seen;
+}
 
 async function nameLookup(ids: (string | null)[]): Promise<Map<string, string>> {
   const unique = [...new Set(ids.filter((id): id is string => Boolean(id)))];
@@ -2959,6 +3050,12 @@ export async function getDashboardView(): Promise<DashboardView> {
 
   const cutoff = new Date(Date.now() - STALE_QUOTE_DAYS * 24 * 60 * 60 * 1000).toISOString();
 
+  const quiet = d.quotesAwaitingResponse.items.filter(
+    (q) => q.sent_at !== null && q.sent_at < cutoff,
+  );
+  const chased = await lastChasedAt(quiet.map((q) => q.id));
+  const chaseCutoff = new Date(Date.now() - CHASE_QUIET_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
   return {
     metrics: {
       pipelineValue: d.openDeals.value,
@@ -2971,9 +3068,18 @@ export async function getDashboardView(): Promise<DashboardView> {
       activeProjects: d.activeProjects.count,
     },
     overdueInvoices: d.overdueInvoices.items.map((i) => ({ ...i, clientName: named(i.contact_id) })),
-    staleQuotes: d.quotesAwaitingResponse.items
-      .filter((q) => q.sent_at !== null && q.sent_at < cutoff)
-      .map((q) => ({ ...q, clientName: named(q.contact_id) })),
+    // A quote nudged in the last week is waiting on the client, not on the
+    // studio, so it steps out of the list until that stops being true.
+    staleQuotes: quiet
+      .filter((q) => {
+        const at = chased.get(q.id);
+        return !at || at < chaseCutoff;
+      })
+      .map((q) => ({
+        ...q,
+        clientName: named(q.contact_id),
+        chasedAt: chased.get(q.id) ?? null,
+      })),
     dueTasks: d.tasksDue.items,
     activity: d.recentActivity,
   };
