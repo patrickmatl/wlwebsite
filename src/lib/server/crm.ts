@@ -1838,6 +1838,34 @@ export async function createProject(input: CreateProjectInput, actor = 'studio')
 }
 
 /**
+ * The stages every project moves through, seeded on the day it opens.
+ *
+ * These used to be the quote's line items — one milestone per thing bought. It
+ * meant a client opening the portal saw a single unticked box named after what
+ * they had just paid for, and "Where we are" read "0 of 1 complete" from the
+ * first day to the last. That is a receipt, not progress: it never moves until
+ * the whole job is finished, and it repeats what the quote already says.
+ *
+ * What a client actually wants to know is which part of the work is happening
+ * now, so the stages below are the studio's own process — the same one set out
+ * on the site and in the terms: a deposit books the slot, two rounds of changes
+ * are included, and the artwork and editable files transfer on final payment.
+ *
+ * They are ordinary rows once created. Rename them, delete the ones that do not
+ * apply, or add stages a particular job needs; a print run wants a proof and a
+ * delivery, a photo shoot wants a shoot date. This is a starting point that is
+ * right more often than it is wrong, not a fixed pipeline.
+ */
+export const PROJECT_STAGES = [
+  'Deposit and booking',
+  'Brief and research',
+  'First concepts with you',
+  'Changes from your feedback',
+  'Final artwork prepared',
+  'Handover — editable files and ownership',
+] as const;
+
+/**
  * Turn an accepted quote into a live project.
  *
  * Milestones are seeded from the quote lines, so what was sold is exactly what
@@ -1874,20 +1902,18 @@ export async function projectFromQuote(quoteId: string, actor = 'studio'): Promi
     actor,
   );
 
-  if (items.length > 0) {
-    const seeded = await db()
-      .from('project_milestones')
-      .insert(
-        items.map((item, index) => ({
-          project_id: project.id,
-          position: index,
-          title: item.name,
-          status: 'pending',
-          client_visible: true,
-        })),
-      );
-    ensure(seeded, 'seed the project milestones');
-  }
+  const seeded = await db()
+    .from('project_milestones')
+    .insert(
+      PROJECT_STAGES.map((title, index) => ({
+        project_id: project.id,
+        position: index,
+        title,
+        status: 'pending',
+        client_visible: true,
+      })),
+    );
+  ensure(seeded, 'seed the project milestones');
 
   await logActivity({
     entityType: 'quote',

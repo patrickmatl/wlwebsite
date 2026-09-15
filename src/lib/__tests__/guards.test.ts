@@ -337,6 +337,35 @@ describe('sign-in links redeem inside a server action', () => {
   }
 });
 
+// A project's milestones are the only thing the client portal has to show
+// progress with. Seeding them from quote line items produced a single box that
+// never moved, so the stages are now the studio's process.
+describe('new projects open with real stages', () => {
+  const crm = fs.readFileSync(path.join(process.cwd(), 'src/lib/server/crm.ts'), 'utf8');
+
+  test('PROJECT_STAGES exists and covers the arc of a job', () => {
+    assert.match(crm, /export const PROJECT_STAGES/);
+    const block = crm.slice(crm.indexOf('export const PROJECT_STAGES'));
+    const list = block.slice(0, block.indexOf('] as const'));
+    for (const word of ['Deposit', 'Brief', 'concepts', 'Changes', 'artwork', 'Handover']) {
+      assert.ok(
+        new RegExp(word, 'i').test(list),
+        `PROJECT_STAGES should still cover "${word}" — the portal's "Where we are" is built from these`,
+      );
+    }
+  });
+
+  test('projectFromQuote seeds the stages, not the quote line items', () => {
+    const fn = crm.slice(crm.indexOf('export async function projectFromQuote'));
+    const body = fn.slice(0, fn.indexOf('\n}\n'));
+    assert.match(body, /PROJECT_STAGES\.map/, 'stages must be what gets seeded');
+    assert.ok(
+      !/items\.map\([^)]*\)\s*,?\s*\)\s*;?\s*\n\s*ensure\(seeded/.test(body),
+      'line items must no longer be seeded as milestones — they duplicate the quote',
+    );
+  });
+});
+
 describe('annual report tiers', () => {
   // Additional pages are R250 while the packages work out far higher per page,
   // so the cheap per-page line can rebuild a job the packages already cover.
