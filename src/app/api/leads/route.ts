@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { waitUntil } from '@vercel/functions';
 import { db, quoteSystemConfigured } from '@/lib/server/db';
 import { draftReply } from '@/lib/quote-agent';
 import { notifyOwner, sendEmail } from '@/lib/server/notify';
@@ -10,9 +9,9 @@ import { syncLeadToCrm } from '@/lib/server/lead-sync';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-// The AI draft runs in the background via waitUntil, but the function must stay
-// alive long enough to finish it after the response is sent.
-export const maxDuration = 60;
+// The AI draft runs in the background after the response is sent. Railway runs
+// a long-lived Node server (`next start`), so the work simply carries on; there
+// is no per-request function timeout to outlive.
 
 type LeadRow = {
   id: string;
@@ -30,7 +29,7 @@ type LeadRow = {
  *
  * The visitor gets a response as soon as the lead is safely stored; they never
  * wait on the model. Everything after that happens once the response is sent,
- * via waitUntil:
+ * in the background:
  *
  *   1. A fixed acknowledgement email goes out immediately, so nobody is left
  *      wondering whether the form worked.
@@ -95,7 +94,9 @@ export async function POST(request: Request) {
   }
 
   // Lead is safe. Everything below runs after the response is sent.
-  waitUntil(handleInBackground(inserted as LeadRow));
+  // handleInBackground catches its own errors; the .catch is a last guard so a
+  // stray rejection can never crash the server process.
+  void handleInBackground(inserted as LeadRow).catch((err) => console.error('lead background job failed', err));
 
   return NextResponse.json({ ok: true });
 }

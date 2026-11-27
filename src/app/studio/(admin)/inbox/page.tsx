@@ -22,7 +22,7 @@ export default async function InboxPage() {
             The quote system isn&apos;t configured yet. Add{' '}
             <code className="text-[#FFD700]">SUPABASE_URL</code>,{' '}
             <code className="text-[#FFD700]">SUPABASE_SERVICE_ROLE_KEY</code> and{' '}
-            <code className="text-[#FFD700]">GEMINI_API_KEY</code> in Vercel, then run{' '}
+            <code className="text-[#FFD700]">GEMINI_API_KEY</code> in Railway (service → Variables), then run{' '}
             <code className="text-[#FFD700]">supabase/schema.sql</code>. See{' '}
             <code className="text-[#FFD700]">QUOTE-SYSTEM.md</code>.
           </p>
