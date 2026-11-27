@@ -97,7 +97,7 @@ npx web-push generate-vapid-keys
 
 Keep both values for the next step.
 
-### 5. Environment variables (Vercel → Settings → Environment Variables)
+### 5. Environment variables (Railway → wlwebsite service → Variables)
 
 | Name | Value |
 |---|---|
@@ -193,7 +193,7 @@ emails all read from that one file, so they can never disagree.
   Hit the poll URL in a browser to see exactly what it found.
 - **No push** — re-run **Enable notifications**; on iPhone it must be the
   home-screen app, not Safari.
-- Vercel → your project → **Logs** shows every API error.
+- Railway → wlwebsite service → **Deployments → View logs** shows every API error.
 
 ---
 

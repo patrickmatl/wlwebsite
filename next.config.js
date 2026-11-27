@@ -40,8 +40,8 @@ const nextConfig = {
   },
   images: {
     // Optimization re-enabled: it was disabled sitewide, serving raw files.
-    // On Vercel, next/image serves resized AVIF/WebP from the edge for free
-    // at this site's scale (~62 unique source images).
+    // The Next server on Railway resizes images to AVIF/WebP and caches them
+    // (~62 unique source images).
     formats: ['image/avif', 'image/webp'],
   },
   webpack: (config) => {
@@ -58,7 +58,7 @@ const nextConfig = {
   // NOT 'standalone'. Next's standalone tracer cannot copy the client-reference
   // manifest for a page that sits directly inside a route group — the brackets
   // in `app/studio/(admin)/page.tsx` break the copy and the whole build fails.
-  // Vercel packages its own output, and Railway/Node run fine on `next start`,
+  // Railway runs `next start` directly,
   // so standalone buys nothing here and costs a broken deploy.
   poweredByHeader: false,
   reactStrictMode: true,

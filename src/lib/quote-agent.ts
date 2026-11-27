@@ -37,7 +37,7 @@ const DEFAULT_MODEL = 'gemini-3.5-flash';
  * Hard ceiling on any single model call.
  *
  * gemini-flash-latest does not answer and does not fail — it simply never
- * returns. On Vercel the platform's own function timeout hid that; on a
+ * returns. A serverless host's function timeout would hide that; on a
  * long-running Node server nothing cuts it off, so one hung request took the
  * whole drafting pipeline down silently: the lead, contact and deal were
  * created and then nothing further ever happened.
