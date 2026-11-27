@@ -4,6 +4,8 @@ import GetInTouchButton from "@/components/GetInTouchButton";
 import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts powerpoint, presentation-professional, presentation-executive.
+// Client component: keep these strings in step with that file by hand.
 const pricing = [
   {
     name: "Starter Presentation",

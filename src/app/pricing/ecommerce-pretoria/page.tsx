@@ -9,6 +9,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const EcommercePage = () => {
+  // Mirrors pricing.ts ecommerce, ecommerce-advanced, ecommerce-premium.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: "Basic E-Commerce Package",
@@ -60,6 +62,7 @@ const EcommercePage = () => {
     }
   ];
 
+  // Mirrors pricing.ts ecommerce-payment-gateway, ecommerce-inventory, ecommerce-custom-features.
   const additionalFeatures = [
     {
       name: "Payment Gateway Integration",

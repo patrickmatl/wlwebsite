@@ -5,6 +5,7 @@ import GetStartedButton from '@/components/GetStartedButton';
 
 const pricing = [
   {
+    // Mirrors pricing.ts internal-memo, internal-newsletter, internal-campaign.
     name: "Internal Memo Design",
     price: "R1,800",
     features: [
@@ -40,7 +41,7 @@ const faqs = [
   { q: "What is internal communications design?", a: "Internal communications design involves creating engaging, branded materials to improve employee engagement, information sharing, and company culture." },
   { q: "Do you offer internal communications design in Pretoria?", a: "Yes, we provide internal communications design services in Pretoria and across South Africa." },
   { q: "Can you design employee newsletters and magazines?", a: "Absolutely. We design digital and print newsletters, magazines, and bulletins for employees." },
-  { q: "How much does internal communications design cost?", a: "Our packages start from R2,500, with pricing based on format, length, and custom requirements." },
+  { q: "How much does internal communications design cost?", a: "Our packages start from R1,800, with pricing based on format, length, and custom requirements." },
   { q: "What is included in your internal comms design packages?", a: "Packages include custom layouts, branding, infographics, and revision rounds. See our pricing for details." },
   { q: "Do you design for both digital and print?", a: "Yes, we provide both print-ready and digital versions of all internal communications materials." },
   { q: "Can you help with content and copy for internal comms?", a: "We offer copywriting and content refinement for internal communications as an add-on service." },

@@ -413,3 +413,118 @@ describe('printSellPrice', () => {
     }
   });
 });
+
+// ── 5. Advertised prices match the catalogue ─────────────────────────────────
+//
+// A client clicks a package, the enquiry says "listed at R…", and the agent
+// quotes from pricing.ts. If the page and the catalogue disagree, the client is
+// quoted a different figure from the one they were shown — a trust problem and,
+// under the Consumer Protection Act, a displayed-price problem. Most pricing
+// pages are client components and cannot import pricing.ts without shipping the
+// whole list to the browser, so their figures are typed by hand. This scans
+// every public page source for rand amounts and fails on any that is not an
+// `amount` in pricing.ts. Fix the page, or add the item to pricing.ts — never
+// widen the allowlist for a real price.
+describe('every rand amount on the site exists in pricing.ts', () => {
+  const ROOT = process.cwd();
+
+  // Amounts that are not WL CreationX prices. Each entry names the file and why.
+  const NOT_PRICES: Array<{ file: string; amounts: number[]; reason: string }> = [
+    {
+      file: 'src/app/get-in-touch-pretoria/page.tsx',
+      amounts: [1000, 5000, 10000, 20000],
+      reason: 'budget ranges on the contact form, chosen by the client',
+    },
+    {
+      file: 'src/app/pricing/google-ads-pretoria/page.tsx',
+      amounts: [5000, 15000, 50000],
+      reason: 'recommended monthly ad spend (adSpend), paid by the client to Google',
+    },
+    {
+      file: 'src/data/serviceFAQs.ts',
+      amounts: [5000],
+      reason: 'minimum monthly Google Ads spend, paid by the client to Google',
+    },
+    {
+      file: 'src/app/branding-solutions-pretoria/page.tsx',
+      amounts: [5000],
+      reason: '"roughly R5,000 a tier" — the gap between standard and illustrative packages',
+    },
+    {
+      file: 'src/content/blog/graphic-design-cost-pretoria-2026.mdx',
+      amounts: [9360, 5300, 500],
+      reason:
+        'R9,360 is a worked example (12 pages at the R780 company-profile rate); R5,300 is the gap ' +
+        'between standard and illustrative brand packages; R500 is a cheap template logo from elsewhere',
+    },
+    {
+      file: 'src/content/blog/how-to-choose-graphic-design-company-pretoria.mdx',
+      amounts: [300],
+      reason: 'a warning-sign example of a too-cheap "branding package" from elsewhere, not our price',
+    },
+  ];
+
+  // Public page sources only. The studio, portal and API are internal tools,
+  // and pricing.ts is the list itself.
+  const SKIP = [
+    /^src\/app\/(studio|portal|api)\//,
+    /^src\/components\/crm\//,
+    /^src\/data\/pricing\.ts$/,
+  ];
+  const SCAN_DIRS = ['src/app', 'src/components', 'src/data', 'src/content'];
+
+  function walk(dir: string, out: string[] = []): string[] {
+    for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+      const rel = `${dir}/${entry.name}`;
+      if (entry.isDirectory()) walk(rel, out);
+      else if (/\.(tsx?|mdx?)$/.test(entry.name) && !SKIP.some((r) => r.test(rel))) out.push(rel);
+    }
+    return out;
+  }
+
+  // R1,234 · R 1 234 · R1234 · R1,234.00 · R 18 500 (normal, no-break or narrow
+  // no-break spaces). Block comments and whole-line // comments are ignored:
+  // they document history, they are not shown to anyone.
+  const RAND = /(?<![A-Za-z0-9])R\s?(\d{1,3}(?:[ ,\u00a0\u202f]\d{3})+|\d{3,})(?:\.\d{2})?(?!\d)/g;
+  function randAmounts(src: string): number[] {
+    const visible = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+    return [...visible.matchAll(RAND)]
+      .map((m) => Number(m[1].replace(/[^\d]/g, '')))
+      .filter((n) => n >= 100);
+  }
+
+  const catalogue = new Set(ALL_ITEMS.map((i) => i.amount).filter((a): a is number => a !== null));
+  const files = SCAN_DIRS.flatMap((d) => (fs.existsSync(path.join(ROOT, d)) ? walk(d) : []));
+
+  test('the scanner reads the formats the site uses', () => {
+    assert.deepEqual(randAmounts('R1,234 R 18 500 R2500 R1,560.00 R25 R 6\u00a0683*'), [1234, 18500, 2500, 1560, 6683]);
+    assert.deepEqual(randAmounts('/* R650 - R85000 */\n// R777\nprice: "R950"'), [950]);
+  });
+
+  test('there are page files to scan', () => {
+    assert.ok(files.length > 50, `only ${files.length} files found — is the test running from the repo root?`);
+  });
+
+  for (const file of files) {
+    const allowed = new Set(NOT_PRICES.filter((a) => a.file === file).flatMap((a) => a.amounts));
+    const amounts = randAmounts(fs.readFileSync(path.join(ROOT, file), 'utf8'));
+    if (amounts.length === 0) continue;
+    test(`${file} shows only catalogue prices`, () => {
+      const strays = [...new Set(amounts.filter((n) => !catalogue.has(n) && !allowed.has(n)))];
+      assert.deepEqual(
+        strays.map((n) => `R${n.toLocaleString('en-ZA')}`),
+        [],
+        `${file} shows amounts that are not in pricing.ts — the quote agent cannot quote them. ` +
+          'Match the page to pricing.ts, or add the missing item to pricing.ts.',
+      );
+    });
+  }
+
+  test('every allowlisted amount still appears in its file', () => {
+    // A stale entry is a hole: it would wave through a real price later.
+    for (const { file, amounts } of NOT_PRICES) {
+      const found = new Set(randAmounts(fs.readFileSync(path.join(ROOT, file), 'utf8')));
+      for (const n of amounts) assert.ok(found.has(n), `${file} no longer shows R${n} — remove it from NOT_PRICES`);
+    }
+  });
+});

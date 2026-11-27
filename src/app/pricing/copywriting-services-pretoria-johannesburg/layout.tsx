@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Copywriting Services Pretoria & Joburg',
-  description: 'SEO copywriting for web pages, blogs and ads from R300 in Pretoria and Johannesburg. Persuasive, conversion-focused copy with research and revisions.',
+  description: 'SEO copywriting for web pages, blogs and ads from R950 per page in Pretoria and Johannesburg. Persuasive, conversion-focused copy with research and revisions.',
   alternates: { canonical: 'https://wlcreationx.co.za/pricing/copywriting-services-pretoria-johannesburg' },
   openGraph: {
     title: 'Copywriting Services Pretoria & Joburg',
-    description: 'SEO copywriting for web pages, blogs and ads from R300 in Pretoria and Johannesburg. Persuasive, conversion-focused copy with research and revisions.',
+    description: 'SEO copywriting for web pages, blogs and ads from R950 per page in Pretoria and Johannesburg. Persuasive, conversion-focused copy with research and revisions.',
     url: 'https://wlcreationx.co.za/pricing/copywriting-services-pretoria-johannesburg',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

@@ -9,6 +9,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const PrintDesignPage = () => {
+  // Mirrors pricing.ts business-card, letterhead, brochure, flyer, pullup-banner
+  // and extra-revision. Client component: keep in step with that file by hand.
   const categories = [
     {
       name: "Business Essentials",
@@ -164,7 +166,7 @@ const PrintDesignPage = () => {
     },
     {
       name: "Extra Revisions",
-      price: "R250 per round",
+      price: "R520 per round",
       description: "Additional design revision rounds",
       icon: <FaCheck className="w-6 h-6 text-[#FFD700]" />
     }

@@ -9,6 +9,7 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { generateFAQSchema } from '@/lib/schema';
 import { BUSINESS } from '@/data/business';
 
+// Mirrors pricing.ts video-brand, video-corporate, video-event.
 const packages = [
   {
     name: 'Brand Story Video',
@@ -52,6 +53,8 @@ const packages = [
   },
 ];
 
+// Mirrors pricing.ts video-drone-addon, video-second-camera, video-script-storyboard,
+// video-edit-only, video-subtitles, video-extra-cutdowns.
 const addOns = [
   { name: 'Drone / Aerial Footage', price: 'From R3,450', description: 'Licensed drone operator, 4K aerial coverage' },
   { name: 'Second Camera Operator', price: 'From R2,850', description: 'Multi-angle coverage for interviews and events' },

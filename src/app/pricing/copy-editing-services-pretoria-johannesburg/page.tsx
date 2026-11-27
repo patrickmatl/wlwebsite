@@ -4,21 +4,24 @@ import RelatedServices from "@/components/RelatedServices";
 import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts copy-editing (R250 per page). A page is taken as roughly
+// 400–500 words, the definition pricing.ts gives for copywriting. Client
+// component: keep in step with that file by hand.
 const copyEditingPricing = [
   {
-    name: "1–250 Words",
-    price: "R200",
+    name: "Short Documents",
+    price: "R250 per page",
     features: ["Editing for grammar, clarity, and style", "Tracked changes provided", "1 round of revisions", "Delivered in Word or PDF"],
-    description: "Perfect for short articles, bios, or emails."
+    description: "A page is roughly 400–500 words. Perfect for short articles, bios, or emails."
   },
   {
-    name: "251–550 Words",
-    price: "R400",
+    name: "Longer Documents",
+    price: "R250 per page",
     features: ["Same features as above", "2 rounds of revisions", "Includes formatting suggestions"],
-    description: "Great for reports, proposals, or web content."
+    description: "Great for reports, proposals, or web content — priced by page count."
   },
   {
-    name: "551+ Words",
+    name: "Large Projects",
     price: "Custom Quote",
     features: ["Bulk discounts available", "Priority & express options", "Dedicated account manager"],
     description: "",
@@ -37,7 +40,7 @@ const faqs = [
   },
   {
     question: "How is pricing calculated?",
-    answer: "Pricing is based on word count: R200 for 1–250 words, R400 for 251–550 words, and a custom quote for longer documents, with bulk discounts for larger or ongoing projects."
+    answer: "Pricing is per page: R250 for each page of roughly 400–500 words, so a longer document is priced by its page count. Larger or ongoing projects are confirmed in writing before we start."
   },
   {
     question: "Can I request revisions?",

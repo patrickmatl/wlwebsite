@@ -3,12 +3,14 @@
 import GetInTouchButton from "@/components/GetInTouchButton";
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts esg-report-basic, esg-report, esg-integrated.
+// Client component: keep these strings in step with that file by hand.
 const pricing = [
   {
     name: "Basic ESG Report",
     price: "R7,500",
     features: [
-      "Up to 20 pages",
+      "Up to 12 pages",
       "Professional layout & branding",
       "1 revision round",
       "Print-ready PDF"
@@ -16,9 +18,9 @@ const pricing = [
   },
   {
     name: "Comprehensive Sustainability Report",
-    price: "R15,000",
+    price: "R16,500",
     features: [
-      "Up to 40 pages",
+      "Up to 24 pages",
       "Custom infographics & data visuals",
       "2 revision rounds",
       "Editable & print-ready files"

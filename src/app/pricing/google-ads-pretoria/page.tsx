@@ -9,6 +9,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const GoogleAdsPage = () => {
+  // Mirrors pricing.ts google-ads-starter, google-ads-growth, google-ads-enterprise.
+  // adSpend is the client's own budget paid to Google, not a WL CreationX price.
   const adPackages = [
     {
       name: "Starter Ads Package",
@@ -74,6 +76,7 @@ const GoogleAdsPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts ads-landing-page, google-ads-display, google-ads-shopping.
   const additionalServices = [
     {
       name: "Landing Page Design",

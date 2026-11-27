@@ -7,6 +7,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 export default function SEOPage() {
+  // Mirrors pricing.ts seo-essential, seo-professional, seo-enterprise.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: 'Essential SEO',
@@ -64,6 +66,7 @@ export default function SEOPage() {
     }
   ];
 
+  // Mirrors pricing.ts seo-technical-audit, seo-local-setup, seo-ecommerce, seo-content-optimisation.
   const additionalServices = [
     {
       name: 'Technical SEO Audit',

@@ -3,6 +3,8 @@
 import GetInTouchButton from "@/components/GetInTouchButton";
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts ir-deck-basic, investor-relations, ir-shareholder-report.
+// Client component: keep these strings in step with that file by hand.
 const pricing = [
   {
     name: "Basic Investor Deck",
@@ -16,7 +18,7 @@ const pricing = [
   },
   {
     name: "Comprehensive IR Pack",
-    price: "R9,500",
+    price: "From R9,850",
     features: [
       "Up to 30 slides",
       "Custom infographics & visuals",

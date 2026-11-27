@@ -2,6 +2,7 @@ import PackageCard from '@/components/PackageCard';
 import Link from 'next/link';
 import RelatedServices from '@/components/RelatedServices';
 
+// Mirrors pricing.ts drone-starter, drone-business, drone-premium.
 const packages = [
   {
     name: 'Starter',

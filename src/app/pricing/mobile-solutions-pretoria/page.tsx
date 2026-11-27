@@ -8,6 +8,7 @@ import { serviceFAQs } from '@/data/serviceFAQs';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const MobileSolutionsPage = () => {
+  // Mirrors pricing.ts mobile-first-site, pwa, mobile-custom.
   const packages = [
     {
       name: "Mobile-First Website",

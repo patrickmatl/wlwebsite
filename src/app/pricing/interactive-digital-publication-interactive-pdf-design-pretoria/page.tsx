@@ -3,6 +3,8 @@
 import GetInTouchButton from "@/components/GetInTouchButton";
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts interactive-pdf-starter, interactive-pdf, interactive-pdf-enterprise.
+// Client component: keep these strings in step with that file by hand.
 const pricing = [
   {
     name: "Interactive PDF Starter",
@@ -16,9 +18,9 @@ const pricing = [
   },
   {
     name: "Digital Publication Pro",
-    price: "R8,500",
+    price: "R12,500",
     features: [
-      "Up to 20 pages",
+      "Up to 24 pages",
       "Custom interactivity (forms, videos)",
       "Brand-aligned design",
       "2 revision rounds"
@@ -40,7 +42,7 @@ const faqs = [
   { q: "What is interactive digital publication design?", a: "Interactive digital publication design involves creating engaging, clickable, and multimedia-rich documents for online distribution and user interaction." },
   { q: "Do you offer interactive PDF design in Pretoria?", a: "Yes, we provide interactive PDF and digital publication design services in Pretoria and across South Africa." },
   { q: "Can you make my PDF clickable and interactive?", a: "Absolutely. We add clickable links, navigation, videos, animations, and more to your PDFs." },
-  { q: "How much does interactive PDF design cost?", a: "Our packages start from R3,500, with pricing based on document length, features, and custom requirements." },
+  { q: "How much does interactive PDF design cost?", a: "Our packages start from R3,900, with pricing based on document length, features, and custom requirements." },
   { q: "What is included in your interactive publication design packages?", a: "Packages include custom layouts, branding, interactive elements, and revision rounds. See our pricing for details." },
   { q: "Do you design for both digital and print?", a: "Yes, we provide both print-ready and interactive digital versions of all publications." },
   { q: "Can you help with content and copy for digital publications?", a: "We offer copywriting and content refinement for digital publications as an add-on service." },

@@ -5,6 +5,7 @@ import GetStartedButton from '@/components/GetStartedButton';
 
 const pricing = [
   {
+    // Mirrors pricing.ts event-branding, event-branding-full, event-branding-premium.
     name: "Event Branding Essentials",
     price: "R5,850",
     features: [
@@ -40,7 +41,7 @@ const pricing = [
 // generate the one FAQPage JSON-LD node, so the two always match.
 const faqs = [
   { q: "What is event branding design?", a: "Event branding design involves creating cohesive visual identities and materials for events, ensuring a memorable and professional attendee experience." },
-  { q: "How much does event branding design cost?", a: "Our packages start from R5,000, with pricing based on event size, deliverables, and custom requirements." },
+  { q: "How much does event branding design cost?", a: "Our packages start from R5,850, with pricing based on event size, deliverables, and custom requirements." },
   { q: "What is included in your event branding packages?", a: "Packages include logo, theme, signage, digital and print materials, and revision rounds. See our pricing for details." },
   { q: "How long does it take to design event branding?", a: "Turnaround is typically 5–14 days depending on scope and complexity. Rush delivery is available on request." },
   { q: "What if I need revisions?", a: "All packages include at least one revision round. Additional changes can be arranged as needed." },

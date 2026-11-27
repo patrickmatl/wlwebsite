@@ -2,6 +2,7 @@ import PackageCard from '@/components/PackageCard';
 import Link from 'next/link';
 import RelatedServices from '@/components/RelatedServices';
 
+// Mirrors pricing.ts photo-session-basic, photo-session-standard, photo-session-premium.
 const packages = [
   {
     name: 'Basic',
@@ -69,7 +70,7 @@ const relatedServices = [
 // Single source for the FAQ structured data — mirrors the visible FAQ sections below exactly.
 const faqs: { q: string; a: string }[] = [
   { q: 'What types of photography do you offer in Pretoria?', a: 'We offer portrait, event, commercial, product, and lifestyle photography in Pretoria.' },
-  { q: 'How much does a photography session cost in Pretoria?', a: 'Photography packages in Pretoria start from R2,500, with options for all needs.' },
+  { q: 'How much does a photography session cost in Pretoria?', a: 'Photography packages in Pretoria start from R3,850, with options for all needs.' },
   { q: 'Are your Pretoria photographers experienced?', a: 'Yes, our Pretoria photographers are highly experienced and creative professionals.' },
   { q: 'Do you offer on-location shoots in Pretoria?', a: 'Yes, we shoot at your chosen Pretoria location or in our professional studio.' },
   { q: 'How many photos will I receive from a Pretoria shoot?', a: 'Depending on your package, you’ll receive 20–80+ professionally edited images.' },
@@ -174,7 +175,7 @@ export default function PhotographyPage() {
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Photography Pretoria</h3>
         <div><h4>What types of photography do you offer in Pretoria?</h4><p>We offer portrait, event, commercial, product, and lifestyle photography in Pretoria.</p></div>
-        <div><h4>How much does a photography session cost in Pretoria?</h4><p>Photography packages in Pretoria start from R2,500, with options for all needs.</p></div>
+        <div><h4>How much does a photography session cost in Pretoria?</h4><p>Photography packages in Pretoria start from R3,850, with options for all needs.</p></div>
         <div><h4>Are your Pretoria photographers experienced?</h4><p>Yes, our Pretoria photographers are highly experienced and creative professionals.</p></div>
         <div><h4>Do you offer on-location shoots in Pretoria?</h4><p>Yes, we shoot at your chosen Pretoria location or in our professional studio.</p></div>
         <div><h4>How many photos will I receive from a Pretoria shoot?</h4><p>Depending on your package, you’ll receive 20–80+ professionally edited images.</p></div>
