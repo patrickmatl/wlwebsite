@@ -73,6 +73,11 @@ ${ANNUAL}
 - [Graphic design cost in Pretoria (2026)](${BUSINESS.url}/creative-industry-blog-pretoria/graphic-design-cost-pretoria-2026)
 - [Corporate video production cost in Pretoria](${BUSINESS.url}/creative-industry-blog-pretoria/corporate-video-production-cost-pretoria)
 - [How to choose a graphic design company in Pretoria](${BUSINESS.url}/creative-industry-blog-pretoria/how-to-choose-graphic-design-company-pretoria)
+- [Logo file formats explained](${BUSINESS.url}/creative-industry-blog-pretoria/logo-file-formats-explained)
+- [What a brand identity includes](${BUSINESS.url}/creative-industry-blog-pretoria/what-a-brand-identity-includes)
+- [What to prepare before a website build](${BUSINESS.url}/creative-industry-blog-pretoria/website-project-checklist-south-africa)
+- [Packaging design checklist for South African products](${BUSINESS.url}/creative-industry-blog-pretoria/packaging-design-checklist-south-africa)
+- [What goes in an annual report (South Africa)](${BUSINESS.url}/creative-industry-blog-pretoria/what-goes-in-an-annual-report-south-africa)
 
 ## Company
 

@@ -1,11 +1,13 @@
-// Test commit to update timestamp: 2025-04-25T20:12:15+02:00
 "use client";
 
 import { motion } from "framer-motion";
 import GetInTouchButton from "@/components/GetInTouchButton";
 import RelatedServices from "@/components/RelatedServices";
+import CaseStudies from "@/components/CaseStudies";
 import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
+
+const PAGE_URL = 'https://wlcreationx.co.za/pricing/annual-report-design-and-print-pretoria';
 
 const relatedServices = [
   {
@@ -46,209 +48,218 @@ const relatedServices = [
   }
 ];
 
+// Who produces annual reports in Pretoria. General types only: never name an
+// organisation here unless it is a real client that has agreed to be named.
+const audiences = [
+  {
+    title: "Public entities and state-owned companies",
+    body: "Reports that set performance information against the targets in the annual performance plan, followed by the audited financial statements and the auditor’s report. The structure is usually set for you; our job is to make a fixed structure easy to read and easy to check.",
+  },
+  {
+    title: "Agencies, regulators and statutory councils",
+    body: "Bodies established under national departments, from regulators to professional councils. Their readers range from portfolio committee members to the public, so the report needs a clear summary up front and detail that is easy to find further in.",
+  },
+  {
+    title: "NPOs, NGOs and foundations",
+    body: "Annual reports and reviews for boards, funders and donors, often alongside audited statements. Many fit within 24 pages, and a clear account of where the money went matters more than heavy production.",
+  },
+  {
+    title: "Associations and industry bodies",
+    body: "Member-facing annual reports that go out with the AGM notice: the president’s review, the year’s work on behalf of members, membership figures, governance and the financial statements.",
+  },
+  {
+    title: "Universities and research organisations",
+    body: "Reports to council and stakeholders that combine research highlights, student and staff data, governance and financial results, usually with more photography and more data than a corporate report.",
+  },
+  {
+    title: "Listed and private companies",
+    body: "Annual and integrated reports, annual financial statements and AGM documents for companies in Centurion, Menlyn, Hatfield and the eastern suburbs, from a first designed report to a long-running series.",
+  },
+];
+
+// What a client receives. Inclusions must stay in line with the annual-report
+// items in src/data/pricing.ts; anything not listed there is "on request".
+const deliverables = [
+  {
+    title: "Content plan and flatplan",
+    body: "A page-by-page map of the report: section order, a page budget for each section, who owns the content and when it is due. It is agreed before layout starts, which is the single best protection against a report that keeps growing.",
+  },
+  {
+    title: "A design system for the report",
+    body: "Cover, grid, type hierarchy, colour logic, and table and chart styles, built on your brand guidelines and shown on sample spreads before full layout. Because it is a system, next year’s report starts from it rather than from a blank page.",
+  },
+  {
+    title: "Narrative layout",
+    body: "The chair’s and chief executive’s statements, organisational overview, strategy, performance review, governance and risk sections, laid out so readers can find the key messages without reading every word.",
+  },
+  {
+    title: "Typeset financial statements",
+    body: "The primary statements and notes set in one consistent table style from the final files your finance team and auditors approve. We check that totals, headings and note references carry through, and flag anything that does not match.",
+  },
+  {
+    title: "Charts and infographics",
+    body: "Financial and performance data turned into charts that are built from your spreadsheets, labelled properly and styled the same way throughout the report.",
+  },
+  {
+    title: "Print-ready and screen PDFs",
+    body: "Press-ready artwork for the printer plus a screen-optimised PDF for email and your website, both included in the packages above. A tagged, accessible PDF can be added and is scoped in your quote.",
+  },
+  {
+    title: "Optional online or interactive edition",
+    body: "An interactive PDF with working navigation, or a lighter online version for your website, for organisations that print only a short run or none at all.",
+  },
+  {
+    title: "Print management",
+    body: "We buy print from trade printers and manage the job: paper and binding advice, a quote per job, checking the printer’s proof against the approved file, and delivery to your offices.",
+  },
+];
+
+// Production steps, written backwards from the immovable dates. Deliberately
+// no durations: every report's calendar is set by its own board and audit dates.
+const steps = [
+  {
+    title: "Fix the dates that cannot move",
+    body: "We list the board or council approval meeting, the audit committee, the auditor’s sign-off, the AGM, submission or tabling date, and the day printed copies must be in hand. The schedule is written from the last of these back to today.",
+  },
+  {
+    title: "Brief, last year’s report and the flatplan",
+    body: "We go through last year’s report with your team, agree what must change, and build the flatplan with page budgets, section owners and copy due dates.",
+  },
+  {
+    title: "Design system on sample spreads",
+    body: "Cover direction, grid, typography and the chart and table styles are presented on a few real spreads. This is where the look is debated and signed off, before every later page depends on it.",
+  },
+  {
+    title: "Narrative layout in batches",
+    body: "Sections are laid out as their copy is approved rather than all at once at the end, so proofing is spread out and a late section does not hold up the rest.",
+  },
+  {
+    title: "Financial statements from the final files",
+    body: "Draft statements can be set early to settle table styles and page count. The signed-off versions then replace them, and every table is checked against its source file.",
+  },
+  {
+    title: "Numbered proof rounds",
+    body: "Each round goes out as a numbered PDF. Your coordinator returns one consolidated set of comments, and the next version comes back with a list of what changed.",
+  },
+  {
+    title: "Number lock and final approval",
+    body: "Once the figures are signed off they are locked: after that, numbers change only on written instruction from finance or the auditors, and the version the board approves is the version that is published.",
+  },
+  {
+    title: "Release: print, screen, accessible and online",
+    body: "Press-ready files go to the printer and we check the printer’s proof. The screen PDF, any accessible PDF and the online edition are ready for your publication date.",
+  },
+];
+
+const fileFormats = [
+  {
+    title: "Print-ready PDF",
+    body: "CMYK artwork with bleed, crop marks and embedded fonts, exported to your printer’s specification (usually a PDF/X standard).",
+  },
+  {
+    title: "Screen PDF",
+    body: "An RGB version compressed for email and the web, with bookmarks and a clickable contents page.",
+  },
+  {
+    title: "Accessible PDF",
+    body: "A tagged PDF with a logical reading order, the document language set, bookmarks and alternative text on charts and photographs, checked with an accessibility checker. You approve the alt text, because describing a chart is partly a content decision.",
+  },
+  {
+    title: "Interactive PDF or web edition",
+    body: "Internal links, navigation and a file size suited to downloading, or content prepared for your website team to publish as web pages.",
+  },
+  {
+    title: "Chart and image exports",
+    body: "Individual charts and infographics exported for your website, social media and the results presentation, so the same figures look the same everywhere.",
+  },
+  {
+    title: "Editable source files",
+    body: "Packaged layout files with linked images and a font list, supplied on request. Agree this at quote stage, because font and stock image licences can limit what may be handed over.",
+  },
+];
+
+const reportServices = [
+  {
+    title: "Sustainability and ESG reports",
+    body: "Standalone sustainability reports, or the ESG section of your annual report, with environmental and social data designed to be updated each year.",
+    href: "/pricing/sustainability-esg-report-design-services-pretoria",
+  },
+  {
+    title: "Investor relations material",
+    body: "Results presentations, investor decks and shareholder reports that use the same chart styles and colours as the annual report.",
+    href: "/pricing/investor-relations-material-design-services-pretoria",
+  },
+  {
+    title: "Interactive digital publications",
+    body: "Interactive PDFs with clickable contents pages, cross-references and working navigation for reports published mainly online.",
+    href: "/pricing/interactive-digital-publication-interactive-pdf-design-pretoria",
+  },
+  {
+    title: "Infographics and data visualisation",
+    body: "Charts, data graphics and infographic spreads for the performance and sustainability sections of a report.",
+    href: "/pricing/infographic-data-visualization-design-pretoria",
+  },
+];
+
+// Rand amounts below mirror src/data/pricing.ts: annual-report, annual-report-large,
+// annual-report-page, esg-integrated (integrated-report has no fixed price).
 const faqs = [
   {
-    question: "What is annual report design?",
-    answer: "Annual report design is the process of creating a visually engaging, professionally formatted document that communicates a company’s yearly performance, achievements, and financial data. Our Pretoria team specializes in impactful annual report design."
+    question: "How much does annual report design cost in Pretoria?",
+    answer: "Our annual report design costs R 18 500 for up to 24 pages and R 32 000 for 25–48 pages, with each page beyond 48 at R 250. A combined annual and ESG report is R 28 000. Integrated reports are always scoped on a call, because page count and content volume vary so much. Prices assume you supply final copy and signed-off figures, and printing is quoted separately.",
   },
   {
-    question: "Why is professional annual report design important for Pretoria businesses?",
-    answer: "Professional annual report design builds trust with stakeholders, investors, and clients by presenting information clearly and reflecting your Pretoria brand’s quality and credibility."
+    question: "Is printing included in the price?",
+    answer: "No. Printing is quoted per job once the page count, quantity, paper, binding and finishing are known. We buy print from trade printers, manage the job, check the printer’s proof against the approved file and arrange delivery, or we supply press-ready files to a printer you already use.",
   },
   {
-    question: "How do I choose the best annual report designers in Pretoria?",
-    answer: "Look for Pretoria annual report designers with a strong portfolio, creative skills, and experience in your industry. WL CreationX is a leading choice for annual report design and print in Pretoria and Gauteng."
+    question: "What do we need to give you to start?",
+    answer: "Last year’s report, your brand guidelines, the key dates (board, audit committee, auditor’s sign-off and AGM, submission or tabling date), a contact person for content, and then approved copy, photographs and data as each section is ready. The financial statements come last, as the Word and Excel files your finance team and auditors work from.",
   },
   {
-    question: "Do you offer annual report printing in Pretoria?",
-    answer: "Yes, we provide high-quality annual report printing in Pretoria, with options for paper, binding, and finishing to suit your needs."
+    question: "Can you typeset our annual financial statements?",
+    answer: "Yes. We set the primary statements and notes in the report’s table style from your final files, and check that totals, headings and note references carry through. We do not change a figure on our own judgement: if something does not add up or a reference does not match, we flag it for finance and the auditors to resolve.",
   },
   {
-    question: "What types of annual reports do you design and print?",
-    answer: "We design and print corporate annual reports, financial reports, sustainability reports, NGO reports, and more for Pretoria and South African organizations."
+    question: "We are a public entity. Can you work within a prescribed structure?",
+    answer: "Yes. Many public entities report under the Public Finance Management Act (PFMA) and follow guidance on the order and content of the annual report from National Treasury or their oversight department. We design within the structure you are given, so the performance information, financial statements and auditor’s report appear where they should. Decisions about what must be disclosed stay with your organisation and its auditors.",
   },
   {
-    question: "Can you help with copywriting and content for my annual report?",
-    answer: "Absolutely. Our Pretoria team offers copywriting, editing, and data visualization for annual reports, ensuring your message is clear and compelling."
+    question: "When should we contact you?",
+    answer: "As soon as your board and publication dates are known, and ideally before financial year-end, so the flatplan and design system can be agreed before copy and audited figures start arriving. We plan the whole schedule backwards from your fixed dates, so the earlier we have them, the more room there is for review.",
   },
   {
-    question: "How long does annual report design and print take?",
-    answer: "Typical annual report projects in Pretoria take 2–4 weeks, depending on complexity, content, and client feedback cycles."
+    question: "How do proof rounds and changes work?",
+    answer: "Each proof goes out as a numbered PDF with a list of what changed since the last version. We ask for one consolidated set of comments per round from a single coordinator. Once the figures are locked, changes to numbers are made only on written instruction from finance or the auditors. The number of rounds is agreed at quote stage.",
   },
   {
-    question: "What is the cost of annual report design in Pretoria?",
-    answer: "Annual report design pricing in Pretoria varies by length, complexity, and print requirements. Contact us for a tailored quote."
+    question: "Can the report be published as an accessible PDF?",
+    answer: "Yes. An accessible version is tagged, has a logical reading order and bookmarks, sets the document language and carries alternative text on charts and photographs, which you approve. We check it with an accessibility checker before release. It is scoped as part of your quote.",
   },
   {
-    question: "Do you offer digital annual report design for Pretoria clients?",
-    answer: "Yes, we design interactive and digital annual reports for Pretoria businesses, ideal for online distribution and engagement."
+    question: "Can you produce an online or interactive version?",
+    answer: "Yes. We can produce an interactive PDF with a clickable contents page and internal links, or prepare content for your website team to publish online. Some organisations now publish online first and print only a short run for the board and AGM.",
   },
   {
-    question: "Can you print annual reports for companies outside Pretoria?",
-    answer: "We primarily serve Pretoria and Gauteng, but also print and deliver annual reports across South Africa."
+    question: "Do you design combined annual and ESG reports, or integrated reports?",
+    answer: "Yes. A combined annual and sustainability report with full data visualisation is R 28 000. Integrated reports, which connect strategy, the business model, risks and performance across financial and non-financial information, are scoped on a call. Standalone sustainability reports have their own rates on our ESG report design page.",
   },
   {
-    question: "What makes your annual report design services unique in Pretoria?",
-    answer: "We combine creative layouts, infographics, and premium printing to deliver standout annual reports for Pretoria clients."
+    question: "Will you sign an NDA for draft results?",
+    answer: "Yes. Draft reports often contain unpublished results, so we sign NDAs on request, keep drafts within the project team and do not show any part of a report until it has been published, and then only with your permission.",
   },
   {
-    question: "What file formats do you provide for annual report design?",
-    answer: "We deliver annual report designs in print-ready PDF, digital PDF, and other formats as needed for Pretoria clients."
+    question: "Can we meet you in person in Pretoria?",
+    answer: "Yes. Our studio is at 194 Bancor Ave, Waterkloof Glen, and we meet clients at their offices across Pretoria and Centurion for kick-offs and the reviews that matter. Routine proof rounds usually happen by email and video call.",
   },
-  {
-    question: "Can you include infographics and charts in my annual report?",
-    answer: "Yes, our Pretoria team creates custom infographics, charts, and data visualizations for impactful annual report design."
-  },
-  {
-    question: "How do I start my annual report project in Pretoria?",
-    answer: "Contact WL CreationX to discuss your annual report design and print needs. We’ll guide you through every step."
-  },
-  {
-    question: "Do you sign NDAs for confidential annual report projects?",
-    answer: "Yes, we sign NDAs and treat all Pretoria client information with strict confidentiality."
-  },
-  {
-    question: "Can you design bilingual or multilingual annual reports?",
-    answer: "Yes, we offer bilingual and multilingual annual report design for Pretoria and South African organizations."
-  },
-  {
-    question: "What industries do you serve for annual report design in Pretoria?",
-    answer: "We serve corporates, NGOs, government, education, healthcare, finance, and more in Pretoria and Gauteng."
-  },
-  {
-    question: "Do you offer rush or express annual report printing in Pretoria?",
-    answer: "Yes, we offer rush and express annual report printing for urgent Pretoria projects, subject to availability."
-  },
-  {
-    question: "What binding options are available for annual report printing?",
-    answer: "We offer saddle-stitched, perfect bound, spiral, and hardcover binding for annual report printing in Pretoria."
-  },
-  {
-    question: "Can you help with annual report compliance and regulations?",
-    answer: "Yes, we design annual reports that meet South African compliance and reporting standards."
-  },
-  {
-    question: "What are the steps in your annual report design process?",
-    answer: "Our Pretoria annual report process includes briefing, content planning, design, proofing, printing, and delivery."
-  },
-  {
-    question: "How do you ensure brand consistency in annual report design?",
-    answer: "We use your Pretoria company’s brand guidelines to ensure consistent colors, fonts, and messaging throughout the annual report."
-  },
-  {
-    question: "Do you offer eco-friendly annual report printing in Pretoria?",
-    answer: "Yes, we offer sustainable and eco-friendly paper and print options for annual reports in Pretoria and Gauteng."
-  },
-  {
-    question: "Can I see samples of your annual report design work?",
-    answer: "Yes, view our Pretoria annual report design portfolio on our website or request samples."
-  },
-  {
-    question: "What is the minimum order for annual report printing?",
-    answer: "We print annual reports in Pretoria with flexible minimum orders, suitable for small and large organizations."
-  },
-  {
-    question: "Do you offer annual report mailing and distribution in Pretoria?",
-    answer: "Yes, we can arrange mailing and distribution of printed annual reports within Pretoria and South Africa."
-  },
-  {
-    question: "Can you redesign my old annual report?",
-    answer: "Yes, we redesign outdated annual reports for Pretoria businesses to modernize and refresh your brand image."
-  },
-  {
-    question: "How do you handle revisions and feedback?",
-    answer: "We include revision rounds in our Pretoria annual report packages to ensure your satisfaction."
-  },
-  {
-    question: "What is the difference between annual report design and corporate brochure design?",
-    answer: "Annual report design focuses on yearly performance and compliance, while brochures are for marketing. We offer both in Pretoria."
-  },
-  {
-    question: "Do you offer annual report design for NGOs and non-profits?",
-    answer: "Yes, we specialize in annual report design and print for Pretoria NGOs, non-profits, and charities."
-  },
-  {
-    question: "Can you help with financial report design and presentation?",
-    answer: "Yes, our Pretoria designers are experts in financial report design and clear data presentation."
-  },
-  {
-    question: "What languages do you support for annual report design?",
-    answer: "We support English, Afrikaans, and other South African languages for annual report design in Pretoria."
-  },
-  {
-    question: "How do you ensure the security of my annual report data?",
-    answer: "All Pretoria client data is handled securely and confidentially throughout the annual report design and print process."
-  },
-  {
-    question: "What makes WL CreationX the best choice for annual report design in Pretoria?",
-    answer: "Our expertise, creativity, and client-focused approach make us Pretoria’s top agency for annual report design and print."
-  },
-  {
-    question: "Can you help with annual report photography and imagery?",
-    answer: "Yes, we offer photography and image sourcing for Pretoria annual report projects."
-  },
-  {
-    question: "Do you offer interactive PDF annual reports?",
-    answer: "Yes, we design interactive PDF annual reports for Pretoria businesses to enhance engagement and accessibility."
-  },
-  {
-    question: "How do I provide content for my annual report?",
-    answer: "We guide Pretoria clients through content collection, or provide copywriting and editing as needed."
-  },
-  {
-    question: "Can you design annual reports for listed companies?",
-    answer: "Yes, we design and print annual reports for JSE-listed and large Pretoria companies, meeting all regulatory requirements."
-  },
-  {
-    question: "Do you offer annual report design workshops or consultations?",
-    answer: "Yes, we offer workshops and consultations for Pretoria organizations planning their annual reports."
-  },
-  {
-    question: "How do you handle last-minute changes to annual reports?",
-    answer: "We work flexibly with Pretoria clients to accommodate urgent changes before printing."
-  },
-  {
-    question: "Can you design annual reports for schools and educational institutions?",
-    answer: "Yes, we design and print annual reports for Pretoria schools, colleges, and universities."
-  },
-  {
-    question: "What is your experience with annual report projects in Pretoria?",
-    answer: "We have years of experience delivering annual report design and print for Pretoria and Gauteng organizations."
-  },
-  {
-    question: "Do you offer discounts for bulk annual report printing?",
-    answer: "Yes, we provide competitive pricing and discounts for large annual report print runs in Pretoria."
-  },
-  {
-    question: "Can you print annual reports with custom finishes and embossing?",
-    answer: "Yes, we offer custom finishes, embossing, and foil for premium annual report printing in Pretoria."
-  },
-  {
-    question: "How do I get a quote for annual report design and print?",
-    answer: "Contact WL CreationX for a free quote on annual report design and print in Pretoria, Gauteng, and South Africa."
-  },
-  {
-    question: "Do you serve clients outside South Africa?",
-    answer: "Yes, we work with international clients seeking annual report design and print expertise from Pretoria."
-  },
-  {
-    question: "Can you help with annual report project management?",
-    answer: "Yes, we manage Pretoria annual report projects from start to finish, coordinating design, print, and delivery."
-  },
-  {
-    question: "What payment methods do you accept for annual report projects?",
-    answer: "We accept EFT, credit card, and other payment options for Pretoria annual report clients."
-  },
-  {
-    question: "How do I review and approve my annual report before printing?",
-    answer: "We provide digital proofs for Pretoria clients to review and approve before going to print."
-  }
 ];
+
+const linkClass = "text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]";
 
 export default function AnnualReportDesignPrintPretoria() {
   return (
     <div className="min-h-screen bg-black text-white py-20 px-4 sm:px-6 lg:px-8">
-      {/* FAQ structured data generated from the visible FAQ list below */}
+      {/* The one FAQPage on this page, generated from the visible FAQ list below */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -266,6 +277,38 @@ export default function AnnualReportDesignPrintPretoria() {
           })
         }}
       />
+      {/* Service + offers. Prices mirror src/data/pricing.ts: annual-report,
+          annual-report-large, annual-report-page, esg-integrated. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": `${PAGE_URL}#service`,
+            name: "Annual report design and print in Pretoria",
+            serviceType: "Annual report design",
+            description: "Design, typesetting and print management for annual reports, integrated reports and annual financial statements, from a studio in Waterkloof Glen, Pretoria.",
+            url: PAGE_URL,
+            provider: { "@id": "https://wlcreationx.co.za/#business" },
+            areaServed: [
+              { "@type": "City", name: "Pretoria" },
+              { "@type": "Country", name: "South Africa" }
+            ],
+            offers: [
+              { "@type": "Offer", name: "Annual report design (up to 24 pages)", price: "18500", priceCurrency: "ZAR", url: PAGE_URL },
+              { "@type": "Offer", name: "Annual report design (25–48 pages)", price: "32000", priceCurrency: "ZAR", url: PAGE_URL },
+              { "@type": "Offer", name: "Integrated annual and ESG report", price: "28000", priceCurrency: "ZAR", url: PAGE_URL },
+              {
+                "@type": "Offer",
+                name: "Additional report page (beyond 48 pages)",
+                url: PAGE_URL,
+                priceSpecification: { "@type": "UnitPriceSpecification", price: "250", priceCurrency: "ZAR", unitText: "page" }
+              }
+            ]
+          })
+        }}
+      />
 
       {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto mb-12">
@@ -277,54 +320,38 @@ export default function AnnualReportDesignPrintPretoria() {
         >
           Annual Report Design in Pretoria
         </motion.h1>
-        <p className="text-lg text-gray-300 mb-6">Showcase your achievements and vision with a professionally designed annual report tailored for your brand.</p>
+        <p className="text-lg text-gray-300 mb-6">Annual reports, integrated reports and financial statements designed, typeset and print-managed from our Waterkloof Glen studio, for organisations that answer to boards, councils, funders, members and oversight bodies.</p>
         <GetInTouchButton className="mx-auto" />
       </section>
 
-      {/* Process Section */}
-      <section className="max-w-4xl mx-auto mb-16">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-2xl font-bold text-yellow-400 mb-8 text-center"
-        >
-          Our Creative Workflow
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Choose Your Project Team</h3>
-            <p className="text-gray-400 text-center">Select the ideal team from your company to coordinate and supply all necessary information for a seamless project experience.</p>
-          </div>
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Gather Key Content Year-Round</h3>
-            <p className="text-gray-400 text-center">Consistently collect and organize your annual data to prevent last-minute rushes and ensure accuracy.</p>
-          </div>
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Thorough Review & Edits</h3>
-            <p className="text-gray-400 text-center">Allow ample time for draft reviews and feedback so your report is polished and error-free.</p>
-          </div>
+      {/* Pretoria context */}
+      <section className="max-w-3xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">Annual reports in the administrative capital</h2>
+        <div className="space-y-4 text-gray-300 leading-relaxed">
+          <p>Pretoria is South Africa’s administrative capital, and it produces more annual reports than its size suggests. Most national departments have their head offices here, and so do many of the public entities, agencies, regulators and statutory councils that report to them. Add the universities and research organisations, the professional associations and industry bodies, the NPOs and development organisations, and the companies in Centurion and Menlyn, and there are reports being finalised in Tshwane throughout the year.</p>
+          <p>Many public entities follow the government financial year, which ends on 31 March, while companies and NPOs choose their own year-ends. Reporting work here is therefore not squeezed into one season, but each report still runs to its own fixed dates: an audit sign-off, a board or council meeting and an AGM, submission or tabling date that will not move for a late chart.</p>
+          <p>WL CreationX has designed for Pretoria organisations since 2013, from a studio at 194 Bancor Ave, Waterkloof Glen. An annual report is a long document where the figures and tables have to be right as well as look right, so most of what follows is about how we keep it accurate and on schedule, not only how it looks.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Strategic Project Planning</h3>
-            <p className="text-gray-400 text-center">Define clear responsibilities and deadlines for every stage to keep your project on track.</p>
-          </div>
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Design, Copywriting & Photography</h3>
-            <p className="text-gray-400 text-center">Once the brief and content are ready, we craft your report’s narrative, visuals, and commission any required photography.</p>
-          </div>
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-white mb-2">Print & Publication</h3>
-            <p className="text-gray-400 text-center">After final approval, we manage the print and delivery for a flawless, on-time result.</p>
-          </div>
+      </section>
+
+      {/* Who it is for */}
+      <section className="max-w-5xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-8 text-center">Who we design annual reports for</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {audiences.map((a) => (
+            <div key={a.title} className="bg-gray-900 p-6 rounded-lg shadow-lg">
+              <h3 className="text-lg font-semibold text-white mb-2">{a.title}</h3>
+              <p className="text-gray-400">{a.body}</p>
+            </div>
+          ))}
         </div>
+        <p className="text-gray-400 text-sm mt-6 text-center max-w-3xl mx-auto">Reports in more than one language are laid out from translations you supply, with each language proofed in its own round.</p>
       </section>
 
       {/* Pricing Section */}
       <section className="max-w-5xl mx-auto mb-20">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="text-2xl font-bold text-yellow-400 mb-8 text-center"
@@ -385,12 +412,95 @@ export default function AnnualReportDesignPrintPretoria() {
             <GetStartedButton packageName="Larger report (over 48 pages)" packagePrice="R 32 000 + R 250 per page beyond 48" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
           </div>
         </div>
+        <div className="max-w-3xl mx-auto mt-10 bg-gray-900 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-2">What the prices assume</h3>
+          <p className="text-gray-400 leading-relaxed">The packages assume you supply final, approved copy and signed-off figures. Copywriting, editing, photography and translation can be added and are scoped separately. Printing is quoted per job once the page count, quantity, paper and binding are known. Integrated reports are always scoped on a call first, and a standalone sustainability report has its own rates on our{' '}
+            <Link href="/pricing/sustainability-esg-report-design-services-pretoria" className={linkClass}>sustainability and ESG report design</Link> page.
+          </p>
+        </div>
       </section>
+
+      {/* Deliverables */}
+      <section className="max-w-5xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">What you get</h2>
+        <p className="text-gray-300 text-center max-w-3xl mx-auto mb-8">Every annual report project covers planning, design, typesetting and the files you need to publish. Print is managed by us or handed to your own printer.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {deliverables.map((d) => (
+            <div key={d.title} className="bg-gray-900 p-6 rounded-lg shadow-lg">
+              <h3 className="text-lg font-semibold text-white mb-2">{d.title}</h3>
+              <p className="text-gray-400">{d.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Process, planned backwards from the fixed dates */}
+      <section className="max-w-4xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">How a report is produced, working back from your dates</h2>
+        <p className="text-gray-300 text-center max-w-3xl mx-auto mb-8">An annual report is built backwards. The board approval, audit sign-off and AGM, submission or tabling dates are set long before the first page is laid out, so we start with them and plan every step to land in time.</p>
+        <ol className="space-y-4">
+          {steps.map((s, i) => (
+            <li key={s.title} className="bg-gray-900 p-6 rounded-lg shadow-lg flex gap-4">
+              <span className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FFD700] text-black font-bold flex items-center justify-center" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-1">{s.title}</h3>
+                <p className="text-gray-400">{s.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Auditors and company secretaries */}
+      <section className="max-w-3xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">Working with your auditors and company secretary</h2>
+        <div className="space-y-4 text-gray-300 leading-relaxed">
+          <p>The design studio is one link in a chain that includes your finance team, the auditors, the company secretary or board secretariat, and whoever signs off the narrative. Most problems in reporting season come from versions crossing, so these are the rules we work to:</p>
+          <ul className="list-disc pl-5 space-y-2 text-gray-300">
+            <li><strong className="text-white">One coordinator, one set of comments.</strong> Each proof round gets a single consolidated mark-up from your side, so two reviewers never send conflicting corrections to the same paragraph.</li>
+            <li><strong className="text-white">Version names that mean something.</strong> Every file carries a version number, a date and its purpose, such as the audit committee draft or the board approval copy.</li>
+            <li><strong className="text-white">A change list with every proof.</strong> Finance can see exactly what moved since the last round without re-reading the whole document.</li>
+            <li><strong className="text-white">We never correct a figure ourselves.</strong> If a total does not add or a note reference does not match, we query it and wait for an instruction from finance or the auditors.</li>
+            <li><strong className="text-white">A number lock.</strong> After an agreed point, figures change only on written instruction, so the published report matches the audited statements.</li>
+            <li><strong className="text-white">Governance pages from approved text.</strong> Director and committee lists, the AGM notice and proxy forms are set from the company secretary’s approved wording, with names and titles checked against the final list they supply.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* File formats and handover */}
+      <section className="max-w-5xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">File formats and handover</h2>
+        <p className="text-gray-300 text-center max-w-3xl mx-auto mb-8">A report is now read in print, on screen and through assistive technology. These are the files we can hand over; your quote lists the ones included for your project.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {fileFormats.map((f) => (
+            <div key={f.title} className="bg-gray-900 p-6 rounded-lg shadow-lg">
+              <h3 className="text-lg font-semibold text-white mb-2">{f.title}</h3>
+              <p className="text-gray-400">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Related report services */}
+      <section className="max-w-5xl mx-auto mb-16">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-8 text-center">Related report work</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {reportServices.map((r) => (
+            <Link key={r.href} href={r.href} className="block bg-gray-900 p-6 rounded-lg shadow-lg border border-transparent hover:border-yellow-400 transition-colors">
+              <h3 className="text-lg font-semibold text-[#FFD700] mb-2">{r.title}</h3>
+              <p className="text-gray-400">{r.body}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Real projects only; renders nothing until src/data/case-studies.ts has one. */}
+      <CaseStudies service="annual-report" heading="Recent report projects" />
 
       {/* Contact Encouragement */}
       <section className="max-w-3xl mx-auto mb-16 text-center">
         <h2 className="text-xl font-bold text-[#FFD700] mb-2">Not sure which plan is right for you?</h2>
-        <p className="text-neutral-200 mb-4">Contact us for a free consultation or a custom quote tailored to your organization’s needs.</p>
+        <p className="text-neutral-200 mb-4">Send us last year’s report and your key dates. We will suggest the right package, or scope an integrated report with you on a call.</p>
         <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</Link>
       </section>
 
@@ -401,30 +511,46 @@ export default function AnnualReportDesignPrintPretoria() {
           {/* Plain links: this is a client component, and importing the area
               data here would ship every city page's copy to the browser. */}
           We also produce annual reports for organisations in{' '}
-          <Link href="/annual-report-design-johannesburg" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Johannesburg</Link>,{' '}
-          <Link href="/annual-report-design-cape-town" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Cape Town</Link> and{' '}
-          <Link href="/annual-report-design-durban" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Durban</Link>.
+          <Link href="/annual-report-design-johannesburg" className={linkClass}>Johannesburg</Link>,{' '}
+          <Link href="/annual-report-design-cape-town" className={linkClass}>Cape Town</Link> and{' '}
+          <Link href="/annual-report-design-durban" className={linkClass}>Durban</Link>.
         </p>
       </section>
 
-  {/* Related Services */}
-  <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
-  {/* Contextual link to homepage with varied phrasing */}
-  <div className="max-w-3xl mx-auto text-center mt-8">
-    <p className="text-neutral-400 text-sm">
-      Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">graphic design company Pretoria</Link> on the homepage.
-    </p>
-  </div>
-
+      {/* FAQ: the visible list and the FAQPage JSON-LD above come from the same array */}
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
-        <h3>Frequently Asked Questions about Annual Report Design and Print in Pretoria</h3>
+        <h2>Frequently asked questions about annual report design in Pretoria</h2>
         {faqs.map((faq) => (
           <div key={faq.question}>
-            <h4>{faq.question}</h4>
+            <h3>{faq.question}</h3>
             <p>{faq.answer}</p>
           </div>
         ))}
       </section>
+
+      {/* Further reading */}
+      <section className="max-w-3xl mx-auto mb-16">
+        <h2 className="text-xl font-bold text-[#FFD700] mb-4 text-center">Further reading</h2>
+        <ul className="space-y-2 text-neutral-200">
+          <li>
+            <Link href="/creative-industry-blog-pretoria/what-goes-in-an-annual-report-south-africa" className={linkClass}>What goes in an annual report: a guide for South African organisations</Link>{' '}
+            — the usual sections, integrated reporting, public entity reports and planning around audit dates.
+          </li>
+          <li>
+            <Link href="/creative-industry-blog-pretoria/graphic-design-cost-pretoria-2026" className={linkClass}>How much does graphic design cost in Pretoria?</Link>{' '}
+            — our 2026 price guide across logos, identities, print and more.
+          </li>
+        </ul>
+      </section>
+
+      {/* Related Services */}
+      <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
+      {/* Contextual link to homepage with varied phrasing */}
+      <div className="max-w-3xl mx-auto text-center mt-8">
+        <p className="text-neutral-400 text-sm">
+          Learn more about our <Link href="/" className="text-[#FFD700] hover:underline">graphic design company Pretoria</Link> on the homepage.
+        </p>
+      </div>
     </div>
   );
 }

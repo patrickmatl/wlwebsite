@@ -44,6 +44,10 @@ export const BUSINESS = {
     longitude: 28.2905,
   },
 
+  // Google Place ID of the verified Business Profile. Decodes to the same CID
+  // as the Maps link in sameAs (checked 2026-11-27). Powers /review.
+  googlePlaceId: 'ChIJXVsSSdLHvx4R1BO6ynL82aE',
+
   foundedYear: 2013,
   registeredYear: 2016,
 

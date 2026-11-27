@@ -6,13 +6,13 @@ export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
   title: 'Packaging Design Pretoria | From R4,850',
-  description: 'Packaging design pricing from WL CreationX in Pretoria. Product packaging, label and box design packages for local brands with clear, upfront design rates.',
+  description: 'Packaging design in Pretoria: labels from R4,850, cartons R4,850, 3–5 product ranges R9,850. Built on your printer’s dieline, print-ready files you own.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/pricing/packaging-design-pretoria',
   },
   openGraph: {
     title: 'Packaging Design Pretoria | From R4,850',
-    description: 'Packaging design pricing from WL CreationX in Pretoria. Product packaging, label and box design packages for local brands with clear, upfront design rates.',
+    description: 'Packaging design in Pretoria: labels from R4,850, cartons R4,850, 3–5 product ranges R9,850. Built on your printer’s dieline, print-ready files you own.',
     url: 'https://wlcreationx.co.za/pricing/packaging-design-pretoria',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

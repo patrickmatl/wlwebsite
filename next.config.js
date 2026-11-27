@@ -71,6 +71,14 @@ const nextConfig = {
    */
   async redirects() {
     return [
+      // Short link to send clients after a job: opens Google's "write a review"
+      // box for the verified Business Profile (place ID in src/data/business.ts).
+      // Temporary (307) so the destination can change without browsers caching it.
+      {
+        source: '/review',
+        destination: 'https://search.google.com/local/writereview?placeid=ChIJXVsSSdLHvx4R1BO6ynL82aE',
+        permanent: false,
+      },
       { source: '/pricing/event-branding-pretoria', destination: '/pricing/event-branding-design-pretoria', permanent: true },
       { source: '/pricing/infographic-design-pretoria', destination: '/pricing/infographic-data-visualization-design-pretoria', permanent: true },
       { source: '/pricing/interactive-digital-publication-design-pretoria', destination: '/pricing/interactive-digital-publication-interactive-pdf-design-pretoria', permanent: true },
