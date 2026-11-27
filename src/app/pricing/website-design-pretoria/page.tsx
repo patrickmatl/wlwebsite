@@ -16,6 +16,8 @@ const WebsiteDesignPage = () => {
     { label: 'Website Design', href: '/pricing/website-design-pretoria' }
   ];
 
+  // Mirrors pricing.ts website, website-6, website-9, website-catalog, ecommerce-advanced.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: "3 Page Custom Website",
@@ -99,6 +101,7 @@ const WebsiteDesignPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts popia and custom-web-app.
   const additionalFeatures = [
     {
       name: "POPIA Compliancy",

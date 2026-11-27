@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { ANNUAL_REPORT_AREAS, IN_PERSON_AREAS, REMOTE_AREAS } from '@/data/area-pages';
 
 export const metadata: Metadata = {
-  title: 'Service Areas | Graphic Design Across Gauteng',
+  title: 'Areas We Serve | Graphic Design South Africa',
   description:
     'WL CreationX works from one studio in Pretoria: on-site graphic design, branding and web design across Gauteng, with remote delivery for clients nationwide.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/service-areas-pretoria',
   },
   openGraph: {
-    title: 'Service Areas | Graphic Design Across Gauteng | WL CreationX',
+    title: 'Service Areas | Graphic Design Across South Africa | WL CreationX',
     description:
       'WL CreationX works from one studio in Pretoria: on-site graphic design, branding and web design across Gauteng, with remote delivery for clients nationwide.',
     url: 'https://wlcreationx.co.za/service-areas-pretoria',
@@ -21,9 +22,9 @@ export const metadata: Metadata = {
 };
 
 // href is the page that actually serves the area. Pretoria is the homepage,
-// the Gauteng areas have their own landing pages (src/data/area-pages.ts), and
-// the remote cities keep their /service-areas-pretoria pages.
-const serviceAreas = [
+// the Gauteng areas have their own landing pages (src/data/area-pages.ts).
+// Remote cities and annual report pages are listed from the same data below.
+const handWritten = [
   {
     id: 'pretoria',
     href: '/',
@@ -69,25 +70,23 @@ const serviceAreas = [
       'Annual and ESG reports, investor presentations and corporate video for Sandton, Rosebank and the northern suburbs.',
     image: '/images/johannesburg.jpg',
   },
-  {
-    id: 'cape-town',
-    href: '/service-areas-pretoria/cape-town',
-    name: 'Cape Town',
-    badge: 'Remote',
-    description:
-      'Full design, branding and web services delivered remotely to Cape Town businesses via video calls and courier.',
-    image: '/images/cape-town.jpg',
-  },
-  {
-    id: 'durban',
-    href: '/service-areas-pretoria/durban',
-    name: 'Durban',
-    badge: 'Remote',
-    description:
-      'Remote collaboration for Durban clients — the same process and deliverables, managed from Pretoria.',
-    image: '/images/durban.jpg',
-  },
 ];
+
+// Any in-person area without a hand-written card above gets one from its page data.
+const serviceAreas = [
+  ...handWritten,
+  ...IN_PERSON_AREAS.filter((a) => !handWritten.some((h) => h.href === `/${a.slug}`)).map((a) => ({
+    id: a.slug,
+    href: `/${a.slug}`,
+    name: a.placeName,
+    badge: 'On-Site in Gauteng',
+    description: a.metaDescription,
+    image: '/images/johannesburg.jpg',
+  })),
+];
+
+const cardCls =
+  'block rounded-lg border border-[#FFD700]/20 bg-zinc-900/50 p-5 hover:border-[#FFD700]/60 transition-colors';
 
 export default function ServiceAreasPage() {
   return (
@@ -125,6 +124,51 @@ export default function ServiceAreasPage() {
             </Link>
           ))}
         </div>
+        <section className="mt-16">
+          <h2 className="text-3xl font-bold font-syne text-[#FFD700] mb-3">
+            Major cities we serve remotely
+          </h2>
+          <p className="text-gray-300 max-w-3xl mb-8">
+            We have no offices outside Pretoria. Clients in these cities work with us by video
+            call and email, and printed work is couriered or sent to a printer near you.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {REMOTE_AREAS.map((a) => (
+              <Link key={a.slug} href={`/${a.slug}`} className={cardCls}>
+                <span className="text-xs uppercase tracking-wider text-[#FFD700]">{a.province} · Remote</span>
+                <h3 className="text-xl font-bold font-syne mt-1 mb-2">{a.placeName}</h3>
+                <p className="text-gray-300 text-sm">{a.metaDescription}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <h2 className="text-3xl font-bold font-syne text-[#FFD700] mb-3">
+            Annual report design by city
+          </h2>
+          <p className="text-gray-300 max-w-3xl mb-8">
+            Annual, integrated and ESG reports for listed companies, public entities and
+            non-profits, typeset and print-managed from our Pretoria studio.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <Link href="/pricing/annual-report-design-and-print-pretoria" className={cardCls}>
+              <span className="text-xs uppercase tracking-wider text-[#FFD700]">Gauteng · Studio</span>
+              <h3 className="text-xl font-bold font-syne mt-1 mb-2">Pretoria</h3>
+              <p className="text-gray-300 text-sm">Annual report design and print, with published prices.</p>
+            </Link>
+            {ANNUAL_REPORT_AREAS.map((a) => (
+              <Link key={a.slug} href={`/${a.slug}`} className={cardCls}>
+                <span className="text-xs uppercase tracking-wider text-[#FFD700]">
+                  {a.province} · {a.coverage === 'in-person' ? 'On-site' : 'Remote'}
+                </span>
+                <h3 className="text-xl font-bold font-syne mt-1 mb-2">{a.placeName}</h3>
+                <p className="text-gray-300 text-sm">{a.metaDescription}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <div className="mt-12 rounded-lg border border-[#FFD700]/20 bg-zinc-900/50 p-6 max-w-3xl">
           <h2 className="text-xl font-bold font-syne text-[#FFD700] mb-2">
             One Studio, Nationwide Reach

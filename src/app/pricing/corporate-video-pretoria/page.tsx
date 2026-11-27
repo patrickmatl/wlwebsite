@@ -2,6 +2,7 @@ import PackageCard from '@/components/PackageCard';
 import Link from 'next/link';
 import RelatedServices from '@/components/RelatedServices';
 
+// Mirrors pricing.ts corporate-video-starter, video-brand, video-corporate.
 const packages = [
   {
     name: 'Starter',
@@ -18,9 +19,9 @@ const packages = [
   },
   {
     name: 'Business',
-    price: 'R12,000',
+    price: 'R12,500',
     features: [
-      'Up to 3-min video',
+      '60–90 second finished film',
       '2 locations in Pretoria',
       '2 rounds of revisions',
       'Professional sound recording',
@@ -33,9 +34,9 @@ const packages = [
   },
   {
     name: 'Premium',
-    price: 'R22,000',
+    price: 'R21,500',
     features: [
-      'Up to 5-min cinematic video',
+      '2–3 minute cinematic main film',
       '3+ locations (Pretoria & surrounds)',
       'Drone footage included',
       '3 rounds of revisions',
@@ -72,7 +73,7 @@ const relatedServices = [
 // Single source for the FAQ structured data — mirrors the visible FAQ section below exactly.
 const faqs: { q: string; a: string }[] = [
   { q: 'What is corporate video production in Pretoria?', a: 'Corporate video production in Pretoria involves creating professional videos to promote businesses, brands, or organizations in the Pretoria area.' },
-  { q: 'How much does a corporate video cost in Pretoria?', a: 'The cost of a corporate video in Pretoria depends on factors like length, locations, crew, and post-production needs. Packages start from R6,500.' },
+  { q: 'How much does a corporate video cost in Pretoria?', a: 'The cost of a corporate video in Pretoria depends on factors like length, locations, crew, and post-production needs. Packages start from R9,850.' },
   { q: 'Why should I choose a Pretoria-based corporate video company?', a: 'Choosing a Pretoria-based company ensures local expertise, faster turnaround, and better understanding of the Pretoria market.' },
   { q: 'Do you offer drone video as part of corporate video services in Pretoria?', a: 'Yes, our Pretoria corporate video packages can include drone footage for stunning aerial shots.' },
   { q: 'Can you film at multiple locations in Pretoria?', a: 'Yes, we offer multi-location shoots across Pretoria and surrounding areas for maximum impact.' },
@@ -164,7 +165,7 @@ export default function CorporateVideoPage() {
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Corporate Video Pretoria</h3>
         <div><h4>What is corporate video production in Pretoria?</h4><p>Corporate video production in Pretoria involves creating professional videos to promote businesses, brands, or organizations in the Pretoria area.</p></div>
-        <div><h4>How much does a corporate video cost in Pretoria?</h4><p>The cost of a corporate video in Pretoria depends on factors like length, locations, crew, and post-production needs. Packages start from R6,500.</p></div>
+        <div><h4>How much does a corporate video cost in Pretoria?</h4><p>The cost of a corporate video in Pretoria depends on factors like length, locations, crew, and post-production needs. Packages start from R9,850.</p></div>
         <div><h4>Why should I choose a Pretoria-based corporate video company?</h4><p>Choosing a Pretoria-based company ensures local expertise, faster turnaround, and better understanding of the Pretoria market.</p></div>
         <div><h4>Do you offer drone video as part of corporate video services in Pretoria?</h4><p>Yes, our Pretoria corporate video packages can include drone footage for stunning aerial shots.</p></div>
         <div><h4>Can you film at multiple locations in Pretoria?</h4><p>Yes, we offer multi-location shoots across Pretoria and surrounding areas for maximum impact.</p></div>

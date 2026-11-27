@@ -17,6 +17,8 @@ const PackagingDesignPage = () => {
     { label: 'Packaging Design', href: '/pricing/packaging-design-pretoria' }
   ];
 
+  // Mirrors pricing.ts packaging, packaging-range, packaging-full.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: "Single Product",
@@ -36,7 +38,7 @@ const PackagingDesignPage = () => {
       price: "R9,850",
       icon: <FaBoxOpen className="w-8 h-8 text-[#FFD700]" />,
       features: [
-        "2 Product Package Designs",
+        "3–5 Product Package Designs",
         "3 Design Concepts Each",
         "5 Revision Rounds",
         "Print-Ready Files",
@@ -50,7 +52,7 @@ const PackagingDesignPage = () => {
       price: "Quoted on request",
       icon: <FaGift className="w-8 h-8 text-[#FFD700]" />,
       features: [
-        "Full Product Line (Up to 5 Items)",
+        "Full Product Line (6+ Items)",
         "Multiple Design Concepts",
         "Unlimited Revisions",
         "Print-Ready Files",
@@ -62,6 +64,7 @@ const PackagingDesignPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts packaging-3d-mockup, packaging-label-extra, packaging-insert.
   const additionalServices = [
     {
       name: "3D Mockup Rendering",
@@ -70,10 +73,10 @@ const PackagingDesignPage = () => {
       description: "Photorealistic 3D renderings of your packaging design from multiple angles"
     },
     {
-      name: "Label Design",
+      name: "Additional Label Design",
       price: "R850",
       icon: <FaBars className="w-6 h-6 text-[#FFD700]" />,
-      description: "Custom label design with nutritional information and required certifications"
+      description: "An extra label for a product already in your packaging project (a new flavour, size or variant), with nutritional information and required certifications"
     },
     {
       name: "Package Insert",
@@ -105,7 +108,7 @@ const PackagingDesignPage = () => {
               "name": "How much does packaging design cost in Pretoria?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Our packages start from R2,500, with pricing based on complexity, number of items, and additional services like 3D mockups or inserts. We offer transparent quotes and flexible options for Pretoria clients."
+                "text": "Our packages start from R4,850, with pricing based on complexity, number of items, and additional services like 3D mockups or inserts. We offer transparent quotes and flexible options for Pretoria clients."
               }
             },
             {
@@ -322,7 +325,7 @@ const PackagingDesignPage = () => {
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Packaging Design in Pretoria</h3>
         <div><h4>What types of packaging do you design?</h4><p>We design boxes, labels, sleeves, pouches, inserts, and more for Pretoria businesses across various industries.</p><p>Our team ensures each packaging type is tailored to your product’s needs and market requirements.</p></div>
-        <div><h4>How much does packaging design cost in Pretoria?</h4><p>Our packages start from R2,500, with pricing based on complexity, number of items, and additional services like 3D mockups or inserts.</p><p>We offer transparent quotes and flexible options for Pretoria clients.</p></div>
+        <div><h4>How much does packaging design cost in Pretoria?</h4><p>Our packages start from R4,850, with pricing based on complexity, number of items, and additional services like 3D mockups or inserts.</p><p>We offer transparent quotes and flexible options for Pretoria clients.</p></div>
         <div><h4>Can you provide print-ready files?</h4><p>Yes, all final packaging designs include high-resolution, print-ready files suitable for your chosen printer in Pretoria or nationwide.</p><p>We also offer guidance on material selection and print specifications.</p></div>
         <div><h4>Do you offer 3D mockups?</h4><p>Yes, we provide photorealistic 3D mockups so you can visualize your packaging before production.</p><p>This service helps Pretoria clients make informed decisions and impress stakeholders.</p></div>
         <div><h4>How long does a packaging design project take?</h4><p>Most Pretoria packaging projects are completed within 5–10 days, depending on scope and revision rounds.</p><p>Rush options are available for urgent projects.</p></div>

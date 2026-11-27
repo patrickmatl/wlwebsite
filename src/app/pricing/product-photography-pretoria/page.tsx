@@ -2,12 +2,13 @@ import PackageCard from '@/components/PackageCard';
 import Link from 'next/link';
 import RelatedServices from '@/components/RelatedServices';
 
+// Mirrors pricing.ts photo-product, photo-product-business, photo-product-premium.
 const packages = [
   {
     name: 'Starter',
     price: 'R3,850',
     features: [
-      'Up to 10 products',
+      'Up to 15 products',
       'White background shots',
       'High-res images',
       'Online gallery delivery',
@@ -69,7 +70,7 @@ const relatedServices = [
 // Single source for the FAQ structured data — mirrors the visible FAQ sections below exactly.
 const faqs: { q: string; a: string }[] = [
   { q: 'What is product photography in Pretoria?', a: 'Product photography in Pretoria involves capturing high-quality images of products for e-commerce, catalogs, and marketing.' },
-  { q: 'How much does product photography cost in Pretoria?', a: 'Product photography packages in Pretoria start from R1,800, with pricing based on quantity and complexity.' },
+  { q: 'How much does product photography cost in Pretoria?', a: 'Product photography packages in Pretoria start from R3,850, with pricing based on quantity and complexity.' },
   { q: 'Do you offer white background product photography in Pretoria?', a: 'Yes, we provide white background and lifestyle product photography in Pretoria.' },
   { q: 'Can you photograph large products in Pretoria?', a: 'Yes, we can shoot products of all sizes in our Pretoria studio or on location.' },
   { q: 'Do you provide Pretoria product photography for e-commerce?', a: 'Yes, we specialize in Pretoria e-commerce product photography for online stores.' },
@@ -162,7 +163,7 @@ export default function ProductPhotographyPage() {
       <section className="mx-auto max-w-4xl px-4 py-12 prose prose-invert prose-headings:font-syne prose-headings:text-[#FFD700] prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white">
         <h3>Frequently Asked Questions about Product Photography Pretoria</h3>
         <div><h4>What is product photography in Pretoria?</h4><p>Product photography in Pretoria involves capturing high-quality images of products for e-commerce, catalogs, and marketing.</p></div>
-        <div><h4>How much does product photography cost in Pretoria?</h4><p>Product photography packages in Pretoria start from R1,800, with pricing based on quantity and complexity.</p></div>
+        <div><h4>How much does product photography cost in Pretoria?</h4><p>Product photography packages in Pretoria start from R3,850, with pricing based on quantity and complexity.</p></div>
         <div><h4>Do you offer white background product photography in Pretoria?</h4><p>Yes, we provide white background and lifestyle product photography in Pretoria.</p></div>
         <div><h4>Can you photograph large products in Pretoria?</h4><p>Yes, we can shoot products of all sizes in our Pretoria studio or on location.</p></div>
         <div><h4>Do you provide Pretoria product photography for e-commerce?</h4><p>Yes, we specialize in Pretoria e-commerce product photography for online stores.</p></div>

@@ -45,7 +45,7 @@ const PricingPage = () => {
       icon: <FaDesktop className="w-12 h-12 mb-4 text-[#FFD700]" />,
       description: "Professional video production for businesses and brands in Pretoria.",
       link: "/pricing/corporate-video-pretoria",
-      packages: ["Starter from R9,850", "Business from R12,000", "Premium from R22,000"]
+      packages: ["Starter from R9,850", "Business from R12,500", "Premium from R21,500"]
     },
     {
       title: "Drone Video",

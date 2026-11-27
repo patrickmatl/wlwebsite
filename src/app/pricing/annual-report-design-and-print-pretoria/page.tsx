@@ -331,49 +331,58 @@ export default function AnnualReportDesignPrintPretoria() {
         >
           Design Packages & Pricing
         </motion.h2>
+        {/* Prices mirror src/data/pricing.ts: annual-report, annual-report-large,
+            esg-integrated, annual-report-page (and integrated-report, quoted on a
+            call). Typed here because this is a client component — importing the
+            price list would ship all of it to the browser. Change both together. */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Starter */}
+          {/* Up to 24 pages — annual-report */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
-            <h3 className="text-xl font-semibold text-white mb-2">Starter</h3>
-            <p className="text-yellow-300 text-3xl font-bold mb-2">R 25 000</p>
+            <h3 className="text-xl font-semibold text-white mb-2">Up to 24 Pages</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 18 500</p>
             <ul className="text-gray-400 mb-6 space-y-1 text-sm">
               <li>Striking cover design</li>
               <li>Custom collage artwork</li>
               <li>Professional typography</li>
-              <li>Layout for up to 50 pages</li>
+              <li>Financial tables and charts styled</li>
+              <li>Layout for up to 24 pages</li>
             </ul>
-            <GetStartedButton packageName="Starter" packagePrice="R 25 000" service="Annual report design" label="Select Plan" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all" />
+            <GetStartedButton packageName="Up to 24 pages" packagePrice="R 18 500" service="Annual report design" label="Select Plan" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all" />
           </div>
-          {/* Professional */}
+          {/* 25–48 pages — annual-report-large */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
-            <h3 className="text-xl font-semibold text-white mb-2">Professional</h3>
-            <p className="text-yellow-300 text-3xl font-bold mb-2">R 48 000</p>
+            <h3 className="text-xl font-semibold text-white mb-2">25–48 Pages</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 32 000</p>
             <ul className="text-gray-400 mb-6 space-y-1 text-sm">
-              <li>All Starter features</li>
-              <li>Layout for up to 100 pages</li>
-              <li>Enhanced typographic artwork</li>
+              <li>All 24-page features</li>
+              <li>Layout for 25–48 pages</li>
+              <li>Extended chart and infographic set</li>
+              <li>Section dividers and navigation</li>
             </ul>
-            <GetStartedButton packageName="Professional" packagePrice="R 48 000" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
+            <GetStartedButton packageName="25–48 pages" packagePrice="R 32 000" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
           </div>
-          {/* Premium */}
+          {/* Integrated annual + ESG — esg-integrated */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
-            <h3 className="text-xl font-semibold text-white mb-2">Premium</h3>
-            <p className="text-yellow-300 text-3xl font-bold mb-2">R 71 000</p>
+            <h3 className="text-xl font-semibold text-white mb-2">Integrated Annual + ESG Report</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 28 000</p>
             <ul className="text-gray-400 mb-6 space-y-1 text-sm">
-              <li>All Professional features</li>
-              <li>Layout for up to 150 pages</li>
+              <li>Combined annual and sustainability report</li>
+              <li>Full data visualisation</li>
+              <li>Print-ready and digital versions</li>
             </ul>
-            <GetStartedButton packageName="Premium" packagePrice="R 71 000" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
+            <GetStartedButton packageName="Integrated annual + ESG report" packagePrice="R 28 000" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
           </div>
-          {/* Elite */}
+          {/* Larger reports — annual-report-large + annual-report-page */}
           <div className="bg-gray-900 rounded-lg shadow-lg flex flex-col items-center p-6 border-2 border-yellow-400">
-            <h3 className="text-xl font-semibold text-white mb-2">Elite</h3>
-            <p className="text-yellow-300 text-3xl font-bold mb-2">R 94 000</p>
+            <h3 className="text-xl font-semibold text-white mb-2">Larger Reports</h3>
+            <p className="text-yellow-300 text-3xl font-bold mb-2">R 32 000</p>
+            <p className="text-yellow-300 text-sm font-semibold mb-2">+ R 250 per page beyond 48</p>
             <ul className="text-gray-400 mb-6 space-y-1 text-sm">
-              <li>All Premium features</li>
-              <li>Layout for up to 200 pages</li>
+              <li>All 25–48-page features</li>
+              <li>Every page beyond 48 at R 250</li>
+              <li>Integrated reports quoted on a call</li>
             </ul>
-            <GetStartedButton packageName="Elite" packagePrice="R 94 000" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
+            <GetStartedButton packageName="Larger report (over 48 pages)" packagePrice="R 32 000 + R 250 per page beyond 48" service="Annual report design" label="Select Plan" className="bg-[#FFD700] text-black px-6 py-2 rounded-full font-medium hover:bg-[#FFA500] transition-all block" />
           </div>
         </div>
       </section>
@@ -383,6 +392,19 @@ export default function AnnualReportDesignPrintPretoria() {
         <h2 className="text-xl font-bold text-[#FFD700] mb-2">Not sure which plan is right for you?</h2>
         <p className="text-neutral-200 mb-4">Contact us for a free consultation or a custom quote tailored to your organization’s needs.</p>
         <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</Link>
+      </section>
+
+      {/* Annual report design for other cities: each has its own written page. */}
+      <section className="max-w-3xl mx-auto mb-16 text-center">
+        <h2 className="text-xl font-bold text-[#FFD700] mb-2">Reporting from outside Pretoria?</h2>
+        <p className="text-neutral-200">
+          {/* Plain links: this is a client component, and importing the area
+              data here would ship every city page's copy to the browser. */}
+          We also produce annual reports for organisations in{' '}
+          <Link href="/annual-report-design-johannesburg" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Johannesburg</Link>,{' '}
+          <Link href="/annual-report-design-cape-town" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Cape Town</Link> and{' '}
+          <Link href="/annual-report-design-durban" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Durban</Link>.
+        </p>
       </section>
 
   {/* Related Services */}

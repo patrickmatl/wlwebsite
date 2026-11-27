@@ -9,6 +9,7 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const CustomDevelopmentPage = () => {
+  // Mirrors pricing.ts custom-web-app, custom-enterprise-system, custom-api-integration.
   const packages = [
     {
       name: "Custom Web Application",

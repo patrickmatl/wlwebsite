@@ -6,13 +6,15 @@ import PackageCard from '@/components/PackageCard';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const PackagesPage = () => {
+  // Mirrors pricing.ts logo-2, logo-4, logo-6. Client component: keep these
+  // strings in step with that file by hand.
   const logoPackages = [
     {
       name: "Logo — 2 Concepts",
       price: "R2,080",
       period: "",
       features: [
-        "1 Initial Concept",
+        "2 Initial Concepts",
         "2 Revision Rounds",
         "High Resolution Files",
         "Basic Source Files",
@@ -25,8 +27,8 @@ const PackagesPage = () => {
       price: "R3,120",
       period: "",
       features: [
-        "2 Initial Concepts",
-        "3 Revision Rounds",
+        "4 Initial Concepts",
+        "2 Revision Rounds",
         "High Resolution Files",
         "Source Files (AI, EPS, PDF)",
         "Social Media Formats",
@@ -39,8 +41,8 @@ const PackagesPage = () => {
       price: "R4,160",
       period: "",
       features: [
-        "5 Initial Concepts",
-        "Unlimited Revisions",
+        "6 Initial Concepts",
+        "2 Revision Rounds",
         "All File Formats",
         "Source Files (All Formats)",
         "Social Media Kit",
@@ -51,6 +53,7 @@ const PackagesPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts website, website-6, website-9.
   const webPackages = [
     {
       name: "3 Page Custom Website",
@@ -74,7 +77,7 @@ const PackagesPage = () => {
       period: "",
       features: [
         "2 x Custom Designs To Choose From",
-        "5 Pages (Home, About, Services, Blog, Contact)",
+        "6 Pages (Home, About, Services, Blog, Contact + 1 More)",
         "Mobile Responsive Design",
         "Advanced SEO Setup",
         "Contact Form with File Upload",
@@ -92,7 +95,7 @@ const PackagesPage = () => {
       period: "",
       features: [
         "3 x Custom Designs To Choose From",
-        "8 Pages (Custom Structure)",
+        "9 Pages (Custom Structure)",
         "Mobile Responsive Design",
         "Premium SEO Setup",
         "Advanced Contact Forms",
@@ -207,6 +210,7 @@ const PackagesPage = () => {
             </p>
           </AnimatedSection>
 
+          {/* Mirrors pricing.ts bundle-startup, bundle-professional, bundle-enterprise. */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {[
               {
@@ -264,7 +268,8 @@ const PackagesPage = () => {
         </div>
       </section>
 
-      {/* Digital Marketing Solutions */}
+      {/* Digital Marketing Solutions — mirrors pricing.ts marketing-startup-growth,
+          marketing-business-pro, marketing-enterprise-growth. */}
       <div className="max-w-7xl mx-auto mb-20">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700]">Digital Marketing Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -308,7 +313,8 @@ const PackagesPage = () => {
         </div>
       </div>
 
-      {/* Maintenance & Support */}
+      {/* Maintenance & Support — mirrors pricing.ts maintenance-essential,
+          maintenance-professional, maintenance-enterprise. */}
       <div className="max-w-7xl mx-auto mb-20">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[#FFD700]">Maintenance & Support Plans</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -606,7 +612,7 @@ const PackagesPage = () => {
                   "name": "How much do your graphic design packages cost in Pretoria?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Logo design starts at R2,080 for two concepts, R3,120 for four and R4,160 for six. Bundles run up to R29,999 for the Enterprise Brand Package, website maintenance is R850 to R3,850 a month, and every project gets a fixed quote before work begins."
+                    "text": "Logo design starts at R2,080 for two concepts, R3,120 for four and R4,160 for six. Bundles run up to R29,999 for the Enterprise Brand Package, website maintenance is R1,500 to R7,500 a month, and every project gets a fixed quote before work begins."
                   }
                 },
                 {
@@ -649,7 +655,7 @@ const PackagesPage = () => {
             <p className="text-gray-300">
               Logo design starts at R2,080 for two concepts, R3,120 for four and
               R4,160 for six. Bundles run up to R29,999 for the Enterprise Brand
-              Package, website maintenance is R850 to R3,850 a month, and every
+              Package, website maintenance is R1,500 to R7,500 a month, and every
               project gets a fixed quote before work begins.
             </p>
           </div>

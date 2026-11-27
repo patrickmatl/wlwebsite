@@ -20,9 +20,11 @@ const Navigation = dynamic(() => import('./Navigation'));
 
 interface ClientRootWrapperProps {
   children: React.ReactNode;
+  /** Footer area links, built on the server so the area copy never ships to the browser. */
+  areaLinks?: { href: string; label: string }[];
 }
 
-export default function ClientRootWrapper({ children }: ClientRootWrapperProps) {
+export default function ClientRootWrapper({ children, areaLinks = [] }: ClientRootWrapperProps) {
   const pathname = usePathname();
 
   /**
@@ -101,7 +103,7 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
       <AudioPlaybackProvider>
         <Navigation />
         {children}
-        <Footer />
+        <Footer areaLinks={areaLinks} />
       </AudioPlaybackProvider>
     );
   }
@@ -113,7 +115,7 @@ export default function ClientRootWrapper({ children }: ClientRootWrapperProps) 
       {children}
       {/* Visible on every page, homepage included. Previously the homepage got
           only the `hidden` copy in layout.tsx, i.e. links for crawlers only. */}
-      <Footer />
+      <Footer areaLinks={areaLinks} />
     </AudioPlaybackProvider>
   );
 }

@@ -3,10 +3,15 @@ import type { Metadata } from 'next';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
 import { findPriceItem, formatPrice } from '@/data/pricing';
 import { GoogleRatingBadge } from '@/components/GoogleReviews';
-import { AREA_PAGES, type AreaPage } from '@/data/area-pages';
+import {
+  ANNUAL_REPORT_AREAS,
+  IN_PERSON_AREAS,
+  REMOTE_AREAS,
+  type AreaPage,
+} from '@/data/area-pages';
 
 /**
- * Landing page for one area the studio serves in person.
+ * Landing page for one area the studio serves, in person or remotely.
  *
  * Read src/data/area-pages.ts before touching this. Almost every word on these
  * pages comes from that area's own entry. The component supplies layout, real
@@ -71,7 +76,7 @@ function areaJsonLd(area: AreaPage) {
       '@type': 'Service',
       '@id': `${url}#service`,
       name: area.h1,
-      serviceType: 'Graphic design',
+      serviceType: area.kind === 'annual-report' ? 'Annual report design' : 'Graphic design',
       description: area.metaDescription,
       // The provider is the one real studio. There is no office in this area
       // and the schema must not imply one.
@@ -79,7 +84,7 @@ function areaJsonLd(area: AreaPage) {
       areaServed: {
         '@type': 'Place',
         name: area.placeName,
-        containedInPlace: { '@type': 'AdministrativeArea', name: 'Gauteng, South Africa' },
+        containedInPlace: { '@type': 'AdministrativeArea', name: `${area.province}, South Africa` },
       },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
@@ -102,7 +107,53 @@ function areaJsonLd(area: AreaPage) {
 const linkCls = 'text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]';
 
 export default function AreaLandingPage({ area }: { area: AreaPage }) {
-  const otherAreas = AREA_PAGES.filter((a) => a.slug !== area.slug);
+  const notThis = (a: AreaPage) => a.slug !== area.slug;
+  // The matching page for the same city in the other service, if one exists.
+  const sibling = (area.kind === 'annual-report' ? [...IN_PERSON_AREAS, ...REMOTE_AREAS] : ANNUAL_REPORT_AREAS).find(
+    (a) => a.placeName === area.placeName,
+  );
+  const linkGroups: { heading: string; links: { href: string; label: string }[] }[] =
+    area.kind === 'annual-report'
+      ? [
+          {
+            heading: 'Annual report design in other cities',
+            links: [
+              { href: '/pricing/annual-report-design-and-print-pretoria', label: 'Annual report design in Pretoria' },
+              ...ANNUAL_REPORT_AREAS.filter(notThis).map((a) => ({ href: `/${a.slug}`, label: a.linkLabel })),
+              ...(sibling ? [{ href: `/${sibling.slug}`, label: sibling.linkLabel }] : []),
+            ],
+          },
+        ]
+      : [
+          {
+            heading: 'Areas we cover in person',
+            links: [
+              { href: '/', label: 'Graphic design company in Pretoria' },
+              ...IN_PERSON_AREAS.filter(notThis).map((a) => ({ href: `/${a.slug}`, label: a.linkLabel })),
+            ],
+          },
+          {
+            heading: 'Cities we serve remotely',
+            links: [
+              ...REMOTE_AREAS.filter(notThis).map((a) => ({ href: `/${a.slug}`, label: a.linkLabel })),
+              ...(sibling ? [{ href: `/${sibling.slug}`, label: sibling.linkLabel }] : []),
+              { href: '/service-areas-pretoria', label: 'All service areas' },
+            ],
+          },
+        ];
+  const reading =
+    area.kind === 'annual-report'
+      ? [
+          { href: '/pricing/sustainability-esg-report-design-services-pretoria', label: 'Sustainability and ESG report design' },
+          { href: '/pricing/investor-relations-material-design-services-pretoria', label: 'Investor relations material' },
+        ]
+      : [
+          { href: '/creative-industry-blog-pretoria/graphic-design-cost-pretoria-2026', label: 'What graphic design costs in 2026' },
+          {
+            href: '/creative-industry-blog-pretoria/how-to-choose-graphic-design-company-pretoria',
+            label: 'How to choose a design company: 9 checks',
+          },
+        ];
 
   return (
     <div className="bg-black text-white">
@@ -300,32 +351,25 @@ export default function AreaLandingPage({ area }: { area: AreaPage }) {
           </Link>
         </div>
         <div>
-          <h2 className="font-syne text-2xl font-bold mb-4">Other areas we cover in person</h2>
-          <ul className="space-y-2 mb-8">
-            {otherAreas.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/${a.slug}`} className={linkCls}>{a.linkLabel}</Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/" className={linkCls}>Graphic design company in Pretoria</Link>
-            </li>
-            <li>
-              <Link href="/service-areas-pretoria" className={linkCls}>All service areas</Link>
-            </li>
-          </ul>
+          {linkGroups.map((g) => (
+            <div key={g.heading} className="mb-8">
+              <h2 className="font-syne text-2xl font-bold mb-4">{g.heading}</h2>
+              <ul className="space-y-2">
+                {g.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={linkCls}>{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
           <h2 className="font-syne text-2xl font-bold mb-4">Useful reading</h2>
           <ul className="space-y-2">
-            <li>
-              <Link href="/creative-industry-blog-pretoria/graphic-design-cost-pretoria-2026" className={linkCls}>
-                What graphic design costs in 2026
-              </Link>
-            </li>
-            <li>
-              <Link href="/creative-industry-blog-pretoria/how-to-choose-graphic-design-company-pretoria" className={linkCls}>
-                How to choose a design company: 9 checks
-              </Link>
-            </li>
+            {reading.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className={linkCls}>{l.label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </section>

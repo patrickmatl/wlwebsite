@@ -9,6 +9,7 @@ import GetInTouchButton from '@/components/GetInTouchButton';
 import { generateFAQSchema } from '@/lib/schema';
 import { BUSINESS } from '@/data/business';
 
+// Mirrors pricing.ts photo-product, photo-corporate, photo-event.
 const packages = [
   {
     name: 'Product Photography',
@@ -52,10 +53,12 @@ const packages = [
   },
 ];
 
+// Mirrors pricing.ts photo-extra-product, photo-model-talent, photo-retouch,
+// photo-property-set, photo-drone-stills, photo-same-day.
 const addOns = [
   { name: 'Extra Products', price: 'From R145 each', description: 'Additional items beyond the package count' },
   { name: 'Model / Talent', price: 'From R2,650', description: 'Booked and directed for lifestyle shoots' },
-  { name: 'Advanced Retouching', price: 'From R280 per image', description: 'Compositing, ghost mannequin, heavy clean-up' },
+  { name: 'Advanced Retouching', price: 'R450 per image', description: 'Compositing, ghost mannequin, heavy clean-up (minimum 5 images)' },
   { name: 'Property / Interior Set', price: 'From R3,200', description: 'Wide-angle interiors, HDR blending' },
   { name: 'Drone / Aerial Stills', price: 'From R2,950', description: 'Licensed operator, high-resolution aerial images' },
   { name: 'Same-Day Turnaround', price: 'From R1,450', description: 'Edited selects delivered within 24 hours' },

@@ -7,6 +7,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 export default function ContentMarketingPage() {
+  // Mirrors pricing.ts content-essential, content-professional, content-enterprise.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: 'Essential Content',
@@ -62,11 +64,12 @@ export default function ContentMarketingPage() {
     }
   ];
 
+  // Mirrors pricing.ts copywriting (a blog post is priced as copy, per page) and content-audit.
   const additionalServices = [
     {
       name: 'Single Blog Post',
-      price: 'From R850',
-      description: 'One-time blog post with research and SEO optimization'
+      price: 'R950 per page',
+      description: 'One-time blog post with research and SEO optimization, priced per page of roughly 400–500 words'
     },
     {
       name: 'Content Audit',

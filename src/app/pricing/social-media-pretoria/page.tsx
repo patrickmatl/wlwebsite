@@ -9,6 +9,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const SocialMediaPage = () => {
+  // Mirrors pricing.ts social-profile-setup, social-templates, social-story-templates.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: "Profile Setup Package",
@@ -50,7 +52,7 @@ const SocialMediaPage = () => {
     },
     {
       name: "Post Templates Package",
-      price: "From R1,250",
+      price: "R2,850",
       icon: <FaCheck className="w-8 h-8 text-[#FFD700]" />,
       description: "Professional post template package with versatile designs for consistent brand communication.",
       specifications: [
@@ -125,6 +127,7 @@ const SocialMediaPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts social-essential, social-professional, social-premium.
   const monthlyPackages = [
     {
       name: "Essential Social Package",

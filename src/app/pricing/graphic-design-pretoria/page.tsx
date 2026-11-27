@@ -9,6 +9,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 const GraphicDesignPage = () => {
+  // Mirrors pricing.ts design-essential, design-professional, design-enterprise.
+  // Client component: keep these strings in step with that file by hand.
   const designPackages = [
     {
       name: "Essential Design Package",
@@ -67,11 +69,12 @@ const GraphicDesignPage = () => {
     }
   ];
 
+  // Mirrors pricing.ts logo-2, social-graphics-monthly, flyer and packaging.
   const additionalServices = [
     {
       name: "Logo Design",
       price: "From R2,080",
-      features: ["3 Concepts", "3 Revisions", "Source Files", "Brand Guidelines"]
+      features: ["2 Concepts", "2 Revisions", "Source Files", "Brand Colours & Fonts Documented"]
     },
     {
       name: "Social Media Graphics",

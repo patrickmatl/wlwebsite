@@ -5,6 +5,7 @@ import GetStartedButton from '@/components/GetStartedButton';
 
 const pricing = [
   {
+    // Mirrors pricing.ts infographic, data-visualisation, infographic-storytelling.
     name: "Infographic Starter",
     price: "R2,800",
     features: [

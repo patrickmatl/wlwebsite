@@ -211,7 +211,7 @@ const GraphicDesignPage = () => {
     },
     {
       name: "Flyer Design A6-A4",
-      price: "R780.00",
+      price: "R950.00",
       startingFrom: true,
       features: [
         "X2 Unique Options",
@@ -222,7 +222,7 @@ const GraphicDesignPage = () => {
     },
     {
       name: "PowerPoint Presentation Concept Pack",
-      price: "R3,230.00",
+      price: "R3,500.00",
       features: [
         "Create Unique PowerPoint",
         "X1 Final Concept",

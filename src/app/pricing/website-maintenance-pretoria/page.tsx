@@ -8,6 +8,7 @@ import { serviceFAQs } from '@/data/serviceFAQs';
 import Link from 'next/link';
 
 const WebsiteMaintenancePage = () => {
+  // Mirrors pricing.ts maintenance-essential, maintenance-professional, maintenance-enterprise.
   const maintenancePackages = [
     {
       name: "Essential Maintenance",

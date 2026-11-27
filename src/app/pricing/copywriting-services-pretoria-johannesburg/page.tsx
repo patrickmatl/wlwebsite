@@ -4,21 +4,24 @@ import Link from 'next/link';
 import RelatedServices from "@/components/RelatedServices";
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts copywriting (R950 per page; a page is roughly 400–500
+// words, which also sets the one round of changes). Client component: keep in
+// step with that file by hand.
 const copywritingPricing = [
   {
-    name: "1–250 Words",
-    price: "R300",
+    name: "Single Page",
+    price: "R950",
     features: ["Original copy by a professional writer", "SEO optimization included", "1 round of revisions", "Delivered in your preferred format"],
-    description: "Great for ads, short bios, or product descriptions."
+    description: "One page of roughly 400–500 words. Great for ads, short bios, or product descriptions."
   },
   {
-    name: "251–550 Words",
-    price: "R550",
-    features: ["Same features as above", "2 rounds of revisions", "Includes research & keyword targeting"],
-    description: "Ideal for web pages, blog posts, or longer ads."
+    name: "Multi-Page",
+    price: "R950 per page",
+    features: ["Same features as above", "1 round of revisions", "Includes research & keyword targeting"],
+    description: "Ideal for web pages, blog posts, or longer ads — priced by page count."
   },
   {
-    name: "551+ Words",
+    name: "Large Projects",
     price: "Custom Quote",
     features: ["Bulk & retainer discounts", "Priority delivery available", "Dedicated account manager"],
     description: "",
@@ -33,7 +36,7 @@ const faqs = [
   },
   {
     question: "How much does copywriting cost?",
-    answer: "Pricing is based on word count: R300 for 1–250 words, R550 for 251–550 words, and a custom quote for longer projects, with bulk and retainer discounts available."
+    answer: "Pricing is per page: R950 for each page of roughly 400–500 words, so a longer project is priced by its page count. Larger and retainer projects are confirmed in writing before we start."
   },
   {
     question: "What types of copy do you write?",

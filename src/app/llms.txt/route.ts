@@ -4,7 +4,7 @@
  * visible on the site itself; this is a map, not a separate content channel.
  */
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
-import { AREA_PAGES } from '@/data/area-pages';
+import { ANNUAL_REPORT_AREAS, IN_PERSON_AREAS, REMOTE_AREAS } from '@/data/area-pages';
 import { findPriceItem, formatPrice } from '@/data/pricing';
 
 // Starting prices pulled from pricing.ts so this file never disagrees with the
@@ -14,9 +14,11 @@ const price = (id: string) => {
   return item ? formatPrice(item) : 'quoted on request';
 };
 
-const AREAS = AREA_PAGES.map(
-  (a) => `- [${a.linkLabel}](${BUSINESS.url}/${a.slug}): ${a.metaDescription}`,
-).join('\n');
+const list = (pages: typeof IN_PERSON_AREAS) =>
+  pages.map((a) => `- [${a.linkLabel}](${BUSINESS.url}/${a.slug}): ${a.metaDescription}`).join('\n');
+const AREAS = list(IN_PERSON_AREAS);
+const REMOTE = list(REMOTE_AREAS);
+const ANNUAL = list(ANNUAL_REPORT_AREAS);
 
 const BODY = `# ${BUSINESS.name}
 
@@ -28,7 +30,7 @@ const BODY = `# ${BUSINESS.name}
 Contact: ${BUSINESS.phoneDisplay} · ${BUSINESS.email}
 Address: ${FULL_ADDRESS}, South Africa
 Hours: Mon–Fri 08:00–17:00, Sat 08:00–15:00 (SAST)
-Service area: Pretoria, Centurion, Johannesburg, Sandton, Midrand and wider Gauteng; remote work nationwide.
+Service area: on site across Gauteng (Pretoria, Centurion, Midrand, Johannesburg, Sandton, the East Rand); remote work for every major South African city.
 
 ## Core services
 
@@ -56,7 +58,15 @@ Service area: Pretoria, Centurion, Johannesburg, Sandton, Midrand and wider Gaut
 
 ${AREAS}
 - [Pretoria](${BUSINESS.url}/): the studio's home city.
-- Cape Town and Durban are served remotely: [Cape Town](${BUSINESS.url}/service-areas-pretoria/cape-town), [Durban](${BUSINESS.url}/service-areas-pretoria/durban).
+
+## Cities served remotely (no office there; video call, email and courier)
+
+${REMOTE}
+
+## Annual report design by city
+
+- [Annual report design in Pretoria](${BUSINESS.url}/pricing/annual-report-design-and-print-pretoria): the studio's home city.
+${ANNUAL}
 
 ## Guides
 

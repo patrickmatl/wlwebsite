@@ -8,6 +8,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 export default function MarketingMaterialsPage() {
+  // Mirrors pricing.ts materials-essential, materials-professional, materials-enterprise.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: 'Essential Materials',
@@ -63,16 +65,19 @@ export default function MarketingMaterialsPage() {
     }
   ];
 
+  // Single items start at the pricing.ts flyer price (the lowest single design
+  // item); print management is pricing.ts print-supply, which is always quoted
+  // per job from the specs and never from a list.
   const additionalServices = [
     {
       name: 'Single Item Design',
-      price: 'From R850',
+      price: 'From R950',
       description: 'Custom design for a single marketing item'
     },
     {
       name: 'Print Management',
-      price: 'From R1,850',
-      description: 'Professional printing coordination and quality control'
+      price: 'Quoted per job',
+      description: 'Professional printing coordination and quality control, quoted once we have your quantities, sizes and finishes'
     }
   ];
 

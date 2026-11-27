@@ -4,21 +4,23 @@ import RelatedServices from "@/components/RelatedServices";
 import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
+// Mirrors pricing.ts transcription (R25 per minute of audio; poor recordings
+// quoted separately). Client component: keep in step with that file by hand.
 const transcriptionPricing = [
   {
-    name: "1–250 Words",
-    price: "R250",
+    name: "Short Recordings",
+    price: "R25 per minute",
     features: ["Professional transcription by a human expert", "Standard turnaround (24–48 hours)", "Includes timestamps & speaker labels", "Audio/video accepted", "Free minor edits"],
-    description: "Perfect for short interviews, memos, or voice notes."
+    description: "Priced per minute of clear audio. Perfect for short interviews, memos, or voice notes."
   },
   {
-    name: "251–550 Words",
-    price: "R450",
+    name: "Meetings & Podcasts",
+    price: "R25 per minute",
     features: ["Same features as above", "Includes quality review"],
     description: "Ideal for meetings, podcasts, or lectures."
   },
   {
-    name: "551+ Words",
+    name: "Long or Difficult Recordings",
     price: "Custom Quote",
     features: ["Bulk discounts available", "Priority & express options", "Dedicated account manager"],
     description: "",
@@ -33,7 +35,7 @@ const faqs = [
   },
   {
     question: "How much does transcription cost?",
-    answer: "Pricing is based on the transcript's word count: R250 for 1–250 words, R450 for 251–550 words, and a custom quote for longer recordings, with bulk discounts available."
+    answer: "Pricing is per minute of audio: R25 a minute for clear recordings, so a 60-minute interview is priced at 60 minutes. Poor-quality recordings are quoted separately."
   },
   {
     question: "How fast is delivery?",

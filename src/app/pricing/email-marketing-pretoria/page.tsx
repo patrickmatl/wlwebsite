@@ -7,6 +7,8 @@ import Link from 'next/link';
 import GetStartedButton from '@/components/GetStartedButton';
 
 export default function EmailMarketingPage() {
+  // Mirrors pricing.ts email-essential, email-professional, email-enterprise.
+  // Client component: keep these strings in step with that file by hand.
   const packages = [
     {
       name: 'Essential Email',
@@ -62,6 +64,7 @@ export default function EmailMarketingPage() {
     }
   ];
 
+  // Mirrors pricing.ts email-campaign-once, email-automation-setup.
   const additionalServices = [
     {
       name: 'One-Time Campaign',
