@@ -111,6 +111,12 @@ const nextConfig = {
        */
       { source: '/service-areas-pretoria/pretoria', destination: '/', permanent: true },
       { source: '/service-areas-pretoria/johannesburg', destination: '/graphic-design-johannesburg', permanent: true },
+      // Cape Town and Durban had thin templated pages here; their hand-written
+      // pages replace them (2026-11-27).
+      { source: '/service-areas-pretoria/cape-town', destination: '/graphic-design-cape-town', permanent: true },
+      { source: '/service-areas-pretoria/durban', destination: '/graphic-design-durban', permanent: true },
+      { source: '/cape-town/:service*', destination: '/graphic-design-cape-town', permanent: true },
+      { source: '/durban/:service*', destination: '/graphic-design-durban', permanent: true },
       { source: '/centurion/:service*', destination: '/graphic-design-centurion', permanent: true },
       { source: '/menlyn/:service*', destination: '/graphic-design-pretoria-east', permanent: true },
       { source: '/sandton/:service*', destination: '/graphic-design-johannesburg', permanent: true },

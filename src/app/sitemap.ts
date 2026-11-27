@@ -152,14 +152,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/${area.slug}`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      // Pages for places the studio visits rank above remote-only cities.
+      priority: area.coverage === 'in-person' ? 0.8 : 0.7,
     });
   }
 
   // /service-areas-pretoria/[locationId] - real route, driven by regions data.
-  // Pretoria and Johannesburg now 301 (to / and /graphic-design-johannesburg,
-  // see next.config.js), so they must not be listed.
-  const REDIRECTED_AREAS = new Set(['pretoria', 'johannesburg']);
+  // Every location here now 301s to its hand-written page (see next.config.js),
+  // so none may be listed. The loop stays for any future location.
+  const REDIRECTED_AREAS = new Set(['pretoria', 'johannesburg', 'cape-town', 'durban']);
   for (const region of regions) {
     for (const location of region.locations) {
       if (REDIRECTED_AREAS.has(location.slug)) continue;

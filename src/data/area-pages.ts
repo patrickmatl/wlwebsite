@@ -12,11 +12,14 @@
  * entry below.
  *
  * Rules:
- *  - Only add an area the studio genuinely serves in person. The owner confirmed
- *    these four on 2026-11-27. Cities served remotely (Cape Town, Durban) keep
- *    their existing /service-areas-pretoria pages and do not get one of these.
+ *  - `coverage: 'in-person'` only for areas the studio genuinely visits. The
+ *    owner confirmed the Gauteng areas on 2026-11-27. Other major cities are
+ *    `coverage: 'remote'` (owner asked for them on 2026-11-27): those pages must
+ *    say plainly that the work is done from Pretoria by video call, email and
+ *    courier, and must never promise visits.
  *  - Never claim an office, phone number or staff member in the area. There is
  *    one studio, in Waterkloof Glen.
+ *  - New entries live one per file in src/data/areas/ and are listed below.
  *  - Never invent clients, projects, testimonials or numbers. `localWork` is
  *    empty until the owner supplies real projects with permission to name them.
  *    The section does not render while it is empty.
@@ -27,8 +30,28 @@
  *    pages penalised. Write a new one.
  */
 
+import graphicDesignEastRand from './areas/graphic-design-east-rand';
+import graphicDesignCapeTown from './areas/graphic-design-cape-town';
+import graphicDesignDurban from './areas/graphic-design-durban';
+import graphicDesignPortElizabeth from './areas/graphic-design-port-elizabeth';
+import graphicDesignBloemfontein from './areas/graphic-design-bloemfontein';
+import graphicDesignEastLondon from './areas/graphic-design-east-london';
+import graphicDesignPolokwane from './areas/graphic-design-polokwane';
+import graphicDesignNelspruit from './areas/graphic-design-nelspruit';
+import graphicDesignPietermaritzburg from './areas/graphic-design-pietermaritzburg';
+import graphicDesignKimberley from './areas/graphic-design-kimberley';
+import annualReportDesignJohannesburg from './areas/annual-report-design-johannesburg';
+import annualReportDesignCapeTown from './areas/annual-report-design-cape-town';
+import annualReportDesignDurban from './areas/annual-report-design-durban';
+
 export type AreaPage = {
   slug: string;
+  /** Which service the page is about. Drives schema serviceType and cross-links. */
+  kind: 'graphic-design' | 'annual-report';
+  /** Whether the studio meets clients there in person or works remotely. */
+  coverage: 'in-person' | 'remote';
+  /** Province, used in schema areaServed. */
+  province: string;
   /** Plain place name used in headings and schema areaServed. */
   placeName: string;
   /** Anchor text used when other pages link here. */
@@ -61,6 +84,9 @@ export type AreaPage = {
 
 const centurion: AreaPage = {
   slug: 'graphic-design-centurion',
+  kind: 'graphic-design',
+  coverage: 'in-person',
+  province: 'Gauteng',
   placeName: 'Centurion',
   linkLabel: 'Graphic design in Centurion',
   metaTitle: 'Graphic Design Company Centurion | WL CreationX',
@@ -236,6 +262,9 @@ const centurion: AreaPage = {
 
 const pretoriaEast: AreaPage = {
   slug: 'graphic-design-pretoria-east',
+  kind: 'graphic-design',
+  coverage: 'in-person',
+  province: 'Gauteng',
   placeName: 'Pretoria East',
   linkLabel: 'Graphic design in Pretoria East & Menlyn',
   metaTitle: 'Graphic Design Pretoria East & Menlyn | WL CreationX',
@@ -411,6 +440,9 @@ const pretoriaEast: AreaPage = {
 
 const midrand: AreaPage = {
   slug: 'graphic-design-midrand',
+  kind: 'graphic-design',
+  coverage: 'in-person',
+  province: 'Gauteng',
   placeName: 'Midrand',
   linkLabel: 'Graphic design in Midrand',
   metaTitle: 'Graphic Design Company Midrand | WL CreationX',
@@ -586,6 +618,9 @@ const midrand: AreaPage = {
 
 const johannesburg: AreaPage = {
   slug: 'graphic-design-johannesburg',
+  kind: 'graphic-design',
+  coverage: 'in-person',
+  province: 'Gauteng',
   placeName: 'Johannesburg',
   linkLabel: 'Graphic design in Johannesburg & Sandton',
   metaTitle: 'Graphic Design Johannesburg & Sandton | WL CreationX',
@@ -763,7 +798,34 @@ const johannesburg: AreaPage = {
     'Send us the publication date and what you have so far. We will come back with a schedule, a fixed quote, and a time to meet at your offices.',
 };
 
-export const AREA_PAGES: AreaPage[] = [centurion, pretoriaEast, midrand, johannesburg];
+/** Every area landing page, in the order they are listed in navigation. */
+export const AREA_PAGES: AreaPage[] = [
+  // Graphic design, Gauteng, in person
+  centurion,
+  pretoriaEast,
+  midrand,
+  johannesburg,
+  graphicDesignEastRand,
+  // Graphic design, other major cities, remote
+  graphicDesignCapeTown,
+  graphicDesignDurban,
+  graphicDesignPortElizabeth,
+  graphicDesignBloemfontein,
+  graphicDesignEastLondon,
+  graphicDesignPolokwane,
+  graphicDesignNelspruit,
+  graphicDesignPietermaritzburg,
+  graphicDesignKimberley,
+  // Annual report design
+  annualReportDesignJohannesburg,
+  annualReportDesignCapeTown,
+  annualReportDesignDurban,
+];
+
+export const GRAPHIC_DESIGN_AREAS = AREA_PAGES.filter((a) => a.kind === 'graphic-design');
+export const IN_PERSON_AREAS = GRAPHIC_DESIGN_AREAS.filter((a) => a.coverage === 'in-person');
+export const REMOTE_AREAS = GRAPHIC_DESIGN_AREAS.filter((a) => a.coverage === 'remote');
+export const ANNUAL_REPORT_AREAS = AREA_PAGES.filter((a) => a.kind === 'annual-report');
 
 export function getAreaPage(slug: string): AreaPage {
   const page = AREA_PAGES.find((a) => a.slug === slug);

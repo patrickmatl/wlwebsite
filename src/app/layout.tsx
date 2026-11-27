@@ -3,6 +3,7 @@ import './globals.css';
 import { Metadata } from 'next';
 import { sharedViewport } from './shared-metadata';
 import ClientRootWrapper from '@/components/ClientRootWrapper';
+import { IN_PERSON_AREAS } from '@/data/area-pages';
 import Breadcrumb from '@/components/Navigation/Breadcrumb';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { Suspense } from 'react';
@@ -120,7 +121,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: websiteJsonLd }}
         />
-        <ClientRootWrapper>
+        <ClientRootWrapper areaLinks={IN_PERSON_AREAS.map((a) => ({ href: `/${a.slug}`, label: a.linkLabel }))}>
           <BreadcrumbJsonLd />
           <main className="flex min-h-[100svh] flex-col bg-[#0A0A0A] text-white">
             <Suspense fallback={null}>

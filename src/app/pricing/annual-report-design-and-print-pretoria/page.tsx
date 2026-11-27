@@ -385,6 +385,19 @@ export default function AnnualReportDesignPrintPretoria() {
         <Link href="/get-in-touch-pretoria" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-full font-medium hover:bg-[#FFA500] transition-all">Contact Us</Link>
       </section>
 
+      {/* Annual report design for other cities: each has its own written page. */}
+      <section className="max-w-3xl mx-auto mb-16 text-center">
+        <h2 className="text-xl font-bold text-[#FFD700] mb-2">Reporting from outside Pretoria?</h2>
+        <p className="text-neutral-200">
+          {/* Plain links: this is a client component, and importing the area
+              data here would ship every city page's copy to the browser. */}
+          We also produce annual reports for organisations in{' '}
+          <Link href="/annual-report-design-johannesburg" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Johannesburg</Link>,{' '}
+          <Link href="/annual-report-design-cape-town" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Cape Town</Link> and{' '}
+          <Link href="/annual-report-design-durban" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Durban</Link>.
+        </p>
+      </section>
+
   {/* Related Services */}
   <RelatedServices currentService="Annual Report Design & Print" services={relatedServices} />
   {/* Contextual link to homepage with varied phrasing */}

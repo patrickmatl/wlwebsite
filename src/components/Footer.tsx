@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
-import { AREA_PAGES } from '@/data/area-pages';
 
 /**
  * This footer used to `return null` on the homepage, while layout.tsx rendered a
@@ -10,7 +9,7 @@ import { AREA_PAGES } from '@/data/area-pages';
  * internal links existed in the HTML for crawlers but were invisible to users.
  * The footer is now rendered once, visibly, on every page.
  */
-export default function Footer() {
+export default function Footer({ areaLinks = [] }: { areaLinks?: { href: string; label: string }[] }) {
   return (
     <footer className="bg-black w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -121,20 +120,22 @@ export default function Footer() {
           {/* Areas served in person. The footer is the site's crawlable link
               graph (see the note above), so the area landing pages must be
               linked from here or they become orphans, and an orphaned city
-              page looks like a doorway. */}
+              page looks like a doorway. The remote-city and annual report
+              pages are linked from /service-areas-pretoria and from each
+              other, which keeps this column short. */}
           <div>
             <h3 className="text-white font-syne font-bold text-lg mb-4">Areas We Serve</h3>
             <ul className="space-y-2">
-              {AREA_PAGES.map((a) => (
-                <li key={a.slug}>
-                  <Link href={`/${a.slug}`} className="text-neutral-400 hover:text-white transition-colors text-sm">
-                    {a.linkLabel}
+              {areaLinks.map((a) => (
+                <li key={a.href}>
+                  <Link href={a.href} className="text-neutral-400 hover:text-white transition-colors text-sm">
+                    {a.label}
                   </Link>
                 </li>
               ))}
               <li>
                 <Link href="/service-areas-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
-                  All service areas
+                  All cities &amp; annual report pages
                 </Link>
               </li>
             </ul>
