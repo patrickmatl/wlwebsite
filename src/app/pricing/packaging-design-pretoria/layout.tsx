@@ -5,13 +5,13 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Packaging Design Pricing Pretoria',
+  title: 'Packaging Design Pretoria | From R4,850',
   description: 'Packaging design pricing from WL CreationX in Pretoria. Product packaging, label and box design packages for local brands with clear, upfront design rates.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/pricing/packaging-design-pretoria',
   },
   openGraph: {
-    title: 'Packaging Design Pricing Pretoria',
+    title: 'Packaging Design Pretoria | From R4,850',
     description: 'Packaging design pricing from WL CreationX in Pretoria. Product packaging, label and box design packages for local brands with clear, upfront design rates.',
     url: 'https://wlcreationx.co.za/pricing/packaging-design-pretoria',
     siteName: 'WL CreationX',

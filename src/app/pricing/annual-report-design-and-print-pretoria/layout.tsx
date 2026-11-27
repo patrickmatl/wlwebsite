@@ -2,11 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Annual Report Design & Print Pretoria | Pricing',
+  title: 'Annual Report Design & Print Pretoria',
   description: 'Professional annual report design and print in Pretoria from R25 000. Layouts up to 200 pages, infographics, premium finishes and reliable delivery.',
   alternates: { canonical: 'https://wlcreationx.co.za/pricing/annual-report-design-and-print-pretoria' },
   openGraph: {
-    title: 'Annual Report Design & Print Pretoria | Pricing',
+    title: 'Annual Report Design & Print Pretoria',
     description: 'Professional annual report design and print in Pretoria from R25 000. Layouts up to 200 pages, infographics, premium finishes and reliable delivery.',
     url: 'https://wlcreationx.co.za/pricing/annual-report-design-and-print-pretoria',
     siteName: 'WL CreationX',

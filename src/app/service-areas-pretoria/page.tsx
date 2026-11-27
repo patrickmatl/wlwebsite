@@ -20,9 +20,13 @@ export const metadata: Metadata = {
   },
 };
 
+// href is the page that actually serves the area. Pretoria is the homepage,
+// the Gauteng areas have their own landing pages (src/data/area-pages.ts), and
+// the remote cities keep their /service-areas-pretoria pages.
 const serviceAreas = [
   {
     id: 'pretoria',
+    href: '/',
     name: 'Pretoria',
     badge: 'Home Base',
     description:
@@ -30,15 +34,44 @@ const serviceAreas = [
     image: '/images/pretoria.jpg',
   },
   {
-    id: 'johannesburg',
-    name: 'Johannesburg',
+    id: 'pretoria-east',
+    href: '/graphic-design-pretoria-east',
+    name: 'Pretoria East & Menlyn',
+    badge: 'Our Neighbourhood',
+    description:
+      'Lynnwood, Brooklyn, Garsfontein, Faerie Glen and Menlyn, minutes from the studio. Practices, shops and restaurants.',
+    image: '/images/pretoria.jpg',
+  },
+  {
+    id: 'centurion',
+    href: '/graphic-design-centurion',
+    name: 'Centurion',
     badge: 'On-Site in Gauteng',
     description:
-      'Regular on-site visits, briefings and shoots across Johannesburg, served from our Pretoria studio.',
+      'About 20 minutes up the N1. Corporate identities, tender documents, vehicle branding and packaging.',
+    image: '/images/pretoria.jpg',
+  },
+  {
+    id: 'midrand',
+    href: '/graphic-design-midrand',
+    name: 'Midrand',
+    badge: 'On-Site in Gauteng',
+    description:
+      'Exhibition and event branding for Gallagher and Kyalami, presentations and corporate video for head offices.',
+    image: '/images/johannesburg.jpg',
+  },
+  {
+    id: 'johannesburg',
+    href: '/graphic-design-johannesburg',
+    name: 'Johannesburg & Sandton',
+    badge: 'On-Site in Gauteng',
+    description:
+      'Annual and ESG reports, investor presentations and corporate video for Sandton, Rosebank and the northern suburbs.',
     image: '/images/johannesburg.jpg',
   },
   {
     id: 'cape-town',
+    href: '/service-areas-pretoria/cape-town',
     name: 'Cape Town',
     badge: 'Remote',
     description:
@@ -47,6 +80,7 @@ const serviceAreas = [
   },
   {
     id: 'durban',
+    href: '/service-areas-pretoria/durban',
     name: 'Durban',
     badge: 'Remote',
     description:
@@ -70,7 +104,7 @@ export default function ServiceAreasPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {serviceAreas.map((area) => (
             <Link
-              href={`/service-areas-pretoria/${area.id}`}
+              href={area.href}
               key={area.id}
               className="group relative overflow-hidden rounded-lg border border-[#FFD700]/20 bg-zinc-900/50 hover:scale-[1.02] transition-transform duration-300"
             >

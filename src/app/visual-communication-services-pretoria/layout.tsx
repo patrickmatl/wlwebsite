@@ -5,14 +5,14 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Graphic Design Price List Pretoria',
-  description: 'Full graphic design price list from WL CreationX in Pretoria: corporate identity packs, logo design and design services with itemised rates in rand.',
+  title: 'Visual Communication Design Pretoria',
+  description: 'Visual communication design in Pretoria: corporate identity packs, stationery and marketing design from WL CreationX, with itemised rates in rand.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/visual-communication-services-pretoria',
   },
   openGraph: {
-    title: 'Graphic Design Price List Pretoria',
-    description: 'Full graphic design price list from WL CreationX in Pretoria: corporate identity packs, logo design and design services with itemised rates in rand.',
+    title: 'Visual Communication Design Pretoria',
+    description: 'Visual communication design in Pretoria: corporate identity packs, stationery and marketing design from WL CreationX, with itemised rates in rand.',
     url: 'https://wlcreationx.co.za/visual-communication-services-pretoria',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

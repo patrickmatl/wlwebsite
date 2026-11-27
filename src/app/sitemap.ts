@@ -4,6 +4,7 @@ import path from 'path';
 import { regions } from '@/data/regions';
 import { services } from '@/data/services';
 import { isIndexableServiceArea } from '@/data/service-areas';
+import { AREA_PAGES } from '@/data/area-pages';
 
 /**
  * Single source of truth for the sitemap.
@@ -145,9 +146,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // Area landing pages (src/data/area-pages.ts).
+  for (const area of AREA_PAGES) {
+    routes.push({
+      url: `${BASE_URL}/${area.slug}`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+  }
+
   // /service-areas-pretoria/[locationId] - real route, driven by regions data.
+  // Pretoria and Johannesburg now 301 (to / and /graphic-design-johannesburg,
+  // see next.config.js), so they must not be listed.
+  const REDIRECTED_AREAS = new Set(['pretoria', 'johannesburg']);
   for (const region of regions) {
     for (const location of region.locations) {
+      if (REDIRECTED_AREAS.has(location.slug)) continue;
       routes.push({
         url: `${BASE_URL}/service-areas-pretoria/${location.slug}`,
         lastModified,

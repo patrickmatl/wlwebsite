@@ -81,7 +81,7 @@ export default function GoogleReviews() {
             </blockquote>
             <figcaption className="mt-4 flex items-center justify-between text-sm">
               <span className="font-semibold text-white">{t.name}</span>
-              <span className="text-neutral-500">
+              <span className="text-neutral-400">
                 Google review &middot;{' '}
                 {new Date(t.date).toLocaleDateString('en-ZA', {
                   month: 'short',

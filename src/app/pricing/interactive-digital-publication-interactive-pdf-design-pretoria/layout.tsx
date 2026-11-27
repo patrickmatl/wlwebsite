@@ -2,11 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Interactive PDF & Digital Publication Design Pretoria',
+  title: 'Interactive PDF Design Pretoria',
   description: 'Interactive PDF and digital publication design in Pretoria from R3,900. Clickable navigation, embedded video and flipbook effects for web and print.',
   alternates: { canonical: 'https://wlcreationx.co.za/pricing/interactive-digital-publication-interactive-pdf-design-pretoria' },
   openGraph: {
-    title: 'Interactive PDF & Digital Publication Design Pretoria',
+    title: 'Interactive PDF Design Pretoria',
     description: 'Interactive PDF and digital publication design in Pretoria from R3,900. Clickable navigation, embedded video and flipbook effects for web and print.',
     url: 'https://wlcreationx.co.za/pricing/interactive-digital-publication-interactive-pdf-design-pretoria',
     siteName: 'WL CreationX',

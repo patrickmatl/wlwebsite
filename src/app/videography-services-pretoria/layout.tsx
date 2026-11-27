@@ -2,9 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Videography Pretoria | Video Production Company',
+  title: 'Videography & Video Production Pretoria',
   description:
-    'Videography and video production in Pretoria. Corporate video, event coverage, brand films, drone and product video, shot and edited in-house by WL CreationX. Get a quote.',
+    'Video production in Pretoria: corporate video, event coverage, brand films, drone and product video, shot and edited in-house by WL CreationX. Get a quote.',
   keywords: [
     'videography pretoria',
     'video production pretoria',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: 'https://wlcreationx.co.za/videography-services-pretoria',
   },
   openGraph: {
-    title: 'Videography Pretoria | Video Production Company | WL CreationX',
+    title: 'Videography & Video Production Pretoria | WL CreationX',
     description:
       'Corporate video, event coverage, brand films and drone work in Pretoria. Filmed and edited in-house by WL CreationX.',
     url: 'https://wlcreationx.co.za/videography-services-pretoria',

@@ -379,7 +379,7 @@ export default function Contact() {
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white py-8">
+    <div className="min-h-screen bg-black text-white py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -544,6 +544,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

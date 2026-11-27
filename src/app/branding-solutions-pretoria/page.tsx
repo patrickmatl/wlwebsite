@@ -7,7 +7,7 @@ const BrandIdentityPackages = () => {
       {/* Header Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
-          BRAND IDENTITY DESIGN PACKAGES
+          BRANDING AGENCY IN PRETORIA
         </h1>
         <p className="text-lg mb-4">
           Choose from three design packages at a 10% discount on standard package pricing — mention this page when you enquire.

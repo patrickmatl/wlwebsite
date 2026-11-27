@@ -92,7 +92,7 @@ export default async function LocationPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-black">
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <LocationSchema
           location={location}
           baseUrl={baseUrl}
@@ -101,7 +101,7 @@ export default async function LocationPage({ params }: Props) {
           {location.city} Graphic &amp; Web Design Services
         </h1>
         <LocationContent location={location} />
-      </main>
+      </div>
     </div>
   );
 }

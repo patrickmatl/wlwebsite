@@ -115,7 +115,7 @@ const faqs: { q: string; a: string }[] = [
 
 export default function PhotographyPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <section className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center">
         <h1 className="font-syne text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">Photography Services Pretoria</h1>
         <p className="text-lg text-neutral-300 max-w-3xl mx-auto">Professional photography for events, business, products and marketing in Pretoria.</p>
@@ -198,5 +198,5 @@ export default function PhotographyPage() {
         <div><h4>Can you shoot at Pretoria landmarks?</h4><p>We can arrange shoots at popular Pretoria landmarks, parks, and venues.</p></div>
         <div><h4>Do you provide digital and print images in Pretoria?</h4><p>Both digital and print images are available for all Pretoria clients.</p></div>
       </section>
-    </main>  );
+    </div>  );
 }

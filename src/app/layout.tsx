@@ -79,6 +79,20 @@ const organizationJsonLd = JSON.stringify({
     'WL CreationX is a graphic design company in Pretoria, South Africa, providing branding, logo design, web design, packaging design, videography, photography and digital marketing services since 2013.',
 });
 
+// The WebSite entity. Google uses it for the site name shown in results, and
+// AI answer engines use it to tie pages back to one publisher. Page-level
+// schema points at this @id through isPartOf.
+const websiteJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${BUSINESS.url}/#website`,
+  url: BUSINESS.url,
+  name: BUSINESS.name,
+  alternateName: 'WL CreationX Graphic Design',
+  inLanguage: 'en-ZA',
+  publisher: { '@id': `${BUSINESS.url}/#business` },
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -101,6 +115,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: websiteJsonLd }}
         />
         <ClientRootWrapper>
           <BreadcrumbJsonLd />

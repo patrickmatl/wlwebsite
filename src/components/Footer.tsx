@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
+import { AREA_PAGES } from '@/data/area-pages';
 
 /**
  * This footer used to `return null` on the homepage, while layout.tsx rendered a
@@ -13,7 +14,7 @@ export default function Footer() {
   return (
     <footer className="bg-black w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-white font-syne font-bold text-lg mb-4">WL CreationX</h3>
@@ -117,6 +118,28 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Areas served in person. The footer is the site's crawlable link
+              graph (see the note above), so the area landing pages must be
+              linked from here or they become orphans, and an orphaned city
+              page looks like a doorway. */}
+          <div>
+            <h3 className="text-white font-syne font-bold text-lg mb-4">Areas We Serve</h3>
+            <ul className="space-y-2">
+              {AREA_PAGES.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/${a.slug}`} className="text-neutral-400 hover:text-white transition-colors text-sm">
+                    {a.linkLabel}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/service-areas-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                  All service areas
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact Info */}
           <div>
             <h3 className="text-white font-syne font-bold text-lg mb-4">Contact Us</h3>
@@ -159,7 +182,7 @@ export default function Footer() {
               <Link href="/legal-terms-pretoria" className="text-neutral-400 hover:text-white transition-colors text-sm">
                 Terms of Service
               </Link>
-              <Link href="/studio/login" className="text-neutral-500 hover:text-neutral-300 transition-colors text-sm">
+              <Link href="/studio/login" className="text-neutral-400 hover:text-neutral-200 transition-colors text-sm">
                 Studio
               </Link>
             </div>

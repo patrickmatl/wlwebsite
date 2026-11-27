@@ -76,7 +76,7 @@ export default function ContentMarketingPage() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
       {/* BEGIN: FAQPage Structured Data for Content Marketing Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -274,6 +274,6 @@ export default function ContentMarketingPage() {
         <div><h4>Do you provide reports?</h4><p>Yes, monthly clients receive performance reports showing rankings, traffic, and content engagement for their Pretoria business.</p></div>
         <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -114,10 +114,11 @@ const PackagesPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/10 to-transparent opacity-20"></div>
         <AnimatedSection 
           className="max-w-7xl mx-auto text-center relative z-10"
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
-            PROFESSIONAL DESIGN PACKAGES
+            DESIGN &amp; WEB PACKAGES IN PRETORIA
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-[#FFD700]">
             Elevate your brand with our industry-leading design solutions

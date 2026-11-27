@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Photography Pretoria | Commercial Photographer',
+  title: 'Commercial Photography Pretoria',
   description:
     'Commercial photography in Pretoria. Product, corporate headshot, event, food and property photography, shot and retouched in-house by WL CreationX. Get a quote.',
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: 'https://wlcreationx.co.za/photography-services-pretoria',
   },
   openGraph: {
-    title: 'Photography Pretoria | Commercial Photographer | WL CreationX',
+    title: 'Commercial Photography Pretoria | WL CreationX',
     description:
       'Product, corporate, event and food photography in Pretoria. Shot and retouched in-house by WL CreationX.',
     url: 'https://wlcreationx.co.za/photography-services-pretoria',

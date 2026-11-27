@@ -22,7 +22,7 @@ export default function TermsOfService() {
   const lastUpdated = '13 December 2023';
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-black" />
@@ -199,6 +199,6 @@ Upon termination:
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

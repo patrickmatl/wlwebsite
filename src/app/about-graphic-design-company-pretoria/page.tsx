@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { BUSINESS } from '@/data/business';
 
 export const metadata: Metadata = {
-  title: 'About WL CreationX | Graphic Design Studio Pretoria',
+  title: 'About Our Graphic Design Studio in Pretoria',
   description:
     'The WL CreationX story: a Pretoria graphic design studio founded in 2013 and registered in 2016, offering design, web, video and photography nationwide.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/about-graphic-design-company-pretoria',
   },
   openGraph: {
-    title: 'About WL CreationX | Graphic Design Studio Pretoria',
+    title: 'About Our Graphic Design Studio in Pretoria',
     description:
       'The WL CreationX story: a Pretoria graphic design studio founded in 2013 and registered in 2016, offering design, web, video and photography nationwide.',
     url: 'https://wlcreationx.co.za/about-graphic-design-company-pretoria',
@@ -136,7 +136,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
@@ -310,6 +310,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

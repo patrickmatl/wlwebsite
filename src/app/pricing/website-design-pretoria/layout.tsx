@@ -5,13 +5,13 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Website Design Pretoria | Packages from R8,980',
+  title: 'Website Design Pretoria | From R8,980',
   description: 'Website design in Pretoria from R8,980 for a three-page site. Fixed prices per page count, mobile-responsive, SEO set up before launch, and you own the files.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/pricing/website-design-pretoria',
   },
   openGraph: {
-    title: 'Website Design Pretoria | Packages from R8,980',
+    title: 'Website Design Pretoria | From R8,980',
     description: 'Website design in Pretoria from R8,980 for a three-page site. Fixed prices per page count, mobile-responsive, SEO set up before launch, and you own the files.',
     url: 'https://wlcreationx.co.za/pricing/website-design-pretoria',
     siteName: 'WL CreationX',

@@ -7,7 +7,7 @@ import { BUSINESS } from '@/data/business';
 export const metadata: Metadata = {
   title: { absolute: 'WL CreationX | Graphic Design Company Pretoria' },
   description:
-    'WL CreationX is a graphic design company in Pretoria offering branding, logo design, web design, videography and photography. In business since 2013. Get a free consultation.',
+    'WL CreationX is a graphic design company in Pretoria for branding, logo design, websites, video and photography. In business since 2013. Free consultation.',
   keywords: [
     'graphic design company pretoria',
     'graphic design agency pretoria',
@@ -52,11 +52,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
       {/* FAQPage JSON-LD aligned with visible compact FAQ */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: generateFAQSchema(homeFaqs) }} />
       {/* LocalBusiness JSON-LD is emitted once, sitewide, from the root layout (single @id) */}
       <HomeContent />
-    </main>
+    </div>
   );
 }

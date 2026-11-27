@@ -8,6 +8,10 @@ const postsDirectory = path.join(process.cwd(), 'src/content/blog')
 export type BlogPost = {
   slug: string
   title: string
+  /** Optional shorter title for the <title> tag (frontmatter `seoTitle`).
+   *  Google cuts titles off at roughly 60 characters, and the on-page H1 can
+   *  stay long and descriptive. */
+  seoTitle?: string
   date: string
   /** ISO 8601 date string for machine-readable use (metadata, JSON-LD) */
   isoDate: string
@@ -54,6 +58,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     return {
       slug: realSlug,
       title: data.title || '',
+      seoTitle: data.seoTitle || undefined,
       date: format(parsedDate, 'MMMM dd, yyyy'),
       isoDate: parsedDate.toISOString(),
       timestamp: parsedDate.getTime(),
