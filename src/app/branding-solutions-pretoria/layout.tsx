@@ -5,13 +5,13 @@ import { sharedViewport } from '@/app/shared-metadata';
 export const viewport = sharedViewport;
 
 export const metadata: Metadata = {
-  title: 'Branding Solutions Pretoria',
+  title: 'Branding Agency Pretoria | Brand Identity',
   description: 'Brand identity design in Pretoria from WL CreationX. Logo design, corporate identity packs and brand guidelines that give your business a consistent look.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/branding-solutions-pretoria',
   },
   openGraph: {
-    title: 'Branding Solutions Pretoria',
+    title: 'Branding Agency Pretoria | Brand Identity',
     description: 'Brand identity design in Pretoria from WL CreationX. Logo design, corporate identity packs and brand guidelines that give your business a consistent look.',
     url: 'https://wlcreationx.co.za/branding-solutions-pretoria',
     siteName: 'WL CreationX',

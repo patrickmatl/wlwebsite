@@ -9,9 +9,10 @@ import { BUSINESS } from '@/data/business';
 
 export default function HomeContent() {
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden perspective-1000">
       {/* Hero Section (Visible Content) */}
       <HeroSection
+        headline="Graphic Design Company in Pretoria"
         title="Design"
         subtitle="Agency"
         description="Graphic design agency in Pretoria — branding, websites, video and photography for businesses across South Africa since 2013."
@@ -22,13 +23,13 @@ export default function HomeContent() {
       {/* Visual Content Sections */}
       <section className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl md:text-3xl font-syne font-semibold mb-4 text-[#FFD700] opacity-90">
-            Graphic Design Company in Pretoria
-          </h1>
+          <h2 className="text-2xl md:text-3xl font-syne font-semibold mb-4 text-[#FFD700] opacity-90">
+            Your Pretoria Design Studio Since 2013
+          </h2>
           <p className="mb-4 text-neutral-300 text-base leading-relaxed">
-            Welcome to <Link href="/" className="text-[#FFD700] hover:underline">WL CreationX</Link>, a graphic design studio in Pretoria, South Africa. We have designed logos, brand identities, packaging and websites here since 2013. Explore our
-            <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline"> branding solutions</Link> and
-            <Link href="/visual-communication-services-pretoria" className="text-[#FFD700] hover:underline"> visual communication services</Link> tailored for Pretoria.
+            Welcome to <Link href="/" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">WL CreationX</Link>, a graphic design studio in Pretoria, South Africa. We have designed logos, brand identities, packaging and websites here since 2013. Explore our
+            <Link href="/branding-solutions-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]"> branding solutions</Link> and
+            <Link href="/visual-communication-services-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]"> visual communication services</Link> tailored for Pretoria.
           </p>
           <p className="text-neutral-300 text-base leading-relaxed mb-6">
             {/* "As one of the top graphic design companies in Pretoria" was an
@@ -36,9 +37,9 @@ export default function HomeContent() {
                 penalised for. Replaced with what can be evidenced: how long the
                 studio has traded, and what it has actually delivered. */}
             We are a working studio rather than a network of freelancers — thirteen years of{' '}
-            <Link href="/pricing" className="text-[#FFD700] hover:underline">graphic design in Pretoria</Link>,
-            and the work goes out under one roof. From <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">branding</Link> and <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">logo design</Link> to <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">web design</Link>, packaging and marketing material, you can see the finished results in our{' '}
-            <Link href="/project-showcase-pretoria" className="text-[#FFD700] hover:underline">project showcase</Link> before you commit to anything.
+            <Link href="/pricing" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">graphic design in Pretoria</Link>,
+            and the work goes out under one roof. From <Link href="/branding-solutions-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">branding</Link> and <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">logo design</Link> to <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">web design</Link>, packaging and marketing material, you can see the finished results in our{' '}
+            <Link href="/project-showcase-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">project showcase</Link> before you commit to anything.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
             <Link href="/branding-solutions-pretoria" className="group">
@@ -131,7 +132,7 @@ export default function HomeContent() {
             Design, web, video, and photography all sit under one roof at our Pretoria studio. That means your logo, website, product photos, and promotional video come from the same team, share the same brand thinking, and don't need three separate briefs.
           </p>
           <p className="mb-6 text-neutral-300 text-base leading-relaxed">
-            Start with <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] hover:underline">graphic design</Link> or a full <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">brand identity</Link>, then add <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">website design</Link>, <Link href="/videography-services-pretoria" className="text-[#FFD700] hover:underline">video production</Link>, or <Link href="/photography-services-pretoria" className="text-[#FFD700] hover:underline">photography</Link> as your project grows — everything stays consistent because one studio holds the whole picture.
+            Start with <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">graphic design</Link> or a full <Link href="/branding-solutions-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">brand identity</Link>, then add <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">website design</Link>, <Link href="/videography-services-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">video production</Link>, or <Link href="/photography-services-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">photography</Link> as your project grows — everything stays consistent because one studio holds the whole picture.
           </p>
         </div>
       </section>
@@ -152,16 +153,16 @@ export default function HomeContent() {
             R2,080 for two original concepts and runs to R4,160 for six, so the
             number moves with how many directions you want to choose between
             rather than with how big your company looks. A{' '}
-            <Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">
+            <Link href="/branding-solutions-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">
               full brand identity
             </Link>{' '}
             — logo, colour system, typography, stationery — starts at R6,683, and a{' '}
-            <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] hover:underline">
+            <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">
               business website
             </Link>{' '}
             at R8,980. Packaging for a single product is R4,850. Every one of
             those is on our{' '}
-            <Link href="/pricing" className="text-[#FFD700] hover:underline">
+            <Link href="/pricing" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">
               pricing page
             </Link>{' '}
             with what it includes, and the quote you get back will use the same
@@ -206,10 +207,10 @@ export default function HomeContent() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-lg font-syne font-semibold mb-3 text-[#FFD700] opacity-90">Popular Pretoria Pages</h2>
           <ul className="flex flex-wrap gap-3 text-sm text-neutral-300">
-            <li><Link href="/branding-solutions-pretoria" className="text-[#FFD700] hover:underline">Branding Solutions – Pretoria</Link></li>
-            <li><Link href="/visual-communication-services-pretoria" className="text-[#FFD700] hover:underline">Visual Communication – Pretoria</Link></li>
-            <li><Link href="/project-showcase-pretoria" className="text-[#FFD700] hover:underline">Project Showcase – Pretoria</Link></li>
-            <li><Link href="/get-in-touch-pretoria" className="text-[#FFD700] hover:underline">Get in Touch – Pretoria</Link></li>
+            <li><Link href="/branding-solutions-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Branding Solutions – Pretoria</Link></li>
+            <li><Link href="/visual-communication-services-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Visual Communication – Pretoria</Link></li>
+            <li><Link href="/project-showcase-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Project Showcase – Pretoria</Link></li>
+            <li><Link href="/get-in-touch-pretoria" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">Get in Touch – Pretoria</Link></li>
           </ul>
         </div>
       </section>
@@ -271,11 +272,11 @@ export default function HomeContent() {
       <section className="py-6 px-4 bg-black">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-neutral-400 text-sm">
-            Discover more on our <Link href="/" className="text-[#FFD700] hover:underline">homepage</Link> — including pricing, services, and projects.
+            Discover more on our <Link href="/" className="text-[#FFD700] underline underline-offset-2 hover:text-[#FFE55C]">homepage</Link> — including pricing, services, and projects.
           </p>
         </div>
       </section>
       </div>
-    </main>
+    </div>
   );
 }

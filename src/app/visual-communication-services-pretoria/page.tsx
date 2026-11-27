@@ -335,7 +335,7 @@ const GraphicDesignPage = () => {
       {/* Header Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#FFA500]">
-          GRAPHIC DESIGN PRICING
+          VISUAL COMMUNICATION DESIGN &amp; PRICING
         </h1>
         <div className="max-w-3xl mx-auto">
           <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">OUR GRAPHIC DESIGNS INCLUDE THE FOLLOWING FOR FREE</h2>

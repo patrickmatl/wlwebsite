@@ -117,7 +117,7 @@ const faqs: { q: string; a: string }[] = [
 
 export default function DroneVideoPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <section className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center">
         <h1 className="font-syne text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">Drone Video Services Pretoria</h1>
         <p className="text-lg text-neutral-300 max-w-3xl mx-auto">Licensed aerial filming for property, construction, events and marketing across Pretoria and Gauteng.</p>
@@ -203,5 +203,5 @@ export default function DroneVideoPage() {
         <div><h4>Can you shoot time-lapse drone videos in Pretoria?</h4><p>We offer time-lapse and hyperlapse drone video production in Pretoria.</p></div>
         <div><h4>What equipment do you use for Pretoria drone video?</h4><p>We use professional drones with HD/4K/RAW capabilities for Pretoria shoots.</p></div>
       </section>
-    </main>  );
+    </div>  );
 }

@@ -88,7 +88,7 @@ export default function SEOPage() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
       
       {/* BEGIN: FAQPage Structured Data for SEO Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
@@ -333,6 +333,6 @@ export default function SEOPage() {
         <div><h3>Do you work with all business sizes?</h3><p>Yes, we provide SEO solutions for Pretoria startups, SMEs, and large enterprises across all industries.</p><p>Our flexible packages ensure every business can benefit from effective SEO.</p></div>
         <div><h3>Which areas of Pretoria do you serve?</h3><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p><p>Remote consultations and digital reporting are available for your convenience.</p></div>
       </section>
-    </main>
+    </div>
   );
 }

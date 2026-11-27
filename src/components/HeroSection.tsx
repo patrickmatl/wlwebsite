@@ -16,12 +16,23 @@ interface HeroSectionProps {
   title?: string;
   subtitle?: string;
   description?: string;
+  /**
+   * The page's H1, shown as a visible line above the display headline.
+   *
+   * The big "Design / Agency" words are decoration, not a heading. The real
+   * H1 used to sit below the fold, in small type and inside a
+   * content-visibility wrapper, so the first thing Google and visitors met was
+   * a heading-less hero. Keep this visible. This domain has had a penalty for
+   * hidden text, so never move it into sr-only or hide it any other way.
+   */
+  headline?: string;
 }
 
 export default function HeroSection({
   title = "Design",
   subtitle = "Agency",
   description = "A Pretoria graphic design studio crafting brands, websites and campaigns since 2013.",
+  headline,
 }: HeroSectionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { isPlaying } = useAudioPlayback();
@@ -96,6 +107,11 @@ export default function HeroSection({
               and at first paint. Its entrance is a CSS transform-only
               animation (see .hero-rise in globals.css) that never hides it. */}
           <div className="space-y-1 hero-rise">
+            {headline && (
+              <h1 className="font-space-grotesk text-sm sm:text-base md:text-lg font-semibold uppercase tracking-[0.2em] text-[#FFD700] mb-4 sm:mb-6">
+                {headline}
+              </h1>
+            )}
             <p className="font-syne font-bold leading-[0.85] tracking-tight">
               <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-[8.3rem] text-transparent bg-clip-text bg-gradient-to-b from-[#FFE55C] via-[#FFD700] to-[#C9A400]">
                 {title}

@@ -30,7 +30,7 @@ export default async function SharedInvoicePage({
   if (!doc || doc.kind === 'quote') notFound();
 
   return (
-    <main className="min-h-screen bg-neutral-100 px-4 py-10 print:bg-white print:p-0">
+    <div className="min-h-screen bg-neutral-100 px-4 py-10 print:bg-white print:p-0">
       <DocumentView doc={doc} />
 
       <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-between gap-3 print:hidden">
@@ -44,6 +44,6 @@ export default async function SharedInvoicePage({
           Questions? Reply to the email this came from, or call {BUSINESS.phoneDisplay}.
         </p>
       </div>
-    </main>
+    </div>
   );
 }

@@ -77,7 +77,7 @@ export default function MarketingMaterialsPage() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
       {/* BEGIN: FAQPage Structured Data for Marketing Materials Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -279,6 +279,6 @@ export default function MarketingMaterialsPage() {
         <div><h4>Can you update my existing materials?</h4><p>We can refresh or update your current marketing materials to reflect new branding, messaging, or design trends. Our Pretoria team works efficiently to ensure a seamless transition and consistent brand presence across all touchpoints.</p><p>Updating your materials is a cost-effective way to keep your brand relevant and competitive in the Pretoria market.</p></div>
         <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding regions, including Centurion, Hatfield, Brooklyn, Pretoria East, and more. Our digital-first approach allows us to work with clients remotely, providing the same high level of service and support regardless of location.</p><p>No matter where your business is based in Pretoria, WL CreationX is ready to help you elevate your marketing materials and brand presence.</p></div>
       </section>
-    </main>
+    </div>
   );
 }

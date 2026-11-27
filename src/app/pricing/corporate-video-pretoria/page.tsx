@@ -105,7 +105,7 @@ const faqs: { q: string; a: string }[] = [
 
 export default function CorporateVideoPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <section className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center">
         <h1 className="font-syne text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">Corporate Video Production Pretoria</h1>
         <p className="text-lg text-neutral-300 max-w-3xl mx-auto">Professional corporate video production for Pretoria businesses — scripting, filming, editing and delivery.</p>
@@ -194,5 +194,5 @@ export default function CorporateVideoPage() {
         <div><h4>Do you provide corporate video packages for Pretoria startups?</h4><p>Yes, affordable video packages are available for Pretoria startups and entrepreneurs.</p></div>
         <div><h4>Do you offer customer testimonial videos in Pretoria?</h4><p>We film and edit customer testimonial videos for Pretoria businesses.</p></div>
       </section>
-    </main>  );
+    </div>  );
 }

@@ -215,7 +215,7 @@ const GraphicDesignPage = () => {
         
         {/* Hero Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-center mt-12 mb-16"

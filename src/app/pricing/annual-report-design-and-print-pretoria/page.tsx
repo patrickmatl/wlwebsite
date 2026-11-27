@@ -270,12 +270,12 @@ export default function AnnualReportDesignPrintPretoria() {
       {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto mb-12">
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="text-4xl sm:text-5xl font-extrabold text-white mb-4"
         >
-          Bespoke Annual Report Design
+          Annual Report Design in Pretoria
         </motion.h1>
         <p className="text-lg text-gray-300 mb-6">Showcase your achievements and vision with a professionally designed annual report tailored for your brand.</p>
         <GetInTouchButton className="mx-auto" />

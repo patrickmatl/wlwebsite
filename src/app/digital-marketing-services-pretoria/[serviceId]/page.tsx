@@ -62,7 +62,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-black">
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <ServiceSchema 
           service={service}
           location={serviceLocation}
@@ -75,7 +75,7 @@ export default async function ServicePage({ params }: Props) {
           service={service} 
           locations={serviceLocations} 
         />
-      </main>
+      </div>
     </div>
   );
 }

@@ -4,9 +4,9 @@ import { sharedViewport } from '@/app/shared-metadata';
 
 export const viewport = sharedViewport;
 
-const TITLE = 'Logo Design Pretoria | From R2,080, 2 Revisions Included';
+const TITLE = 'Logo Design Pretoria | From R2,080';
 const DESCRIPTION =
-  'Logo design in Pretoria from R2,080 for two concepts, R3,120 for four, R4,160 for six. Two revision rounds included, print-ready files, and you own the artwork outright.';
+  'Logo design in Pretoria from R2,080 for two concepts, R3,120 for four, R4,160 for six. Two revision rounds, print-ready files, and you own the artwork.';
 const URL = 'https://wlcreationx.co.za/logo-design-pretoria';
 
 export const metadata: Metadata = {

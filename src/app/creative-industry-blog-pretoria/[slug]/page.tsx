@@ -28,8 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const url = `${SITE_URL}/creative-industry-blog-pretoria/${post.slug}`
 
+  // Keep the <title> within about 60 characters, where Google truncates. Add
+  // the brand only when it still fits.
+  const base = post.seoTitle || post.title
+  const branded = `${base} | WL CreationX`
+
   return {
-    title: `${post.title} | WL CreationX`,
+    title: { absolute: branded.length <= 60 ? branded : base },
     description: post.excerpt,
     alternates: {
       canonical: url,

@@ -100,7 +100,7 @@ const faqs: { q: string; a: string }[] = [
 
 export default function ProductPhotographyPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <section className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center">
         <h1 className="font-syne text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFB000]">Product Photography Pretoria</h1>
         <p className="text-lg text-neutral-300 max-w-3xl mx-auto">Studio-quality product images for e-commerce, catalogues and campaigns.</p>
@@ -177,5 +177,5 @@ export default function ProductPhotographyPage() {
         <div><h4>Do you provide Pretoria product photography props and styling?</h4><p>Props and styling can be arranged for Pretoria product shoots.</p></div>
         <div><h4>How long does a Pretoria product shoot take?</h4><p>Sessions range from 1–4 hours, depending on the number of products in Pretoria.</p></div>
       </section>
-    </main>  );
+    </div>  );
 }

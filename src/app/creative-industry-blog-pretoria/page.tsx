@@ -40,11 +40,30 @@ export default async function BlogPage() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-syne font-bold text-white mb-6">
-            Our Blog
+            Design &amp; Marketing Blog
           </h1>
-          <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
-            Insights, tutorials, and updates from the world of design
+          <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-6">
+            Practical guides from the WL CreationX studio in Waterkloof Glen, Pretoria.
           </p>
+          <div className="text-base text-neutral-300 max-w-3xl mx-auto space-y-4 leading-relaxed">
+            <p>
+              We write about the questions clients ask before they hire a designer: what logo
+              design, corporate video and full brand identities actually cost in Pretoria, how to
+              compare design companies, and how South African graphic design got where it is
+              today. Where we quote prices, they are our own published rates.
+            </p>
+            <p>
+              Looking for a service rather than an article? See our{' '}
+              <Link href="/pricing/graphic-design-pretoria" className="text-[#FFD700] underline underline-offset-2">graphic design prices</Link>,{' '}
+              <Link href="/logo-design-pretoria" className="text-[#FFD700] underline underline-offset-2">logo design</Link>,{' '}
+              <Link href="/pricing/website-design-pretoria" className="text-[#FFD700] underline underline-offset-2">website design</Link>{' '}
+              and{' '}
+              <Link href="/videography-services-pretoria" className="text-[#FFD700] underline underline-offset-2">video production</Link>{' '}
+              pages, or{' '}
+              <Link href="/get-in-touch-pretoria" className="text-[#FFD700] underline underline-offset-2">get in touch</Link>{' '}
+              for a quote.
+            </p>
+          </div>
         </div>
 
         {/* Blog Grid */}

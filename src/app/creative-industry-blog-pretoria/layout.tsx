@@ -4,14 +4,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Design & Marketing Blog Pretoria',
   description:
-    'Practical articles on graphic design, branding, web design and digital marketing from WL CreationX, a Pretoria design agency serving businesses across South Africa.',
+    'Practical guides on graphic design, branding, web design and marketing costs from WL CreationX, a Pretoria design agency working across South Africa.',
   alternates: {
     canonical: 'https://wlcreationx.co.za/creative-industry-blog-pretoria',
   },
   openGraph: {
     title: 'Design & Marketing Blog Pretoria | WL CreationX',
     description:
-      'Practical articles on graphic design, branding, web design and digital marketing from WL CreationX, a Pretoria design agency serving businesses across South Africa.',
+      'Practical guides on graphic design, branding, web design and marketing costs from WL CreationX, a Pretoria design agency working across South Africa.',
     url: 'https://wlcreationx.co.za/creative-industry-blog-pretoria',
     siteName: 'WL CreationX',
     locale: 'en_ZA',

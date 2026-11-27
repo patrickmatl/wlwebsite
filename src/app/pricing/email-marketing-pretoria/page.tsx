@@ -76,7 +76,7 @@ export default function EmailMarketingPage() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
       {/* BEGIN: FAQPage Structured Data for Email Marketing Pretoria */}
       <script type="application/ld+json" suppressHydrationWarning>
         {`
@@ -275,6 +275,6 @@ export default function EmailMarketingPage() {
         <div><h4>Do you offer once-off campaigns?</h4><p>Yes, we offer single campaign management and setup for Pretoria businesses that need a one-time email push.</p></div>
         <div><h4>Which areas of Pretoria do you serve?</h4><p>We serve all of Pretoria and surrounding suburbs, including Centurion, Hatfield, Brooklyn, Pretoria East, and more.</p></div>
       </section>
-    </main>
+    </div>
   );
 }

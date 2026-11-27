@@ -4,6 +4,19 @@
  * visible on the site itself; this is a map, not a separate content channel.
  */
 import { BUSINESS, FULL_ADDRESS } from '@/data/business';
+import { AREA_PAGES } from '@/data/area-pages';
+import { findPriceItem, formatPrice } from '@/data/pricing';
+
+// Starting prices pulled from pricing.ts so this file never disagrees with the
+// site. AI answers about cost are among the most common queries we can win.
+const price = (id: string) => {
+  const item = findPriceItem(id);
+  return item ? formatPrice(item) : 'quoted on request';
+};
+
+const AREAS = AREA_PAGES.map(
+  (a) => `- [${a.linkLabel}](${BUSINESS.url}/${a.slug}): ${a.metaDescription}`,
+).join('\n');
 
 const BODY = `# ${BUSINESS.name}
 
@@ -20,6 +33,7 @@ Service area: Pretoria, Centurion, Johannesburg, Sandton, Midrand and wider Gaut
 ## Core services
 
 - [Graphic design pricing](${BUSINESS.url}/pricing/graphic-design-pretoria): logo design, corporate identity, marketing material design with transparent ZAR pricing.
+- [Logo design](${BUSINESS.url}/logo-design-pretoria): original logo concepts, two revision rounds, vector files owned by the client.
 - [Branding solutions](${BUSINESS.url}/branding-solutions-pretoria): brand strategy, visual identity, brand guidelines.
 - [Website design pricing](${BUSINESS.url}/pricing/website-design-pretoria): custom business websites, e-commerce, maintenance.
 - [Videography services](${BUSINESS.url}/videography-services-pretoria): corporate video, event coverage, product film, licensed drone footage, post production.
@@ -27,6 +41,28 @@ Service area: Pretoria, Centurion, Johannesburg, Sandton, Midrand and wider Gaut
 - [Packaging design pricing](${BUSINESS.url}/pricing/packaging-design-pretoria): product packaging and label design.
 - [SEO services pricing](${BUSINESS.url}/pricing/seo-pretoria): local and technical SEO for Pretoria businesses.
 - [All services & pricing](${BUSINESS.url}/pricing): full price list across design, web, marketing, video and photo services.
+
+## Key prices (ZAR)
+
+- Logo design, 2 concepts: ${price('logo-2')}
+- Corporate identity pack: ${price('ci-1')}
+- Business website: ${price('website')}
+- Packaging label / sleeve: ${price('packaging')}
+- Annual report design (up to 24 pages): ${price('annual-report')}
+- Brand story video: ${price('video-brand')}
+- Product photography: ${price('photo-product')}
+
+## Areas served in person
+
+${AREAS}
+- [Pretoria](${BUSINESS.url}/): the studio's home city.
+- Cape Town and Durban are served remotely: [Cape Town](${BUSINESS.url}/service-areas-pretoria/cape-town), [Durban](${BUSINESS.url}/service-areas-pretoria/durban).
+
+## Guides
+
+- [Graphic design cost in Pretoria (2026)](${BUSINESS.url}/creative-industry-blog-pretoria/graphic-design-cost-pretoria-2026)
+- [Corporate video production cost in Pretoria](${BUSINESS.url}/creative-industry-blog-pretoria/corporate-video-production-cost-pretoria)
+- [How to choose a graphic design company in Pretoria](${BUSINESS.url}/creative-industry-blog-pretoria/how-to-choose-graphic-design-company-pretoria)
 
 ## Company
 
@@ -40,6 +76,8 @@ Service area: Pretoria, Centurion, Johannesburg, Sandton, Midrand and wider Gaut
 
 - Prices on the site are starting prices in South African Rand (ZAR) and are quoted per project scope.
 - The business serves clients on site across Gauteng and remotely across South Africa.
+- There is one studio, in Waterkloof Glen, Pretoria. There are no branch offices in other areas.
+- Every design job includes two revision rounds and final files the client owns.
 `;
 
 export const dynamic = 'force-static';

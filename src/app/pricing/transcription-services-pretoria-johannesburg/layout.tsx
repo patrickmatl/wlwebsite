@@ -2,11 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Transcription Services Pretoria & Johannesburg',
+  title: 'Transcription Services Pretoria & Joburg',
   description: 'Human transcription services for Pretoria and Johannesburg from R250. Accurate, confidential transcripts with timestamps, speaker labels and fast turnaround.',
   alternates: { canonical: 'https://wlcreationx.co.za/pricing/transcription-services-pretoria-johannesburg' },
   openGraph: {
-    title: 'Transcription Services Pretoria & Johannesburg',
+    title: 'Transcription Services Pretoria & Joburg',
     description: 'Human transcription services for Pretoria and Johannesburg from R250. Accurate, confidential transcripts with timestamps, speaker labels and fast turnaround.',
     url: 'https://wlcreationx.co.za/pricing/transcription-services-pretoria-johannesburg',
     siteName: 'WL CreationX',

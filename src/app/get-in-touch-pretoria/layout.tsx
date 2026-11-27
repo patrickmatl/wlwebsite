@@ -4,9 +4,9 @@ import { sharedViewport } from '../shared-metadata';
 
 export const viewport = sharedViewport;
 
-const pageTitle = 'Contact WL CreationX | Graphic Design Pretoria';
+const pageTitle = 'Contact Us | Graphic Design Pretoria';
 const pageDescription =
-  'Contact WL CreationX in Waterkloof Glen, Pretoria for a free consultation and quote on graphic design, branding, and web design. Call, WhatsApp, or send the form.';
+  'Contact WL CreationX in Waterkloof Glen, Pretoria for a free consultation and quote on graphic design, branding and web design. Call, WhatsApp or email.';
 
 export const metadata: Metadata = {
   title: pageTitle,

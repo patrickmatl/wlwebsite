@@ -164,7 +164,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black z-10" />
@@ -321,6 +321,6 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

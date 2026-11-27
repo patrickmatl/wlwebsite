@@ -72,7 +72,7 @@ export default function Portfolio() {
         <section className="relative py-24 px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/10 to-transparent opacity-20" />
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="relative z-10 max-w-7xl mx-auto text-center"

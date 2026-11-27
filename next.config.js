@@ -94,6 +94,34 @@ const nextConfig = {
        *
        * Ordering matters: specific rules first, wildcards last.
        */
+      /*
+       * AREA PAGES (2026-11-27).
+       *
+       * The real area landing pages are /graphic-design-centurion,
+       * /graphic-design-pretoria-east, /graphic-design-midrand and
+       * /graphic-design-johannesburg (src/data/area-pages.ts). The templated
+       * /[city]/[service] pages for those places were noindexed near-duplicates.
+       * They now 301 to the page that actually serves the area, so any link
+       * value they hold lands somewhere that can rank.
+       *
+       * /service-areas-pretoria/pretoria was a second "Pretoria graphic design"
+       * page competing with the homepage for the site's main keyword, so it
+       * folds into the homepage. /service-areas-pretoria/johannesburg is
+       * replaced by the Johannesburg landing page.
+       */
+      { source: '/service-areas-pretoria/pretoria', destination: '/', permanent: true },
+      { source: '/service-areas-pretoria/johannesburg', destination: '/graphic-design-johannesburg', permanent: true },
+      { source: '/centurion/:service*', destination: '/graphic-design-centurion', permanent: true },
+      { source: '/menlyn/:service*', destination: '/graphic-design-pretoria-east', permanent: true },
+      { source: '/sandton/:service*', destination: '/graphic-design-johannesburg', permanent: true },
+      { source: '/rosebank/:service*', destination: '/graphic-design-johannesburg', permanent: true },
+      { source: '/johannesburg/:service*', destination: '/graphic-design-johannesburg', permanent: true },
+      { source: '/pretoria/graphic-design', destination: '/pricing/graphic-design-pretoria', permanent: true },
+      { source: '/pretoria/web-design', destination: '/pricing/website-design-pretoria', permanent: true },
+      { source: '/pretoria/branding', destination: '/branding-solutions-pretoria', permanent: true },
+      { source: '/pretoria/packaging-design', destination: '/pricing/packaging-design-pretoria', permanent: true },
+      { source: '/pretoria/marketing-materials', destination: '/pricing/marketing-materials-pretoria', permanent: true },
+
       // Old /services/* pages -> their real equivalents
       { source: '/services/branding', destination: '/branding-solutions-pretoria', permanent: true },
       { source: '/services/logo-design', destination: '/pricing/graphic-design-pretoria', permanent: true },

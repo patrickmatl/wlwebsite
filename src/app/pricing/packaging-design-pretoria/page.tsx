@@ -181,7 +181,7 @@ const PackagingDesignPage = () => {
       
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Packaging Design Services</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Packaging Design in Pretoria</h1>
         <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
           Transform your products with eye-catching packaging designs that make a lasting impression
         </p>
